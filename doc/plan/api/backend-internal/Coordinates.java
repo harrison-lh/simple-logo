@@ -1,8 +1,8 @@
 /**
  * An interface that defines the properties of an object that has Coordinates.
- *
- * Coordinates allow the View to determine where a Turtle or other Model object is in space,
- * as well as its heading and vice versa.
+ * <p>
+ * Coordinates allow the View to determine where a Turtle or other Model object is in space, as well
+ * as its heading and vice versa.
  *
  * @author Marc Chmielewski
  */
@@ -39,7 +39,7 @@ public interface Coordinates {
   /**
    * Gets the current heading of the object in degrees.
    *
-   * @return  heading The current heading of the object in degrees.
+   * @return heading The current heading of the object in degrees.
    */
   public double getHeading();
 
