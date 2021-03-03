@@ -1,4 +1,4 @@
-image: jakederry/testfx
+image: dukedesigncoach/testfx-runner
 
 stages:
   - analyze
