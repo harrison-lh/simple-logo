@@ -32,6 +32,7 @@ public class Main extends Application {
     public void start(Stage stage) {
         MainView mainView = new MainView();
         Scene scene = new Scene(mainView, WIDTH, HEIGHT);
+        scene.getStylesheets().add("slogo/stylesheet.css");
         stage.setScene(scene);
         stage.show();
     }

@@ -20,6 +20,7 @@ public class MainView extends VBox {
     HBox body = new HBox();
     myCanvas = new Canvas();
     body.getChildren().add(myCanvas);
+    body.getStyleClass().add("box");
 
     return body;
   }

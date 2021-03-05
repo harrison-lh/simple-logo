@@ -7,6 +7,7 @@ public class Canvas extends Group {
 
   public Canvas() {
     this.setId("Canvas");
+    this.getStyleClass().add("box");
     this.getChildren().add(new Label("canvas"));
   }
 }

@@ -7,6 +7,7 @@ public class MenuBar extends HBox {
 
   public MenuBar() {
     this.setId("MenuBar");
+    this.getStyleClass().add("box");
     this.getChildren().add(new Label("menu bar"));
   }
 }
