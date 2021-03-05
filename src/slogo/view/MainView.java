@@ -7,6 +7,8 @@ public class MainView extends VBox {
 
   private MenuBar myMenuBar;
   private Canvas myCanvas;
+  private VariablesBox myVariablesBox;
+  private UDCommandsBox myUDCommandsBox;
 
   public MainView() {
     myMenuBar = new MenuBar();
@@ -18,10 +20,26 @@ public class MainView extends VBox {
 
   private HBox createBody() {
     HBox body = new HBox();
-    myCanvas = new Canvas();
-    body.getChildren().add(myCanvas);
     body.getStyleClass().add("box");
 
+    myCanvas = new Canvas();
+    body.getChildren().add(myCanvas);
+
+    VBox infoBoxes = createInfoBoxes();
+    body.getChildren().add(infoBoxes);
+
     return body;
+  }
+
+  private VBox createInfoBoxes() {
+    VBox infoBoxes = new VBox();
+
+    myVariablesBox = new VariablesBox();
+    infoBoxes.getChildren().add(myVariablesBox);
+
+    myUDCommandsBox = new UDCommandsBox();
+    infoBoxes.getChildren().add(myUDCommandsBox);
+
+    return infoBoxes;
   }
 }
