@@ -1,19 +1,20 @@
 package slogo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 import slogo.controller.CharacterReader;
 
 public class CharacterReaderTests {
 
+  private static final String EMPTY = "";
   private static final String HELLO_SLOGO = "Hello, SLogo!!";
   private static final String HELLO_SLOGO_ODD = "Hello, SLogo!";
 
   @Test
   public void testPeekSingleCharacterSimpleString() {
     CharacterReader reader = new CharacterReader(HELLO_SLOGO);
-
     for (int i = 0; i < HELLO_SLOGO.length(); i++) {
       // Multiple calls to peek should return the same character
       assertEquals(reader.peekSingleCharacter(), HELLO_SLOGO.substring(0, 1));
@@ -56,6 +57,16 @@ public class CharacterReaderTests {
 
   @Test
   public void testEmptyString() {
-
+    CharacterReader reader = new CharacterReader(EMPTY);
+    // Calling any of these methods on "" should throw StringIndexOutOfBoundsExceptions
+    assertThrows(StringIndexOutOfBoundsException.class, reader::peekSingleCharacter);
+    assertThrows(StringIndexOutOfBoundsException.class, reader::consumeSingleCharacter);
+    assertThrows(StringIndexOutOfBoundsException.class, () -> {
+      reader.peekMultipleCharacters(2);
+    });
+    assertThrows(StringIndexOutOfBoundsException.class, () -> {
+      reader.consumeMultipleCharacters(2);
+    });
   }
+
 }
