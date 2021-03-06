@@ -15,7 +15,7 @@ public class CharacterReaderTest {
     CharacterReader reader = new CharacterReader(HELLO_SLOGO);
     for (int i = 0; i < HELLO_SLOGO.length(); i++) {
       // Multiple calls to peek should return the same character
-      assertEquals(reader.peekSingleCharacter(), HELLO_SLOGO.charAt(0));
+      assertEquals(reader.peekSingleCharacter(), HELLO_SLOGO.substring(0, 1));
     }
   }
 
