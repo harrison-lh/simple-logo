@@ -20,7 +20,9 @@ public class CharacterReaderTest {
   }
 
   @Test
-  public void testConsumeSingleCharacterSimpleString()
+  public void testConsumeSingleCharacterSimpleString() {
+
+  }
 
   @Test
   public void testEmptyString() {
