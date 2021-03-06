@@ -18,7 +18,7 @@ public interface InputConsumer {
    *
    * @return The one-character String at the current index of the current input
    */
-  public String peekSingleCharacter();
+  String peekSingleCharacter();
 
   /**
    * Peeks the first k-character String starting from the current index of the current input. That
@@ -30,7 +30,7 @@ public interface InputConsumer {
    * @param k The number of Characters to inspect
    * @return The k-character String starting at the current index of the current input
    */
-  public String peekMultipleCharacters(int k);
+  String peekMultipleCharacters(int k);
 
   /**
    * Consumes the one-character String at the current index of the input. That is, it inspects and
@@ -43,7 +43,7 @@ public interface InputConsumer {
    *
    * @return The one-character String at the current index of the current input
    */
-  public String consumeSingleCharacter();
+  String consumeSingleCharacter();
 
 
   /**
@@ -58,5 +58,12 @@ public interface InputConsumer {
    * @param k The number of Characters to inspect
    * @return The k-character String starting at the current index of the current input
    */
-  public String consumeMultipleCharacters(int k);
+  String consumeMultipleCharacters(int k);
+
+  /**
+   * Returns if the entire input has been consumed.
+   *
+   * @return The consumption status of the input.
+   */
+  boolean isConsumed();
 }

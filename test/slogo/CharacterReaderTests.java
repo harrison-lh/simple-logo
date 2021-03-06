@@ -23,9 +23,10 @@ public class CharacterReaderTests {
   @Test
   public void testConsumeSingleCharacterSimpleString() {
     CharacterReader reader = new CharacterReader(HELLO_SLOGO);
-    for (int i = 0; i < HELLO_SLOGO.length(); i++) {
+    int curIndex = 0;
+    while (!reader.isConsumed()) {
       // Multiple calls to consumeSingleCharacter should consume the String one character at a time
-      assertEquals(reader.consumeSingleCharacter(), HELLO_SLOGO.substring(i, i + 1));
+      assertEquals(reader.consumeSingleCharacter(), HELLO_SLOGO.substring(curIndex, ++curIndex));
     }
   }
 
@@ -34,8 +35,22 @@ public class CharacterReaderTests {
     CharacterReader reader = new CharacterReader(HELLO_SLOGO);
     int numCharsToPeek = 2;
     for (int i = 0; i < HELLO_SLOGO.length(); i++) {
-      // Multiple calls to peek should return the same character
-      assertEquals(reader.peekMultipleCharacters(numCharsToPeek), HELLO_SLOGO.substring(0, numCharsToPeek));
+      // Multiple calls to peek should return the same characters
+      assertEquals(reader.peekMultipleCharacters(numCharsToPeek),
+          HELLO_SLOGO.substring(0, numCharsToPeek));
+    }
+  }
+
+  @Test
+  public void testConsumeMultipleCharactersSimpleString() {
+    CharacterReader reader = new CharacterReader(HELLO_SLOGO);
+    int curIndex = 0;
+    int numCharsToConsume = 2;
+    while (!reader.isConsumed()) {
+      // Multiple calls to consumeSingleCharacter should consume the String one character at a time
+      assertEquals(reader.consumeMultipleCharacters(numCharsToConsume),
+          HELLO_SLOGO.substring(curIndex, curIndex + numCharsToConsume));
+      curIndex += numCharsToConsume;
     }
   }
 
