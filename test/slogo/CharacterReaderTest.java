@@ -7,15 +7,20 @@ import slogo.controller.CharacterReader;
 
 public class CharacterReaderTest {
 
+  private static final String HELLO_SLOGO = "Hello, SLogo!";
+
   @Test
-  public void testPeekSimpleString() {
-    String str = "Hello, SLogo!";
-    CharacterReader reader = new CharacterReader(str);
-    for (int i = 0; i < str.length(); i++) {
+  public void testPeekSingleCharacterSimpleString() {
+
+    CharacterReader reader = new CharacterReader(HELLO_SLOGO);
+    for (int i = 0; i < HELLO_SLOGO.length(); i++) {
       // Multiple calls to peek should return the same character
-      assertEquals(reader.peekSingleCharacter(), "H");
+      assertEquals(reader.peekSingleCharacter(), HELLO_SLOGO.charAt(0));
     }
   }
+
+  @Test
+  public void testConsumeSingleCharacterSimpleString()
 
   @Test
   public void testEmptyString() {
