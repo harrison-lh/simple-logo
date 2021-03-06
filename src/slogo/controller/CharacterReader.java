@@ -10,7 +10,7 @@ package slogo.controller;
  */
 public class CharacterReader implements InputConsumer {
 
-  private String inputString;
+  private final String inputString;
   private int curIndex;
 
   /**
@@ -25,8 +25,8 @@ public class CharacterReader implements InputConsumer {
   }
 
   /**
-   * Inspect the single-character substring of inputString that is at curIndex of the String, without
-   * incrementing curIndex.
+   * Inspect the single-character substring of inputString that is at curIndex of the String,
+   * without incrementing curIndex.
    *
    * @return The single-character substring of inputString that is at curIndex of the String
    * @throws StringIndexOutOfBoundsException if the String is empty or the query is otherwise
@@ -37,6 +37,15 @@ public class CharacterReader implements InputConsumer {
     return inputString.substring(curIndex, curIndex);
   }
 
+  /**
+   * Inspect the k-character substring of inputString that is at curIndex of the String, without
+   * incrementing curIndex.
+   *
+   * @param k The number of characters to inspect
+   * @return The k-character substring of inputString that is at curIndex of the String
+   * @throws StringIndexOutOfBoundsException if the String is empty or the query is otherwise
+   *                                         invalid
+   */
   @Override
   public String peekMultipleCharacters(int k) {
     return inputString.substring(curIndex, curIndex + k);
@@ -57,6 +66,15 @@ public class CharacterReader implements InputConsumer {
     return ret;
   }
 
+  /**
+   * Inspect the k-character substring of inputString that is at curIndex of the String,
+   * incrementing curIndex.
+   *
+   * @param k The number of characters to inspect
+   * @return The k-character substring of inputString that is at curIndex of the String
+   * @throws StringIndexOutOfBoundsException if the String is empty or the query is otherwise
+   *                                         invalid
+   */
   @Override
   public String consumeMultipleCharacters(int k) {
     String ret = inputString.substring(curIndex, curIndex + k);
