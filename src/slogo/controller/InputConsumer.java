@@ -61,9 +61,9 @@ public interface InputConsumer {
   String consumeMultipleCharacters(int k);
 
   /**
-   * Returns if the entire input has been consumed.
+   * Returns if the entire input has been consumed. (We have reached the EOF)
    *
-   * @return The consumption status of the input.
+   * @return Has the EOF been reached?
    */
-  boolean isConsumed();
+  boolean isEOF();
 }

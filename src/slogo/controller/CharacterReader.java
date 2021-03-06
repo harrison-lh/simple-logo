@@ -12,7 +12,7 @@ public class CharacterReader implements InputConsumer {
 
   private final String inputString;
   private int curIndex;
-  private boolean consumed;
+  private boolean EOF;
 
   /**
    * Basic constructor for CharacterReader, that takes in a String, inputString and prepares it to
@@ -64,7 +64,7 @@ public class CharacterReader implements InputConsumer {
   public String consumeSingleCharacter() {
     String ret = inputString.substring(curIndex, ++curIndex);
     if(curIndex >= inputString.length())
-      consumed = true;
+      EOF = true;
     return ret;
   }
 
@@ -82,7 +82,7 @@ public class CharacterReader implements InputConsumer {
     String ret = inputString.substring(curIndex, curIndex + k);
     curIndex += k;
     if(curIndex >= inputString.length())
-      consumed = true;
+      EOF = true;
     return ret;
   }
 
@@ -91,7 +91,7 @@ public class CharacterReader implements InputConsumer {
    * @return the consumption status of the String
    */
   @Override
-  public boolean isConsumed() {
-    return consumed;
+  public boolean isEOF() {
+    return EOF;
   }
 }

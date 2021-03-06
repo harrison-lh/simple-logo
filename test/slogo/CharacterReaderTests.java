@@ -25,7 +25,7 @@ public class CharacterReaderTests {
   public void testConsumeSingleCharacterSimpleString() {
     CharacterReader reader = new CharacterReader(HELLO_SLOGO);
     int curIndex = 0;
-    while (!reader.isConsumed()) {
+    while (!reader.isEOF()) {
       // Multiple calls to consumeSingleCharacter should consume the String one character at a time
       assertEquals(reader.consumeSingleCharacter(), HELLO_SLOGO.substring(curIndex, ++curIndex));
     }
@@ -47,7 +47,7 @@ public class CharacterReaderTests {
     CharacterReader reader = new CharacterReader(HELLO_SLOGO);
     int curIndex = 0;
     int numCharsToConsume = 2;
-    while (!reader.isConsumed()) {
+    while (!reader.isEOF()) {
       // Multiple calls to consumeMultipleCharacters should consume the String k characters at a time
       assertEquals(reader.consumeMultipleCharacters(numCharsToConsume),
           HELLO_SLOGO.substring(curIndex, curIndex + numCharsToConsume));
@@ -75,7 +75,7 @@ public class CharacterReaderTests {
     int curIndex = 0;
     int numCharsToConsume = 2;
     try {
-      while (!reader.isConsumed()) {
+      while (!reader.isEOF()) {
         // Multiple calls to consumeMultipleCharacters should consume the String k characters at a time
         String substr = HELLO_SLOGO_ODD.substring(curIndex, curIndex + numCharsToConsume);
         assertEquals(reader.consumeMultipleCharacters(numCharsToConsume), substr);
@@ -84,7 +84,7 @@ public class CharacterReaderTests {
     }
     catch (StringIndexOutOfBoundsException e) {
       // Catch the StringIndexOutOfBoundsException, and finish consuming the String in single char bits
-      while(!reader.isConsumed()) {
+      while(!reader.isEOF()) {
         // Multiple calls to consumeSingleCharacter should consume the String one character at a time
         System.out.println("Ranging error caught!!!");
         assertEquals(reader.consumeSingleCharacter(), HELLO_SLOGO_ODD.substring(curIndex, ++curIndex));
