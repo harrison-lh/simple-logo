@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import slogo.controller.CharacterReader;
 
-public class CharacterReaderTest {
+public class CharacterReaderTests {
 
   private static final String HELLO_SLOGO = "Hello, SLogo!!";
   private static final String HELLO_SLOGO_ODD = "Hello, SLogo!";
@@ -24,8 +24,18 @@ public class CharacterReaderTest {
   public void testConsumeSingleCharacterSimpleString() {
     CharacterReader reader = new CharacterReader(HELLO_SLOGO);
     for (int i = 0; i < HELLO_SLOGO.length(); i++) {
-      // Multiple calls to peek should return the same character
+      // Multiple calls to consumeSingleCharacter should consume the String one character at a time
       assertEquals(reader.consumeSingleCharacter(), HELLO_SLOGO.substring(i, i + 1));
+    }
+  }
+
+  @Test
+  public void testPeekMultipleCharactersSimpleString() {
+    CharacterReader reader = new CharacterReader(HELLO_SLOGO);
+    int numCharsToPeek = 2;
+    for (int i = 0; i < HELLO_SLOGO.length(); i++) {
+      // Multiple calls to peek should return the same character
+      assertEquals(reader.peekMultipleCharacters(numCharsToPeek), HELLO_SLOGO.substring(0, numCharsToPeek));
     }
   }
 
