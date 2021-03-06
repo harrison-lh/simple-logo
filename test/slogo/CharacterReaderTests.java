@@ -48,7 +48,7 @@ public class CharacterReaderTests {
     int curIndex = 0;
     int numCharsToConsume = 2;
     while (!reader.isConsumed()) {
-      // Multiple calls to consumeSingleCharacter should consume the String one character at a time
+      // Multiple calls to consumeMultipleCharacters should consume the String k characters at a time
       assertEquals(reader.consumeMultipleCharacters(numCharsToConsume),
           HELLO_SLOGO.substring(curIndex, curIndex + numCharsToConsume));
       curIndex += numCharsToConsume;
@@ -69,4 +69,26 @@ public class CharacterReaderTests {
     });
   }
 
+  @Test
+  public void testStringOverrun() {
+    CharacterReader reader = new CharacterReader(HELLO_SLOGO_ODD);
+    int curIndex = 0;
+    int numCharsToConsume = 2;
+    try {
+      while (!reader.isConsumed()) {
+        // Multiple calls to consumeMultipleCharacters should consume the String k characters at a time
+        String substr = HELLO_SLOGO_ODD.substring(curIndex, curIndex + numCharsToConsume);
+        assertEquals(reader.consumeMultipleCharacters(numCharsToConsume), substr);
+        curIndex += numCharsToConsume;
+      }
+    }
+    catch (StringIndexOutOfBoundsException e) {
+      // Catch the StringIndexOutOfBoundsException, and finish consuming the String in single char bits
+      while(!reader.isConsumed()) {
+        // Multiple calls to consumeSingleCharacter should consume the String one character at a time
+        System.out.println("Ranging error caught!!!");
+        assertEquals(reader.consumeSingleCharacter(), HELLO_SLOGO_ODD.substring(curIndex, ++curIndex));
+      }
+    }
+  }
 }
