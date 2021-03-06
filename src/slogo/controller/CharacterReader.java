@@ -34,7 +34,7 @@ public class CharacterReader implements InputConsumer {
    */
   @Override
   public String peekSingleCharacter() throws StringIndexOutOfBoundsException {
-    return inputString.substring(curIndex, curIndex);
+    return inputString.substring(curIndex, curIndex + 1);
   }
 
   /**
@@ -61,7 +61,7 @@ public class CharacterReader implements InputConsumer {
    */
   @Override
   public String consumeSingleCharacter() {
-    String ret = inputString.substring(curIndex, curIndex);
+    String ret = inputString.substring(curIndex, curIndex + 1);
     curIndex++;
     return ret;
   }
