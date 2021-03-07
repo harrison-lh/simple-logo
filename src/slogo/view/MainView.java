@@ -3,6 +3,7 @@ package slogo.view;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 public class MainView extends VBox {
 
@@ -23,6 +24,12 @@ public class MainView extends VBox {
 
     HBox bottom = createBottom();
     this.getChildren().add(bottom);
+
+    connectColorSelector(myCanvas, myMenuBar.getBackgroundSelector());
+  }
+
+  private void connectColorSelector(SelectorTarget<Color> target, Selector<Color> selector) {
+    selector.setUpdateAction(target.updateAction());
   }
 
   private HBox createBottom() {
