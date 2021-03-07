@@ -19,3 +19,7 @@
   -fx-max-width: 360px;
   -fx-max-height: 320px;
 }
+
+#InputButton {
+  -fx-min-width: 100%;
+}
