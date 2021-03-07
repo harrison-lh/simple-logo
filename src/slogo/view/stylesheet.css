@@ -10,3 +10,12 @@
 #MenuBar {
   -fx-min-height: 40px;
 }
+
+#InfoBoxes {
+  -fx-min-width: 240px;
+}
+
+#InputBox {
+  -fx-max-width: 360px;
+  -fx-max-height: 320px;
+}

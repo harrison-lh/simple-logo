@@ -34,6 +34,7 @@ public class MainView extends VBox {
 
     myCommandHistoryBox = new CommandHistoryBox();
     bottom.getChildren().add(myCommandHistoryBox);
+    HBox.setHgrow(myCommandHistoryBox, Priority.ALWAYS);
 
     return bottom;
   }
@@ -46,20 +47,25 @@ public class MainView extends VBox {
     body.getChildren().add(myCanvas);
 
     VBox infoBoxes = createInfoBoxes();
-    HBox.setHgrow(myCanvas, Priority.ALWAYS);
     body.getChildren().add(infoBoxes);
+
+    HBox.setHgrow(myCanvas, Priority.ALWAYS);
 
     return body;
   }
 
   private VBox createInfoBoxes() {
     VBox infoBoxes = new VBox();
+    infoBoxes.setId("InfoBoxes");
 
     myVariablesBox = new VariablesBox();
     infoBoxes.getChildren().add(myVariablesBox);
 
     myUDCommandsBox = new UDCommandsBox();
     infoBoxes.getChildren().add(myUDCommandsBox);
+
+    VBox.setVgrow(myVariablesBox, Priority.SOMETIMES);
+    VBox.setVgrow(myUDCommandsBox, Priority.SOMETIMES);
 
     return infoBoxes;
   }
