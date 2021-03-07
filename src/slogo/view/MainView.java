@@ -4,11 +4,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import slogo.view.canvas.SLogoCanvas;
+import slogo.view.menubar.MenuBar;
 
 public class MainView extends VBox {
 
   private MenuBar myMenuBar;
-  private Canvas myCanvas;
+  private SLogoCanvas mySLogoCanvas;
   private VariablesBox myVariablesBox;
   private UDCommandsBox myUDCommandsBox;
   private InputBox myInputBox;
@@ -25,7 +27,7 @@ public class MainView extends VBox {
     HBox bottom = createBottom();
     this.getChildren().add(bottom);
 
-    connectColorSelector(myCanvas, myMenuBar.getBackgroundSelector());
+    connectColorSelector(mySLogoCanvas, myMenuBar.getBackgroundSelector());
   }
 
   private void connectColorSelector(SelectorTarget<Color> target, Selector<Color> selector) {
@@ -50,13 +52,13 @@ public class MainView extends VBox {
     HBox body = new HBox();
     body.getStyleClass().add("box");
 
-    myCanvas = new Canvas();
-    body.getChildren().add(myCanvas);
+    mySLogoCanvas = new SLogoCanvas();
+    body.getChildren().add(mySLogoCanvas);
 
     VBox infoBoxes = createInfoBoxes();
     body.getChildren().add(infoBoxes);
 
-    HBox.setHgrow(myCanvas, Priority.ALWAYS);
+    HBox.setHgrow(mySLogoCanvas, Priority.ALWAYS);
 
     return body;
   }

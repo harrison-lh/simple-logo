@@ -1,10 +1,11 @@
-package slogo.view;
+package slogo.view.menubar;
 
 import java.util.function.Consumer;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import slogo.view.Selector;
 
 public class PenSelector extends VBox implements Selector<Color> {
 
@@ -12,6 +13,7 @@ public class PenSelector extends VBox implements Selector<Color> {
   public static final Color DEFAULT_PEN_COLOR = Color.BLACK;
 
   public PenSelector() {
+    this.getStyleClass().add("selector");
     Label myLabel = new Label("Pen Color");
     myColorPicker = new ColorPicker(DEFAULT_PEN_COLOR);
 

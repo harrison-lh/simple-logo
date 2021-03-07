@@ -1,4 +1,4 @@
-package slogo.view;
+package slogo.view.menubar;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

@@ -1,20 +1,20 @@
-package slogo.view;
+package slogo.view.menubar;
 
 import java.util.function.Consumer;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+import slogo.view.Selector;
 
-public class GridSelector extends VBox implements Selector<String> {
+public class TurtleSelector extends VBox implements Selector<String> {
 
   private final ComboBox<String> myComboBox;
 
-  public GridSelector() {
-    Label myLabel = new Label("Grid Settings");
+  public TurtleSelector() {
+    this.getStyleClass().add("selector");
+    Label myLabel = new Label("Turtle Image");
     myComboBox = new ComboBox<>();
-    myComboBox.getItems().addAll("None", "Axis", "Gridlines");
+    myComboBox.getItems().addAll("Default");
     myComboBox.getSelectionModel().selectFirst();
 
     this.getChildren().addAll(myLabel, myComboBox);
