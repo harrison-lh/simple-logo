@@ -9,6 +9,8 @@ public class MainView extends VBox {
   private Canvas myCanvas;
   private VariablesBox myVariablesBox;
   private UDCommandsBox myUDCommandsBox;
+  private InputBox myInputBox;
+  private CommandHistoryBox myCommandHistoryBox;
 
   public MainView() {
     myMenuBar = new MenuBar();
@@ -16,6 +18,22 @@ public class MainView extends VBox {
 
     HBox body = createBody();
     this.getChildren().add(body);
+
+    HBox bottom = createBottom();
+    this.getChildren().add(bottom);
+  }
+
+  private HBox createBottom() {
+    HBox bottom = new HBox();
+    bottom.getStyleClass().add("box");
+
+    myInputBox = new InputBox();
+    bottom.getChildren().add(myInputBox);
+
+    myCommandHistoryBox = new CommandHistoryBox();
+    bottom.getChildren().add(myCommandHistoryBox);
+
+    return bottom;
   }
 
   private HBox createBody() {
