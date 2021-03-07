@@ -1,9 +1,9 @@
 package slogo.view;
 
-import javafx.scene.Group;
 import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 
-public class Canvas extends Group {
+public class Canvas extends StackPane {
 
   public Canvas() {
     this.setId("Canvas");

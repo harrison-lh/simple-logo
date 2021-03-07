@@ -1,0 +1,12 @@
+.root {
+  -fx-font-size: 12pt;
+}
+
+.box {
+  -fx-border-color: black;
+  -fx-border-radius: 2px;
+}
+
+#MenuBar {
+  -fx-min-height: 40px;
+}

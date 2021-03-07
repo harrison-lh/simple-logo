@@ -1,6 +1,7 @@
 package slogo.view;
 
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class MainView extends VBox {
@@ -17,6 +18,7 @@ public class MainView extends VBox {
     this.getChildren().add(myMenuBar);
 
     HBox body = createBody();
+    VBox.setVgrow(body, Priority.ALWAYS);
     this.getChildren().add(body);
 
     HBox bottom = createBottom();
@@ -44,6 +46,7 @@ public class MainView extends VBox {
     body.getChildren().add(myCanvas);
 
     VBox infoBoxes = createInfoBoxes();
+    HBox.setHgrow(myCanvas, Priority.ALWAYS);
     body.getChildren().add(infoBoxes);
 
     return body;
