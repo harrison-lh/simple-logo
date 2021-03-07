@@ -8,6 +8,7 @@ public class MenuBar extends HBox {
   private final BackgroundSelector myBackgroundSelector;
   private final GridSelector myGridSelector;
   private final TurtleSelector myTurtleSelector;
+  private final PenSelector myPenSelector;
 
   public MenuBar() {
     this.setId("MenuBar");
@@ -16,8 +17,10 @@ public class MenuBar extends HBox {
     myBackgroundSelector = new BackgroundSelector();
     myGridSelector = new GridSelector();
     myTurtleSelector = new TurtleSelector();
+    myPenSelector = new PenSelector();
 
-    this.getChildren().addAll(myBackgroundSelector, myGridSelector, myTurtleSelector);
+    this.getChildren()
+        .addAll(myBackgroundSelector, myGridSelector, myTurtleSelector, myPenSelector);
   }
 
   public BackgroundSelector getBackgroundSelector() {
@@ -30,5 +33,9 @@ public class MenuBar extends HBox {
 
   public TurtleSelector getTurtleSelector() {
     return myTurtleSelector;
+  }
+
+  public PenSelector getPenSelector() {
+    return myPenSelector;
   }
 }
