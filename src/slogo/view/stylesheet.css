@@ -8,7 +8,8 @@
 }
 
 #MenuBar {
-  -fx-min-height: 40px;
+  -fx-padding: 6px;
+  -fx-spacing: 8px;
 }
 
 #InfoBoxes {

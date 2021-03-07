@@ -1,0 +1,27 @@
+package slogo.view;
+
+import java.util.function.Consumer;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+
+public class GridSelector extends VBox implements Selector<String> {
+
+  private final ComboBox<String> myComboBox;
+
+  public GridSelector() {
+    Label myLabel = new Label("Grid Settings");
+    myComboBox = new ComboBox<>();
+    myComboBox.getItems().addAll("None", "Axis", "Gridlines");
+    myComboBox.getSelectionModel().selectFirst();
+
+    this.getChildren().addAll(myLabel, myComboBox);
+  }
+
+  @Override
+  public void setUpdateAction(Consumer<String> response) {
+    myComboBox.setOnAction(e -> response.accept(myComboBox.getValue()));
+  }
+}
