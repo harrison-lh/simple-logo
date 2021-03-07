@@ -1,10 +1,8 @@
 package slogo.controller;
 
-import java.util.List;
-
 /**
  * An interface that defines common behavior between Objects that consume input streams.
- *
+ * <p>
  * Incorporates several methods that will be helpful in the creation of many Parser components.
  *
  * @author Marc Chmielewski
@@ -12,36 +10,60 @@ import java.util.List;
 public interface InputConsumer {
 
   /**
-   * Peeks the Character at the end of the current input. That is, it inspects it without removing
-   * it from the input stream.
+   * Peeks the one-character String at the current index of the input. That is, it inspects it
+   * without removing it from the input stream.
+   * <p>
+   * If ranging would overrun the length of the String, this will throw a
+   * StringIndexOutOfBoundsException.
    *
-   * @return The Character at the end of the current input
+   * @return The one-character String at the current index of the current input
    */
-  public Character peekSingleCharacter();
+  String peekSingleCharacter();
 
   /**
-   * Peeks the last k Characters from the end of the current input. That is, it inspects them without removing
-   * them from the input stream.
+   * Peeks the first k-character String starting from the current index of the current input. That
+   * is, it inspects them without removing them from the input stream.
+   * <p>
+   * If ranging would overrun the length of the String, this will throw a
+   * StringIndexOutOfBoundsException
    *
    * @param k The number of Characters to inspect
-   * @return The last k Characters at the end of the current input
+   * @return The k-character String starting at the current index of the current input
    */
-  public List<Character> peekMultipleCharacters(int k);
+  String peekMultipleCharacters(int k);
 
   /**
-   * Consumes the Character at the end of the current input. That is, it inspects and removes
-   * it from the input stream.
+   * Consumes the one-character String at the current index of the input. That is, it inspects and
+   * removes it from the input stream.
+   * <p>
+   * If ranging would overrun the length of the String, this will throw a
+   * StringIndexOutOfBoundsException.
+   * <p>
+   * Behind the scenes, this means that it will increment the current index of the String by one.
    *
-   * @return The Character at the end of the current input
+   * @return The one-character String at the current index of the current input
    */
-  public Character consumeSingleCharacter();
+  String consumeSingleCharacter();
+
 
   /**
-   * Consumes the last k Characters from the end of the current input. That is, it inspects and removes
-   * them from the input stream.
+   * Consumes the first k-character String starting from the current index of the current input.
+   * That is, it inspects them and removes them from the input stream.
+   * <p>
+   * Behind the scenes, this means that it will increment the current index of the String by k.
+   * <p>
+   * If ranging would overrun the length of the String, this will throw a
+   * StringIndexOutOfBoundsException.
    *
-   * @param k The number of Characters to inspect and remove.
-   * @return The last k Characters at the end of the current input.
+   * @param k The number of Characters to inspect
+   * @return The k-character String starting at the current index of the current input
    */
-  public List<Character> consumeMultipleCharacters(int k);
+  String consumeMultipleCharacters(int k);
+
+  /**
+   * Returns if the entire input has been consumed. (We have reached the EOF)
+   *
+   * @return Has the EOF been reached?
+   */
+  boolean isEOF();
 }
