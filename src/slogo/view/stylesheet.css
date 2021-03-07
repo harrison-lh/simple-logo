@@ -1,0 +1,31 @@
+.root {
+  -fx-font-size: 12pt;
+  -fx-font-family: "Helvetica Neue";
+}
+
+.box {
+  -fx-border-color: black;
+  -fx-border-radius: 1px;
+}
+
+#MenuBar {
+  -fx-padding: 6px 12px 6px 12px;
+  -fx-spacing: 12px;
+}
+
+#MenuBar .selector {
+  -fx-spacing: 3px;
+}
+
+#InfoBoxes {
+  -fx-min-width: 240px;
+}
+
+#InputBox {
+  -fx-max-width: 360px;
+  -fx-max-height: 320px;
+}
+
+#InputButton {
+  -fx-min-width: 100%;
+}
