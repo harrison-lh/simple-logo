@@ -75,21 +75,23 @@ public class Lexer {
   }
 
   /**
-   * Get the List of symbols for the general SLogo syntax
-   *
-   * @return A List<Entry<String, Pattern>> that represents the symbols for the general SLogo syntax.
-   */
-  public List<Entry<String, Pattern>> getSyntaxSymbols() {
-    return syntaxSymbols;
-  }
-
-  /**
-   * Set the symbols for the Lexer to the syntaxLanguage. Allows for hot-swapping between languages.
+   * Set the symbols for the Lexer to the syntaxLanguage. Allows for hot-swapping between
+   * languages.
    *
    * @param syntaxLanguage The language to which the symbols are to be set.
    */
   public void setLangSymbols(String syntaxLanguage) {
     langSymbols = instantiateSymbols(syntaxLanguage);
+  }
+
+  /**
+   * Get the List of symbols for the general SLogo syntax
+   *
+   * @return A List<Entry<String, Pattern>> that represents the symbols for the general SLogo
+   * syntax.
+   */
+  public List<Entry<String, Pattern>> getSyntaxSymbols() {
+    return syntaxSymbols;
   }
 
   /**
@@ -101,7 +103,7 @@ public class Lexer {
    * @return The Token that matches the tokenized text
    * @throws IllegalArgumentException If the text is unable to be tokenized.
    */
-  public Token tokenize(String text) throws IllegalArgumentException{
+  public Token tokenize(String text) throws IllegalArgumentException {
     final String ERROR = "NO MATCH! ILLEGAL ARGUMENT!";
     for (Entry<String, Pattern> e : syntaxSymbols) {
       if (match(text, e.getValue())) {
@@ -132,7 +134,7 @@ public class Lexer {
 
 
   // Returns true if the given text matches the given regular expression pattern
-  private boolean match (String text, Pattern regex) {
+  private boolean match(String text, Pattern regex) {
     return regex.matcher(text).matches();
   }
 }
