@@ -12,6 +12,16 @@
   -fx-stroke: blue;
 }
 
+.command-title {
+  -fx-font-size: 24pt;
+  -fx-font-weight: bold;
+  -fx-text-alignment: center;
+}
+
+.command-info {
+  -fx-wrap-text: true;
+}
+
 #MenuBar {
   -fx-padding: 6px 12px 6px 12px;
   -fx-spacing: 12px;
@@ -32,4 +42,8 @@
 #InputBox {
   -fx-max-width: 360px;
   -fx-max-height: 10px;
+}
+
+#HelpWindow {
+  -fx-padding: 10px;
 }
