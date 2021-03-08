@@ -6,20 +6,18 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.Objects;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 public class HelpWindow extends ScrollPane {
 
-  public static final int WIDTH = 600;
+  public static final int WIDTH = 540;
   public static final int HEIGHT = 600;
   public static final String REFERENCE_PATH = "./src/resources/reference/";
 
@@ -49,7 +47,6 @@ public class HelpWindow extends ScrollPane {
     this.setContent(commandLinks);
   }
 
-  // FIXME: Issue with text clipping
   private void openCommandPage(String command) {
     VBox commandPage = new VBox();
     StackPane header = new StackPane();
@@ -73,6 +70,7 @@ public class HelpWindow extends ScrollPane {
     try {
       String content = Files
           .readString(Paths.get(REFERENCE_PATH + command), StandardCharsets.US_ASCII);
+      content += " ";
       commandLabel.setText(content);
     } catch (IOException e) {
       e.printStackTrace();
