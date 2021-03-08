@@ -23,4 +23,13 @@ public abstract class Node {
     children.add(child);
   }
 
+  /**
+   * Simple getter to return the list of child Nodes
+   *
+   * @return A List of child Nodes
+   */
+  public List<Node> getChildren() {
+    return children;
+  }
+
 }
