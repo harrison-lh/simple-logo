@@ -1,5 +1,6 @@
 package slogo.view.canvas;
 
+import java.util.TreeMap;
 import java.util.function.Consumer;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -12,9 +13,8 @@ import slogo.view.SelectorTarget;
 
 public class SLogoCanvas extends StackPane implements SelectorTarget<Color> {
 
-  public static final int GRID_MARGIN = 40;
-
   private final Grid myGrid;
+  private final TurtleView myTurtleView;
 
   public SLogoCanvas() {
     this.setId("Canvas");
@@ -24,7 +24,9 @@ public class SLogoCanvas extends StackPane implements SelectorTarget<Color> {
     myGrid.prefWidthProperty().bind(this.widthProperty());
     myGrid.prefHeightProperty().bind(this.heightProperty());
 
-    this.getChildren().addAll(myGrid);
+    myTurtleView = new TurtleView();
+
+    this.getChildren().addAll(myGrid, myTurtleView);
   }
 
   @Override
