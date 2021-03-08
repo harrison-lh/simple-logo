@@ -21,10 +21,7 @@ public class SLogoCanvas extends AnchorPane implements SelectorTarget<Color> {
 
     this.getChildren().addAll(myGrid);
 
-    AnchorPane.setTopAnchor(myGrid, 10.0);
-    AnchorPane.setBottomAnchor(myGrid, 10.0);
-    AnchorPane.setLeftAnchor(myGrid, 10.0);
-    AnchorPane.setRightAnchor(myGrid, 10.0);
+    this.resizeElements();
   }
 
   @Override
@@ -39,5 +36,13 @@ public class SLogoCanvas extends AnchorPane implements SelectorTarget<Color> {
 
   public TurtleView getTurtleView() {
     return myGrid.getTurtleView();
+  }
+
+  public void resizeElements() {
+    System.out.println("resize");
+    AnchorPane.setTopAnchor(myGrid, 10.0);
+    AnchorPane.setBottomAnchor(myGrid, 10.0);
+    AnchorPane.setLeftAnchor(myGrid, 10.0);
+    AnchorPane.setRightAnchor(myGrid, 10.0);
   }
 }

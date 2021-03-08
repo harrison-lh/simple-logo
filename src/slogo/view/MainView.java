@@ -32,6 +32,10 @@ public class MainView extends VBox {
     connectStringSelector(mySLogoCanvas.getTurtleView(), myMenuBar.getTurtleSelector());
   }
 
+  public void resizeElements() {
+    mySLogoCanvas.resizeElements();
+  }
+
   private void connectColorSelector(SelectorTarget<Color> target, Selector<Color> selector) {
     selector.setUpdateAction(target.updateAction());
   }
