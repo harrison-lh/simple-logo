@@ -6,8 +6,8 @@ import javafx.scene.layout.BorderPane;
 
 public class InputBox extends BorderPane {
 
-  private TextArea myInputBoxArea;
-  private Button myInputButton;
+  private final TextArea myInputBoxArea;
+  private final Button myInputButton;
 
   public InputBox() {
     this.setId("InputBox");

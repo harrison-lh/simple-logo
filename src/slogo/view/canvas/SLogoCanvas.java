@@ -12,10 +12,19 @@ import slogo.view.SelectorTarget;
 
 public class SLogoCanvas extends StackPane implements SelectorTarget<Color> {
 
+  public static final int GRID_MARGIN = 40;
+
+  private final Grid myGrid;
+
   public SLogoCanvas() {
     this.setId("Canvas");
     this.getStyleClass().add("box");
-    this.getChildren().add(new Label("canvas"));
+
+    myGrid = new Grid();
+    myGrid.prefWidthProperty().bind(this.widthProperty());
+    myGrid.prefHeightProperty().bind(this.heightProperty());
+
+    this.getChildren().addAll(myGrid);
   }
 
   @Override
