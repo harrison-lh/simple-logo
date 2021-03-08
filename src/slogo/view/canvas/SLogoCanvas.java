@@ -11,6 +11,9 @@ import slogo.view.SelectorTarget;
 
 public class SLogoCanvas extends AnchorPane implements SelectorTarget<Color> {
 
+  public static final double CANVAS_MARGIN = 8;
+  public static final double CANVAS_ASPECT_RATIO = 4.0 / 3;
+
   private final Grid myGrid;
 
   public SLogoCanvas() {
@@ -20,13 +23,12 @@ public class SLogoCanvas extends AnchorPane implements SelectorTarget<Color> {
     myGrid = new Grid();
 
     this.getChildren().addAll(myGrid);
-
     this.resizeElements();
   }
 
   @Override
   public Consumer<Color> updateAction() {
-    return color -> this
+    return color -> myGrid
         .setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
   }
 
@@ -39,11 +41,22 @@ public class SLogoCanvas extends AnchorPane implements SelectorTarget<Color> {
   }
 
   public void resizeElements() {
-    myGrid.resizeElements();
+    boolean constrainedByWidth = (this.getWidth() / this.getHeight() < CANVAS_ASPECT_RATIO);
+    double widthMargin;
+    double heightMargin;
+    if (constrainedByWidth) {
+      widthMargin = CANVAS_MARGIN;
+      heightMargin = CANVAS_MARGIN + (this.getHeight() - (1 / CANVAS_ASPECT_RATIO) * this.getWidth()) / 2;
+    }
+    else {
+      widthMargin = CANVAS_MARGIN + (this.getWidth() - CANVAS_ASPECT_RATIO * this.getHeight()) / 2;
+      heightMargin = CANVAS_MARGIN;
+    }
+    AnchorPane.setTopAnchor(myGrid, heightMargin);
+    AnchorPane.setBottomAnchor(myGrid, heightMargin);
+    AnchorPane.setLeftAnchor(myGrid, widthMargin);
+    AnchorPane.setRightAnchor(myGrid, widthMargin);
 
-    AnchorPane.setTopAnchor(myGrid, 10.0);
-    AnchorPane.setBottomAnchor(myGrid, 10.0);
-    AnchorPane.setLeftAnchor(myGrid, 10.0);
-    AnchorPane.setRightAnchor(myGrid, 10.0);
+    myGrid.resizeElements();
   }
 }

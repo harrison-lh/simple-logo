@@ -46,7 +46,6 @@ public class MainView extends VBox {
 
   private HBox createBottom() {
     HBox bottom = new HBox();
-    bottom.getStyleClass().add("box");
 
     myInputBox = new InputBox();
     bottom.getChildren().add(myInputBox);

@@ -33,6 +33,7 @@ public class GridLines extends Pane {
       xAxis.setOpacity(1);
       yAxis.setOpacity(1);
     }
+    this.resize();
   }
 
   public void resize() {
