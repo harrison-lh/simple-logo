@@ -41,4 +41,23 @@ public class Lexer {
     }
     return langSymbols;
   }
+
+  /**
+   * Get the List of symbols for the currently instantiated language.
+   *
+   * @return A List<Entry<String, Pattern>> that represents the symbols for the currently
+   * instantiated language.
+   */
+  public List<Entry<String, Pattern>> getSymbols() {
+    return symbols;
+  }
+
+  /**
+   * Set the symbols for the Lexer to the syntaxLanguage.
+   *
+   * @param syntaxLanguage The language to which the symbols are to be set.
+   */
+  public void setSymbols(String syntaxLanguage) {
+    instantiateSymbols(syntaxLanguage);
+  }
 }
