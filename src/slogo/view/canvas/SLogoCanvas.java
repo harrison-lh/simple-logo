@@ -1,32 +1,30 @@
 package slogo.view.canvas;
 
-import java.util.TreeMap;
 import java.util.function.Consumer;
 import javafx.geometry.Insets;
-import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import slogo.view.SelectorTarget;
 
-public class SLogoCanvas extends StackPane implements SelectorTarget<Color> {
+public class SLogoCanvas extends AnchorPane implements SelectorTarget<Color> {
 
   private final Grid myGrid;
-  private final TurtleView myTurtleView;
 
   public SLogoCanvas() {
     this.setId("Canvas");
     this.getStyleClass().add("box");
 
     myGrid = new Grid();
-    myGrid.prefWidthProperty().bind(this.widthProperty());
-    myGrid.prefHeightProperty().bind(this.heightProperty());
 
-    myTurtleView = new TurtleView();
+    this.getChildren().addAll(myGrid);
 
-    this.getChildren().addAll(myGrid, myTurtleView);
+    AnchorPane.setTopAnchor(myGrid, 10.0);
+    AnchorPane.setBottomAnchor(myGrid, 10.0);
+    AnchorPane.setLeftAnchor(myGrid, 10.0);
+    AnchorPane.setRightAnchor(myGrid, 10.0);
   }
 
   @Override
@@ -40,6 +38,6 @@ public class SLogoCanvas extends StackPane implements SelectorTarget<Color> {
   }
 
   public TurtleView getTurtleView() {
-    return myTurtleView;
+    return myGrid.getTurtleView();
   }
 }

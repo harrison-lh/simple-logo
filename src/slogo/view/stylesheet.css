@@ -35,6 +35,11 @@
   -fx-padding: 16px;
 }
 
+#Grid {
+  -fx-border-color: black;
+  -fx-border-radius: 1px;
+}
+
 #InfoBoxes {
   -fx-min-width: 240px;
 }
