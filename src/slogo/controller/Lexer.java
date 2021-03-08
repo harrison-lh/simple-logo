@@ -37,6 +37,7 @@ public class Lexer {
    * @param syntaxLanguage The language with which to initialize the symbols.
    */
   public Lexer(String syntaxLanguage) {
+    syntaxSymbols = instantiateSymbols(SYNTAX);
     langSymbols = instantiateSymbols(syntaxLanguage);
   }
 
