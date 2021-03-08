@@ -52,36 +52,63 @@ public class Turtle implements Coordinates{
    * @param degrees number of degrees the turtle will move clockwise
    */
   public void right(double degrees) {
-    heading = (heading - degrees) % MAX_DEGREES;
+    setHeading(heading - degrees);
   }
 
+  /**
+   *
+   * @return
+   */
   @Override
   public double getX() {
     return xPos;
   }
 
+  /**
+   *
+   * @param x The new x-coordinate of the object.
+   */
   @Override
   public void setX(double x) {
     xPos = x;
   }
 
+  /**
+   *
+   * @return
+   */
   @Override
   public double getY() {
     return yPos;
   }
 
+  /**
+   *
+   * @param y The new y-coordinate of the object
+   */
   @Override
   public void setY(double y) {
     yPos = y;
   }
 
+  /**
+   *
+   * @return
+   */
   @Override
   public double getHeading() {
     return heading;
   }
 
+  /**
+   *
+   * @param heading The new heading of the object in degrees.
+   */
   @Override
   public void setHeading(double heading) {
-    this.heading = heading;
+    if (heading % MAX_DEGREES >= 0) {
+      this.heading = heading % MAX_DEGREES;
+    }
+    else this.heading = (heading % MAX_DEGREES) + MAX_DEGREES;
   }
 }
