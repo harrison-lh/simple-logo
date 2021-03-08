@@ -56,8 +56,9 @@ public class Turtle implements Coordinates{
   }
 
   /**
+   * Getter method for obtaining the x-coordinate of the turtle.
    *
-   * @return
+   * @return double of turtle's x-coordinate
    */
   @Override
   public double getX() {
@@ -65,6 +66,7 @@ public class Turtle implements Coordinates{
   }
 
   /**
+   * Setter method for the x-coordinate of the turtle.
    *
    * @param x The new x-coordinate of the object.
    */
@@ -74,8 +76,9 @@ public class Turtle implements Coordinates{
   }
 
   /**
+   * Getter method for obtaining the y-coordinate of the turtle.
    *
-   * @return
+   * @return double of turtle's y-coordinate
    */
   @Override
   public double getY() {
@@ -83,6 +86,7 @@ public class Turtle implements Coordinates{
   }
 
   /**
+   * Setter method for the y-coordinate of the turtle.
    *
    * @param y The new y-coordinate of the object
    */
@@ -92,8 +96,10 @@ public class Turtle implements Coordinates{
   }
 
   /**
+   * Getter method for obtaining the heading of the turtle
+   * in degrees counterclockwise from the x-axis.
    *
-   * @return
+   * @return heading of the turtle in degrees
    */
   @Override
   public double getHeading() {
@@ -101,6 +107,8 @@ public class Turtle implements Coordinates{
   }
 
   /**
+   * Setter method for the heading of the turtle. Automatically recalculates to a number
+   * between 0 and 360 degrees.
    *
    * @param heading The new heading of the object in degrees.
    */
