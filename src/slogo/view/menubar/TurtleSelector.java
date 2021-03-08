@@ -11,6 +11,7 @@ public class TurtleSelector extends VBox implements Selector<String> {
   private final ComboBox<String> myComboBox;
 
   public TurtleSelector() {
+    this.setId("TurtleSelector");
     this.getStyleClass().add("selector");
     Label myLabel = new Label("Turtle Image");
     myComboBox = new ComboBox<>();
