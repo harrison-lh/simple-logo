@@ -28,13 +28,18 @@ public class Lexer {
     symbols = new ArrayList<>();
   }
 
+  /**
+   * A more useful constructor for Lexer. Takes in a language for which to initialize the symbols.
+   *
+   * @param syntaxLanguage The language with which to initialize the symbols.
+   */
   public Lexer(String syntaxLanguage) {
     symbols = instantiateSymbols(syntaxLanguage);
   }
 
   /**
    * Instantiates the lexer with a set of symbols for the language, syntaxLanguage.
-   *
+   * <p>
    * NOTE: This is designed such that only one language can have symbols loaded at a time to avoid
    * naming conflicts.
    *
