@@ -27,4 +27,8 @@ public class Grid extends StackPane implements SelectorTarget<String> {
   public Consumer<String> updateAction() {
     return myGridLines::changeGridType;
   }
+
+  public void resizeElements() {
+    myGridLines.resize();
+  }
 }

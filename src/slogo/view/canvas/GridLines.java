@@ -1,10 +1,7 @@
 package slogo.view.canvas;
 
-import java.util.function.Consumer;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
-import slogo.view.SelectorTarget;
 
 public class GridLines extends Pane {
 
@@ -15,22 +12,16 @@ public class GridLines extends Pane {
     this.setId("GridLines");
 
     xAxis = new Line();
-    xAxis.setStartX(0);
-    xAxis.startYProperty().bind(this.heightProperty().divide(2));
-    xAxis.endXProperty().bind(this.widthProperty());
-    xAxis.endYProperty().bind(this.heightProperty().divide(2));
     xAxis.getStyleClass().add("axis");
 
     yAxis = new Line();
-    yAxis.startXProperty().bind(this.widthProperty().divide(2));
-    yAxis.setStartY(0);
-    yAxis.endXProperty().bind(this.widthProperty().divide(2));
-    yAxis.endYProperty().bind(this.heightProperty());
     yAxis.getStyleClass().add("axis");
 
     changeGridType("None");
 
     this.getChildren().addAll(xAxis, yAxis);
+
+    this.resize();
   }
 
   public void changeGridType(String gridType) {
@@ -42,5 +33,17 @@ public class GridLines extends Pane {
       xAxis.setOpacity(1);
       yAxis.setOpacity(1);
     }
+  }
+
+  public void resize() {
+    xAxis.setStartX(0);
+    xAxis.setStartY(this.getHeight() / 2);
+    xAxis.setEndX(this.getWidth());
+    xAxis.setEndY(this.getHeight() / 2);
+
+    yAxis.setStartX(this.getWidth() / 2);
+    yAxis.setStartY(0);
+    yAxis.setEndX(this.getWidth() / 2);
+    yAxis.setEndY(this.getHeight());
   }
 }

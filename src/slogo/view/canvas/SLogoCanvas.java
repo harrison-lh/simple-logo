@@ -39,7 +39,8 @@ public class SLogoCanvas extends AnchorPane implements SelectorTarget<Color> {
   }
 
   public void resizeElements() {
-    System.out.println("resize");
+    myGrid.resizeElements();
+
     AnchorPane.setTopAnchor(myGrid, 10.0);
     AnchorPane.setBottomAnchor(myGrid, 10.0);
     AnchorPane.setLeftAnchor(myGrid, 10.0);
