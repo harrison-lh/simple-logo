@@ -7,7 +7,7 @@ public class TurtleView extends ImageView {
 
   public TurtleView() {
     this.setId("TurtleView");
-    Image image = new Image("resources/images/turtle-0.png");
+    Image image = new Image("resources/images/turtle-default.png");
     this.setImage(image);
     this.setFitWidth(40);
     this.setPreserveRatio(true);

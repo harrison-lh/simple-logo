@@ -34,4 +34,8 @@ public class SLogoCanvas extends StackPane implements SelectorTarget<Color> {
     return color -> this
         .setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
   }
+
+  public Grid getGrid() {
+    return myGrid;
+  }
 }

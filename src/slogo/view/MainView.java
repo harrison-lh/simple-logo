@@ -28,9 +28,14 @@ public class MainView extends VBox {
     this.getChildren().add(bottom);
 
     connectColorSelector(mySLogoCanvas, myMenuBar.getBackgroundSelector());
+    connectStringSelector(mySLogoCanvas.getGrid(), myMenuBar.getGridSelector());
   }
 
   private void connectColorSelector(SelectorTarget<Color> target, Selector<Color> selector) {
+    selector.setUpdateAction(target.updateAction());
+  }
+
+  private void connectStringSelector(SelectorTarget<String> target, Selector<String> selector) {
     selector.setUpdateAction(target.updateAction());
   }
 
