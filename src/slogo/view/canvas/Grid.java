@@ -32,7 +32,12 @@ public class Grid extends Pane implements SelectorTarget<String> {
     this.getChildren().addAll(xAxis, yAxis);
   }
 
-  public void changeGridType(String gridType) {
+  @Override
+  public Consumer<String> updateAction() {
+    return this::changeGridType;
+  }
+
+  private void changeGridType(String gridType) {
     if (gridType.equals("None")) {
       xAxis.setOpacity(0);
       yAxis.setOpacity(0);
@@ -41,10 +46,5 @@ public class Grid extends Pane implements SelectorTarget<String> {
       xAxis.setOpacity(1);
       yAxis.setOpacity(1);
     }
-  }
-
-  @Override
-  public Consumer<String> updateAction() {
-    return this::changeGridType;
   }
 }

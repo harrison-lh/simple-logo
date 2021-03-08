@@ -38,4 +38,8 @@ public class SLogoCanvas extends StackPane implements SelectorTarget<Color> {
   public Grid getGrid() {
     return myGrid;
   }
+
+  public TurtleView getTurtleView() {
+    return myTurtleView;
+  }
 }

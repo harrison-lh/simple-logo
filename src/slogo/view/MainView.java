@@ -29,6 +29,7 @@ public class MainView extends VBox {
 
     connectColorSelector(mySLogoCanvas, myMenuBar.getBackgroundSelector());
     connectStringSelector(mySLogoCanvas.getGrid(), myMenuBar.getGridSelector());
+    connectStringSelector(mySLogoCanvas.getTurtleView(), myMenuBar.getTurtleSelector());
   }
 
   private void connectColorSelector(SelectorTarget<Color> target, Selector<Color> selector) {
