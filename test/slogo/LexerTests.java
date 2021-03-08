@@ -14,4 +14,12 @@ public class LexerTests {
     assertEquals(46, lexer.getSymbols().size());
   }
 
+  @Test
+  public void testAltSymbolsReload() {
+    Lexer lexer = new Lexer("English");
+    // Make sure we've loaded all of the expected symbols
+    assertEquals(46, lexer.getSymbols().size());
+    lexer.setSymbols("Spanish");
+    assertEquals(46, lexer.getSymbols().size());
+  }
 }

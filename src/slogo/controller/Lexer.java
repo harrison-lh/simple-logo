@@ -32,6 +32,15 @@ public class Lexer {
     symbols = instantiateSymbols(syntaxLanguage);
   }
 
+  /**
+   * Instantiates the lexer with a set of symbols for the language, syntaxLanguage.
+   *
+   * NOTE: This is designed such that only one language can have symbols loaded at a time to avoid
+   * naming conflicts.
+   *
+   * @param syntaxLanguage The language to load symbols for
+   * @return A List<Entry<String, Pattern>> that represents the symbols as standard regexes
+   */
   private List<Entry<String, Pattern>> instantiateSymbols(String syntaxLanguage) {
     ResourceBundle resources = ResourceBundle.getBundle(RESOURCES_PACKAGE + syntaxLanguage);
     List<Entry<String, Pattern>> langSymbols = new ArrayList<>();
