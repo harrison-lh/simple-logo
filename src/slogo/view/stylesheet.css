@@ -22,7 +22,7 @@
 }
 
 #Canvas {
-  -fx-padding: 10px;
+  -fx-padding: 16px;
 }
 
 #InfoBoxes {
@@ -31,9 +31,5 @@
 
 #InputBox {
   -fx-max-width: 360px;
-  -fx-max-height: 320px;
-}
-
-#InputButton {
-  -fx-min-width: 100%;
+  -fx-max-height: 10px;
 }
