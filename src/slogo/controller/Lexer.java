@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 public class Lexer {
 
   private static final String RESOURCES_PACKAGE = "resources.languages.";
+  private static final String SYNTAX = "Syntax";
   private List<Entry<String, Pattern>> symbols;
 
   /**
@@ -38,7 +39,8 @@ public class Lexer {
   }
 
   /**
-   * Instantiates the lexer with a set of symbols for the language, syntaxLanguage, as well as the general syntax.
+   * Instantiates the lexer with a set of symbols for the language, syntaxLanguage, as well as the
+   * general syntax.
    * <p>
    * NOTE: This is designed such that only one language can have symbols loaded at a time to avoid
    * naming conflicts.
@@ -47,18 +49,18 @@ public class Lexer {
    * @return A List<Entry<String, Pattern>> that represents the symbols as standard regexes
    */
   private List<Entry<String, Pattern>> instantiateSymbols(String syntaxLanguage) {
-    ResourceBundle langResources = ResourceBundle.getBundle(RESOURCES_PACKAGE + syntaxLanguage);
-    ResourceBundle syntaxResources = ResourceBundle.getBundle(RESOURCES_PACKAGE + "Syntax");
     List<Entry<String, Pattern>> langSymbols = new ArrayList<>();
+    addSymbols(syntaxLanguage, langSymbols);
+    addSymbols(SYNTAX, langSymbols);
+    return langSymbols;
+  }
+
+  private void addSymbols(String syntaxLanguage, List<Entry<String, Pattern>> langSymbols) {
+    ResourceBundle langResources = ResourceBundle.getBundle(RESOURCES_PACKAGE + syntaxLanguage);
     for (String key : Collections.list(langResources.getKeys())) {
       String regex = langResources.getString(key);
       langSymbols.add(new SimpleEntry<>(key, Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
     }
-    for (String key : Collections.list(syntaxResources.getKeys())) {
-      String regex = syntaxResources.getString(key);
-      langSymbols.add(new SimpleEntry<>(key, Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
-    }
-    return langSymbols;
   }
 
   /**
