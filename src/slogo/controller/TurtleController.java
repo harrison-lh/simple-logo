@@ -15,30 +15,52 @@ import slogo.model.Turtle;
 public class TurtleController {
   private Turtle turtle;
   private Queue<Command> commandQueue;
-  private boolean runCommands;
+  private boolean executeCommands;
 
+  /**
+   * Constructs a new TurtleController with a fresh Turtle, an empty queue, and not-presently running
+   * any Commands.
+   */
   public TurtleController() {
     this.turtle = new Turtle();
     this.commandQueue = new LinkedList<>();
-    this.runCommands = false;
+    this.executeCommands = false;
   }
 
+  /**
+   * Tells the Turtle to execute Commands until either the commandQueue is empty or executeCommands
+   * is set to false;
+   */
   public void runCommands() {
-    while(!commandQueue.isEmpty() && runCommands) {
+    while(!commandQueue.isEmpty() && executeCommands) {
       commandQueue.poll().execute(turtle);
     }
   }
 
+  /**
+   * Add a List of Commands to the commandQueue
+   *
+   * @param commands The List of Commands to add to the commandQueue.
+   */
   public void pushCommands(List<Command> commands) {
     commandQueue.addAll(commands);
   }
 
-
-  public boolean isRunCommands() {
-    return runCommands;
+  /**
+   * Returns whether or not this TurtleController is primed to execute Commands.
+   *
+   * @return The execution status of this TurtleController.
+   */
+  public boolean isAllowedToExecute() {
+    return executeCommands;
   }
 
-  public void setRunCommands(boolean runCommands) {
-    this.runCommands = runCommands;
+  /**
+   * Sets the execution status of this TurtleController.
+   *
+   * @param executeCommands The new execution status of this TurtleController.
+   */
+  public void setExecuteCommands(boolean executeCommands) {
+    this.executeCommands = executeCommands;
   }
 }
