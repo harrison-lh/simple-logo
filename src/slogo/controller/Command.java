@@ -1,7 +1,9 @@
 package slogo.controller;
 
+import slogo.model.Turtle;
+
 /**
- * Command is the abstract ancestor of all other Commands. That is, operations which the Turtle can
+ * Command is the abstract ancestor of all other Commands. That is, commands which the Turtle can
  * execute. This will leverage reflection to allow the program to instantiate the proper Command
  * on the fly, which will avoid use of the dreaded instanceof operator.
  *
@@ -9,12 +11,13 @@ package slogo.controller;
  * @author Harrison Huang
  */
 public abstract class Command extends Node {
+
   int numParams;
 
   /**
    * The execution behavior of the Command. That is, what it does once the AST is being consumed.
    */
-  public abstract void execute();
+  public abstract void execute(Turtle turtle);
 
   /**
    * Returns the number of parameters that this Command takes
