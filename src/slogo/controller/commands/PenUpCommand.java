@@ -5,6 +5,12 @@ import slogo.model.Turtle;
 
 public class PenUpCommand extends Command {
 
+  private static final int NUM_PARAMS = 0;
+
+  public PenUpCommand(){
+    numParams = NUM_PARAMS;
+  }
+
   @Override
   public double execute(Turtle turtle) {
     return turtle.isPenActive() ? 1 : 0;
