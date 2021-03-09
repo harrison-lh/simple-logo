@@ -13,6 +13,7 @@ public class PenSelector extends VBox implements Selector<Color> {
   public static final Color DEFAULT_PEN_COLOR = Color.BLACK;
 
   public PenSelector() {
+    this.setId("PenSelector");
     this.getStyleClass().add("selector");
     Label myLabel = new Label("Pen Color");
     myColorPicker = new ColorPicker(DEFAULT_PEN_COLOR);

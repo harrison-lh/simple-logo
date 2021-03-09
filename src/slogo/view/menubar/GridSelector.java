@@ -13,10 +13,12 @@ public class GridSelector extends VBox implements Selector<String> {
   private final ComboBox<String> myComboBox;
 
   public GridSelector() {
+    this.setId("GridSelector");
     this.getStyleClass().add("selector");
     Label myLabel = new Label("Grid Settings");
     myComboBox = new ComboBox<>();
-    myComboBox.getItems().addAll("None", "Axis", "Gridlines");
+    myComboBox.setId("GridSelectorComboBox");
+    myComboBox.getItems().addAll("None", "Axis");
     myComboBox.getSelectionModel().selectFirst();
 
     this.getChildren().addAll(myLabel, myComboBox);

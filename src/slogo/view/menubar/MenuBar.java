@@ -1,11 +1,14 @@
 package slogo.view.menubar;
 
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
+import slogo.view.HelpWindow;
 
 public class MenuBar extends HBox {
 
@@ -26,6 +29,7 @@ public class MenuBar extends HBox {
     myLanguageSelector = new LanguageSelector();
 
     Button infoButton = new Button("?");
+    infoButton.setId("InfoButton");
     infoButton.setShape(new Circle(2));
     infoButton.setOnAction(e -> openCommandsWindow());
 
@@ -39,7 +43,12 @@ public class MenuBar extends HBox {
   }
 
   private void openCommandsWindow() {
-    System.out.println("Opening commands window");
+    Stage stage = new Stage();
+    stage.setTitle("All Commands");
+    Scene scene = new Scene(new HelpWindow(), HelpWindow.WIDTH, HelpWindow.HEIGHT);
+    scene.getStylesheets().add("slogo/view/stylesheet.css");
+    stage.setScene(scene);
+    stage.show();
   }
 
   public BackgroundSelector getBackgroundSelector() {

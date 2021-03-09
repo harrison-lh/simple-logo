@@ -10,7 +10,6 @@ public class VariablesBox extends ScrollPane {
 
   public VariablesBox() {
     this.setId("VariablesBox");
-    this.getStyleClass().add("box");
     myContents = new Group();
     this.setContent(myContents);
     myContents.getChildren().add(new Label("variables"));
