@@ -133,9 +133,9 @@ public class Lexer {
   }
 
   /**
-   * Return a String that matches the type of command that is being lexed in text. If the text cannot
-   * be matched to a valid SLogo command using the provided regexes, then it is assumed to be erroneous
-   * and an IllegalArgumentException is thrown.
+   * Return a String that matches the type of command that is being lexed in text. If the text
+   * cannot be matched to a valid SLogo command using the provided regexes, then it is assumed to be
+   * erroneous and an IllegalArgumentException is thrown.
    *
    * @param text The text to lex.
    * @return A String that matches the command type that has been lexed, if it exists.
