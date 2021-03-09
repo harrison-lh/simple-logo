@@ -31,4 +31,10 @@ public class Grid extends StackPane implements SelectorTarget<String> {
   public void resizeElements() {
     myGridLines.resize();
   }
+
+  public void updateTurtleView(double x, double y, double heading) {
+    myTurtleView.setTranslateX(x);
+    myTurtleView.setTranslateY(y);
+    myTurtleView.setRotate(heading);
+  }
 }

@@ -4,10 +4,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import slogo.controller.Command;
+import slogo.model.Turtle;
+import slogo.model.Variables;
 import slogo.view.canvas.SLogoCanvas;
 import slogo.view.menubar.MenuBar;
 
-public class MainView extends VBox {
+public class MainView extends VBox implements View {
 
   private MenuBar myMenuBar;
   private SLogoCanvas mySLogoCanvas;
@@ -36,6 +39,51 @@ public class MainView extends VBox {
     mySLogoCanvas.resizeElements();
   }
 
+  @Override
+  public void updateTurtleView(Turtle turtle) {
+    mySLogoCanvas.updateTurtleView(turtle.getX(), turtle.getY(), turtle.getHeading());
+  }
+
+  @Override
+  public void addVariable(Variables variables) {
+
+  }
+
+  @Override
+  public void updateVariable(Variables variables) {
+
+  }
+
+  @Override
+  public void removeVariable(Variables variables) {
+
+  }
+
+  @Override
+  public void addUDCommand(Command command) {
+
+  }
+
+  @Override
+  public void updateUDCommand(Command command) {
+
+  }
+
+  @Override
+  public void removeUDCommand(Command command) {
+
+  }
+
+  @Override
+  public String getUserInput() {
+    return null;
+  }
+
+  @Override
+  public void throwError(Error error) {
+
+  }
+
   private void connectColorSelector(SelectorTarget<Color> target, Selector<Color> selector) {
     selector.setUpdateAction(target.updateAction());
   }
@@ -47,7 +95,7 @@ public class MainView extends VBox {
   private HBox createBottom() {
     HBox bottom = new HBox();
 
-    myInputBox = new InputBox();
+    myInputBox = new InputBox(e -> executeCommand());
     bottom.getChildren().add(myInputBox);
 
     myCommandHistoryBox = new CommandHistoryBox();
@@ -55,6 +103,10 @@ public class MainView extends VBox {
     HBox.setHgrow(myCommandHistoryBox, Priority.ALWAYS);
 
     return bottom;
+  }
+
+  private void executeCommand() {
+    // mySLogoCanvas.updateTurtleView(10, 10, 20);
   }
 
   private HBox createBody() {

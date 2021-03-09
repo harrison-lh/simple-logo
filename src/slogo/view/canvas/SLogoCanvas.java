@@ -58,4 +58,8 @@ public class SLogoCanvas extends AnchorPane implements SelectorTarget<Color> {
 
     myGrid.resizeElements();
   }
+
+  public void updateTurtleView(double x, double y, double heading) {
+    myGrid.updateTurtleView(x, y, heading);
+  }
 }
