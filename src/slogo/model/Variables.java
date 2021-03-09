@@ -20,7 +20,4 @@ public class Variables<E>{
     varMap.put(key, value);
   }
 
-
-
-
 }

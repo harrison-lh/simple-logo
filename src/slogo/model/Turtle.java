@@ -1,26 +1,25 @@
 package slogo.model;
 
+import src.slogo.model.Coordinates;
+
 /**
  * The Turtle is the object that commands of forward and right are put upon, and it contains
  * the fundamental variables of where the turtle is placed and facing.
  *
  * @author Harrison Huang
  */
-public class Turtle implements Coordinates{
+public class Turtle<E extends Coordinates> {
 
-  private double xPos;
-  private double yPos;
-  private double heading;
+  private E coordinates;
   private static final double DEFAULT_X = 0;
   private static final double DEFAULT_Y = 0;
   private static final double DEFAULT_HEADING = 90;
-  private static final double MAX_DEGREES = 360;
 
   /**
    * Default constructor for Turtle.
    */
-  public Turtle() {
-    this(DEFAULT_X, DEFAULT_Y, DEFAULT_HEADING);
+  public Turtle(E coordinates) {
+    this(coordinates, DEFAULT_X, DEFAULT_Y, DEFAULT_HEADING);
   }
 
   /**
@@ -30,10 +29,12 @@ public class Turtle implements Coordinates{
    * @param y Y coordinate
    * @param heading direction turtle is facing relative to positive x-axis
    */
-  public Turtle(double x, double y, double heading) {
-    xPos = x;
-    yPos = y;
-    this.heading = heading % MAX_DEGREES;
+
+  public Turtle(E coordinates, double x, double y, double heading) {
+    this.coordinates = coordinates;
+    coordinates.setX(x);
+    coordinates.setY(y);
+    coordinates.setHeading(heading);
   }
 
   /**
@@ -42,8 +43,16 @@ public class Turtle implements Coordinates{
    * @param pixels number of pixels the turtle will move forward
    */
   public void forward(double pixels) {
+    double xPos = coordinates.getX();
+    double yPos = coordinates.getY();
+    double heading = coordinates.getHeading();
+
     xPos += pixels * Math.cos(Math.toRadians(heading));
     yPos += pixels * Math.sin(Math.toRadians(heading));
+
+    setX(xPos);
+    setY(yPos);
+
   }
 
   /**
@@ -52,6 +61,9 @@ public class Turtle implements Coordinates{
    * @param degrees number of degrees the turtle will move clockwise
    */
   public void right(double degrees) {
+
+    double heading = coordinates.getHeading();
+
     setHeading(heading - degrees);
   }
 
@@ -60,9 +72,9 @@ public class Turtle implements Coordinates{
    *
    * @return double of turtle's x-coordinate
    */
-  @Override
+
   public double getX() {
-    return xPos;
+    return coordinates.getX();
   }
 
   /**
@@ -70,9 +82,9 @@ public class Turtle implements Coordinates{
    *
    * @param x The new x-coordinate of the object.
    */
-  @Override
+
   public void setX(double x) {
-    xPos = x;
+    coordinates.setX(x);
   }
 
   /**
@@ -80,9 +92,9 @@ public class Turtle implements Coordinates{
    *
    * @return double of turtle's y-coordinate
    */
-  @Override
+
   public double getY() {
-    return yPos;
+    return coordinates.getY();
   }
 
   /**
@@ -90,9 +102,9 @@ public class Turtle implements Coordinates{
    *
    * @param y The new y-coordinate of the object
    */
-  @Override
+
   public void setY(double y) {
-    yPos = y;
+     coordinates.setY(y);
   }
 
   /**
@@ -101,9 +113,9 @@ public class Turtle implements Coordinates{
    *
    * @return heading of the turtle in degrees
    */
-  @Override
+
   public double getHeading() {
-    return heading;
+    return coordinates.getHeading();
   }
 
   /**
@@ -112,11 +124,8 @@ public class Turtle implements Coordinates{
    *
    * @param heading The new heading of the object in degrees.
    */
-  @Override
+
   public void setHeading(double heading) {
-    if (heading % MAX_DEGREES >= 0) {
-      this.heading = heading % MAX_DEGREES;
-    }
-    else this.heading = (heading % MAX_DEGREES) + MAX_DEGREES;
+    coordinates.setHeading(heading);
   }
 }

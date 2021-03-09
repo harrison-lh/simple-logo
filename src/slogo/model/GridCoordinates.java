@@ -1,13 +1,9 @@
 package slogo.model;
 
-public class GridCoordinates implements Coordinates {
-
-  private double xPos, yPos, heading;
+public class GridCoordinates extends Coordinates {
 
   public GridCoordinates(double x, double y, double heading){
-    this.xPos = x;
-    this.yPos = y;
-    this.heading = heading;
+    super(x, y, heading);
   }
 
   @Override
@@ -37,6 +33,18 @@ public class GridCoordinates implements Coordinates {
 
   @Override
   public void setHeading(double heading) {
+
+    if(heading > MAX_DEGREES){
+      heading = heading % MAX_DEGREES;
+    }
+
+    if(heading < 0){
+      while(heading < 0){
+        heading += MAX_DEGREES;
+      }
+    }
+
     this.heading = heading;
+
   }
 }
