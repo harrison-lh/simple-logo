@@ -106,7 +106,7 @@ public class MainView extends VBox implements View {
   }
 
   private void executeCommand() {
-    // mySLogoCanvas.updateTurtleView(10, 10, 20);
+    mySLogoCanvas.updateTurtleView(40, 40, 20);
   }
 
   private HBox createBody() {
