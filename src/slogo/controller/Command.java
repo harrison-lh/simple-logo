@@ -1,5 +1,6 @@
 package slogo.controller;
 
+import java.util.List;
 import slogo.model.Turtle;
 
 /**
@@ -12,12 +13,14 @@ import slogo.model.Turtle;
  */
 public abstract class Command extends Node {
 
-  int numParams;
+  protected int numParams;
 
   /**
    * The execution behavior of the Command. That is, what it does once the AST is being consumed.
+   *
+   * @return The double for the return value of the command
    */
-  public abstract void execute(Turtle turtle);
+  public abstract double execute(Turtle turtle);
 
   /**
    * Returns the number of parameters that this Command takes
@@ -26,4 +29,5 @@ public abstract class Command extends Node {
   public int getNumParams() {
     return numParams;
   }
+
 }
