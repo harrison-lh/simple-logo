@@ -1,9 +1,7 @@
 package slogo.controller;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 /**
@@ -34,22 +32,26 @@ public class Parser {
     splitText = new LinkedList<>(Arrays.asList(text.split("\\s+")));
   }
 
-  private void tokenizeText() {
+  private void tokenizeText() throws IllegalArgumentException {
     Queue<Token> tokenList = new LinkedList<>();
-    for(String curString : splitText) {
-      tokenList.add(lexer.tokenize(curString));
+    for (String curString : splitText) {
+      try {
+        tokenList.add(lexer.tokenize(curString));
+      } catch (IllegalArgumentException e) {
+        throw e;
+      }
     }
     this.tokenizedText = tokenList;
   }
 
   private void mapTokensToNodes() {
-    while(!tokenizedText.isEmpty()) {
+    while (!tokenizedText.isEmpty()) {
       parsedNodeQueue.add(patternMatchToken(tokenizedText.poll(), splitText.poll()));
     }
   }
 
   private Node patternMatchToken(Token token, String text) {
-    switch(token) {
+    switch (token) {
       case COMMAND -> {
         // TODO: Create __Command
       }
@@ -76,7 +78,7 @@ public class Parser {
   public void createParseTree(String text) {
     splitText(text);
     tokenizeText();
-    if(handleCommentsAndBlankLines()) {
+    if (handleCommentsAndBlankLines()) {
       return; // If it's a comment line, return early. Comments have no commands.
     }
     mapTokensToNodes();
