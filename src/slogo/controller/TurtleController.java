@@ -2,8 +2,10 @@ package slogo.controller;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
-import slogo.controller.commands.Command;
+import java.util.Queue;
+import slogo.model.Coordinates;
 import slogo.model.Turtle;
 
 /**

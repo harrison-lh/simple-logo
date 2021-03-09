@@ -1,6 +1,5 @@
-package slogo.controller.commands;
+package slogo.controller;
 
-import slogo.controller.Node;
 import slogo.model.Turtle;
 
 /**
@@ -13,7 +12,7 @@ import slogo.model.Turtle;
  */
 public abstract class Command extends Node {
 
-  protected int numParams;
+  int numParams;
 
   /**
    * The execution behavior of the Command. That is, what it does once the AST is being consumed.
