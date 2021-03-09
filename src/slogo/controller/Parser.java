@@ -18,19 +18,20 @@ public class Parser {
   private TurtleController controller;
   private Lexer lexer;
   private Node root;
-  private List<String> splitText;
+  private Queue<Node> parsedNodeQueue;
+  private Queue<String> splitText;
   private Queue<Token> tokenizedText;
 
   public Parser(TurtleController controller, String syntaxLang) {
     this.controller = controller;
     this.lexer = new Lexer(syntaxLang);
     this.root = null;
-    this.splitText = new ArrayList<>();
+    this.splitText = new LinkedList<>();
     this.tokenizedText = new LinkedList<>();
   }
 
   private void splitText(String text) {
-    splitText = new ArrayList<>(Arrays.asList(text.split("\\s+")));
+    splitText = new LinkedList<>(Arrays.asList(text.split("\\s+")));
   }
 
   private void tokenizeText() {
@@ -42,12 +43,12 @@ public class Parser {
   }
 
   private void mapTokensToNodes() {
-    for(Token curToken : tokenizedText) {
-      patternMatchToken(curToken);
+    while(!tokenizedText.isEmpty()) {
+      parsedNodeQueue.add(patternMatchToken(tokenizedText.poll(), splitText.poll()));
     }
   }
 
-  private Node patternMatchToken(Token token) {
+  private Node patternMatchToken(Token token, String text) {
     switch(token) {
       case COMMAND -> {
         // TODO: Create __Command
@@ -76,7 +77,7 @@ public class Parser {
     splitText(text);
     tokenizeText();
     if(handleCommentsAndBlankLines()) {
-      return;
+      return; // If it's a comment line, return early. Comments have no commands.
     }
     mapTokensToNodes();
   }
