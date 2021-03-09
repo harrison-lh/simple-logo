@@ -1,5 +1,6 @@
-package slogo.controller;
+package slogo.controller.commands;
 
+import slogo.controller.Node;
 import slogo.model.Turtle;
 
 /**
