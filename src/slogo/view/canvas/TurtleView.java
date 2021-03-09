@@ -22,6 +22,11 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
     this.setCache(true);
   }
 
+  public String getTurtleImageFilename() {
+    String fullUrl = myTurtleImage.getUrl();
+    return fullUrl.substring(fullUrl.lastIndexOf('/') + 1);
+  }
+
   @Override
   public Consumer<String> updateAction() {
     return this::changeTurtleImage;

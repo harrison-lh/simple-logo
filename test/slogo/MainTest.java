@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import slogo.view.MainView;
 import slogo.view.canvas.GridLines;
-import slogo.view.menubar.BackgroundSelector;
+import slogo.view.canvas.TurtleView;
 import util.DukeApplicationTest;
 
 class MainTest extends DukeApplicationTest {
@@ -60,7 +60,9 @@ class MainTest extends DukeApplicationTest {
   void testBackgroundSelector() {
     ColorPicker backgroundColorPicker = lookup("#BackgroundColorPicker").queryAs(ColorPicker.class);
     Color testColor = Color.RED;
+    // Select background color
     setValue(backgroundColorPicker, testColor);
+    // Check if grid background color updates
     assertEquals(new Background(new BackgroundFill(testColor, CornerRadii.EMPTY, Insets.EMPTY)),
         lookup("#Grid").queryAs(StackPane.class).getBackground());
   }
@@ -70,8 +72,27 @@ class MainTest extends DukeApplicationTest {
     ComboBox<String> gridSelectorComboBox = lookup("#GridSelectorComboBox")
         .queryComboBox();
     String testGridSetting = "Axis";
+    // Select axis grid type
     select(gridSelectorComboBox, testGridSetting);
+    // Check if axes are visible
     assertTrue(lookup("#GridLines").queryAs(GridLines.class).axisIsVisible());
+  }
+
+  @Test
+  void testTurtleSelector() {
+    ComboBox<String> turtleSelectorComboBox = lookup("#TurtleSelectorComboBox")
+        .queryComboBox();
+    String testTurtle = "Realistic";
+    // Select realistic turtle
+    select(turtleSelectorComboBox, testTurtle);
+    // Check if turtle image filename is correct
+    assertEquals("turtle-realistic.png",
+        lookup("#TurtleView").queryAs(TurtleView.class).getTurtleImageFilename());
+  }
+
+  @Test
+  void testHelpWindow() {
+    // TODO: Not sure how to check if new window opens
   }
 
   private void assertExists(String query) {
