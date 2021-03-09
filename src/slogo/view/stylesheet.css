@@ -1,0 +1,77 @@
+.root {
+  -fx-font-size: 12pt;
+  -fx-font-family: "Helvetica Neue";
+}
+
+.axis {
+  -fx-stroke: blue;
+}
+
+.command-title {
+  -fx-font-size: 24pt;
+  -fx-font-weight: bold;
+  -fx-text-alignment: center;
+}
+
+.command-info {
+  -fx-wrap-text: true;
+}
+
+#MenuBar {
+  -fx-border-width: 0 0 2px 0;
+  -fx-border-color: black;
+  -fx-background-color: #ffebcc;
+  -fx-padding: 6px 12px 6px 12px;
+  -fx-spacing: 12px;
+}
+
+#MenuBar .selector {
+  -fx-spacing: 3px;
+}
+
+#Canvas {
+  -fx-padding: 16px;
+  -fx-border-width: 0px 0px 1px 0px;
+  -fx-border-color: #666666;
+}
+
+#Grid {
+  -fx-border-color: black;
+  -fx-border-radius: 1px;
+}
+
+#InfoBoxes {
+  -fx-min-width: 240px;
+}
+
+#VariablesBox {
+  -fx-border-width: 0px 0px 1px 2px;
+  -fx-border-color: #666666;
+  -fx-background: #ffebe6;
+}
+
+#UDCommandsBox {
+  -fx-border-width: 1px 0px 1px 2px;
+  -fx-border-color: #666666;
+  -fx-background: #ffebe6;
+}
+
+#CommandHistoryBox {
+  -fx-border-width: 1px 0px 0px 1px;
+  -fx-border-color: #666666;
+  -fx-background: #e6f0ff;
+}
+
+#InputBox {
+  -fx-max-width: 360px;
+  -fx-max-height: 10px;
+}
+
+#InputButton {
+  -fx-background-color: #009933;
+  -fx-text-fill: white;
+}
+
+#HelpWindow {
+  -fx-padding: 10px;
+}
