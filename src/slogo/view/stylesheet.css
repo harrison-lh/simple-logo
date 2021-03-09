@@ -3,10 +3,6 @@
   -fx-font-family: "Helvetica Neue";
 }
 
-.box {
-  -fx-background-color: #d6f5d6;
-}
-
 .axis {
   -fx-stroke: blue;
 }
@@ -35,6 +31,8 @@
 
 #Canvas {
   -fx-padding: 16px;
+  -fx-border-width: 0px 0px 1px 0px;
+  -fx-border-color: #666666;
 }
 
 #Grid {
@@ -46,9 +44,32 @@
   -fx-min-width: 240px;
 }
 
+#VariablesBox {
+  -fx-border-width: 0px 0px 1px 2px;
+  -fx-border-color: #666666;
+  -fx-background: #ffebe6;
+}
+
+#UDCommandsBox {
+  -fx-border-width: 1px 0px 1px 2px;
+  -fx-border-color: #666666;
+  -fx-background: #ffebe6;
+}
+
+#CommandHistoryBox {
+  -fx-border-width: 1px 0px 0px 1px;
+  -fx-border-color: #666666;
+  -fx-background: #e6f0ff;
+}
+
 #InputBox {
   -fx-max-width: 360px;
   -fx-max-height: 10px;
+}
+
+#InputButton {
+  -fx-background-color: #009933;
+  -fx-text-fill: white;
 }
 
 #HelpWindow {
