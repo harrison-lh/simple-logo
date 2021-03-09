@@ -7,7 +7,7 @@ public class GridCoordinates extends Coordinates {
   }
 
   public GridCoordinates(){
-    super(DEFAULT_X, DEFAULT_Y, DEFAULT_HEADING);
+    super();
   }
 
   @Override

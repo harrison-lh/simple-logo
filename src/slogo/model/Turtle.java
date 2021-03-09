@@ -7,6 +7,7 @@ import slogo.model.Coordinates;
  * the fundamental variables of where the turtle is placed and facing.
  *
  * @author Harrison Huang
+ * @author Cole Spector
  */
 public class Turtle {
 
