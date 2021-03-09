@@ -12,6 +12,15 @@ public class Variables<E>{
     varMap = new HashMap<>();
   }
 
+  public E getValue(String key){
+    return varMap.get(key);
+  }
+
+  public void setValue(String key, E value){
+    varMap.put(key, value);
+  }
+
+
 
 
 }
