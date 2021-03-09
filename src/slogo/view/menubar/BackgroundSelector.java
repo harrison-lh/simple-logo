@@ -17,6 +17,7 @@ public class BackgroundSelector extends VBox implements Selector<Color> {
     this.getStyleClass().add("selector");
     Label myLabel = new Label("Canvas Background");
     myColorPicker = new ColorPicker(DEFAULT_CANVAS_COLOR);
+    myColorPicker.setId("BackgroundColorPicker");
 
     this.getChildren().addAll(myLabel, myColorPicker);
   }

@@ -17,6 +17,7 @@ public class GridSelector extends VBox implements Selector<String> {
     this.getStyleClass().add("selector");
     Label myLabel = new Label("Grid Settings");
     myComboBox = new ComboBox<>();
+    myComboBox.setId("GridSelectorComboBox");
     myComboBox.getItems().addAll("None", "Axis");
     myComboBox.getSelectionModel().selectFirst();
 

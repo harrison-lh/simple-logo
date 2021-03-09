@@ -11,14 +11,13 @@ import slogo.view.SelectorTarget;
 
 public class SLogoCanvas extends AnchorPane implements SelectorTarget<Color> {
 
-  public static final double CANVAS_MARGIN = 8;
+  public static final double CANVAS_MARGIN = 6;
   public static final double CANVAS_ASPECT_RATIO = 4.0 / 3;
 
   private final Grid myGrid;
 
   public SLogoCanvas() {
     this.setId("Canvas");
-    this.getStyleClass().add("box");
 
     myGrid = new Grid();
 

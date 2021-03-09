@@ -29,6 +29,7 @@ public class MenuBar extends HBox {
     myLanguageSelector = new LanguageSelector();
 
     Button infoButton = new Button("?");
+    infoButton.setId("InfoButton");
     infoButton.setShape(new Circle(2));
     infoButton.setOnAction(e -> openCommandsWindow());
 

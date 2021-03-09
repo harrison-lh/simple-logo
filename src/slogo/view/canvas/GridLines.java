@@ -7,6 +7,7 @@ public class GridLines extends Pane {
 
   private final Line xAxis;
   private final Line yAxis;
+  private boolean axisIsVisible;
 
   public GridLines() {
     this.setId("GridLines");
@@ -28,12 +29,18 @@ public class GridLines extends Pane {
     if (gridType.equals("None")) {
       xAxis.setOpacity(0);
       yAxis.setOpacity(0);
+      axisIsVisible = false;
     }
     else if (gridType.equals("Axis")) {
       xAxis.setOpacity(1);
       yAxis.setOpacity(1);
+      axisIsVisible = true;
     }
     this.resize();
+  }
+
+  public boolean axisIsVisible() {
+    return axisIsVisible;
   }
 
   public void resize() {
