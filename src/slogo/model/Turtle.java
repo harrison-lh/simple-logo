@@ -23,6 +23,14 @@ public class Turtle {
     this.pen = pen;
   }
 
+  public Pen getPen(){
+    return pen;
+  }
+
+  public boolean isPenActive(){
+    return pen.isPenActive();
+  }
+
   /**
    * Creates a new Turtle object given parameters of a starting position and heading.
    *
