@@ -12,9 +12,17 @@ package slogo.model;
 public abstract class Coordinates {
 
   protected static final double MAX_DEGREES = 360;
+  protected static final double DEFAULT_X = 0;
+  protected static final double DEFAULT_Y = 0;
+  protected static final double DEFAULT_HEADING = 90; //this is straight up, and when incremented rotates counter clockwise (to work with math.radians)
 
   protected double xPos, yPos, heading;
 
+  protected Coordinates(){
+    this.xPos = DEFAULT_X;
+    this.yPos = DEFAULT_Y;
+    this.heading = DEFAULT_HEADING;
+  }
   protected Coordinates(double x, double y, double heading){
     this.xPos = x;
     this.yPos = y;

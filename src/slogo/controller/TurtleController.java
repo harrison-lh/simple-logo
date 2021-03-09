@@ -1,8 +1,11 @@
 package slogo.controller;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import slogo.model.Coordinates;
 import slogo.model.Turtle;
 
 /**
@@ -14,17 +17,18 @@ import slogo.model.Turtle;
  */
 public class TurtleController {
   private Turtle turtle;
-  private Queue<Command> commandQueue;
+  private Deque<Command> commandQueue;
+  private Deque<Command> commandHistory;
   private boolean executeCommands;
 
   /**
    * Constructs a new TurtleController with a fresh Turtle, an empty queue, and not-presently running
    * any Commands.
    */
-  public TurtleController() {
-    this.turtle = new Turtle();
-    this.commandQueue = new LinkedList<>();
-    this.executeCommands = false;
+  public TurtleController(Turtle turtle) {
+    this.turtle = turtle;
+    commandQueue = new ArrayDeque<>();
+    commandHistory = new ArrayDeque<>();
   }
 
   /**

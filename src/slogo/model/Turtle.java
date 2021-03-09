@@ -1,6 +1,6 @@
 package slogo.model;
 
-import src.slogo.model.Coordinates;
+import slogo.model.Coordinates;
 
 /**
  * The Turtle is the object that commands of forward and right are put upon, and it contains
@@ -8,18 +8,16 @@ import src.slogo.model.Coordinates;
  *
  * @author Harrison Huang
  */
-public class Turtle<E extends Coordinates> {
+public class Turtle {
 
-  private E coordinates;
-  private static final double DEFAULT_X = 0;
-  private static final double DEFAULT_Y = 0;
-  private static final double DEFAULT_HEADING = 90;
+  private Coordinates coordinates;
+
 
   /**
    * Default constructor for Turtle.
    */
-  public Turtle(E coordinates) {
-    this(coordinates, DEFAULT_X, DEFAULT_Y, DEFAULT_HEADING);
+  public Turtle(Coordinates coordinates) {
+    this.coordinates = coordinates;
   }
 
   /**
@@ -30,7 +28,7 @@ public class Turtle<E extends Coordinates> {
    * @param heading direction turtle is facing relative to positive x-axis
    */
 
-  public Turtle(E coordinates, double x, double y, double heading) {
+  public Turtle(Coordinates coordinates, double x, double y, double heading) {
     this.coordinates = coordinates;
     coordinates.setX(x);
     coordinates.setY(y);
@@ -65,6 +63,18 @@ public class Turtle<E extends Coordinates> {
     double heading = coordinates.getHeading();
 
     setHeading(heading - degrees);
+  }
+
+  /**
+   * Turns the turtle to the left for a certain number of degrees.
+   *
+   * @param degrees number of degrees the turtle will move counter-clockwise
+   */
+  public void left(double degrees) {
+
+    double heading = coordinates.getHeading();
+
+    setHeading(heading + degrees);
   }
 
   /**

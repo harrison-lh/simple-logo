@@ -6,6 +6,10 @@ public class GridCoordinates extends Coordinates {
     super(x, y, heading);
   }
 
+  public GridCoordinates(){
+    super(DEFAULT_X, DEFAULT_Y, DEFAULT_HEADING);
+  }
+
   @Override
   public double getX() {
     return xPos;
