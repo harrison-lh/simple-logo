@@ -148,7 +148,7 @@ public class Lexer {
         return e.getKey();
       }
     }
-    throw new IllegalArgumentException();
+    throw new IllegalArgumentException(ERROR);
   }
 
 
