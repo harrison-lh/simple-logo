@@ -43,10 +43,29 @@ public class Parser {
 
   private void mapTokensToNodes() {
     for(Token curToken : tokenizedText) {
-      switch(curToken) {
-        // TODO: Implement this stuff
+      patternMatchToken(curToken);
+    }
+  }
+
+  private Node patternMatchToken(Token token) {
+    switch(token) {
+      case COMMAND -> {
+        // TODO: Create __Command
+      }
+      case CONSTANT -> {
+        // TODO: Create __Constant
+      }
+      case VARIABLE -> {
+        // TODO: Create __Variable
+      }
+      case LIST_START -> {
+        // TODO: Create ListStartNode
+      }
+      case LIST_END -> {
+        // TODO: Create ListEndNode
       }
     }
+    return null;
   }
 
   public void setSyntaxLang(String syntaxLang) {
@@ -56,6 +75,13 @@ public class Parser {
   public void createParseTree(String text) {
     splitText(text);
     tokenizeText();
+    if(handleCommentsAndBlankLines()) {
+      return;
+    }
     mapTokensToNodes();
+  }
+
+  private boolean handleCommentsAndBlankLines() {
+    return (tokenizedText.contains(Token.COMMENT) || tokenizedText.isEmpty());
   }
 }
