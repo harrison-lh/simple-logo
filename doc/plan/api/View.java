@@ -22,14 +22,21 @@ public interface View {
    *
    * @param var The variable to be added
    */
-  public void addVariable(Variable var);
+  public void addVariable(Variable variable);
+
+  /**
+   * Updates an existing variable displayed on screen.
+   *
+   * @param var The existing variable to be updated
+   */
+  public void updateVariable(Variable variable);
 
   /**
    * Deletes an existing variable displayed on screen.
    *
    * @param var The existing variable to be deleted
    */
-  public void removeVariable(Variable var);
+  public void removeVariable(Variable variable);
 
   /**
    * Adds a user-defined command to be displayed on screen.
