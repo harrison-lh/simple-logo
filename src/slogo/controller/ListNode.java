@@ -2,6 +2,7 @@ package slogo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import slogo.model.Turtle;
 
 /**
  * ListNode is a concrete class that can hold a number of different Nodes and Node trees in a List.
@@ -56,5 +57,19 @@ public class ListNode extends Node {
    */
   public boolean removeNodeFromList(Node nodeToRemove) {
     return nodeList.remove(nodeToRemove);
+  }
+
+  /**
+   * Executes all Nodes in the list. Returns the value of the last command run.
+   * @param turtle The turtle to be commanded
+   * @return The value of the last command run, or 0 if none are run.
+   */
+  @Override
+  public double execute(Turtle turtle) {
+    double lastVal = 0;
+    for (Node node : nodeList) {
+      lastVal = node.execute(turtle);
+    }
+    return lastVal;
   }
 }
