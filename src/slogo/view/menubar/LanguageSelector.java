@@ -11,6 +11,7 @@ public class LanguageSelector extends VBox implements Selector<String> {
   private final ComboBox<String> myComboBox;
 
   public LanguageSelector() {
+    this.setId("LanguageSelector");
     this.getStyleClass().add("selector");
     Label myLabel = new Label("Language");
     myComboBox = new ComboBox<>();

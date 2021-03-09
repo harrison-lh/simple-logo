@@ -28,15 +28,24 @@ public class MainView extends VBox {
     this.getChildren().add(bottom);
 
     connectColorSelector(mySLogoCanvas, myMenuBar.getBackgroundSelector());
+    connectStringSelector(mySLogoCanvas.getGrid(), myMenuBar.getGridSelector());
+    connectStringSelector(mySLogoCanvas.getTurtleView(), myMenuBar.getTurtleSelector());
+  }
+
+  public void resizeElements() {
+    mySLogoCanvas.resizeElements();
   }
 
   private void connectColorSelector(SelectorTarget<Color> target, Selector<Color> selector) {
     selector.setUpdateAction(target.updateAction());
   }
 
+  private void connectStringSelector(SelectorTarget<String> target, Selector<String> selector) {
+    selector.setUpdateAction(target.updateAction());
+  }
+
   private HBox createBottom() {
     HBox bottom = new HBox();
-    bottom.getStyleClass().add("box");
 
     myInputBox = new InputBox();
     bottom.getChildren().add(myInputBox);
@@ -50,7 +59,6 @@ public class MainView extends VBox {
 
   private HBox createBody() {
     HBox body = new HBox();
-    body.getStyleClass().add("box");
 
     mySLogoCanvas = new SLogoCanvas();
     body.getChildren().add(mySLogoCanvas);

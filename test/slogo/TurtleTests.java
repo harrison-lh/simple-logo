@@ -4,45 +4,57 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import slogo.model.GridCoordinates;
 import slogo.model.Turtle;
 import util.DukeApplicationTest;
 
 public class TurtleTests extends DukeApplicationTest {
 
+
   private static final double X_AXIS_ANGLE = 0;
   private static final double MOVE_DISTANCE = 100;
-  private static final double DEFAULT_X_POSITION = 10;
-  private static final double DEFAULT_Y_POSITION = -10;
+  private static final double DEFAULT_X_POSITION = 0;
+  private static final double DEFAULT_Y_POSITION = 0;
+  private static final double DEFAULT_HEADING = 90;
   private static final double ROTATE_ANGLE = 120;
   private Turtle turtle;
 
   @BeforeEach
   public void setupTurtle() {
-    turtle = new Turtle();
-    turtle.setX(DEFAULT_X_POSITION);
-    turtle.setY(DEFAULT_Y_POSITION);
-    turtle.setHeading(X_AXIS_ANGLE);
+    turtle = new Turtle(new GridCoordinates());
   }
 
   @Test
   public void testInitialPosition() {
-    assertEquals(turtle.getX(), DEFAULT_X_POSITION);
-    assertEquals(turtle.getY(), DEFAULT_Y_POSITION);
-    assertEquals(turtle.getHeading(), X_AXIS_ANGLE);
+    assertEquals(DEFAULT_X_POSITION, turtle.getX());
+    assertEquals(DEFAULT_Y_POSITION,turtle.getY());
+    assertEquals(DEFAULT_HEADING, turtle.getHeading());
   }
 
   @Test
   public void testTurtleForward() {
-    turtle.setHeading(X_AXIS_ANGLE);
-    turtle.forward(MOVE_DISTANCE);
-    assertEquals(DEFAULT_X_POSITION + MOVE_DISTANCE, turtle.getX());
+    //set turtle facing right along the x-axis
+    double heading = 0;
+    turtle.setHeading(heading);
+    //move the turtle 100 pixels along the x-axis
+    double moveDistance = 100;
+    turtle.forward(moveDistance);
+    assertEquals(DEFAULT_X_POSITION + moveDistance, turtle.getX());
     assertEquals(DEFAULT_Y_POSITION, turtle.getY());
   }
 
   @Test
   public void testRightRotate() {
-    turtle.right(5 * ROTATE_ANGLE);
-    assertEquals(ROTATE_ANGLE, turtle.getHeading());
+    double amountToTurn = 45;
+    turtle.right(amountToTurn);
+    assertEquals(45, turtle.getHeading());
+  }
+
+  @Test
+  public void testExcessiveRightRotate() {
+    double amountToTurn = 180;
+    turtle.right(amountToTurn);
+    assertEquals(270, turtle.getHeading());
   }
 
   @Test
