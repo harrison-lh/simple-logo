@@ -4,8 +4,7 @@
 }
 
 .box {
-  -fx-border-color: black;
-  -fx-border-radius: 1px;
+  -fx-background-color: #d6f5d6;
 }
 
 .axis {
@@ -23,6 +22,9 @@
 }
 
 #MenuBar {
+  -fx-border-width: 0 0 2px 0;
+  -fx-border-color: black;
+  -fx-background-color: #ffebcc;
   -fx-padding: 6px 12px 6px 12px;
   -fx-spacing: 12px;
 }

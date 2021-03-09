@@ -59,7 +59,6 @@ public class MainView extends VBox {
 
   private HBox createBody() {
     HBox body = new HBox();
-    body.getStyleClass().add("box");
 
     mySLogoCanvas = new SLogoCanvas();
     body.getChildren().add(mySLogoCanvas);

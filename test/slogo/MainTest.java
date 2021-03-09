@@ -90,10 +90,10 @@ class MainTest extends DukeApplicationTest {
         lookup("#TurtleView").queryAs(TurtleView.class).getTurtleImageFilename());
   }
 
-  @Test
-  void testHelpWindow() {
-    // TODO: Not sure how to check if new window opens
-  }
+//  @Test
+//  void testHelpWindow() {
+//    // TODO: Not sure how to check if new window opens
+//  }
 
   private void assertExists(String query) {
     assertNotEquals(lookup(query).query(), null);

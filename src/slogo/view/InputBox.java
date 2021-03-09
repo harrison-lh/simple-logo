@@ -13,7 +13,6 @@ public class InputBox extends BorderPane {
 
   public InputBox() {
     this.setId("InputBox");
-    this.getStyleClass().add("box");
     myInputBoxArea = new TextArea();
     myInputBoxArea.setId("InputBoxArea");
     myInputBoxArea.setPrefHeight(BOTTOM_HEIGHT);
