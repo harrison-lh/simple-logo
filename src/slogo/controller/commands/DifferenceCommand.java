@@ -1,14 +1,14 @@
-package slogo.controller.commands.mathoperations;
+package slogo.controller.commands;
 
 import slogo.controller.Command;
 import slogo.model.Turtle;
 
-public class QuotientCommand extends Command {
+public class DifferenceCommand extends Command {
 
   private static final int NUM_PARAMS = 2;
 
-  public QuotientCommand(){
-    numParams = NUM_PARAMS;
+  public DifferenceCommand(){
+    setNumParams(NUM_PARAMS);
   }
 
   @Override
@@ -16,7 +16,7 @@ public class QuotientCommand extends Command {
     double a = getChildren().get(0).execute(turtle);
     double b = getChildren().get(1).execute(turtle);
 
-    return a / b;
+    return a - b;
 
   }
 }

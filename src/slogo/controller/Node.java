@@ -14,8 +14,8 @@ import slogo.model.Turtle;
  */
 public abstract class Node {
 
-  private int numParams;
   private List<Node> children = new ArrayList<>();
+  private int numParams = 0;
 
   /**
    * Add an additional child Node to the Node.
@@ -52,9 +52,9 @@ public abstract class Node {
   }
 
   /**
-   * Returns the number of parameters that this Command takes
+   * Returns the number of parameters that this Node has.
    *
-   * @return The number of parameters that this Command takes
+   * @return The number of parameters that this Node has.
    */
   public int getNumParams() {
     return numParams;
