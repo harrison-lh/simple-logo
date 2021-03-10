@@ -4,6 +4,7 @@ package slogo;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import slogo.controller.Controller;
 import slogo.view.MainView;
 
 /**
@@ -32,7 +33,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        MainView mainView = new MainView();
+        Controller controller = new Controller();
+        MainView mainView = controller.getMainView();
         Scene scene = new Scene(mainView, WIDTH, HEIGHT);
         scene.getStylesheets().add("slogo/view/stylesheet.css");
         stage.setScene(scene);
