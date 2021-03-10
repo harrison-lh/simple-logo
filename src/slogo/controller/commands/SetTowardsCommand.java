@@ -9,14 +9,14 @@ import slogo.model.Turtle;
  * @author Harrison Huang
  */
 
-public class TowardsCommand extends Command {
+public class SetTowardsCommand extends Command {
 
   private static final int NUM_PARAMS = 2;
 
   /**
    * Constructor for SetHeadingCommand.
    */
-  public TowardsCommand() {
+  public SetTowardsCommand() {
     setNumParams(NUM_PARAMS);
   }
 

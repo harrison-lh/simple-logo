@@ -26,7 +26,6 @@ public class Parser {
   private final Lexer lexer;
   private Queue<String> splitText;
   private Queue<Token> tokenizedText;
-  private final List<VariableNode> variables;
   private final Queue<Node> parsedNodeQueue;
   private final Queue<Node> assembledNodeQueue;
 
@@ -35,7 +34,6 @@ public class Parser {
     this.lexer = new Lexer(syntaxLang);
     this.splitText = new LinkedList<>();
     this.tokenizedText = new LinkedList<>();
-    this.variables = new ArrayList<>();
     this.parsedNodeQueue = new LinkedList<>();
     this.assembledNodeQueue = new LinkedList<>();
   }
@@ -79,14 +77,10 @@ public class Parser {
         return new ConstantNode(Double.parseDouble(text));
       }
       case VARIABLE -> {
-        for (VariableNode curVarNode : variables) {
-          if (curVarNode.getName().equals(text)) {
-            return curVarNode;
-          }
+        if (!controller.getTurtle().getVars().containsKey(text)) {
+          controller.getTurtle().getVars().setValue(text, 0);
         }
-        VariableNode newNode = new VariableNode(text);
-        variables.add(newNode);
-        return newNode;
+        return new VariableNode(text);
       }
       case LIST_START -> {
         // TODO: Create ListStartNode

@@ -94,6 +94,32 @@ public class ParserTests {
   }
 
   @Test
+  public void altForwardThenReverse() {
+    double initY = turtle.getY();
+    parser.parseCommandString("fd 50 bk 50");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY);
+  }
+
+  @Test
+  public void leftThenRight() {
+    double initHeading = turtle.getHeading();
+    parser.parseCommandString("rt 90 lt 90");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getHeading(), initHeading, 0.01);
+  }
+
+  @Test
+  public void setHeading() {
+    parser.parseCommandString("seth 93");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getHeading(), 93);
+  }
+
+  @Test
   public void fdCos90ThenSin0ThenTan0ThenATan0() {
     double initY = turtle.getY();
     parser.parseCommandString("fd cos 90 fd sin 0 fd tan 0 atan 0");
@@ -193,5 +219,32 @@ public class ParserTests {
     parser.parseCommandString("fd ycor");
     controller.runCommands();
     assertEquals(turtle.getY(), initY - 100);
+  }
+
+  @Test
+  public void testVariables() {
+    double initY = turtle.getY();
+    parser.parseCommandString("make :A 50 fd :A");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 50);
+  }
+
+  @Test
+  public void testVariablesHard() {
+    double initY = turtle.getY();
+    parser.parseCommandString("make :A 50 make :B 50 fd sum :A :B");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 100);
+  }
+
+  @Test
+  public void testVariableResets() {
+    double initY = turtle.getY();
+    parser.parseCommandString("make :A 50 make :B 50 set :A 25 fd sum :A :B");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 75);
   }
 }
