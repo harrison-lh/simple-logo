@@ -60,10 +60,12 @@ public class Parser {
     switch (token) {
       case COMMAND -> {
         String commandType = lexer.lexLangDefinedCommands(text);
+        System.out.println(commandType);
         try {
-          Class<?> commandClass = Class.forName(commandType + "Command");
+          Class<?> commandClass = Class.forName("slogo.controller.commands."+commandType + "Command");
           return (Node) commandClass.getConstructor().newInstance();
         } catch (Exception e) {
+          System.err.println("LOOKUP NO WORK!!!");
           // TODO: Might be a user-defined command, so we must check those!
         }
       }
@@ -131,6 +133,9 @@ public class Parser {
     }
     mapTokensToNodes();
     assembleCommandQueue();
+    for(Node node : assembledNodeQueue) {
+      System.out.println(node);
+    }
     controller.pushNodes(assembledNodeQueue);
   }
 }
