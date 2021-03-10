@@ -7,8 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import slogo.view.SelectorTarget;
 
-public class TurtleView extends ImageView implements SelectorTarget<String>,
-    PropertyChangeListener {
+public class TurtleView extends ImageView implements SelectorTarget<String>{
 
   public static final String IMAGES_DIRECTORY = "resources/images/";
   public static final String DEFAULT_TURTLE = "turtle-default.png";
@@ -27,7 +26,9 @@ public class TurtleView extends ImageView implements SelectorTarget<String>,
     this.setSmooth(true);
     this.setCache(true);
 
-    this.setLocation(0, 0);
+    this.setXCoordinate(0);
+    this.setYCoordinate(0);
+    this.setHeading(0);
   }
 
   public String getTurtleImageFilename() {
@@ -40,8 +41,11 @@ public class TurtleView extends ImageView implements SelectorTarget<String>,
     return this::changeTurtleImage;
   }
 
-  public void setLocation(double x, double y) {
+  public void setXCoordinate(double x) {
     this.xCoordinate = x;
+  }
+
+  public void setYCoordinate(double y) {
     this.yCoordinate = y;
   }
 
@@ -66,10 +70,5 @@ public class TurtleView extends ImageView implements SelectorTarget<String>,
       myTurtleImage = new Image(IMAGES_DIRECTORY + REALISTIC_TURTLE);
       this.setImage(myTurtleImage);
     }
-  }
-
-  @Override
-  public void propertyChange(PropertyChangeEvent evt) {
-
   }
 }

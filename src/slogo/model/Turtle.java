@@ -10,6 +10,7 @@ import slogo.model.Coordinates;
  *
  * @author Harrison Huang
  * @author Cole Spector
+ * @author David Li
  */
 public class Turtle {
 
@@ -26,6 +27,13 @@ public class Turtle {
     this.pen = pen;
     this.vars = new Variables();
     this.listener = listener;
+  }
+
+  /**
+   * Constructor with no listener attached
+   */
+  public Turtle(Coordinates coordinates, Pen pen) {
+    this(coordinates, pen, null);
   }
 
   public Variables getVars() {
@@ -67,6 +75,8 @@ public class Turtle {
 
     xPos += pixels * Math.cos(Math.toRadians(heading));
     yPos += pixels * Math.sin(Math.toRadians(heading));
+
+    System.out.println("turtle fd");
 
     listener.propertyChange(new PropertyChangeEvent(this, "X", coordinates.getX(), xPos));
     listener.propertyChange(new PropertyChangeEvent(this, "Y", coordinates.getY(), yPos));

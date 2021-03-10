@@ -1,5 +1,7 @@
 package slogo.view.canvas;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.function.Consumer;
 import javafx.geometry.Insets;
 import javafx.scene.layout.AnchorPane;
@@ -9,7 +11,8 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import slogo.view.SelectorTarget;
 
-public class SLogoCanvas extends AnchorPane implements SelectorTarget<Color> {
+public class SLogoCanvas extends AnchorPane implements SelectorTarget<Color>,
+    PropertyChangeListener {
 
   public static final double CANVAS_MARGIN = 6;
   public static final double GRID_ASPECT_RATIO = 4.0 / 3;
@@ -59,7 +62,16 @@ public class SLogoCanvas extends AnchorPane implements SelectorTarget<Color> {
     myGrid.resizeElements();
   }
 
-  public void updateTurtleView(double x, double y, double heading) {
-    myGrid.updateTurtleView(x, y, heading);
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    if (evt.getPropertyName().equals("X")) {
+      myGrid.setTurtleX((Integer) evt.getNewValue());
+    }
+    else if (evt.getPropertyName().equals("Y")) {
+      myGrid.setTurtleY((Integer) evt.getNewValue());
+    }
+    else if (evt.getPropertyName().equals("HEADING")) {
+      myGrid.setTurtleHeading((Integer) evt.getNewValue());
+    }
   }
 }

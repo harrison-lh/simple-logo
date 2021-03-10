@@ -37,10 +37,17 @@ public class Grid extends StackPane implements SelectorTarget<String> {
     myTurtleView.setTranslateY(convertYCoordinate(myTurtleView.getYCoordinate()));
   }
 
-  public void updateTurtleView(double x, double y, double heading) {
-    myTurtleView.setLocation(x, y);
+  public void setTurtleX(double x) {
+    myTurtleView.setXCoordinate(x);
     myTurtleView.setTranslateX(convertXCoordinate(x));
+  }
+
+  public void setTurtleY(double y) {
+    myTurtleView.setYCoordinate(y);
     myTurtleView.setTranslateY(convertYCoordinate(y));
+  }
+
+  public void setTurtleHeading(double heading) {
     myTurtleView.setHeading(heading);
     myTurtleView.setRotate(heading);
   }

@@ -40,16 +40,11 @@ public class MainView extends VBox implements View {
   }
 
   public PropertyChangeListener getListener() {
-    return myTurtleView;
+    return mySLogoCanvas;
   }
 
   public void resizeElements() {
     mySLogoCanvas.resizeElements();
-  }
-
-  @Override
-  public void updateTurtleView(Turtle turtle) {
-    mySLogoCanvas.updateTurtleView(turtle.getX(), turtle.getY(), turtle.getHeading());
   }
 
   @Override
