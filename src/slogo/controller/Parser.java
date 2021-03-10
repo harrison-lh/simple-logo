@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Stack;
 
 /**
  * Parser is the meat-and-potatoes of the SLogo Control layer. This class takes in a String of SLogo
@@ -15,13 +16,13 @@ import java.util.Queue;
  */
 public class Parser {
 
-  private TurtleController controller;
-  private Lexer lexer;
+  private final TurtleController controller;
+  private final Lexer lexer;
   private Queue<String> splitText;
   private Queue<Token> tokenizedText;
-  private List<VariableNode> variables;
-  private Queue<Node> parsedNodeQueue;
-  private Queue<Command> assembledCommandQueue;
+  private final List<VariableNode> variables;
+  private final Queue<Node> parsedNodeQueue;
+  private final Queue<Node> assembledNodeQueue;
 
   public Parser(TurtleController controller, String syntaxLang) {
     this.controller = controller;
@@ -30,7 +31,7 @@ public class Parser {
     this.tokenizedText = new LinkedList<>();
     this.variables = new ArrayList<>();
     this.parsedNodeQueue = new LinkedList<>();
-    this.assembledCommandQueue = new LinkedList<>();
+    this.assembledNodeQueue = new LinkedList<>();
   }
 
   private void splitText(String text) {
@@ -94,7 +95,28 @@ public class Parser {
   }
 
   private void assembleCommandQueue() {
+    while(!parsedNodeQueue.isEmpty()) {
+      Stack<Node> pendingFilledArgs = new Stack<>();
+      Node rootNode = parsedNodeQueue.poll();
+      Node curNode = rootNode;
+      dfsHelper(pendingFilledArgs, curNode);
+      while(!pendingFilledArgs.isEmpty()) {
+        curNode = pendingFilledArgs.pop();
+        dfsHelper(pendingFilledArgs, curNode);
+      }
+      assembledNodeQueue.add(rootNode);
+    }
+  }
 
+  private void dfsHelper(Stack<Node> pendingFilledArgs, Node curNode) {
+    while (curNode.getNumParams() > curNode.getChildren().size()) {
+      Node childNode = parsedNodeQueue.poll();
+      curNode.addChild(childNode);
+      if (childNode.getNumParams() > 0 && curNode.getNumParams() > curNode.getChildren().size()) {
+        pendingFilledArgs.push(curNode);
+        curNode = childNode;
+      }
+    }
   }
 
   public void setSyntaxLang(String syntaxLang) {
@@ -109,6 +131,6 @@ public class Parser {
     }
     mapTokensToNodes();
     assembleCommandQueue();
-    controller.pushCommands(assembledCommandQueue);
+    controller.pushNodes(assembledNodeQueue);
   }
 }

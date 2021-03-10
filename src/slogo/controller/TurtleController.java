@@ -2,10 +2,7 @@ package slogo.controller;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
-import slogo.model.Coordinates;
 import slogo.model.Turtle;
 
 /**
@@ -16,14 +13,15 @@ import slogo.model.Turtle;
  * @author Harrison Huang
  */
 public class TurtleController {
+
   private Turtle turtle;
-  private Deque<Command> commandQueue;
-  private Deque<Command> commandHistory;
+  private Deque<Node> commandQueue;
+  private Deque<Node> commandHistory;
   private boolean executeCommands;
 
   /**
-   * Constructs a new TurtleController with a fresh Turtle, an empty queue, and not-presently running
-   * any Commands.
+   * Constructs a new TurtleController with a fresh Turtle, an empty queue, and not-presently
+   * running any Commands.
    */
   public TurtleController(Turtle turtle) {
     this.turtle = turtle;
@@ -35,19 +33,20 @@ public class TurtleController {
    * Tells the Turtle to execute Commands until either the commandQueue is empty.
    */
   public void runCommands() {
-    while(!commandQueue.isEmpty()) {
-      if(executeCommands) {
+    while (!commandQueue.isEmpty()) {
+      if (executeCommands) {
+        commandHistory.add(commandQueue.peek());
         commandQueue.poll().execute(turtle);
       }
     }
   }
 
   /**
-   * Add a Queue t of Commands to the commandQueue
+   * Add a Queue of Commands to the commandQueue
    *
    * @param commands The Queue of Commands to add to the commandQueue.
    */
-  public void pushCommands(Queue<Command> commands) {
+  public void pushNodes(Queue<Node> commands) {
     commandQueue.addAll(commands);
   }
 

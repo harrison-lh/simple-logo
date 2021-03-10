@@ -13,21 +13,11 @@ import slogo.model.Turtle;
  */
 public abstract class Command extends Node {
 
-  protected int numParams;
-
   /**
    * The execution behavior of the Command. That is, what it does once the AST is being consumed.
    *
    * @return The double for the return value of the command
    */
   public abstract double execute(Turtle turtle);
-
-  /**
-   * Returns the number of parameters that this Command takes
-   * @return The number of parameters that this Command takes
-   */
-  public int getNumParams() {
-    return numParams;
-  }
 
 }
