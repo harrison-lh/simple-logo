@@ -76,8 +76,10 @@ public class Turtle {
     xPos += pixels * Math.cos(Math.toRadians(heading));
     yPos += pixels * Math.sin(Math.toRadians(heading));
 
-    listener.propertyChange(new PropertyChangeEvent(this, "X", coordinates.getX(), xPos));
-    listener.propertyChange(new PropertyChangeEvent(this, "Y", coordinates.getY(), yPos));
+    if (listener != null) {
+      listener.propertyChange(new PropertyChangeEvent(this, "X", coordinates.getX(), xPos));
+      listener.propertyChange(new PropertyChangeEvent(this, "Y", coordinates.getY(), yPos));
+    }
 
     setX(xPos);
     setY(yPos);
@@ -92,7 +94,9 @@ public class Turtle {
 
     double heading = coordinates.getHeading();
 
-    listener.propertyChange(new PropertyChangeEvent(this, "HEADING", heading, heading - degrees));
+    if (listener != null) {
+      listener.propertyChange(new PropertyChangeEvent(this, "HEADING", heading, heading - degrees));
+    }
 
     setHeading(heading - degrees);
   }
@@ -106,7 +110,9 @@ public class Turtle {
 
     double heading = coordinates.getHeading();
 
-    listener.propertyChange(new PropertyChangeEvent(this, "HEADING", heading, heading - degrees));
+    if (listener != null) {
+      listener.propertyChange(new PropertyChangeEvent(this, "HEADING", heading, heading - degrees));
+    }
 
     setHeading(heading + degrees);
   }
