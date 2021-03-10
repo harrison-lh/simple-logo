@@ -138,6 +138,10 @@ public class Parser {
   }
 
   public Consumer<String> receiveInputAction() {
-    return this::parseCommandString;
+    return command -> {
+      parseCommandString(command);
+      controller.setIsAllowedToExecute(true);
+      controller.runCommands();
+    };
   }
 }

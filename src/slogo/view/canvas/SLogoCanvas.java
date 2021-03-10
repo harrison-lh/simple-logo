@@ -65,13 +65,13 @@ public class SLogoCanvas extends AnchorPane implements SelectorTarget<Color>,
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
     if (evt.getPropertyName().equals("X")) {
-      myGrid.setTurtleX((Integer) evt.getNewValue());
+      myGrid.setTurtleX((Double) evt.getNewValue());
     }
     else if (evt.getPropertyName().equals("Y")) {
-      myGrid.setTurtleY((Integer) evt.getNewValue());
+      myGrid.setTurtleY((Double) evt.getNewValue());
     }
     else if (evt.getPropertyName().equals("HEADING")) {
-      myGrid.setTurtleHeading((Integer) evt.getNewValue());
+      myGrid.setTurtleHeading((Double) evt.getNewValue());
     }
   }
 }
