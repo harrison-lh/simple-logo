@@ -21,7 +21,7 @@ public class Parser {
   private Queue<Token> tokenizedText;
   private final Queue<Node> parsedNodeQueue;
   private final Queue<Node> assembledNodeQueue;
-  private final Stack<ListNode> listNodes;
+
 
   public Parser(TurtleController controller, String syntaxLang) {
     this.controller = controller;
@@ -30,7 +30,6 @@ public class Parser {
     this.tokenizedText = new LinkedList<>();
     this.parsedNodeQueue = new LinkedList<>();
     this.assembledNodeQueue = new LinkedList<>();
-    this.listNodes = new Stack<>();
   }
 
   private void splitText(String text) {
@@ -79,10 +78,15 @@ public class Parser {
       }
       case LIST_START -> {
         // TODO: Create ListStartNode
-        ListNode listStart = new ListNode();
+        ListNode listStartNode = new ListNode(ListNodeType.START_LIST);
+        listStartNode.setNumParams(-1); // Kludge, but no other great way to say "infinite params"
+        return listStartNode;
       }
       case LIST_END -> {
         // TODO: Create ListEndNode
+        ListNode listEndNode = new ListNode(ListNodeType.END_LIST);
+        listEndNode.setNumParams(-1); // Kludge, but no other great way to say "infinite params"
+        return listEndNode;
       }
     }
     return null;

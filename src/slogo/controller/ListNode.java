@@ -18,7 +18,8 @@ public class ListNode extends Node {
   /**
    * Constructs a new ListNode with an empty List of Nodes.
    */
-  public ListNode() {
+  public ListNode(ListNodeType type) {
+    setListNodeType(type);
     nodeList = new ArrayList<>();
   }
 
@@ -26,7 +27,8 @@ public class ListNode extends Node {
    * Constructs a new ListNode with a List of Nodes
    * @param nodeList The List of Nodes with which to construct the ListNode
    */
-  public ListNode(List<Node> nodeList) {
+  public ListNode(ListNodeType type, List<Node> nodeList) {
+    setListNodeType(type);
     this.nodeList = nodeList;
   }
 

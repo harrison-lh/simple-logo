@@ -14,6 +14,7 @@ import slogo.model.Turtle;
  */
 public abstract class Node {
 
+  private ListNodeType listNodeType = ListNodeType.NOT_LIST;
   private List<Node> children = new ArrayList<>();
   private int numParams = 0;
 
@@ -60,4 +61,11 @@ public abstract class Node {
     return numParams;
   }
 
+  /**
+   * Set the type of ListNode that this Node is.
+   * @param listNodeType The type of ListNode that this Node is.
+   */
+  public void setListNodeType(ListNodeType listNodeType) {
+    this.listNodeType = listNodeType;
+  }
 }
