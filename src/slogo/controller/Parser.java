@@ -71,7 +71,6 @@ public class Parser {
         // TODO: Create __Constant
       }
       case VARIABLE -> {
-        // TODO: Create __Variable
         for(VariableNode curVarNode : variables) {
           if(curVarNode.getName().equals(text)) {
             return curVarNode;

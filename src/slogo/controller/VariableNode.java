@@ -9,20 +9,20 @@ import slogo.model.Turtle;
  *
  * @author Marc Chmielewski
  */
-public class VariableNode extends Node {
+public class VariableNode extends ConstantNode {
+
   private String name;
-  private double value;
 
   /**
    * Common case constructor for VariableNode. Takes in a String name, and a double value and maps
    * them to each other.
    *
-   * @param name The name of the variable.
+   * @param name  The name of the variable.
    * @param value The value of the variable.
    */
   public VariableNode(String name, double value) {
+    super(value);
     this.name = name;
-    this.value = value;
   }
 
   /**
@@ -32,8 +32,8 @@ public class VariableNode extends Node {
    * @param name The name of the variable
    */
   public VariableNode(String name) {
+    super(0);
     this.name = name;
-    this.value = 0;
   }
 
   /**
@@ -44,11 +44,12 @@ public class VariableNode extends Node {
    */
   @Override
   public double execute(Turtle turtle) {
-    return value;
+    return getValue();
   }
 
   /**
    * Gets the name of the VariableNode.
+   *
    * @return The name of the VariableNode
    */
   public String getName() {
@@ -62,23 +63,5 @@ public class VariableNode extends Node {
    */
   public void setName(String name) {
     this.name = name;
-  }
-
-  /**
-   * Gets the value of the VariableNode
-   *
-   * @return The value of the VariableNode
-   */
-  public double getValue() {
-    return value;
-  }
-
-  /**
-   * Sets the value of this VariableNode.
-   *
-   * @param value The value of this VariableNode.
-   */
-  public void setValue(double value) {
-    this.value = value;
   }
 }
