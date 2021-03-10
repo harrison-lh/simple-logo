@@ -6,6 +6,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import slogo.controller.Command;
+import slogo.controller.TurtleListener;
 import slogo.model.Turtle;
 import slogo.model.Variables;
 import slogo.view.canvas.SLogoCanvas;
@@ -19,6 +20,7 @@ public class MainView extends VBox implements View {
   private UDCommandsBox myUDCommandsBox;
   private InputBox myInputBox;
   private CommandHistoryBox myCommandHistoryBox;
+  private TurtleListener myTurtleListener;
 
   public MainView() {
     myMenuBar = new MenuBar();
@@ -34,6 +36,12 @@ public class MainView extends VBox implements View {
     connectColorSelector(mySLogoCanvas, myMenuBar.getBackgroundSelector());
     connectStringSelector(mySLogoCanvas.getGrid(), myMenuBar.getGridSelector());
     connectStringSelector(mySLogoCanvas.getTurtleView(), myMenuBar.getTurtleSelector());
+
+    myTurtleListener = new TurtleListener();
+  }
+
+  public TurtleListener getTurtleListener() {
+    return myTurtleListener;
   }
 
   public void resizeElements() {
