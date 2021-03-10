@@ -54,4 +54,48 @@ public class LexerTests {
         }
     );
   }
+
+  @Test
+  public void testSimpleLexLangDefinedCommands() {
+    Lexer lexer = new Lexer("English");
+    assertEquals("Forward", lexer.lexLangDefinedCommands("fd"));
+    assertEquals("Sum", lexer.lexLangDefinedCommands("+"));
+    assertEquals("DoTimes", lexer.lexLangDefinedCommands("dotimes"));
+    assertThrows(IllegalArgumentException.class, () -> {
+          lexer.lexLangDefinedCommands("fd 50");
+        }
+    );
+    assertThrows(IllegalArgumentException.class, () -> {
+          lexer.lexLangDefinedCommands("# This is a comment");
+        }
+    );
+  }
+
+  @Test
+  public void testComplexLexLangDefinedCommands() {
+    Lexer lexer = new Lexer("English");
+    assertEquals("Forward", lexer.lexLangDefinedCommands("fd"));
+    assertEquals("Sum", lexer.lexLangDefinedCommands("+"));
+    assertEquals("DoTimes", lexer.lexLangDefinedCommands("dotimes"));
+    assertThrows(IllegalArgumentException.class, () -> {
+          lexer.lexLangDefinedCommands("fd 50");
+        }
+    );
+    assertThrows(IllegalArgumentException.class, () -> {
+          lexer.lexLangDefinedCommands("# This is a comment");
+        }
+    );
+    lexer.setLangSymbols("Spanish");
+    assertEquals("Forward", lexer.lexLangDefinedCommands("ava"));
+    assertEquals("Sum", lexer.lexLangDefinedCommands("+"));
+    assertEquals("DoTimes", lexer.lexLangDefinedCommands("haz"));
+    assertThrows(IllegalArgumentException.class, () -> {
+          lexer.lexLangDefinedCommands("fd 50");
+        }
+    );
+    assertThrows(IllegalArgumentException.class, () -> {
+          lexer.lexLangDefinedCommands("# This is a comment");
+        }
+    );
+  }
 }
