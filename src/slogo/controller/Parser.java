@@ -1,7 +1,9 @@
 package slogo.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -19,6 +21,7 @@ public class Parser {
   private Queue<Node> parsedNodeQueue;
   private Queue<String> splitText;
   private Queue<Token> tokenizedText;
+  private List<VariableNode> variables;
 
   public Parser(TurtleController controller, String syntaxLang) {
     this.controller = controller;
@@ -26,6 +29,7 @@ public class Parser {
     this.root = null;
     this.splitText = new LinkedList<>();
     this.tokenizedText = new LinkedList<>();
+    this.variables = new ArrayList<>();
   }
 
   private void splitText(String text) {
@@ -54,12 +58,28 @@ public class Parser {
     switch (token) {
       case COMMAND -> {
         // TODO: Create __Command
+        String commandType = lexer.lexLangDefinedCommands(text);
+        try {
+          Class<?> commandClass = Class.forName(commandType + "Command");
+          return (Node)commandClass.getConstructor().newInstance();
+        }
+        catch (Exception e) {
+          // TODO: Must be a user-defined command, must check those!
+        }
       }
       case CONSTANT -> {
         // TODO: Create __Constant
       }
       case VARIABLE -> {
         // TODO: Create __Variable
+        for(VariableNode curVarNode : variables) {
+          if(curVarNode.getName().equals(text)) {
+            return curVarNode;
+          }
+        }
+        VariableNode newNode = new VariableNode(text);
+        variables.add(newNode);
+        return newNode;
       }
       case LIST_START -> {
         // TODO: Create ListStartNode
@@ -82,6 +102,7 @@ public class Parser {
       return; // If it's a comment line, return early. Comments have no commands.
     }
     mapTokensToNodes();
+
   }
 
   private boolean handleCommentsAndBlankLines() {
