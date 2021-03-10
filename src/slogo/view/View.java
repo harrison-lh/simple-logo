@@ -67,13 +67,6 @@ interface View {
   void removeUDCommand(Command command);
 
   /**
-   * Gets the contents of the user input box for the next command to be run.
-   *
-   * @return the user's input for the next command as a String
-   */
-  String getUserInput();
-
-  /**
    * Handles errors thrown by the controller by displaying a message on screen.
    *
    * @param error The error to be displayed
