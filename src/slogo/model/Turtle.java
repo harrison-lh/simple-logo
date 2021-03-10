@@ -13,6 +13,7 @@ public class Turtle {
 
   private Coordinates coordinates;
   private Pen pen;
+  private Variables vars;
 
 
   /**
@@ -21,6 +22,11 @@ public class Turtle {
   public Turtle(Coordinates coordinates, Pen pen) {
     this.coordinates = coordinates;
     this.pen = pen;
+    this.vars = new Variables();
+  }
+
+  public Variables getVars() {
+    return vars;
   }
 
   public Pen getPen(){

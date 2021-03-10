@@ -4,20 +4,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class Variables<E>{
+public class Variables {
 
-  private Map<String, E> varMap;
+  private Map<String, Double> varMap;
 
   public Variables(){
     varMap = new HashMap<>();
   }
 
-  public E getValue(String key){
+  public double getValue(String key){
     return varMap.get(key);
   }
 
-  public void setValue(String key, E value){
+  public void setValue(String key, double value){
     varMap.put(key, value);
+  }
+
+  public boolean containsKey(String key) {
+    return varMap.containsKey(key);
   }
 
 }
