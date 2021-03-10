@@ -193,6 +193,12 @@ public class ParserTests {
     parser.parseCommandString("pd");
     controller.runCommands();
     assertEquals(turtle.isPenActive(), true);
+
+    double initY = turtle.getY();
+    parser.parseCommandString("fd pendown?");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + 1, turtle.getY());
   }
 
   @Test
@@ -344,6 +350,45 @@ public class ParserTests {
     controller.setIsAllowedToExecute(true);
     controller.runCommands();
     assertEquals(initY, turtle.getY());
+  }
 
+  @Test
+  public void testShowingTurtle() {
+    controller.setIsAllowedToExecute(true);
+
+    parser.parseCommandString("ht");
+    controller.runCommands();
+    assertEquals(turtle.isVisible(), false);
+
+    parser.parseCommandString("st");
+    controller.runCommands();
+    assertEquals(turtle.isVisible(), true);
+
+    double initY = turtle.getY();
+    parser.parseCommandString("fd showing?");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + 1, turtle.getY());
+  }
+
+  @Test
+  public void testMiscMathOperations() {
+    double initY = turtle.getY();
+    parser.parseCommandString("fd pow 3 2");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + 9, turtle.getY());
+
+    initY = turtle.getY();
+    parser.parseCommandString("fd log 100");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + Math.log(100), turtle.getY());
+
+    initY = turtle.getY();
+    parser.parseCommandString("fd pi");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + Math.PI, turtle.getY());
   }
 }
