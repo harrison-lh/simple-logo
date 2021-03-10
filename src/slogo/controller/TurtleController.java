@@ -67,4 +67,13 @@ public class TurtleController {
   public void setIsAllowedToExecute(boolean executeCommands) {
     this.executeCommands = executeCommands;
   }
+
+  /**
+   * Returns the Turtle held by this TurtleController
+   *
+   * @return The Turtle held by this TurtleController
+   */
+  public Turtle getTurtle() {
+    return turtle;
+  }
 }
