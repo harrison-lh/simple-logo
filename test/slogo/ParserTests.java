@@ -282,4 +282,68 @@ public class ParserTests {
     assertEquals(0, turtle.getX());
     assertEquals(0, turtle.getY());
   }
+
+  @Test
+  public void testBooleanOperations() {
+    double initY = turtle.getY();
+    parser.parseCommandString("fd less? 0 1");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + 1, turtle.getY());
+
+    initY = turtle.getY();
+    parser.parseCommandString("fd greater? 100 -3");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + 1, turtle.getY());
+
+    initY = turtle.getY();
+    parser.parseCommandString("fd equal? 100 -3");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY, turtle.getY());
+
+    initY = turtle.getY();
+    parser.parseCommandString("fd notequal? 100 -3");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + 1, turtle.getY());
+
+    initY = turtle.getY();
+    parser.parseCommandString("fd and 100 -3");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + 1, turtle.getY());
+
+    initY = turtle.getY();
+    parser.parseCommandString("fd and -3 0");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY, turtle.getY());
+
+    initY = turtle.getY();
+    parser.parseCommandString("fd or -3 0");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + 1, turtle.getY());
+
+    initY = turtle.getY();
+    parser.parseCommandString("fd or 0 0");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY, turtle.getY());
+
+    initY = turtle.getY();
+    parser.parseCommandString("fd not 0");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + 1, turtle.getY());
+
+    initY = turtle.getY();
+    parser.parseCommandString("fd not 100");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY, turtle.getY());
+
+  }
 }
