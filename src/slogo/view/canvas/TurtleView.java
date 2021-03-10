@@ -12,6 +12,9 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
   public static final String REALISTIC_TURTLE = "turtle-realistic.png";
 
   private Image myTurtleImage;
+  private double xCoordinate;
+  private double yCoordinate;
+  private double heading;
 
   public TurtleView() {
     this.setId("TurtleView");
@@ -20,6 +23,8 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
     this.setPreserveRatio(true);
     this.setSmooth(true);
     this.setCache(true);
+
+    this.setLocation(0, 0);
   }
 
   public String getTurtleImageFilename() {
@@ -30,6 +35,23 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
   @Override
   public Consumer<String> updateAction() {
     return this::changeTurtleImage;
+  }
+
+  public void setLocation(double x, double y) {
+    this.xCoordinate = x;
+    this.yCoordinate = y;
+  }
+
+  public void setHeading(double heading) {
+    this.heading = heading;
+  }
+
+  public double getXCoordinate() {
+    return xCoordinate;
+  }
+
+  public double getYCoordinate() {
+    return yCoordinate;
   }
 
   private void changeTurtleImage(String turtleImage) {

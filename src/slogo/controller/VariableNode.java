@@ -44,7 +44,7 @@ public class VariableNode extends ConstantNode {
    */
   @Override
   public double execute(Turtle turtle) {
-    return getValue();
+    return turtle.getVars().getValue(name);
   }
 
   /**
