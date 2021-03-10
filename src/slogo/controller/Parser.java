@@ -128,7 +128,7 @@ public class Parser {
     lexer.setLangSymbols(syntaxLang);
   }
 
-  public void createParseTree(String text) {
+  public void parseCommandString(String text) {
     splitText(text);
     tokenizeText();
     if (handleCommentsAndBlankLines()) {

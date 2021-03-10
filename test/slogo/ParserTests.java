@@ -32,7 +32,7 @@ public class ParserTests {
   @Test
   public void commentTest() {
     double initX = turtle.getX();
-    parser.createParseTree("# This is a comment");
+    parser.parseCommandString("# This is a comment");
     controller.setIsAllowedToExecute(true);
     controller.runCommands();
     assertEquals(turtle.getX(), initX);
@@ -41,7 +41,7 @@ public class ParserTests {
   @Test
   public void forward50Test() {
     double initY = turtle.getY();
-    parser.createParseTree("fd 50");
+    parser.parseCommandString("fd 50");
     controller.setIsAllowedToExecute(true);
     controller.runCommands();
     assertEquals(turtle.getY(), initY + 50);
@@ -50,7 +50,7 @@ public class ParserTests {
   @Test
   public void forwardAdditionTest() {
     double initY = turtle.getY();
-    parser.createParseTree("fd sum 50 50");
+    parser.parseCommandString("fd sum 50 50");
     controller.setIsAllowedToExecute(true);
     controller.runCommands();
     assertEquals(turtle.getY(), initY + 100);
@@ -59,7 +59,7 @@ public class ParserTests {
   @Test
   public void hardForwardAdditionTest() {
     double initY = turtle.getY();
-    parser.createParseTree("fd sum sum sum sum 10 20 30 5 5");
+    parser.parseCommandString("fd sum sum sum sum 10 20 30 5 5");
     controller.setIsAllowedToExecute(true);
     controller.runCommands();
     assertEquals(turtle.getY(), initY + 70);
@@ -68,7 +68,7 @@ public class ParserTests {
   @Test
   public void alternativeHardForwardAdditionTest() {
     double initY = turtle.getY();
-    parser.createParseTree("fd sum 10 sum 10 sum 10 sum 20 20");
+    parser.parseCommandString("fd sum 10 sum 10 sum 10 sum 20 20");
     controller.setIsAllowedToExecute(true);
     controller.runCommands();
     assertEquals(turtle.getY(), initY + 70);
@@ -78,7 +78,7 @@ public class ParserTests {
   public void hardForwardAdditionTestEnEspanol() {
     parser.setSyntaxLang("Spanish");
     double initY = turtle.getY();
-    parser.createParseTree("ava + + + + 10 20 30 5 5");
+    parser.parseCommandString("ava + + + + 10 20 30 5 5");
     controller.setIsAllowedToExecute(true);
     controller.runCommands();
     assertEquals(turtle.getY(), initY + 70);
@@ -87,16 +87,16 @@ public class ParserTests {
   @Test
   public void forwardThenReverse() {
     double initY = turtle.getY();
-    parser.createParseTree("fd 50 fd -50");
+    parser.parseCommandString("fd 50 fd -50");
     controller.setIsAllowedToExecute(true);
     controller.runCommands();
     assertEquals(turtle.getY(), initY);
   }
 
   @Test
-  public void fdCos90ThenSin0() {
+  public void fdCos90ThenSin0ThenTan0ThenATan0() {
     double initY = turtle.getY();
-    parser.createParseTree("fd cos 90 fd sin 0");
+    parser.parseCommandString("fd cos 90 fd sin 0 fd tan 0 atan 0");
     controller.setIsAllowedToExecute(true);
     controller.runCommands();
     assertEquals(turtle.getY(), initY, 0.01);
@@ -105,7 +105,7 @@ public class ParserTests {
   @Test
   public void funWithMath() {
     double initY = turtle.getY();
-    parser.createParseTree("fd - 10 10 fd * 50 0 fd / 0 50 fd % 50 50");
+    parser.parseCommandString("fd - 10 10 fd * 50 0 fd / 0 50 fd % 50 50");
     controller.setIsAllowedToExecute(true);
     controller.runCommands();
     assertEquals(turtle.getY(), initY);
@@ -116,7 +116,7 @@ public class ParserTests {
     controller.setIsAllowedToExecute(true);
     double initY = turtle.getY();
     double initX = turtle.getX();
-    parser.createParseTree("fd 50 rt 90");
+    parser.parseCommandString("fd 50 rt 90");
     controller.runCommands();
     assertEquals(turtle.getY(), initY + 50, 0.01);
     assertEquals(turtle.getX(), initX, 0.01);
@@ -124,7 +124,7 @@ public class ParserTests {
 
     initY = turtle.getY();
     initX = turtle.getX();
-    parser.createParseTree("fd 50 rt 90");
+    parser.parseCommandString("fd 50 rt 90");
     controller.runCommands();
     assertEquals(turtle.getY(), initY, 0.01);
     assertEquals(turtle.getX(), initX + 50, 0.01);
@@ -132,7 +132,7 @@ public class ParserTests {
 
     initY = turtle.getY();
     initX = turtle.getX();
-    parser.createParseTree("fd 50 rt 90");
+    parser.parseCommandString("fd 50 rt 90");
     controller.runCommands();
     assertEquals(turtle.getY(), initY - 50, 0.01);
     assertEquals(turtle.getX(), initX, 0.01);
@@ -140,7 +140,7 @@ public class ParserTests {
 
     initY = turtle.getY();
     initX = turtle.getX();
-    parser.createParseTree("fd 50 rt 90");
+    parser.parseCommandString("fd 50 rt 90");
     controller.runCommands();
     assertEquals(turtle.getY(), initY, 0.01);
     assertEquals(turtle.getX(), initX - 50, 0.01);
@@ -150,7 +150,7 @@ public class ParserTests {
   @Test
   public void testRandom() {
     double initY = turtle.getY();
-    parser.createParseTree("fd random 3");
+    parser.parseCommandString("fd random 3");
     controller.setIsAllowedToExecute(true);
     controller.runCommands();
     assertEquals(turtle.getY(), initY, 3);
@@ -160,12 +160,38 @@ public class ParserTests {
   public void penStatusTests() {
     controller.setIsAllowedToExecute(true);
 
-    parser.createParseTree("pu");
+    parser.parseCommandString("pu");
     controller.runCommands();
     assertEquals(turtle.isPenActive(), false);
 
-    parser.createParseTree("pd");
+    parser.parseCommandString("pd");
     controller.runCommands();
     assertEquals(turtle.isPenActive(), true);
+  }
+
+  @Test
+  public void testMinus() {
+    double initY = turtle.getY();
+    parser.parseCommandString("fd ~ 50");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY - 50);
+  }
+
+  @Test
+  public void testXYCoordinate() {
+    double initY = turtle.getY();
+    parser.parseCommandString("fd ~ 50");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY - 50);
+
+    parser.parseCommandString("fd xcor");
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY - 50);
+
+    parser.parseCommandString("fd ycor");
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY - 100);
   }
 }
