@@ -94,6 +94,32 @@ public class ParserTests {
   }
 
   @Test
+  public void altForwardThenReverse() {
+    double initY = turtle.getY();
+    parser.parseCommandString("fd 50 bk 50");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY);
+  }
+
+  @Test
+  public void leftThenRight() {
+    double initHeading = turtle.getHeading();
+    parser.parseCommandString("rt 90 lt 90");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getHeading(), initHeading, 0.01);
+  }
+
+  @Test
+  public void setHeading() {
+    parser.parseCommandString("seth 93");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getHeading(), 93);
+  }
+
+  @Test
   public void fdCos90ThenSin0ThenTan0ThenATan0() {
     double initY = turtle.getY();
     parser.parseCommandString("fd cos 90 fd sin 0 fd tan 0 atan 0");

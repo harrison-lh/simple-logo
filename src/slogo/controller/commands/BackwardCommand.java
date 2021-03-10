@@ -9,14 +9,14 @@ import slogo.model.Turtle;
  *
  * @author Harrison Huang
  */
-public class BackCommand extends Command {
+public class BackwardCommand extends Command {
 
   private static final int NUM_PARAMS = 1;
 
   /**
    * Constructor for the ForwardCommand.
    */
-  public BackCommand() {
+  public BackwardCommand() {
     setNumParams(NUM_PARAMS);
   }
 
