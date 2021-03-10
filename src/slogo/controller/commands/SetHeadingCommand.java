@@ -4,34 +4,35 @@ import slogo.controller.Command;
 import slogo.model.Turtle;
 
 /**
- * RightCommand is a type of Command that directs the Turtle to rotate right by a specified amount
- * of degrees.
+ * SetHeading is a type of Command that directs the Turtle to point to a certain direction
+ * specified in degrees.
  *
  * @author Harrison Huang
  */
-public class RightCommand extends Command {
+
+public class SetHeadingCommand extends Command {
 
   private static final int NUM_PARAMS = 1;
 
   /**
-   * Constructor for the RightCommand.
+   * Constructor for SetHeadingCommand.
    */
-  public RightCommand() {
+  public SetHeadingCommand() {
     setNumParams(NUM_PARAMS);
   }
 
   /**
-   * Executes the right command onto the turtle.
+   * Sets the heading of the turtle to point in a certain direction.
    *
-   * @param turtle The turtle to be rotated right
-   * @return The degrees that the turtle rotated
+   * @param turtle The turtle to be set
+   * @return The direction the turtle is now pointing
    */
   @Override
   public double execute(Turtle turtle) {
     assert(getChildren().size() == getNumParams());
 
     double degrees = getChildren().get(0).execute(turtle);
-    turtle.right(degrees);
+    turtle.setHeading(degrees);
     return degrees;
   }
 }
