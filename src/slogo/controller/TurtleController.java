@@ -32,21 +32,22 @@ public class TurtleController {
   }
 
   /**
-   * Tells the Turtle to execute Commands until either the commandQueue is empty or executeCommands
-   * is set to false;
+   * Tells the Turtle to execute Commands until either the commandQueue is empty.
    */
   public void runCommands() {
-    while(!commandQueue.isEmpty() && executeCommands) {
-      commandQueue.poll().execute(turtle);
+    while(!commandQueue.isEmpty()) {
+      if(executeCommands) {
+        commandQueue.poll().execute(turtle);
+      }
     }
   }
 
   /**
-   * Add a List of Commands to the commandQueue
+   * Add a Queue t of Commands to the commandQueue
    *
-   * @param commands The List of Commands to add to the commandQueue.
+   * @param commands The Queue of Commands to add to the commandQueue.
    */
-  public void pushCommands(List<Command> commands) {
+  public void pushCommands(Queue<Command> commands) {
     commandQueue.addAll(commands);
   }
 
@@ -64,7 +65,7 @@ public class TurtleController {
    *
    * @param executeCommands The new execution status of this TurtleController.
    */
-  public void setExecuteCommands(boolean executeCommands) {
+  public void setIsAllowedToExecute(boolean executeCommands) {
     this.executeCommands = executeCommands;
   }
 }

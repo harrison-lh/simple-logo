@@ -17,19 +17,20 @@ public class Parser {
 
   private TurtleController controller;
   private Lexer lexer;
-  private Node root;
-  private Queue<Node> parsedNodeQueue;
   private Queue<String> splitText;
   private Queue<Token> tokenizedText;
   private List<VariableNode> variables;
+  private Queue<Node> parsedNodeQueue;
+  private Queue<Command> assembledCommandQueue;
 
   public Parser(TurtleController controller, String syntaxLang) {
     this.controller = controller;
     this.lexer = new Lexer(syntaxLang);
-    this.root = null;
     this.splitText = new LinkedList<>();
     this.tokenizedText = new LinkedList<>();
     this.variables = new ArrayList<>();
+    this.parsedNodeQueue = new LinkedList<>();
+    this.assembledCommandQueue = new LinkedList<>();
   }
 
   private void splitText(String text) {
@@ -57,22 +58,20 @@ public class Parser {
   private Node patternMatchToken(Token token, String text) {
     switch (token) {
       case COMMAND -> {
-        // TODO: Create __Command
         String commandType = lexer.lexLangDefinedCommands(text);
         try {
           Class<?> commandClass = Class.forName(commandType + "Command");
-          return (Node)commandClass.getConstructor().newInstance();
-        }
-        catch (Exception e) {
-          // TODO: Must be a user-defined command, must check those!
+          return (Node) commandClass.getConstructor().newInstance();
+        } catch (Exception e) {
+          // TODO: Might be a user-defined command, so we must check those!
         }
       }
       case CONSTANT -> {
-        // TODO: Create __Constant
+        return new ConstantNode(Double.parseDouble(text));
       }
       case VARIABLE -> {
-        for(VariableNode curVarNode : variables) {
-          if(curVarNode.getName().equals(text)) {
+        for (VariableNode curVarNode : variables) {
+          if (curVarNode.getName().equals(text)) {
             return curVarNode;
           }
         }
@@ -90,6 +89,14 @@ public class Parser {
     return null;
   }
 
+  private boolean handleCommentsAndBlankLines() {
+    return (tokenizedText.contains(Token.COMMENT) || tokenizedText.isEmpty());
+  }
+
+  private void assembleCommandQueue() {
+
+  }
+
   public void setSyntaxLang(String syntaxLang) {
     lexer.setLangSymbols(syntaxLang);
   }
@@ -101,10 +108,7 @@ public class Parser {
       return; // If it's a comment line, return early. Comments have no commands.
     }
     mapTokensToNodes();
-
-  }
-
-  private boolean handleCommentsAndBlankLines() {
-    return (tokenizedText.contains(Token.COMMENT) || tokenizedText.isEmpty());
+    assembleCommandQueue();
+    controller.pushCommands(assembledCommandQueue);
   }
 }
