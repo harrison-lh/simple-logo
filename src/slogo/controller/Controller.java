@@ -23,7 +23,7 @@ public class Controller {
   public Controller() {
     myMainView = new MainView();
     myTurtle = new Turtle(new GridCoordinates(), new JavaFXPen(Color.BLACK, new ImageView()),
-        myMainView.getTurtleListener());
+        myMainView.getListener());
     myTurtleController = new TurtleController(myTurtle);
     myParser = new Parser(myTurtleController, "English");
 

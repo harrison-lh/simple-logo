@@ -1,15 +1,16 @@
 package slogo.view;
 
+import java.beans.PropertyChangeListener;
 import java.util.function.Consumer;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import slogo.controller.Command;
-import slogo.controller.TurtleListener;
 import slogo.model.Turtle;
 import slogo.model.Variables;
 import slogo.view.canvas.SLogoCanvas;
+import slogo.view.canvas.TurtleView;
 import slogo.view.menubar.MenuBar;
 
 public class MainView extends VBox implements View {
@@ -20,7 +21,7 @@ public class MainView extends VBox implements View {
   private UDCommandsBox myUDCommandsBox;
   private InputBox myInputBox;
   private CommandHistoryBox myCommandHistoryBox;
-  private TurtleListener myTurtleListener;
+  private TurtleView myTurtleView;
 
   public MainView() {
     myMenuBar = new MenuBar();
@@ -36,12 +37,10 @@ public class MainView extends VBox implements View {
     connectColorSelector(mySLogoCanvas, myMenuBar.getBackgroundSelector());
     connectStringSelector(mySLogoCanvas.getGrid(), myMenuBar.getGridSelector());
     connectStringSelector(mySLogoCanvas.getTurtleView(), myMenuBar.getTurtleSelector());
-
-    myTurtleListener = new TurtleListener();
   }
 
-  public TurtleListener getTurtleListener() {
-    return myTurtleListener;
+  public PropertyChangeListener getListener() {
+    return myTurtleView;
   }
 
   public void resizeElements() {
@@ -122,6 +121,7 @@ public class MainView extends VBox implements View {
     HBox body = new HBox();
 
     mySLogoCanvas = new SLogoCanvas();
+    myTurtleView = mySLogoCanvas.getTurtleView();
     body.getChildren().add(mySLogoCanvas);
 
     VBox infoBoxes = createInfoBoxes();

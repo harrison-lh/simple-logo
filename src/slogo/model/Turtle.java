@@ -25,6 +25,7 @@ public class Turtle {
     this.coordinates = coordinates;
     this.pen = pen;
     this.vars = new Variables();
+    this.listener = listener;
   }
 
   public Variables getVars() {
