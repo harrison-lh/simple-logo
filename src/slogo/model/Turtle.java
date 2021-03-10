@@ -14,6 +14,7 @@ public class Turtle {
   private Coordinates coordinates;
   private Pen pen;
   private Variables vars;
+  private boolean isVisible = true;
 
 
   /**
@@ -154,5 +155,23 @@ public class Turtle {
 
   public void setHeading(double heading) {
     coordinates.setHeading(heading);
+  }
+
+  /**
+   * Returns if the turtle is visible on screen.
+   *
+   * @return boolean whether the turtle is visible
+   */
+  public boolean isVisible() {
+    return isVisible;
+  }
+
+  /**
+   * Sets the visibility of the turtle.
+   *
+   * @param isVisible boolean whether the turtle is visible
+   */
+  public void setVisible(boolean isVisible) {
+    this.isVisible = isVisible;
   }
 }
