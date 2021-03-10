@@ -42,5 +42,12 @@ public class ParserTests {
     assertEquals(turtle.getY(), initY + 50);
   }
 
-
+  @Test
+  public void forwardAdditionTest() {
+    double initY = turtle.getY();
+    parser.createParseTree("fd sum 50 50");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 100);
+  }
 }

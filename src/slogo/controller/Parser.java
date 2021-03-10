@@ -118,6 +118,9 @@ public class Parser {
         pendingFilledArgs.push(curNode);
         curNode = childNode;
       }
+      else if (childNode.getNumParams() > 0) {
+        curNode = childNode;
+      }
     }
   }
 
