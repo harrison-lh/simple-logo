@@ -1,17 +1,10 @@
 package slogo.controller;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
 import java.util.function.Consumer;
-import javafx.geometry.Insets;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
 
 /**
  * Parser is the meat-and-potatoes of the SLogo Control layer. This class takes in a String of SLogo
@@ -145,6 +138,10 @@ public class Parser {
   }
 
   public Consumer<String> receiveInputAction() {
-    return this::parseCommandString;
+    return command -> {
+      parseCommandString(command);
+      controller.setIsAllowedToExecute(true);
+      controller.runCommands();
+    };
   }
 }

@@ -16,14 +16,7 @@ import slogo.model.Variables;
  * @author David Li
  */
 interface View {
-
-  /**
-   * Updates the view of all turtles on screen.
-   *
-   * @param turtle The Turtle object containing active turtle
-   */
-  void updateTurtleView(Turtle turtle);
-
+  
   /**
    * Adds a variable to be displayed on screen.
    *
