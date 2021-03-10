@@ -25,10 +25,6 @@ public class TurtleView extends ImageView implements SelectorTarget<String>{
     this.setPreserveRatio(true);
     this.setSmooth(true);
     this.setCache(true);
-
-    this.setXCoordinate(0);
-    this.setYCoordinate(0);
-    this.setHeading(0);
   }
 
   public String getTurtleImageFilename() {
