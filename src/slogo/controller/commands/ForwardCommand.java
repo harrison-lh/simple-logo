@@ -17,7 +17,7 @@ public class ForwardCommand extends Command {
    * Constructor for the ForwardCommand.
    */
   public ForwardCommand() {
-    numParams = NUM_PARAMS;
+    setNumParams(NUM_PARAMS);
   }
 
   /**
@@ -28,7 +28,7 @@ public class ForwardCommand extends Command {
    */
   @Override
   public double execute(Turtle turtle) {
-    assert(getChildren().size() == numParams);
+    assert(getChildren().size() == getNumParams());
 
     double distance = getChildren().get(0).execute(turtle);
     turtle.forward(distance);

@@ -15,7 +15,7 @@ public class RightCommand extends Command {
    * Constructor for the RightCommand.
    */
   public RightCommand() {
-    numParams = NUM_PARAMS;
+    setNumParams(NUM_PARAMS);
   }
 
   /**
