@@ -13,7 +13,7 @@ public class InputBox extends BorderPane {
   private final TextArea myInputBoxArea;
   private final Button myInputButton;
 
-  public InputBox(EventHandler<ActionEvent> eventHandler) {
+  public InputBox() {
     this.setId("InputBox");
     myInputBoxArea = new TextArea();
     myInputBoxArea.setId("InputBoxArea");
@@ -21,9 +21,20 @@ public class InputBox extends BorderPane {
 
     myInputButton = new Button("Go");
     myInputButton.setId("InputButton");
-    myInputButton.setOnAction(eventHandler);
     myInputButton.prefWidthProperty().bind(this.widthProperty());
     this.setTop(myInputBoxArea);
     this.setBottom(myInputButton);
+  }
+
+  public void setInputAction(EventHandler<ActionEvent> event) {
+    myInputButton.setOnAction(event);
+  }
+
+  public String getText() {
+    return myInputBoxArea.getText();
+  }
+
+  public void clear() {
+    myInputBoxArea.clear();
   }
 }
