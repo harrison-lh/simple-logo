@@ -140,5 +140,7 @@ public class Parser {
       System.out.println(node);
     }
     controller.pushNodes(assembledNodeQueue);
+    assembledNodeQueue.clear();
+    // Clean up after we're done
   }
 }

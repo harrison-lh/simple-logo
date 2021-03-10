@@ -12,6 +12,11 @@ import slogo.model.GridCoordinates;
 import slogo.model.Turtle;
 import slogo.view.JavaFXPen;
 
+/**
+ * A testing suite for the Parser!
+ *
+ * @author Marc Chmielewski
+ */
 public class ParserTests {
   private Turtle turtle;
   private TurtleController controller;
@@ -80,11 +85,65 @@ public class ParserTests {
   }
 
   @Test
-  public void forwardThenBackward() {
+  public void forwardThenReverse() {
     double initY = turtle.getY();
     parser.createParseTree("fd 50 fd -50");
     controller.setIsAllowedToExecute(true);
     controller.runCommands();
     assertEquals(turtle.getY(), initY);
+  }
+
+  @Test
+  public void fdCos90ThenSin0() {
+    double initY = turtle.getY();
+    parser.createParseTree("fd cos 90 fd sin 0");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY, 0.01);
+  }
+
+  @Test
+  public void funWithMath() {
+    double initY = turtle.getY();
+    parser.createParseTree("fd - 10 10 fd * 50 0 fd / 0 50 fd % 50 50");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY);
+  }
+
+  @Test
+  public void drawSquare() {
+    controller.setIsAllowedToExecute(true);
+    double initY = turtle.getY();
+    double initX = turtle.getX();
+    parser.createParseTree("fd 50 rt 90");
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 50, 0.01);
+    assertEquals(turtle.getX(), initX, 0.01);
+    assertEquals(turtle.getHeading(), 0, 0.01);
+
+    initY = turtle.getY();
+    initX = turtle.getX();
+    parser.createParseTree("fd 50 rt 90");
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY, 0.01);
+    assertEquals(turtle.getX(), initX + 50, 0.01);
+    assertEquals(turtle.getHeading(), 270, 0.01);
+
+    initY = turtle.getY();
+    initX = turtle.getX();
+    parser.createParseTree("fd 50 rt 90");
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY - 50, 0.01);
+    assertEquals(turtle.getX(), initX, 0.01);
+    assertEquals(turtle.getHeading(),  180, 0.01);
+
+    initY = turtle.getY();
+    initX = turtle.getX();
+    parser.createParseTree("fd 50 rt 90");
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY, 0.01);
+    assertEquals(turtle.getX(), initX - 50, 0.01);
+    assertEquals(turtle.getHeading(), 90, 0.01);
   }
 }

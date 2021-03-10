@@ -5,11 +5,11 @@ import java.util.concurrent.ThreadLocalRandom;
 import slogo.controller.Command;
 import slogo.model.Turtle;
 
-public class ATanCommand extends Command {
+public class ArcTangentCommand extends Command {
 
   private static final int NUM_PARAMS = 1;
 
-  public ATanCommand(){
+  public ArcTangentCommand(){
     numParams = NUM_PARAMS;
   }
 
@@ -17,7 +17,7 @@ public class ATanCommand extends Command {
   public double execute(Turtle turtle) {
     double degrees = getChildren().get(0).execute(turtle);
 
-    return Math.atan(degrees);
+    return Math.toDegrees(Math.atan(Math.toRadians(degrees)));
   }
 }
 
