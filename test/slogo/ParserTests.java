@@ -146,4 +146,26 @@ public class ParserTests {
     assertEquals(turtle.getX(), initX - 50, 0.01);
     assertEquals(turtle.getHeading(), 90, 0.01);
   }
+
+  @Test
+  public void testRandom() {
+    double initY = turtle.getY();
+    parser.createParseTree("fd random 3");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY, 3);
+  }
+
+  @Test
+  public void penStatusTests() {
+    controller.setIsAllowedToExecute(true);
+
+    parser.createParseTree("pu");
+    controller.runCommands();
+    assertEquals(turtle.isPenActive(), false);
+
+    parser.createParseTree("pd");
+    controller.runCommands();
+    assertEquals(turtle.isPenActive(), true);
+  }
 }
