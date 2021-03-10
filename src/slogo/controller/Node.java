@@ -13,7 +13,8 @@ import slogo.model.Turtle;
  * @author Harrison Huang
  */
 public abstract class Node {
-  List<Node> children = new ArrayList<>();
+  private List<Node> children = new ArrayList<>();
+  protected int numParams = 0;
 
   /**
    * Add an additional child Node to the Node.
@@ -39,5 +40,14 @@ public abstract class Node {
    * @return The double for the return value of each execute
    */
   public abstract double execute(Turtle turtle);
+
+  /**
+   * Returns the number of parameters that this Node has.
+   *
+   * @return The number of parameters that this Node has.
+   */
+  public int getNumParams() {
+    return numParams;
+  }
 
 }

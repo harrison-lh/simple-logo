@@ -1,13 +1,13 @@
-package slogo.controller.commands.mathoperations;
+package slogo.controller.commands;
 
 import slogo.controller.Command;
 import slogo.model.Turtle;
 
-public class DifferenceCommand extends Command {
+public class SumCommand extends Command {
 
   private static final int NUM_PARAMS = 2;
 
-  public DifferenceCommand(){
+  public SumCommand(){
     numParams = NUM_PARAMS;
   }
 
@@ -16,7 +16,7 @@ public class DifferenceCommand extends Command {
     double a = getChildren().get(0).execute(turtle);
     double b = getChildren().get(1).execute(turtle);
 
-    return a - b;
+    return a + b;
 
   }
 }
