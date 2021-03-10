@@ -1,5 +1,6 @@
 package slogo.view;
 
+import java.beans.PropertyChangeListener;
 import java.util.function.Consumer;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -9,6 +10,7 @@ import slogo.controller.Command;
 import slogo.model.Turtle;
 import slogo.model.Variables;
 import slogo.view.canvas.SLogoCanvas;
+import slogo.view.canvas.TurtleView;
 import slogo.view.menubar.MenuBar;
 
 public class MainView extends VBox implements View {
@@ -19,6 +21,7 @@ public class MainView extends VBox implements View {
   private UDCommandsBox myUDCommandsBox;
   private InputBox myInputBox;
   private CommandHistoryBox myCommandHistoryBox;
+  private TurtleView myTurtleView;
 
   public MainView() {
     myMenuBar = new MenuBar();
@@ -36,13 +39,12 @@ public class MainView extends VBox implements View {
     connectStringSelector(mySLogoCanvas.getTurtleView(), myMenuBar.getTurtleSelector());
   }
 
-  public void resizeElements() {
-    mySLogoCanvas.resizeElements();
+  public PropertyChangeListener getListener() {
+    return mySLogoCanvas;
   }
 
-  @Override
-  public void updateTurtleView(Turtle turtle) {
-    mySLogoCanvas.updateTurtleView(turtle.getX(), turtle.getY(), turtle.getHeading());
+  public void resizeElements() {
+    mySLogoCanvas.resizeElements();
   }
 
   @Override
@@ -114,6 +116,7 @@ public class MainView extends VBox implements View {
     HBox body = new HBox();
 
     mySLogoCanvas = new SLogoCanvas();
+    myTurtleView = mySLogoCanvas.getTurtleView();
     body.getChildren().add(mySLogoCanvas);
 
     VBox infoBoxes = createInfoBoxes();
