@@ -50,4 +50,41 @@ public class ParserTests {
     controller.runCommands();
     assertEquals(turtle.getY(), initY + 100);
   }
+
+  @Test
+  public void hardForwardAdditionTest() {
+    double initY = turtle.getY();
+    parser.createParseTree("fd sum sum sum sum 10 20 30 5 5");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 70);
+  }
+
+  @Test
+  public void alternativeHardForwardAdditionTest() {
+    double initY = turtle.getY();
+    parser.createParseTree("fd sum 10 sum 10 sum 10 sum 20 20");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 70);
+  }
+
+  @Test
+  public void hardForwardAdditionTestEnEspanol() {
+    parser.setSyntaxLang("Spanish");
+    double initY = turtle.getY();
+    parser.createParseTree("ava + + + + 10 20 30 5 5");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 70);
+  }
+
+  @Test
+  public void forwardThenBackward() {
+    double initY = turtle.getY();
+    parser.createParseTree("fd 50 fd -50");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY);
+  }
 }
