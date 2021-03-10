@@ -82,8 +82,10 @@ public class MainView extends VBox implements View {
 
   public void setInputAction(Consumer<String> response) {
     myInputBox.setInputAction(e -> {
-      response.accept(myInputBox.getText());
+      String command = myInputBox.getText();
+      response.accept(command);
       myInputBox.clear();
+      myCommandHistoryBox.addCommand(command);
     });
   }
 

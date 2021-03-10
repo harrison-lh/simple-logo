@@ -15,10 +15,10 @@ import slogo.view.MainView;
 
 public class Controller {
 
-  private MainView myMainView;
-  private Parser myParser;
-  private Turtle myTurtle;
-  private TurtleController myTurtleController;
+  private final MainView myMainView;
+  private final Parser myParser;
+  private final Turtle myTurtle;
+  private final TurtleController myTurtleController;
 
   public Controller() {
     myMainView = new MainView();
