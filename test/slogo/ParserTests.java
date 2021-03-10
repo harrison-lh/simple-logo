@@ -268,4 +268,18 @@ public class ParserTests {
     controller.runCommands();
     assertEquals(315, Math.round(turtle.getHeading()));
   }
+
+  @Test
+  public void testSetPosition() {
+    parser.parseCommandString("setxy -12 setxy 3 4");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(-12, turtle.getX());
+    assertEquals(5, turtle.getY());
+    parser.parseCommandString("home");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(0, turtle.getX());
+    assertEquals(0, turtle.getY());
+  }
 }
