@@ -247,4 +247,13 @@ public class ParserTests {
     controller.runCommands();
     assertEquals(turtle.getY(), initY + 75);
   }
+
+  @Test
+  public void testUninitialized() {
+    double initY = turtle.getY();
+    parser.parseCommandString("fd sum :A :B");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY);
+  }
 }
