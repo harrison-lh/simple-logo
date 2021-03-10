@@ -47,7 +47,7 @@ public class SetTowardsCommand extends Command {
     double delX = newX - currX;
     double delY = newY - currY;
 
-    double newHeading = Math.atan(delY / delX);
+    double newHeading = Math.toDegrees(Math.atan(delY / delX));
     if (delX < 0) newHeading += HALF_CIRCLE;
 
     if (newHeading < 0) newHeading += FULL_CIRCLE;
