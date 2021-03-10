@@ -71,9 +71,10 @@ public class Parser {
         return new ConstantNode(Double.parseDouble(text));
       }
       case VARIABLE -> {
-        if(controller.getTurtle().getVars().containsKey(text)) {
-          return new ConstantNode(controller.getTurtle().getVars().getValue(text));
+        if (!controller.getTurtle().getVars().containsKey(text)) {
+          controller.getTurtle().getVars().setValue(text, 0);
         }
+        return new VariableNode(text);
       }
       case LIST_START -> {
         // TODO: Create ListStartNode

@@ -220,4 +220,31 @@ public class ParserTests {
     controller.runCommands();
     assertEquals(turtle.getY(), initY - 100);
   }
+
+  @Test
+  public void testVariables() {
+    double initY = turtle.getY();
+    parser.parseCommandString("make :A 50 fd :A");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 50);
+  }
+
+  @Test
+  public void testVariablesHard() {
+    double initY = turtle.getY();
+    parser.parseCommandString("make :A 50 make :B 50 fd sum :A :B");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 100);
+  }
+
+  @Test
+  public void testVariableResets() {
+    double initY = turtle.getY();
+    parser.parseCommandString("make :A 50 make :B 50 set :A 25 fd sum :A :B");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 75);
+  }
 }
