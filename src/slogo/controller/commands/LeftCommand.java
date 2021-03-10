@@ -4,26 +4,26 @@ import slogo.controller.Command;
 import slogo.model.Turtle;
 
 /**
- * RightCommand is a type of Command that directs the Turtle to rotate right by a specified amount
+ * LeftCommand is a type of Command that directs the Turtle to rotate left by a specified amount
  * of degrees.
  *
  * @author Harrison Huang
  */
-public class RightCommand extends Command {
+public class LeftCommand extends Command {
 
   private static final int NUM_PARAMS = 1;
 
   /**
-   * Constructor for the RightCommand.
+   * Constructor for the LeftCommand.
    */
-  public RightCommand() {
+  public LeftCommand() {
     setNumParams(NUM_PARAMS);
   }
 
   /**
-   * Executes the right command onto the turtle.
+   * Executes the left command onto the turtle.
    *
-   * @param turtle The turtle to be rotated right
+   * @param turtle The turtle to be rotated left
    * @return The degrees that the turtle rotated
    */
   @Override
@@ -31,7 +31,7 @@ public class RightCommand extends Command {
     assert(getChildren().size() == getNumParams());
 
     double degrees = getChildren().get(0).execute(turtle);
-    turtle.right(degrees);
+    turtle.right(-1 * degrees);
     return degrees;
   }
 }

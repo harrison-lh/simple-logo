@@ -10,7 +10,7 @@ public class RandomCommand extends Command {
   private static final int NUM_PARAMS = 1;
 
   public RandomCommand(){
-    numParams = NUM_PARAMS;
+    setNumParams(NUM_PARAMS);
   }
 
   @Override

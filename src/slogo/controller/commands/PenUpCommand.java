@@ -8,7 +8,7 @@ public class PenUpCommand extends Command {
   private static final int NUM_PARAMS = 0;
 
   public PenUpCommand(){
-    numParams = NUM_PARAMS;
+    setNumParams(NUM_PARAMS);
   }
 
   @Override

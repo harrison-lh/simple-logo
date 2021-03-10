@@ -8,7 +8,7 @@ public class SumCommand extends Command {
   private static final int NUM_PARAMS = 2;
 
   public SumCommand(){
-    numParams = NUM_PARAMS;
+    setNumParams(NUM_PARAMS);
   }
 
   @Override

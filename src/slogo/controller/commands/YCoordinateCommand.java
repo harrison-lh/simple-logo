@@ -8,7 +8,7 @@ public class YCoordinateCommand extends Command {
   private static final int NUM_PARAMS = 0;
 
   public YCoordinateCommand(){
-    numParams = NUM_PARAMS;
+    setNumParams(NUM_PARAMS);
   }
 
 

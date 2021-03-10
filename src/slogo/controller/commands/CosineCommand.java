@@ -10,7 +10,7 @@ public class CosineCommand extends Command {
   private static final int NUM_PARAMS = 1;
 
   public CosineCommand(){
-    numParams = NUM_PARAMS;
+    setNumParams(NUM_PARAMS);
   }
 
   @Override

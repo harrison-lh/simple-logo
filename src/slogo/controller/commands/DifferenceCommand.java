@@ -8,7 +8,7 @@ public class DifferenceCommand extends Command {
   private static final int NUM_PARAMS = 2;
 
   public DifferenceCommand(){
-    numParams = NUM_PARAMS;
+    setNumParams(NUM_PARAMS);
   }
 
   @Override
