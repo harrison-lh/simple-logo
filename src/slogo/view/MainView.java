@@ -1,5 +1,6 @@
 package slogo.view;
 
+import java.util.function.Consumer;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -75,13 +76,15 @@ public class MainView extends VBox implements View {
   }
 
   @Override
-  public String getUserInput() {
-    return null;
-  }
-
-  @Override
   public void throwError(Error error) {
 
+  }
+
+  public void setInputAction(Consumer<String> response) {
+    myInputBox.setInputAction(e -> {
+      response.accept(myInputBox.getText());
+      myInputBox.clear();
+    });
   }
 
   private void connectColorSelector(SelectorTarget<Color> target, Selector<Color> selector) {
@@ -95,7 +98,7 @@ public class MainView extends VBox implements View {
   private HBox createBottom() {
     HBox bottom = new HBox();
 
-    myInputBox = new InputBox(e -> executeCommand());
+    myInputBox = new InputBox();
     bottom.getChildren().add(myInputBox);
 
     myCommandHistoryBox = new CommandHistoryBox();
@@ -103,10 +106,6 @@ public class MainView extends VBox implements View {
     HBox.setHgrow(myCommandHistoryBox, Priority.ALWAYS);
 
     return bottom;
-  }
-
-  private void executeCommand() {
-    mySLogoCanvas.updateTurtleView(40, 40, 20);
   }
 
   private HBox createBody() {
