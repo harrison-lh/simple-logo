@@ -12,13 +12,23 @@ import slogo.model.Coordinates;
 public class Turtle {
 
   private Coordinates coordinates;
+  private Pen pen;
 
 
   /**
    * Default constructor for Turtle.
    */
-  public Turtle(Coordinates coordinates) {
+  public Turtle(Coordinates coordinates, Pen pen) {
     this.coordinates = coordinates;
+    this.pen = pen;
+  }
+
+  public Pen getPen(){
+    return pen;
+  }
+
+  public boolean isPenActive(){
+    return pen.isPenActive();
   }
 
   /**

@@ -2,10 +2,13 @@ package slogo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import slogo.model.GridCoordinates;
 import slogo.model.Turtle;
+import slogo.view.JavaFXPen;
 import util.DukeApplicationTest;
 
 public class TurtleTests extends DukeApplicationTest {
@@ -21,7 +24,7 @@ public class TurtleTests extends DukeApplicationTest {
 
   @BeforeEach
   public void setupTurtle() {
-    turtle = new Turtle(new GridCoordinates());
+    turtle = new Turtle(new GridCoordinates(), new JavaFXPen(Color.BLACK, new ImageView()));
   }
 
   @Test
