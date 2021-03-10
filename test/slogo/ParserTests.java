@@ -247,4 +247,39 @@ public class ParserTests {
     controller.runCommands();
     assertEquals(turtle.getY(), initY + 75);
   }
+
+  @Test
+  public void testSetTowards() {
+    turtle.setX(0);
+    turtle.setY(0);
+    turtle.setHeading(0);
+    parser.parseCommandString("towards 1 1");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(45, turtle.getHeading());
+
+    parser.parseCommandString("towards -1 towards 1500 1500");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(180, turtle.getHeading());
+
+    parser.parseCommandString("towards towards 1 / 5773502692 10000000000 -150");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(315, Math.round(turtle.getHeading()));
+  }
+
+  @Test
+  public void testSetPosition() {
+    parser.parseCommandString("setxy -12 setxy 3 4");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(-12, turtle.getX());
+    assertEquals(5, turtle.getY());
+    parser.parseCommandString("home");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(0, turtle.getX());
+    assertEquals(0, turtle.getY());
+  }
 }
