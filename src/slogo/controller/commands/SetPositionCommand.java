@@ -34,8 +34,7 @@ public class SetPositionCommand extends Command {
     double newY = getChildren().get(1).execute(turtle);
     double distance = getDistance(turtle.getX(), turtle.getY(), newX, newY);
 
-    turtle.setX(newX);
-    turtle.setY(newY);
+    turtle.setPosition(newX, newY);
 
     return distance;
   }

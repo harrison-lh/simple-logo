@@ -89,13 +89,7 @@ public class Turtle {
     xPos += pixels * Math.cos(Math.toRadians(heading));
     yPos += pixels * Math.sin(Math.toRadians(heading));
 
-    Coordinates prevCoordinates = new GridCoordinates(coordinates);
-
-    setX(xPos);
-    setY(yPos);
-
-    listener
-        .propertyChange(new PropertyChangeEvent(this, "LOCATION", prevCoordinates, coordinates));
+    setPosition(xPos, yPos);
   }
 
   /**
@@ -137,19 +131,6 @@ public class Turtle {
   }
 
   /**
-   * Setter method for the x-coordinate of the turtle.
-   *
-   * @param x The new x-coordinate of the object.
-   */
-
-  public void setX(double x) {
-    Coordinates prevCoordinates = new GridCoordinates(coordinates);
-    coordinates.setX(x);
-    listener
-        .propertyChange(new PropertyChangeEvent(this, "LOCATION", prevCoordinates, coordinates));
-  }
-
-  /**
    * Getter method for obtaining the y-coordinate of the turtle.
    *
    * @return double of turtle's y-coordinate
@@ -159,14 +140,9 @@ public class Turtle {
     return coordinates.getY();
   }
 
-  /**
-   * Setter method for the y-coordinate of the turtle.
-   *
-   * @param y The new y-coordinate of the object
-   */
-
-  public void setY(double y) {
+  public void setPosition(double x, double y) {
     Coordinates prevCoordinates = new GridCoordinates(coordinates);
+    coordinates.setX(x);
     coordinates.setY(y);
     listener
         .propertyChange(new PropertyChangeEvent(this, "LOCATION", prevCoordinates, coordinates));
