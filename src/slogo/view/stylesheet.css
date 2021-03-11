@@ -35,7 +35,7 @@
   -fx-border-color: #666666;
 }
 
-#Grid {
+#TurtleCanvas {
   -fx-border-color: black;
   -fx-border-radius: 1px;
 }

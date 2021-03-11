@@ -10,6 +10,7 @@ import slogo.controller.Command;
 import slogo.model.Turtle;
 import slogo.model.Variables;
 import slogo.view.canvas.SLogoCanvas;
+import slogo.view.canvas.TurtleCanvas;
 import slogo.view.canvas.TurtleView;
 import slogo.view.menubar.MenuBar;
 
@@ -17,6 +18,7 @@ public class MainView extends VBox implements View {
 
   private MenuBar myMenuBar;
   private SLogoCanvas mySLogoCanvas;
+  private TurtleCanvas myTurtleCanvas;
   private VariablesBox myVariablesBox;
   private UDCommandsBox myUDCommandsBox;
   private InputBox myInputBox;
@@ -35,12 +37,12 @@ public class MainView extends VBox implements View {
     this.getChildren().add(bottom);
 
     connectColorSelector(mySLogoCanvas, myMenuBar.getBackgroundSelector());
-    connectStringSelector(mySLogoCanvas.getGrid(), myMenuBar.getGridSelector());
-    connectStringSelector(mySLogoCanvas.getTurtleView(), myMenuBar.getTurtleSelector());
+    connectStringSelector(myTurtleCanvas, myMenuBar.getGridSelector());
+    connectStringSelector(myTurtleView, myMenuBar.getTurtleSelector());
   }
 
   public PropertyChangeListener getListener() {
-    return mySLogoCanvas;
+    return myTurtleCanvas;
   }
 
   public void resizeElements() {
@@ -116,6 +118,7 @@ public class MainView extends VBox implements View {
     HBox body = new HBox();
 
     mySLogoCanvas = new SLogoCanvas();
+    myTurtleCanvas = mySLogoCanvas.getTurtleCanvas();
     myTurtleView = mySLogoCanvas.getTurtleView();
     body.getChildren().add(mySLogoCanvas);
 

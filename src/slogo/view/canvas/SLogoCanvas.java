@@ -12,35 +12,34 @@ import javafx.scene.paint.Color;
 import slogo.model.Coordinates;
 import slogo.view.SelectorTarget;
 
-public class SLogoCanvas extends AnchorPane implements SelectorTarget<Color>,
-    PropertyChangeListener {
+public class SLogoCanvas extends AnchorPane implements SelectorTarget<Color> {
 
   public static final double CANVAS_MARGIN = 6;
   public static final double GRID_ASPECT_RATIO = 4.0 / 3;
 
-  private final Grid myGrid;
+  private final TurtleCanvas myTurtleCanvas;
 
   public SLogoCanvas() {
     this.setId("Canvas");
 
-    myGrid = new Grid();
+    myTurtleCanvas = new TurtleCanvas();
 
-    this.getChildren().addAll(myGrid);
+    this.getChildren().addAll(myTurtleCanvas);
     this.resizeElements();
   }
 
   @Override
   public Consumer<Color> updateAction() {
-    return color -> myGrid
+    return color -> myTurtleCanvas
         .setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
   }
 
-  public Grid getGrid() {
-    return myGrid;
+  public TurtleCanvas getTurtleCanvas() {
+    return myTurtleCanvas;
   }
 
   public TurtleView getTurtleView() {
-    return myGrid.getTurtleView();
+    return myTurtleCanvas.getTurtleView();
   }
 
   public void resizeElements() {
@@ -55,24 +54,11 @@ public class SLogoCanvas extends AnchorPane implements SelectorTarget<Color>,
       widthMargin = CANVAS_MARGIN + (this.getWidth() - GRID_ASPECT_RATIO * this.getHeight()) / 2;
       heightMargin = CANVAS_MARGIN;
     }
-    AnchorPane.setTopAnchor(myGrid, heightMargin);
-    AnchorPane.setBottomAnchor(myGrid, heightMargin);
-    AnchorPane.setLeftAnchor(myGrid, widthMargin);
-    AnchorPane.setRightAnchor(myGrid, widthMargin);
+    AnchorPane.setTopAnchor(myTurtleCanvas, heightMargin);
+    AnchorPane.setBottomAnchor(myTurtleCanvas, heightMargin);
+    AnchorPane.setLeftAnchor(myTurtleCanvas, widthMargin);
+    AnchorPane.setRightAnchor(myTurtleCanvas, widthMargin);
 
-    myGrid.resizeElements();
-  }
-
-  @Override
-  public void propertyChange(PropertyChangeEvent evt) {
-    if (evt.getPropertyName().equals("LOCATION")) {
-      myGrid.setTurtleLocation((Coordinates) evt.getNewValue());
-    }
-    else if (evt.getPropertyName().equals("HEADING")) {
-      myGrid.setTurtleHeading((Double) evt.getNewValue());
-    }
-    else if (evt.getPropertyName().equals("VISIBILITY")) {
-      myGrid.setTurtleVisibility((Boolean) evt.getNewValue());
-    }
+    myTurtleCanvas.resizeElements();
   }
 }
