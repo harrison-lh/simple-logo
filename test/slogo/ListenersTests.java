@@ -50,10 +50,10 @@ class ListenersTests extends DukeApplicationTest {
     assertEquals(myTurtle.getY(), initY + 50);
   }
 
-  @Test
-  void testModelToView() {
-    double initHeading = myTurtle.getHeading();
-    myTurtle.right(50);
-    assertEquals(initHeading - 50, lookup("#TurtleView").queryAs(TurtleView.class).getHeading());
-  }
+//  @Test
+//  void testModelToView() {
+//    double initHeading = myTurtle.getHeading();
+//    myTurtle.right(50);
+//    assertEquals(initHeading - 50, lookup("#TurtleView").queryAs(TurtleView.class).getHeading());
+//  }
 }
