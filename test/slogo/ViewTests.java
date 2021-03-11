@@ -53,7 +53,7 @@ class ViewTests extends DukeApplicationTest {
     assertExists("#PenSelector");
     assertExists("#TurtleSelector");
     assertExists("#InfoButton");
-    assertExists("#Grid");
+    assertExists("#TurtleCanvas");
     assertExists("#GridLines");
     assertExists("#TurtleView");
     assertExists("#CommandHistoryBox");
@@ -70,7 +70,7 @@ class ViewTests extends DukeApplicationTest {
     setValue(backgroundColorPicker, testColor);
     // Check if grid background color updates
     assertEquals(new Background(new BackgroundFill(testColor, CornerRadii.EMPTY, Insets.EMPTY)),
-        lookup("#Grid").queryAs(StackPane.class).getBackground());
+        lookup("#TurtleCanvas").queryAs(StackPane.class).getBackground());
   }
 
   @Test
