@@ -34,7 +34,8 @@ public class Turtle {
    * Constructor with no listener attached
    */
   public Turtle(Coordinates coordinates, Pen pen) {
-    this(coordinates, pen, null);
+    this(coordinates, pen, evt -> {
+    });
   }
 
   public Variables getVars() {
@@ -77,10 +78,8 @@ public class Turtle {
     xPos += pixels * Math.cos(Math.toRadians(heading));
     yPos += pixels * Math.sin(Math.toRadians(heading));
 
-    if (listener != null) {
-      listener.propertyChange(new PropertyChangeEvent(this, "X", coordinates.getX(), xPos));
-      listener.propertyChange(new PropertyChangeEvent(this, "Y", coordinates.getY(), yPos));
-    }
+    listener.propertyChange(new PropertyChangeEvent(this, "X", coordinates.getX(), xPos));
+    listener.propertyChange(new PropertyChangeEvent(this, "Y", coordinates.getY(), yPos));
 
     setX(xPos);
     setY(yPos);
@@ -95,9 +94,7 @@ public class Turtle {
 
     double heading = coordinates.getHeading();
 
-    if (listener != null) {
-      listener.propertyChange(new PropertyChangeEvent(this, "HEADING", heading, heading - degrees));
-    }
+    listener.propertyChange(new PropertyChangeEvent(this, "HEADING", heading, heading - degrees));
 
     setHeading(heading - degrees);
   }
@@ -111,9 +108,7 @@ public class Turtle {
 
     double heading = coordinates.getHeading();
 
-    if (listener != null) {
-      listener.propertyChange(new PropertyChangeEvent(this, "HEADING", heading, heading - degrees));
-    }
+    listener.propertyChange(new PropertyChangeEvent(this, "HEADING", heading, heading - degrees));
 
     setHeading(heading + degrees);
   }
