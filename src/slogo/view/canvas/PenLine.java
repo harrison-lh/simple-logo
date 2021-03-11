@@ -16,7 +16,7 @@ public class PenLine extends Line {
     this.endX = endX;
     this.endY = endY;
 
-    this.setFill(penColor);
+    this.setStroke(penColor);
   }
 
   public double getStartXCoordinate() {

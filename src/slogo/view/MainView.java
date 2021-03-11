@@ -39,6 +39,7 @@ public class MainView extends VBox implements View {
     connectColorSelector(mySLogoCanvas, myMenuBar.getBackgroundSelector());
     connectStringSelector(myTurtleCanvas, myMenuBar.getGridSelector());
     connectStringSelector(myTurtleView, myMenuBar.getTurtleSelector());
+    connectColorSelector(myTurtleCanvas.getPen(), myMenuBar.getPenSelector());
   }
 
   public PropertyChangeListener getListener() {

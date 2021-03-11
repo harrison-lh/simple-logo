@@ -1,10 +1,12 @@
 package slogo.view;
 
+import java.util.function.Consumer;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import slogo.model.Pen;
 
-public class JavaFXPen extends Pen {
+public class JavaFXPen extends Pen implements SelectorTarget<Color> {
 
   private Paint color;
 
@@ -27,5 +29,10 @@ public class JavaFXPen extends Pen {
   @Override
   public void stamp(double x, double y, double heading) {
     // TODO: place image on screen at parameter locations
+  }
+
+  @Override
+  public Consumer<Color> updateAction() {
+    return this::setColor;
   }
 }

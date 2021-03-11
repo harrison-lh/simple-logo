@@ -45,6 +45,10 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     return myTurtleView;
   }
 
+  public JavaFXPen getPen() {
+    return myPen;
+  }
+
   @Override
   public Consumer<String> updateAction() {
     return myGridLines::changeGridType;
