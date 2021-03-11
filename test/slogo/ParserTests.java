@@ -445,6 +445,15 @@ public class ParserTests {
   }
 
   @Test
+  public void normalThenRepeat() {
+    double initY = turtle.getY();
+    parser.parseCommandString("fd 50 repeat 5 [ fd 50 ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 300);
+  }
+
+  @Test
   public void repeatThenNormal() {
     double initY = turtle.getY();
     parser.parseCommandString("repeat 5 [ fd 50 ] fd 50");

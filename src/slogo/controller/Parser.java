@@ -85,7 +85,7 @@ public class Parser {
       case LIST_END -> {
         // TODO: Create ListEndNode
         ListNode listEndNode = new ListNode(ListNodeType.END_LIST);
-        listEndNode.setNumParams(1);
+        listEndNode.setNumParams(0);
         return listEndNode;
       }
     }
@@ -137,10 +137,6 @@ public class Parser {
       else if(polledNode.getListNodeType() == ListNodeType.END_LIST) {
         if(!pendingCompleteList.isEmpty()) {
           pendingCompleteList.pop(); // Pop off the list we're completing
-        }
-        if(!pendingCompleteList.isEmpty()) {
-          // If there's another list to complete yet...
-          pendingCompleteList.pop().addNodesToList(assembleCommandQueue());
         }
       }
       return polledNode;
