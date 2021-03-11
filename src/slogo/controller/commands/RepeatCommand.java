@@ -3,6 +3,11 @@ package slogo.controller.commands;
 import slogo.controller.Command;
 import slogo.model.Turtle;
 
+/**
+ * RepeatCommand implements the ability to repeat an list of Commands a number of times
+ *
+ * @author Marc Chmielewski
+ */
 public class RepeatCommand extends Command {
 
   private static final int NUM_PARAMS = 2;
