@@ -100,7 +100,7 @@ public class Parser {
     Queue<Node> assembledNodeQueue = new LinkedList<>();
     while(!parsedNodeQueue.isEmpty()) {
       Stack<Node> pendingFilledArgs = new Stack<>();
-      Node rootNode = enhancedPoll();
+      Node rootNode = listCompatiblePoll();
       Node curNode = rootNode;
       dfsHelper(pendingFilledArgs, curNode);
       while(!pendingFilledArgs.isEmpty()) {
@@ -115,7 +115,7 @@ public class Parser {
 
   private void dfsHelper(Stack<Node> pendingFilledArgs, Node curNode) {
     while (curNode.getNumParams() > curNode.getChildren().size() && !parsedNodeQueue.isEmpty()) {
-      Node childNode = enhancedPoll();
+      Node childNode = listCompatiblePoll();
       curNode.addChild(childNode);
       if (childNode.getNumParams() > 0 && curNode.getNumParams() > curNode.getChildren().size()) {
         pendingFilledArgs.push(curNode);
@@ -127,7 +127,7 @@ public class Parser {
     }
   }
 
-  private Node enhancedPoll() {
+  private Node listCompatiblePoll() {
     if(!parsedNodeQueue.isEmpty()) {
       Node polledNode = parsedNodeQueue.poll();
       if(polledNode.getListNodeType() == ListNodeType.START_LIST) {
@@ -136,6 +136,10 @@ public class Parser {
       }
       else if(polledNode.getListNodeType() == ListNodeType.END_LIST) {
         if(!pendingCompleteList.isEmpty()) {
+          pendingCompleteList.pop(); // Pop off the list we're completing
+        }
+        if(!pendingCompleteList.isEmpty()) {
+          // If there's another list to complete yet...
           pendingCompleteList.pop().addNodesToList(assembleCommandQueue());
         }
       }

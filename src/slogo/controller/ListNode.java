@@ -38,8 +38,8 @@ public class ListNode extends Node {
    *
    * @return The List of Nodes contained within this ListNode
    */
-  public Collection<Node> getNodeList() {
-    return nodeList;
+  public List<Node> getNodeList() {
+    return (List<Node>) nodeList;
   }
 
   /**
