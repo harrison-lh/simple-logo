@@ -8,7 +8,10 @@ import slogo.controller.Controller;
 import slogo.view.MainView;
 
 /**
- * Feel free to completely change this code or delete it entirely. 
+ * Starting point of the application, creates the Controller and
+ * sets up the MainView in the JavaFX stage
+ *
+ * @author David Li
  */
 public class Main extends Application {
 
@@ -18,19 +21,16 @@ public class Main extends Application {
     public static final int MIN_HEIGHT = 720;
 
     /**
-     * A method to test (and a joke :).
-     */
-    public double getVersion () {
-        return 0.001;
-    }
-
-    /**
      * Start of the program.
      */
     public static void main (String[] args) {
-        launch();
+        launch(args);
     }
 
+    /**
+     * Create Controller object, and assigns the MainView to the
+     * scene
+     */
     @Override
     public void start(Stage stage) {
         Controller controller = new Controller();

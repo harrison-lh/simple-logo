@@ -6,6 +6,8 @@ import java.util.function.Consumer;
  * Interface for selector items (combo box, color picker, etc.) that
  * passes a property of the selector to the target to update
  * @param <T> The type of property that is passed
+ *
+ * @author David Li
  */
 public interface Selector<T> {
 

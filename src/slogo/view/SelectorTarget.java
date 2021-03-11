@@ -6,6 +6,8 @@ import java.util.function.Consumer;
  * Interface for component that gets updated when a selector
  * selects a new property.
  * @param <T> The type of property that gets passed
+ *
+ * @author David Li
  */
 public interface SelectorTarget<T> {
 

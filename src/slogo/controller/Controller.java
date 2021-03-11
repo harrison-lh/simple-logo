@@ -20,6 +20,9 @@ public class Controller {
   private final Turtle myTurtle;
   private final TurtleController myTurtleController;
 
+  /**
+   * Main constructor
+   */
   public Controller() {
     myMainView = new MainView();
     myTurtle = new Turtle(new GridCoordinates(), new JavaFXPen(Color.BLACK, new ImageView()),

@@ -14,6 +14,11 @@ import slogo.view.canvas.TurtleCanvas;
 import slogo.view.canvas.TurtleView;
 import slogo.view.menubar.MenuBar;
 
+/**
+ * MainView class that holds all elements of the GUI
+ *
+ * @author David Li
+ */
 public class MainView extends VBox implements View {
 
   private MenuBar myMenuBar;
@@ -25,6 +30,9 @@ public class MainView extends VBox implements View {
   private CommandHistoryBox myCommandHistoryBox;
   private TurtleView myTurtleView;
 
+  /**
+   * Main constructor
+   */
   public MainView() {
     myMenuBar = new MenuBar();
     this.getChildren().add(myMenuBar);
@@ -42,10 +50,16 @@ public class MainView extends VBox implements View {
     connectColorSelector(myTurtleCanvas.getPen(), myMenuBar.getPenSelector());
   }
 
+  /**
+   * @return The elements that listens for turtle updates in the model
+   */
   public PropertyChangeListener getListener() {
     return myTurtleCanvas;
   }
 
+  /**
+   * Adjust the size of elements when the window changes size
+   */
   public void resizeElements() {
     mySLogoCanvas.resizeElements();
   }
@@ -85,6 +99,11 @@ public class MainView extends VBox implements View {
 
   }
 
+  /**
+   * Sets what happens when the input button is clicked and passes
+   * the text from the input box to the response
+   * @param response Receiver of user input
+   */
   public void setInputAction(Consumer<String> response) {
     myInputBox.setInputAction(e -> {
       String command = myInputBox.getText();

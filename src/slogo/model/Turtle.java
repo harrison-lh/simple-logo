@@ -94,6 +94,7 @@ public class Turtle {
 
   /**
    * Turns the turtle to the right for a certain number of degrees.
+   * Notifies turtle listener of heading change
    *
    * @param degrees number of degrees the turtle will move clockwise
    */
@@ -108,6 +109,7 @@ public class Turtle {
 
   /**
    * Turns the turtle to the left for a certain number of degrees.
+   * Notifies turtle listener of heading change
    *
    * @param degrees number of degrees the turtle will move counter-clockwise
    */
@@ -140,6 +142,12 @@ public class Turtle {
     return coordinates.getY();
   }
 
+  /**
+   * Sets x and y coordinates of the turtle
+   * Notifies turtle listener of position change
+   * @param x New x-coordinate
+   * @param y New y-coordinate
+   */
   public void setPosition(double x, double y) {
     Coordinates prevCoordinates = new GridCoordinates(coordinates);
     coordinates.setX(x);
@@ -192,11 +200,19 @@ public class Turtle {
     this.isVisible = isVisible;
   }
 
+  /**
+   * Makes the pen inactive
+   * Notifies turtle listener of pen change
+   */
   public void liftPen() {
     listener.propertyChange(new PropertyChangeEvent(this, "PEN", isPenActive(), false));
     pen.liftPen();
   }
 
+  /**
+   * Makes the pen active
+   * Notifies turtle listener of pen change
+   */
   public void placePen() {
     listener.propertyChange(new PropertyChangeEvent(this, "PEN", isPenActive(), true));
     pen.placePen();
