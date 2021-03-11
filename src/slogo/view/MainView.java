@@ -52,8 +52,15 @@ public class MainView extends VBox implements View {
   /**
    * @return The elements that listens for turtle updates in the model
    */
-  public PropertyChangeListener getListener() {
+  public PropertyChangeListener getTurtleListener() {
     return myTurtleCanvas;
+  }
+
+  /**
+   * @return The elements that listens for variable updates in the model
+   */
+  public PropertyChangeListener getVariablesListener() {
+    return myVariablesBox;
   }
 
   /**

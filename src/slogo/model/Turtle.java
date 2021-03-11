@@ -2,7 +2,6 @@ package slogo.model;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import slogo.model.Coordinates;
 
 /**
  * The Turtle is the object that commands of forward and right are put upon, and it contains the
@@ -17,35 +16,37 @@ public class Turtle {
   private Coordinates coordinates;
   private Pen pen;
   private Variables vars;
-  private PropertyChangeListener listener;
+  private PropertyChangeListener turtleListener;
   private boolean isVisible = true;
 
   /**
    * Default constructor for Turtle.
    */
-  public Turtle(Coordinates coordinates, Pen pen, PropertyChangeListener listener) {
+  public Turtle(Coordinates coordinates, Pen pen, PropertyChangeListener turtleListener,
+      PropertyChangeListener variablesListener) {
     this.coordinates = coordinates;
     this.pen = pen;
-    this.vars = new Variables();
-    this.listener = listener;
+    this.vars = new Variables(variablesListener);
+    this.turtleListener = turtleListener;
 
-    listener
+    turtleListener
         .propertyChange(
             new PropertyChangeEvent(this, "LOCATION", this.coordinates, this.coordinates));
-    listener
+    turtleListener
         .propertyChange(
             new PropertyChangeEvent(this, "HEADING", this.coordinates.getHeading(),
                 this.coordinates.getHeading()));
-    listener
+    turtleListener
         .propertyChange(
             new PropertyChangeEvent(this, "VISIBILITY", this.isVisible, this.isVisible));
   }
 
   /**
-   * Constructor with no listener attached
+   * Constructor with no listeners attached
    */
   public Turtle(Coordinates coordinates, Pen pen) {
     this(coordinates, pen, evt -> {
+    }, evt -> {
     });
   }
 
@@ -93,8 +94,8 @@ public class Turtle {
   }
 
   /**
-   * Turns the turtle to the right for a certain number of degrees.
-   * Notifies turtle listener of heading change
+   * Turns the turtle to the right for a certain number of degrees. Notifies turtle listener of
+   * heading change
    *
    * @param degrees number of degrees the turtle will move clockwise
    */
@@ -102,14 +103,15 @@ public class Turtle {
 
     double heading = coordinates.getHeading();
 
-    listener.propertyChange(new PropertyChangeEvent(this, "HEADING", heading, heading - degrees));
+    turtleListener
+        .propertyChange(new PropertyChangeEvent(this, "HEADING", heading, heading - degrees));
 
     setHeading(heading - degrees);
   }
 
   /**
-   * Turns the turtle to the left for a certain number of degrees.
-   * Notifies turtle listener of heading change
+   * Turns the turtle to the left for a certain number of degrees. Notifies turtle listener of
+   * heading change
    *
    * @param degrees number of degrees the turtle will move counter-clockwise
    */
@@ -117,7 +119,8 @@ public class Turtle {
 
     double heading = coordinates.getHeading();
 
-    listener.propertyChange(new PropertyChangeEvent(this, "HEADING", heading, heading - degrees));
+    turtleListener
+        .propertyChange(new PropertyChangeEvent(this, "HEADING", heading, heading - degrees));
 
     setHeading(heading + degrees);
   }
@@ -143,8 +146,8 @@ public class Turtle {
   }
 
   /**
-   * Sets x and y coordinates of the turtle
-   * Notifies turtle listener of position change
+   * Sets x and y coordinates of the turtle Notifies turtle listener of position change
+   *
    * @param x New x-coordinate
    * @param y New y-coordinate
    */
@@ -152,7 +155,7 @@ public class Turtle {
     Coordinates prevCoordinates = new GridCoordinates(coordinates);
     coordinates.setX(x);
     coordinates.setY(y);
-    listener
+    turtleListener
         .propertyChange(new PropertyChangeEvent(this, "LOCATION", prevCoordinates, coordinates));
   }
 
@@ -175,7 +178,7 @@ public class Turtle {
    */
 
   public void setHeading(double heading) {
-    listener
+    turtleListener
         .propertyChange(new PropertyChangeEvent(this, "HEADING", coordinates, heading));
     coordinates.setHeading(heading);
   }
@@ -195,26 +198,24 @@ public class Turtle {
    * @param isVisible boolean whether the turtle is visible
    */
   public void setVisible(boolean isVisible) {
-    listener
+    turtleListener
         .propertyChange(new PropertyChangeEvent(this, "VISIBILITY", this.isVisible, isVisible));
     this.isVisible = isVisible;
   }
 
   /**
-   * Makes the pen inactive
-   * Notifies turtle listener of pen change
+   * Makes the pen inactive Notifies turtle listener of pen change
    */
   public void liftPen() {
-    listener.propertyChange(new PropertyChangeEvent(this, "PEN", isPenActive(), false));
+    turtleListener.propertyChange(new PropertyChangeEvent(this, "PEN", isPenActive(), false));
     pen.liftPen();
   }
 
   /**
-   * Makes the pen active
-   * Notifies turtle listener of pen change
+   * Makes the pen active Notifies turtle listener of pen change
    */
   public void placePen() {
-    listener.propertyChange(new PropertyChangeEvent(this, "PEN", isPenActive(), true));
+    turtleListener.propertyChange(new PropertyChangeEvent(this, "PEN", isPenActive(), true));
     pen.placePen();
   }
 }
