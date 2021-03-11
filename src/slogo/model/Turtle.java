@@ -170,7 +170,6 @@ public class Turtle {
     coordinates.setY(y);
     listener
         .propertyChange(new PropertyChangeEvent(this, "LOCATION", prevCoordinates, coordinates));
-
   }
 
   /**

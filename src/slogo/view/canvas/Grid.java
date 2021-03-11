@@ -64,4 +64,13 @@ public class Grid extends StackPane implements SelectorTarget<String> {
     myTurtleView.setYCoordinate(newCoordinates.getY());
     myTurtleView.setTranslateY(convertYCoordinate(newCoordinates.getY()));
   }
+
+  public void setTurtleVisibility(boolean visible) {
+    if (visible) {
+      myTurtleView.setOpacity(1);
+    }
+    else {
+      myTurtleView.setOpacity(0);
+    }
+  }
 }

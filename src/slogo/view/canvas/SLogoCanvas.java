@@ -71,5 +71,8 @@ public class SLogoCanvas extends AnchorPane implements SelectorTarget<Color>,
     else if (evt.getPropertyName().equals("HEADING")) {
       myGrid.setTurtleHeading((Double) evt.getNewValue());
     }
+    else if (evt.getPropertyName().equals("VISIBILITY")) {
+      myGrid.setTurtleVisibility((Boolean) evt.getNewValue());
+    }
   }
 }
