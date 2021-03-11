@@ -7,10 +7,21 @@ import slogo.model.Pen;
 public class JavaFXPen extends Pen {
 
   private Paint color;
-  private ImageView image;
+
   public JavaFXPen(Paint color, ImageView image){
     this.color = color;
-    this.image = image;
+  }
+
+  public JavaFXPen(Paint color){
+    this.color = color;
+  }
+
+  public Paint getColor() {
+    return color;
+  }
+
+  public void setColor(Paint color) {
+    this.color = color;
   }
 
   @Override

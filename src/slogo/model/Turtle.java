@@ -215,4 +215,14 @@ public class Turtle {
         .propertyChange(new PropertyChangeEvent(this, "VISIBILITY", this.isVisible, isVisible));
     this.isVisible = isVisible;
   }
+
+  public void liftPen() {
+    listener.propertyChange(new PropertyChangeEvent(this, "PEN", isPenActive(), false));
+    pen.liftPen();
+  }
+
+  public void placePen() {
+    listener.propertyChange(new PropertyChangeEvent(this, "PEN", isPenActive(), true));
+    pen.placePen();
+  }
 }

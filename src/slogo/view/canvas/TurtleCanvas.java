@@ -4,7 +4,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.function.Consumer;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import slogo.model.Coordinates;
+import slogo.view.JavaFXPen;
 import slogo.view.SelectorTarget;
 
 public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
@@ -15,6 +17,7 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
 
   private final GridLines myGridLines;
   private final TurtleView myTurtleView;
+  private final JavaFXPen myPen;
 
   public TurtleCanvas() {
     this.setId("TurtleCanvas");
@@ -25,6 +28,7 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     myTurtleView.setXCoordinate(convertXCoordinate(0));
     myTurtleView.setYCoordinate(convertYCoordinate(0));
     myTurtleView.setHeading(convertHeading(0));
+    myPen = new JavaFXPen(Color.BLACK);
 
     this.getChildren().addAll(myGridLines, myTurtleView);
   }
@@ -38,33 +42,6 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     return myGridLines::changeGridType;
   }
 
-  public void resizeElements() {
-    myGridLines.resize();
-    myTurtleView.setTranslateX(convertXCoordinate(myTurtleView.getXCoordinate()));
-    myTurtleView.setTranslateY(convertYCoordinate(myTurtleView.getYCoordinate()));
-  }
-
-  public void setTurtleHeading(double heading) {
-    myTurtleView.setHeading(convertHeading(heading));
-    myTurtleView.setRotate(convertHeading(heading));
-  }
-
-  public void setTurtleLocation(Coordinates newCoordinates) {
-    myTurtleView.setXCoordinate(newCoordinates.getX());
-    myTurtleView.setTranslateX(convertXCoordinate(newCoordinates.getX()));
-    myTurtleView.setYCoordinate(newCoordinates.getY());
-    myTurtleView.setTranslateY(convertYCoordinate(newCoordinates.getY()));
-  }
-
-  public void setTurtleVisibility(boolean visible) {
-    if (visible) {
-      myTurtleView.setOpacity(1);
-    }
-    else {
-      myTurtleView.setOpacity(0);
-    }
-  }
-
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
     if (evt.getPropertyName().equals("LOCATION")) {
@@ -75,6 +52,44 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     }
     else if (evt.getPropertyName().equals("VISIBILITY")) {
       setTurtleVisibility((Boolean) evt.getNewValue());
+    }
+    else if (evt.getPropertyName().equals("PEN")) {
+      setPenActive((Boolean) evt.getNewValue());
+    }
+  }
+  public void resizeElements() {
+    myGridLines.resize();
+    myTurtleView.setTranslateX(convertXCoordinate(myTurtleView.getXCoordinate()));
+    myTurtleView.setTranslateY(convertYCoordinate(myTurtleView.getYCoordinate()));
+  }
+
+  private void setTurtleHeading(double heading) {
+    myTurtleView.setHeading(convertHeading(heading));
+    myTurtleView.setRotate(convertHeading(heading));
+  }
+
+  private void setTurtleLocation(Coordinates newCoordinates) {
+    myTurtleView.setXCoordinate(newCoordinates.getX());
+    myTurtleView.setTranslateX(convertXCoordinate(newCoordinates.getX()));
+    myTurtleView.setYCoordinate(newCoordinates.getY());
+    myTurtleView.setTranslateY(convertYCoordinate(newCoordinates.getY()));
+  }
+
+  private void setTurtleVisibility(boolean visible) {
+    if (visible) {
+      myTurtleView.setOpacity(1);
+    }
+    else {
+      myTurtleView.setOpacity(0);
+    }
+  }
+
+  private void setPenActive(boolean penActive) {
+    if (penActive) {
+      myPen.placePen();
+    }
+    else {
+      myPen.liftPen();
     }
   }
 
