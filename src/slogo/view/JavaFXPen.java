@@ -39,6 +39,9 @@ public class JavaFXPen extends Pen implements SelectorTarget<Color> {
     // TODO: place image on screen at parameter locations
   }
 
+  /**
+   * Changes color when new pen color is selected
+   */
   @Override
   public Consumer<Color> updateAction() {
     return this::setColor;

@@ -81,7 +81,7 @@ class ViewTests extends DukeApplicationTest {
     // Select axis grid type
     select(gridSelectorComboBox, testGridSetting);
     // Check if axes are visible
-    assertTrue(lookup("#GridLines").queryAs(GridLines.class).axisIsVisible());
+    assertTrue(lookup("#GridLines").queryAs(GridLines.class).axesAreVisible());
   }
 
   @Test

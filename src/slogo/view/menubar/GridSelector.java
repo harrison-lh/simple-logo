@@ -8,10 +8,18 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import slogo.view.Selector;
 
+/**
+ * Selector for color of the canvas background
+ *
+ * @author David Li
+ */
 public class GridSelector extends VBox implements Selector<String> {
 
   private final ComboBox<String> myComboBox;
 
+  /**
+   * Main constructor
+   */
   public GridSelector() {
     this.setId("GridSelector");
     this.getStyleClass().add("selector");
@@ -24,6 +32,9 @@ public class GridSelector extends VBox implements Selector<String> {
     this.getChildren().addAll(myLabel, myComboBox);
   }
 
+  /**
+   * Passes the selected grid type to the consumer
+   */
   @Override
   public void setUpdateAction(Consumer<String> response) {
     myComboBox.setOnAction(e -> response.accept(myComboBox.getValue()));

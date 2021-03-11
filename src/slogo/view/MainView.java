@@ -7,9 +7,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import slogo.controller.Command;
-import slogo.model.Turtle;
 import slogo.model.Variables;
-import slogo.view.canvas.SLogoCanvas;
+import slogo.view.canvas.CanvasHolder;
 import slogo.view.canvas.TurtleCanvas;
 import slogo.view.canvas.TurtleView;
 import slogo.view.menubar.MenuBar;
@@ -22,7 +21,7 @@ import slogo.view.menubar.MenuBar;
 public class MainView extends VBox implements View {
 
   private MenuBar myMenuBar;
-  private SLogoCanvas mySLogoCanvas;
+  private CanvasHolder myCanvasHolder;
   private TurtleCanvas myTurtleCanvas;
   private VariablesBox myVariablesBox;
   private UDCommandsBox myUDCommandsBox;
@@ -44,7 +43,7 @@ public class MainView extends VBox implements View {
     HBox bottom = createBottom();
     this.getChildren().add(bottom);
 
-    connectColorSelector(mySLogoCanvas, myMenuBar.getBackgroundSelector());
+    connectColorSelector(myCanvasHolder, myMenuBar.getBackgroundSelector());
     connectStringSelector(myTurtleCanvas, myMenuBar.getGridSelector());
     connectStringSelector(myTurtleView, myMenuBar.getTurtleSelector());
     connectColorSelector(myTurtleCanvas.getPen(), myMenuBar.getPenSelector());
@@ -61,7 +60,7 @@ public class MainView extends VBox implements View {
    * Adjust the size of elements when the window changes size
    */
   public void resizeElements() {
-    mySLogoCanvas.resizeElements();
+    myCanvasHolder.resizeElements();
   }
 
   @Override
@@ -137,15 +136,15 @@ public class MainView extends VBox implements View {
   private HBox createBody() {
     HBox body = new HBox();
 
-    mySLogoCanvas = new SLogoCanvas();
-    myTurtleCanvas = mySLogoCanvas.getTurtleCanvas();
-    myTurtleView = mySLogoCanvas.getTurtleView();
-    body.getChildren().add(mySLogoCanvas);
+    myCanvasHolder = new CanvasHolder();
+    myTurtleCanvas = myCanvasHolder.getTurtleCanvas();
+    myTurtleView = myCanvasHolder.getTurtleView();
+    body.getChildren().add(myCanvasHolder);
 
     VBox infoBoxes = createInfoBoxes();
     body.getChildren().add(infoBoxes);
 
-    HBox.setHgrow(mySLogoCanvas, Priority.ALWAYS);
+    HBox.setHgrow(myCanvasHolder, Priority.ALWAYS);
 
     return body;
   }

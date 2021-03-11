@@ -3,12 +3,21 @@ package slogo.view.canvas;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 
+/**
+ * Holds axes of the grid
+ * Maybe add more gridlines in the future
+ *
+ * @author David Li
+ */
 public class GridLines extends Pane {
 
   private final Line xAxis;
   private final Line yAxis;
-  private boolean axisIsVisible;
+  private boolean axesAreVisible;
 
+  /**
+   * Main constructor
+   */
   public GridLines() {
     this.setId("GridLines");
 
@@ -25,24 +34,31 @@ public class GridLines extends Pane {
     this.resize();
   }
 
+  /**
+   * @param gridType New grid type (none, axis)
+   */
   public void changeGridType(String gridType) {
     if (gridType.equals("None")) {
       xAxis.setOpacity(0);
       yAxis.setOpacity(0);
-      axisIsVisible = false;
+      axesAreVisible = false;
     }
     else if (gridType.equals("Axis")) {
       xAxis.setOpacity(1);
       yAxis.setOpacity(1);
-      axisIsVisible = true;
+      axesAreVisible = true;
     }
     this.resize();
   }
 
-  public boolean axisIsVisible() {
-    return axisIsVisible;
+  public boolean axesAreVisible() {
+    return axesAreVisible;
   }
 
+  /**
+   * Adjusts grid lines locations and sizes to follow
+   * window size adjustments
+   */
   public void resize() {
     xAxis.setStartX(0);
     xAxis.setStartY(this.getHeight() / 2);

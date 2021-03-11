@@ -2,9 +2,7 @@ package slogo.view.canvas;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.Set;
 import java.util.function.Consumer;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -19,7 +17,7 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
 
   public static final double DEFAULT_GRID_WIDTH = 600;
   public static final double DEFAULT_GRID_HEIGHT =
-      DEFAULT_GRID_WIDTH / SLogoCanvas.GRID_ASPECT_RATIO;
+      DEFAULT_GRID_WIDTH / CanvasHolder.TURTLE_CANVAS_ASPECT_RATIO;
 
   private final GridLines myGridLines;
   private final TurtleView myTurtleView;
@@ -49,6 +47,9 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     return myPen;
   }
 
+  /**
+   * Changes grid type when new grid type is selected
+   */
   @Override
   public Consumer<String> updateAction() {
     return myGridLines::changeGridType;
