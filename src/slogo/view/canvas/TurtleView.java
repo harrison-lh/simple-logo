@@ -69,6 +69,10 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
     return yCoordinate;
   }
 
+  public double getHeading() {
+    return heading;
+  }
+
   private void changeTurtleImage(String turtleImage) {
     if (turtleImage.equals("Default")) {
       myTurtleImage = new Image(IMAGES_DIRECTORY + DEFAULT_TURTLE);

@@ -1,25 +1,16 @@
 package slogo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import slogo.controller.Controller;
+import slogo.controller.Parser;
+import slogo.model.Turtle;
 import slogo.view.CommandHistoryBox;
 import slogo.view.MainView;
-import slogo.view.canvas.GridLines;
 import slogo.view.canvas.TurtleView;
 import util.DukeApplicationTest;
 
@@ -30,9 +21,14 @@ class ListenersTests extends DukeApplicationTest {
   public static final int MIN_WIDTH = 960;
   public static final int MIN_HEIGHT = 720;
 
+  private Turtle myTurtle;
+  private Parser myParser;
+
   @Override
   public void start(Stage stage) {
     Controller controller = new Controller();
+    myParser = controller.getParser();
+    myTurtle = controller.getTurtle();
     MainView mainView = controller.getMainView();
     Scene scene = new Scene(mainView, WIDTH, HEIGHT);
     scene.getStylesheets().add("slogo/view/stylesheet.css");
@@ -44,4 +40,20 @@ class ListenersTests extends DukeApplicationTest {
     stage.show();
   }
 
+  @Test
+  void testInputToParser() {
+    String command = "fd 50";
+    double initY = myTurtle.getY();
+    TextArea inputBoxArea = lookup("#InputBoxArea").queryAs(TextArea.class);
+    inputBoxArea.setText(command);
+    clickOn(lookup("#InputButton").queryButton());
+    assertEquals(myTurtle.getY(), initY + 50);
+  }
+
+  @Test
+  void testModelToView() {
+    double initHeading = myTurtle.getHeading();
+    myTurtle.right(50);
+    assertEquals(initHeading - 50, lookup("#TurtleView").queryAs(TurtleView.class).getHeading());
+  }
 }

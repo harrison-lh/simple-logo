@@ -36,4 +36,12 @@ public class Controller {
   public MainView getMainView() {
     return myMainView;
   }
+
+  public Turtle getTurtle() {
+    return myTurtle;
+  }
+
+  public Parser getParser() {
+    return myParser;
+  }
 }

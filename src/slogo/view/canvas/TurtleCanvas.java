@@ -86,7 +86,7 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
   }
 
   private void setTurtleHeading(double heading) {
-    myTurtleView.setHeading(convertHeading(heading));
+    myTurtleView.setHeading(heading);
     myTurtleView.setRotate(convertHeading(heading));
   }
 
