@@ -1,6 +1,7 @@
 package slogo.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import slogo.model.Turtle;
 
@@ -13,7 +14,7 @@ import slogo.model.Turtle;
  */
 public class ListNode extends Node {
 
-  List<Node> nodeList;
+  Collection<Node> nodeList;
 
   /**
    * Constructs a new ListNode with an empty List of Nodes.
@@ -37,7 +38,7 @@ public class ListNode extends Node {
    *
    * @return The List of Nodes contained within this ListNode
    */
-  public List<Node> getNodeList() {
+  public Collection<Node> getNodeList() {
     return nodeList;
   }
 
@@ -48,6 +49,10 @@ public class ListNode extends Node {
    */
   public void addNodeToList(Node node) {
     nodeList.add(node);
+  }
+
+  public void addNodesToList(Collection<Node> nodes) {
+    nodeList.addAll(nodes);
   }
 
   /**

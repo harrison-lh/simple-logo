@@ -398,4 +398,40 @@ public class ParserTests {
     controller.runCommands();
     assertEquals(initY + Math.PI, turtle.getY());
   }
+
+  @Test
+  public void testRepeatBasic() {
+    double initY = turtle.getY();
+    parser.parseCommandString("repeat 2 [ fd 50 ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 100);
+  }
+
+  @Test
+  public void testRepeatBasic2() {
+    double initY = turtle.getY();
+    parser.parseCommandString("repeat 4 [ fd 50 bk 50 ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY);
+  }
+
+  @Test
+  public void testRepeatBasic3() {
+    double initY = turtle.getY();
+    parser.parseCommandString("repeat 5 [ fd sum 50 50 ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 500);
+  }
+
+  @Test
+  public void testRepeatAdvanced() {
+    double initY = turtle.getY();
+    parser.parseCommandString("repeat 5 [ repeat 2 [ fd 50 ] ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 500);
+  }
 }

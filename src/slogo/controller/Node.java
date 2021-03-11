@@ -62,10 +62,20 @@ public abstract class Node {
   }
 
   /**
-   * Set the type of ListNode that this Node is.
+   * Set the type of ListNode, if any, that this Node is.
+   *
    * @param listNodeType The type of ListNode that this Node is.
    */
   public void setListNodeType(ListNodeType listNodeType) {
     this.listNodeType = listNodeType;
+  }
+
+  /**
+   * Get the type of ListNode, if any, that this Node is.
+   *
+   * @return The type of ListNode, if any, that this Node is.
+   */
+  public ListNodeType getListNodeType() {
+    return this.listNodeType;
   }
 }

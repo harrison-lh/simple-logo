@@ -20,7 +20,7 @@ public class Parser {
   private Queue<String> splitText;
   private Queue<Token> tokenizedText;
   private final Queue<Node> parsedNodeQueue;
-  private final Queue<Node> assembledNodeQueue;
+  private final Stack<ListNode> pendingCompleteList;
 
 
   public Parser(TurtleController controller, String syntaxLang) {
@@ -29,7 +29,7 @@ public class Parser {
     this.splitText = new LinkedList<>();
     this.tokenizedText = new LinkedList<>();
     this.parsedNodeQueue = new LinkedList<>();
-    this.assembledNodeQueue = new LinkedList<>();
+    this.pendingCompleteList = new Stack<>();
   }
 
   private void splitText(String text) {
@@ -79,13 +79,13 @@ public class Parser {
       case LIST_START -> {
         // TODO: Create ListStartNode
         ListNode listStartNode = new ListNode(ListNodeType.START_LIST);
-        listStartNode.setNumParams(-1); // Kludge, but no other great way to say "infinite params"
+        listStartNode.setNumParams(1);
         return listStartNode;
       }
       case LIST_END -> {
         // TODO: Create ListEndNode
         ListNode listEndNode = new ListNode(ListNodeType.END_LIST);
-        listEndNode.setNumParams(-1); // Kludge, but no other great way to say "infinite params"
+        listEndNode.setNumParams(1);
         return listEndNode;
       }
     }
@@ -96,10 +96,11 @@ public class Parser {
     return (tokenizedText.contains(Token.COMMENT) || tokenizedText.isEmpty());
   }
 
-  private void assembleCommandQueue() {
+  private Queue<Node> assembleCommandQueue() {
+    Queue<Node> assembledNodeQueue = new LinkedList<>();
     while(!parsedNodeQueue.isEmpty()) {
       Stack<Node> pendingFilledArgs = new Stack<>();
-      Node rootNode = parsedNodeQueue.poll();
+      Node rootNode = enhancedPoll();
       Node curNode = rootNode;
       dfsHelper(pendingFilledArgs, curNode);
       while(!pendingFilledArgs.isEmpty()) {
@@ -108,11 +109,13 @@ public class Parser {
       }
       assembledNodeQueue.add(rootNode);
     }
+    return assembledNodeQueue;
   }
 
+
   private void dfsHelper(Stack<Node> pendingFilledArgs, Node curNode) {
-    while (curNode.getNumParams() > curNode.getChildren().size()) {
-      Node childNode = parsedNodeQueue.poll();
+    while (curNode.getNumParams() > curNode.getChildren().size() && !parsedNodeQueue.isEmpty()) {
+      Node childNode = enhancedPoll();
       curNode.addChild(childNode);
       if (childNode.getNumParams() > 0 && curNode.getNumParams() > curNode.getChildren().size()) {
         pendingFilledArgs.push(curNode);
@@ -122,6 +125,23 @@ public class Parser {
         curNode = childNode;
       }
     }
+  }
+
+  private Node enhancedPoll() {
+    if(!parsedNodeQueue.isEmpty()) {
+      Node polledNode = parsedNodeQueue.poll();
+      if(polledNode.getListNodeType() == ListNodeType.START_LIST) {
+        pendingCompleteList.push((ListNode) polledNode);
+        ((ListNode) polledNode).addNodesToList(assembleCommandQueue());
+      }
+      else if(polledNode.getListNodeType() == ListNodeType.END_LIST) {
+        if(!pendingCompleteList.isEmpty()) {
+          pendingCompleteList.pop().addNodesToList(assembleCommandQueue());
+        }
+      }
+      return polledNode;
+    }
+    return null;
   }
 
   public void setSyntaxLang(String syntaxLang) {
@@ -135,7 +155,7 @@ public class Parser {
       return; // If it's a comment line, return early. Comments have no commands.
     }
     mapTokensToNodes();
-    assembleCommandQueue();
+    Queue<Node> assembledNodeQueue = assembleCommandQueue();
     for(Node node : assembledNodeQueue) {
       System.out.println(node);
     }
