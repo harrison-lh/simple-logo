@@ -20,6 +20,7 @@ import slogo.controller.Controller;
 import slogo.view.CommandHistoryBox;
 import slogo.view.MainView;
 import slogo.view.canvas.GridLines;
+import slogo.view.canvas.TurtleCanvas;
 import slogo.view.canvas.TurtleView;
 import util.DukeApplicationTest;
 
@@ -94,6 +95,17 @@ class ViewTests extends DukeApplicationTest {
     // Check if turtle image filename is correct
     assertEquals("turtle-realistic.png",
         lookup("#TurtleView").queryAs(TurtleView.class).getTurtleImageFilename());
+  }
+
+  @Test
+  void testPenSelector() {
+    ColorPicker penColorPicker = lookup("#PenColorPicker").queryAs(ColorPicker.class);
+    Color testColor = Color.RED;
+    // Select pen color
+    setValue(penColorPicker, testColor);
+    // Check if pen color updates
+    assertEquals(testColor,
+        lookup("#TurtleCanvas").queryAs(TurtleCanvas.class).getPen().getColor());
   }
 
 //  @Test
