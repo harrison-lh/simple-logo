@@ -10,6 +10,10 @@ public class GridCoordinates extends Coordinates {
     super();
   }
 
+  public GridCoordinates(Coordinates coordinates) {
+    this(coordinates.getX(), coordinates.getY(), coordinates.getHeading());
+  }
+
   @Override
   public double getX() {
     return xPos;

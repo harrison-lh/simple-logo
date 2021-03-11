@@ -2,6 +2,7 @@ package slogo.view.canvas;
 
 import java.util.function.Consumer;
 import javafx.scene.layout.StackPane;
+import slogo.model.Coordinates;
 import slogo.view.SelectorTarget;
 
 public class Grid extends StackPane implements SelectorTarget<String> {
@@ -40,16 +41,6 @@ public class Grid extends StackPane implements SelectorTarget<String> {
     myTurtleView.setTranslateY(convertYCoordinate(myTurtleView.getYCoordinate()));
   }
 
-  public void setTurtleX(double x) {
-    myTurtleView.setXCoordinate(x);
-    myTurtleView.setTranslateX(convertXCoordinate(x));
-  }
-
-  public void setTurtleY(double y) {
-    myTurtleView.setYCoordinate(y);
-    myTurtleView.setTranslateY(convertYCoordinate(y));
-  }
-
   public void setTurtleHeading(double heading) {
     myTurtleView.setHeading(convertHeading(heading));
     myTurtleView.setRotate(convertHeading(heading));
@@ -65,5 +56,12 @@ public class Grid extends StackPane implements SelectorTarget<String> {
 
   private double convertYCoordinate(double y) {
     return -1 * y * this.getHeight() / DEFAULT_GRID_HEIGHT;
+  }
+
+  public void setTurtleLocation(Coordinates newCoordinates) {
+    myTurtleView.setXCoordinate(newCoordinates.getX());
+    myTurtleView.setTranslateX(convertXCoordinate(newCoordinates.getX()));
+    myTurtleView.setYCoordinate(newCoordinates.getY());
+    myTurtleView.setTranslateY(convertYCoordinate(newCoordinates.getY()));
   }
 }

@@ -9,6 +9,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import slogo.model.Coordinates;
 import slogo.view.SelectorTarget;
 
 public class SLogoCanvas extends AnchorPane implements SelectorTarget<Color>,
@@ -64,11 +65,8 @@ public class SLogoCanvas extends AnchorPane implements SelectorTarget<Color>,
 
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
-    if (evt.getPropertyName().equals("X")) {
-      myGrid.setTurtleX((Double) evt.getNewValue());
-    }
-    else if (evt.getPropertyName().equals("Y")) {
-      myGrid.setTurtleY((Double) evt.getNewValue());
+    if (evt.getPropertyName().equals("LOCATION")) {
+      myGrid.setTurtleLocation((Coordinates) evt.getNewValue());
     }
     else if (evt.getPropertyName().equals("HEADING")) {
       myGrid.setTurtleHeading((Double) evt.getNewValue());

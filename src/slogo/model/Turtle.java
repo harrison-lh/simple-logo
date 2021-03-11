@@ -28,6 +28,17 @@ public class Turtle {
     this.pen = pen;
     this.vars = new Variables();
     this.listener = listener;
+
+    listener
+        .propertyChange(
+            new PropertyChangeEvent(this, "LOCATION", this.coordinates, this.coordinates));
+    listener
+        .propertyChange(
+            new PropertyChangeEvent(this, "HEADING", this.coordinates.getHeading(),
+                this.coordinates.getHeading()));
+    listener
+        .propertyChange(
+            new PropertyChangeEvent(this, "VISIBILITY", this.isVisible, this.isVisible));
   }
 
   /**
@@ -78,11 +89,13 @@ public class Turtle {
     xPos += pixels * Math.cos(Math.toRadians(heading));
     yPos += pixels * Math.sin(Math.toRadians(heading));
 
-    listener.propertyChange(new PropertyChangeEvent(this, "X", coordinates.getX(), xPos));
-    listener.propertyChange(new PropertyChangeEvent(this, "Y", coordinates.getY(), yPos));
+    Coordinates prevCoordinates = new GridCoordinates(coordinates);
 
     setX(xPos);
     setY(yPos);
+
+    listener
+        .propertyChange(new PropertyChangeEvent(this, "LOCATION", prevCoordinates, coordinates));
   }
 
   /**
@@ -130,7 +143,10 @@ public class Turtle {
    */
 
   public void setX(double x) {
+    Coordinates prevCoordinates = new GridCoordinates(coordinates);
     coordinates.setX(x);
+    listener
+        .propertyChange(new PropertyChangeEvent(this, "LOCATION", prevCoordinates, coordinates));
   }
 
   /**
@@ -150,7 +166,11 @@ public class Turtle {
    */
 
   public void setY(double y) {
+    Coordinates prevCoordinates = new GridCoordinates(coordinates);
     coordinates.setY(y);
+    listener
+        .propertyChange(new PropertyChangeEvent(this, "LOCATION", prevCoordinates, coordinates));
+
   }
 
   /**
@@ -172,6 +192,8 @@ public class Turtle {
    */
 
   public void setHeading(double heading) {
+    listener
+        .propertyChange(new PropertyChangeEvent(this, "HEADING", coordinates, heading));
     coordinates.setHeading(heading);
   }
 
@@ -190,6 +212,8 @@ public class Turtle {
    * @param isVisible boolean whether the turtle is visible
    */
   public void setVisible(boolean isVisible) {
+    listener
+        .propertyChange(new PropertyChangeEvent(this, "VISIBILITY", this.isVisible, isVisible));
     this.isVisible = isVisible;
   }
 }
