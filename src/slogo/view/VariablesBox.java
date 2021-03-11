@@ -23,12 +23,13 @@ public class VariablesBox extends ScrollPane implements PropertyChangeListener {
     myContents.getChildren().add(new Label("variables"));
   }
 
+  // TODO: Implement adding and updating variables in variables box
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
     if (evt.getPropertyName().equals("ADD")) {
       System.out.println("add variable");
     }
-    else     if (evt.getPropertyName().equals("UPDATE")) {
+    else if (evt.getPropertyName().equals("UPDATE")) {
       System.out.println("update variable");
     }
   }
