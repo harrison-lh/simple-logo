@@ -7,22 +7,31 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import slogo.controller.Command;
-import slogo.model.Turtle;
 import slogo.model.Variables;
-import slogo.view.canvas.SLogoCanvas;
+import slogo.view.canvas.CanvasHolder;
+import slogo.view.canvas.TurtleCanvas;
 import slogo.view.canvas.TurtleView;
 import slogo.view.menubar.MenuBar;
 
+/**
+ * MainView class that holds all elements of the GUI
+ *
+ * @author David Li
+ */
 public class MainView extends VBox implements View {
 
   private MenuBar myMenuBar;
-  private SLogoCanvas mySLogoCanvas;
+  private CanvasHolder myCanvasHolder;
+  private TurtleCanvas myTurtleCanvas;
   private VariablesBox myVariablesBox;
   private UDCommandsBox myUDCommandsBox;
   private InputBox myInputBox;
   private CommandHistoryBox myCommandHistoryBox;
   private TurtleView myTurtleView;
 
+  /**
+   * Main constructor
+   */
   public MainView() {
     myMenuBar = new MenuBar();
     this.getChildren().add(myMenuBar);
@@ -34,17 +43,31 @@ public class MainView extends VBox implements View {
     HBox bottom = createBottom();
     this.getChildren().add(bottom);
 
-    connectColorSelector(mySLogoCanvas, myMenuBar.getBackgroundSelector());
-    connectStringSelector(mySLogoCanvas.getGrid(), myMenuBar.getGridSelector());
-    connectStringSelector(mySLogoCanvas.getTurtleView(), myMenuBar.getTurtleSelector());
+    connectColorSelector(myCanvasHolder, myMenuBar.getBackgroundSelector());
+    connectStringSelector(myTurtleCanvas, myMenuBar.getGridSelector());
+    connectStringSelector(myTurtleView, myMenuBar.getTurtleSelector());
+    connectColorSelector(myTurtleCanvas.getPen(), myMenuBar.getPenSelector());
   }
 
-  public PropertyChangeListener getListener() {
-    return mySLogoCanvas;
+  /**
+   * @return The elements that listens for turtle updates in the model
+   */
+  public PropertyChangeListener getTurtleListener() {
+    return myTurtleCanvas;
   }
 
+  /**
+   * @return The elements that listens for variable updates in the model
+   */
+  public PropertyChangeListener getVariablesListener() {
+    return myVariablesBox;
+  }
+
+  /**
+   * Adjust the size of elements when the window changes size
+   */
   public void resizeElements() {
-    mySLogoCanvas.resizeElements();
+    myCanvasHolder.resizeElements();
   }
 
   @Override
@@ -82,6 +105,11 @@ public class MainView extends VBox implements View {
 
   }
 
+  /**
+   * Sets what happens when the input button is clicked and passes
+   * the text from the input box to the response
+   * @param response Receiver of user input
+   */
   public void setInputAction(Consumer<String> response) {
     myInputBox.setInputAction(e -> {
       String command = myInputBox.getText();
@@ -115,14 +143,15 @@ public class MainView extends VBox implements View {
   private HBox createBody() {
     HBox body = new HBox();
 
-    mySLogoCanvas = new SLogoCanvas();
-    myTurtleView = mySLogoCanvas.getTurtleView();
-    body.getChildren().add(mySLogoCanvas);
+    myCanvasHolder = new CanvasHolder();
+    myTurtleCanvas = myCanvasHolder.getTurtleCanvas();
+    myTurtleView = myCanvasHolder.getTurtleView();
+    body.getChildren().add(myCanvasHolder);
 
     VBox infoBoxes = createInfoBoxes();
     body.getChildren().add(infoBoxes);
 
-    HBox.setHgrow(mySLogoCanvas, Priority.ALWAYS);
+    HBox.setHgrow(myCanvasHolder, Priority.ALWAYS);
 
     return body;
   }

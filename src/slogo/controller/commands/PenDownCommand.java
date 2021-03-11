@@ -13,7 +13,7 @@ public class PenDownCommand extends Command {
 
   @Override
   public double execute(Turtle turtle) {
-    turtle.getPen().placePen();
+    turtle.placePen();
     return turtle.isPenActive() ? 0 : 1;
   }
 }

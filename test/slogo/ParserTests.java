@@ -256,8 +256,7 @@ public class ParserTests {
 
   @Test
   public void testSetTowards() {
-    turtle.setX(0);
-    turtle.setY(0);
+    turtle.setPosition(0, 0);
     turtle.setHeading(0);
     parser.parseCommandString("towards 1 1");
     controller.setIsAllowedToExecute(true);

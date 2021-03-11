@@ -10,6 +10,9 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import slogo.view.HelpWindow;
 
+/**
+ * Holds all selectors and help button at the top of the window
+ */
 public class MenuBar extends HBox {
 
   private final BackgroundSelector myBackgroundSelector;
@@ -18,6 +21,9 @@ public class MenuBar extends HBox {
   private final PenSelector myPenSelector;
   private final LanguageSelector myLanguageSelector;
 
+  /**
+   * Main constructor
+   */
   public MenuBar() {
     this.setId("MenuBar");
     this.getStyleClass().add("box");
@@ -42,15 +48,6 @@ public class MenuBar extends HBox {
             myLanguageSelector, spacer, infoButton);
   }
 
-  private void openCommandsWindow() {
-    Stage stage = new Stage();
-    stage.setTitle("All Commands");
-    Scene scene = new Scene(new HelpWindow(), HelpWindow.WIDTH, HelpWindow.HEIGHT);
-    scene.getStylesheets().add("slogo/view/stylesheet.css");
-    stage.setScene(scene);
-    stage.show();
-  }
-
   public BackgroundSelector getBackgroundSelector() {
     return myBackgroundSelector;
   }
@@ -69,5 +66,14 @@ public class MenuBar extends HBox {
 
   public LanguageSelector getLanguageSelector() {
     return myLanguageSelector;
+  }
+
+  private void openCommandsWindow() {
+    Stage stage = new Stage();
+    stage.setTitle("All Commands");
+    Scene scene = new Scene(new HelpWindow(), HelpWindow.WIDTH, HelpWindow.HEIGHT);
+    scene.getStylesheets().add("slogo/view/stylesheet.css");
+    stage.setScene(scene);
+    stage.show();
   }
 }

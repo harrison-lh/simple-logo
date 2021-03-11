@@ -7,11 +7,19 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * Display box for the commands inputted by the user
+ *
+ * @author David Li
+ */
 public class CommandHistoryBox extends ScrollPane {
 
   private final VBox myContents;
   private Deque<String> pastCommands;
 
+  /**
+   * Main constructor
+   */
   public CommandHistoryBox() {
     this.setId("CommandHistoryBox");
     myContents = new VBox();
@@ -23,10 +31,17 @@ public class CommandHistoryBox extends ScrollPane {
     this.setContent(myContents);
   }
 
+  /**
+   * @return Deque of all the past commands inputted
+   */
   public Deque<String> getPastCommands() {
     return pastCommands;
   }
 
+  /**
+   * Add a command to the command history
+   * @param command Command to be added
+   */
   public void addCommand(String command) {
     pastCommands.add(command);
     myContents.getChildren().add(new Label("> " + command));

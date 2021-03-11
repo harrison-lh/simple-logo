@@ -15,6 +15,12 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * Help window that pops up when the user clicks the help button
+ * Contains a list of all commands and descriptions of each
+ *
+ * @author David Li
+ */
 public class HelpWindow extends ScrollPane {
 
   public static final int WIDTH = 540;
@@ -23,6 +29,9 @@ public class HelpWindow extends ScrollPane {
 
   private VBox commandLinks;
 
+  /**
+   * Main constructor
+   */
   public HelpWindow() {
     this.setFitToWidth(true);
     this.setId("HelpWindow");

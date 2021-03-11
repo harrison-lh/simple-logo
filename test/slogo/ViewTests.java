@@ -20,6 +20,7 @@ import slogo.controller.Controller;
 import slogo.view.CommandHistoryBox;
 import slogo.view.MainView;
 import slogo.view.canvas.GridLines;
+import slogo.view.canvas.TurtleCanvas;
 import slogo.view.canvas.TurtleView;
 import util.DukeApplicationTest;
 
@@ -53,7 +54,7 @@ class ViewTests extends DukeApplicationTest {
     assertExists("#PenSelector");
     assertExists("#TurtleSelector");
     assertExists("#InfoButton");
-    assertExists("#Grid");
+    assertExists("#TurtleCanvas");
     assertExists("#GridLines");
     assertExists("#TurtleView");
     assertExists("#CommandHistoryBox");
@@ -70,7 +71,7 @@ class ViewTests extends DukeApplicationTest {
     setValue(backgroundColorPicker, testColor);
     // Check if grid background color updates
     assertEquals(new Background(new BackgroundFill(testColor, CornerRadii.EMPTY, Insets.EMPTY)),
-        lookup("#Grid").queryAs(StackPane.class).getBackground());
+        lookup("#TurtleCanvas").queryAs(StackPane.class).getBackground());
   }
 
   @Test
@@ -81,7 +82,7 @@ class ViewTests extends DukeApplicationTest {
     // Select axis grid type
     select(gridSelectorComboBox, testGridSetting);
     // Check if axes are visible
-    assertTrue(lookup("#GridLines").queryAs(GridLines.class).axisIsVisible());
+    assertTrue(lookup("#GridLines").queryAs(GridLines.class).axesAreVisible());
   }
 
   @Test
@@ -94,6 +95,17 @@ class ViewTests extends DukeApplicationTest {
     // Check if turtle image filename is correct
     assertEquals("turtle-realistic.png",
         lookup("#TurtleView").queryAs(TurtleView.class).getTurtleImageFilename());
+  }
+
+  @Test
+  void testPenSelector() {
+    ColorPicker penColorPicker = lookup("#PenColorPicker").queryAs(ColorPicker.class);
+    Color testColor = Color.RED;
+    // Select pen color
+    setValue(penColorPicker, testColor);
+    // Check if pen color updates
+    assertEquals(testColor,
+        lookup("#TurtleCanvas").queryAs(TurtleCanvas.class).getPen().getColor());
   }
 
 //  @Test

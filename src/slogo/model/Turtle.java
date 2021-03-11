@@ -2,7 +2,6 @@ package slogo.model;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import slogo.model.Coordinates;
 
 /**
  * The Turtle is the object that commands of forward and right are put upon, and it contains the
@@ -17,24 +16,38 @@ public class Turtle {
   private Coordinates coordinates;
   private Pen pen;
   private Variables vars;
-  private PropertyChangeListener listener;
+  private PropertyChangeListener turtleListener;
   private boolean isVisible = true;
 
   /**
    * Default constructor for Turtle.
    */
-  public Turtle(Coordinates coordinates, Pen pen, PropertyChangeListener listener) {
+  public Turtle(Coordinates coordinates, Pen pen, PropertyChangeListener turtleListener,
+      PropertyChangeListener variablesListener) {
     this.coordinates = coordinates;
     this.pen = pen;
-    this.vars = new Variables();
-    this.listener = listener;
+    this.vars = new Variables(variablesListener);
+    this.turtleListener = turtleListener;
+
+    turtleListener
+        .propertyChange(
+            new PropertyChangeEvent(this, "LOCATION", this.coordinates, this.coordinates));
+    turtleListener
+        .propertyChange(
+            new PropertyChangeEvent(this, "HEADING", this.coordinates.getHeading(),
+                this.coordinates.getHeading()));
+    turtleListener
+        .propertyChange(
+            new PropertyChangeEvent(this, "VISIBILITY", this.isVisible, this.isVisible));
   }
 
   /**
-   * Constructor with no listener attached
+   * Constructor with no listeners attached
    */
   public Turtle(Coordinates coordinates, Pen pen) {
-    this(coordinates, pen, null);
+    this(coordinates, pen, evt -> {
+    }, evt -> {
+    });
   }
 
   public Variables getVars() {
@@ -77,17 +90,12 @@ public class Turtle {
     xPos += pixels * Math.cos(Math.toRadians(heading));
     yPos += pixels * Math.sin(Math.toRadians(heading));
 
-    if (listener != null) {
-      listener.propertyChange(new PropertyChangeEvent(this, "X", coordinates.getX(), xPos));
-      listener.propertyChange(new PropertyChangeEvent(this, "Y", coordinates.getY(), yPos));
-    }
-
-    setX(xPos);
-    setY(yPos);
+    setPosition(xPos, yPos);
   }
 
   /**
-   * Turns the turtle to the right for a certain number of degrees.
+   * Turns the turtle to the right for a certain number of degrees. Notifies turtle listener of
+   * heading change
    *
    * @param degrees number of degrees the turtle will move clockwise
    */
@@ -95,15 +103,15 @@ public class Turtle {
 
     double heading = coordinates.getHeading();
 
-    if (listener != null) {
-      listener.propertyChange(new PropertyChangeEvent(this, "HEADING", heading, heading - degrees));
-    }
+    turtleListener
+        .propertyChange(new PropertyChangeEvent(this, "HEADING", heading, heading - degrees));
 
     setHeading(heading - degrees);
   }
 
   /**
-   * Turns the turtle to the left for a certain number of degrees.
+   * Turns the turtle to the left for a certain number of degrees. Notifies turtle listener of
+   * heading change
    *
    * @param degrees number of degrees the turtle will move counter-clockwise
    */
@@ -111,9 +119,8 @@ public class Turtle {
 
     double heading = coordinates.getHeading();
 
-    if (listener != null) {
-      listener.propertyChange(new PropertyChangeEvent(this, "HEADING", heading, heading - degrees));
-    }
+    turtleListener
+        .propertyChange(new PropertyChangeEvent(this, "HEADING", heading, heading - degrees));
 
     setHeading(heading + degrees);
   }
@@ -129,16 +136,6 @@ public class Turtle {
   }
 
   /**
-   * Setter method for the x-coordinate of the turtle.
-   *
-   * @param x The new x-coordinate of the object.
-   */
-
-  public void setX(double x) {
-    coordinates.setX(x);
-  }
-
-  /**
    * Getter method for obtaining the y-coordinate of the turtle.
    *
    * @return double of turtle's y-coordinate
@@ -149,13 +146,17 @@ public class Turtle {
   }
 
   /**
-   * Setter method for the y-coordinate of the turtle.
+   * Sets x and y coordinates of the turtle Notifies turtle listener of position change
    *
-   * @param y The new y-coordinate of the object
+   * @param x New x-coordinate
+   * @param y New y-coordinate
    */
-
-  public void setY(double y) {
+  public void setPosition(double x, double y) {
+    Coordinates prevCoordinates = new GridCoordinates(coordinates);
+    coordinates.setX(x);
     coordinates.setY(y);
+    turtleListener
+        .propertyChange(new PropertyChangeEvent(this, "LOCATION", prevCoordinates, coordinates));
   }
 
   /**
@@ -177,6 +178,8 @@ public class Turtle {
    */
 
   public void setHeading(double heading) {
+    turtleListener
+        .propertyChange(new PropertyChangeEvent(this, "HEADING", coordinates, heading));
     coordinates.setHeading(heading);
   }
 
@@ -195,6 +198,24 @@ public class Turtle {
    * @param isVisible boolean whether the turtle is visible
    */
   public void setVisible(boolean isVisible) {
+    turtleListener
+        .propertyChange(new PropertyChangeEvent(this, "VISIBILITY", this.isVisible, isVisible));
     this.isVisible = isVisible;
+  }
+
+  /**
+   * Makes the pen inactive Notifies turtle listener of pen change
+   */
+  public void liftPen() {
+    turtleListener.propertyChange(new PropertyChangeEvent(this, "PEN", isPenActive(), false));
+    pen.liftPen();
+  }
+
+  /**
+   * Makes the pen active Notifies turtle listener of pen change
+   */
+  public void placePen() {
+    turtleListener.propertyChange(new PropertyChangeEvent(this, "PEN", isPenActive(), true));
+    pen.placePen();
   }
 }
