@@ -1,39 +1,80 @@
 package slogo.model;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 /**
- * The Turtle is the object that commands of forward and right are put upon, and it contains
- * the fundamental variables of where the turtle is placed and facing.
+ * The Turtle is the object that commands of forward and right are put upon, and it contains the
+ * fundamental variables of where the turtle is placed and facing.
  *
  * @author Harrison Huang
+ * @author Cole Spector
+ * @author David Li
  */
-public class Turtle implements Coordinates{
+public class Turtle {
 
-  private double xPos;
-  private double yPos;
-  private double heading;
-  private static final double DEFAULT_X = 0;
-  private static final double DEFAULT_Y = 0;
-  private static final double DEFAULT_HEADING = 90;
-  private static final double MAX_DEGREES = 360;
+  private Coordinates coordinates;
+  private Pen pen;
+  private Variables vars;
+  private PropertyChangeListener turtleListener;
+  private boolean isVisible = true;
 
   /**
    * Default constructor for Turtle.
    */
-  public Turtle() {
-    this(DEFAULT_X, DEFAULT_Y, DEFAULT_HEADING);
+  public Turtle(Coordinates coordinates, Pen pen, PropertyChangeListener turtleListener,
+      PropertyChangeListener variablesListener) {
+    this.coordinates = coordinates;
+    this.pen = pen;
+    this.vars = new Variables(variablesListener);
+    this.turtleListener = turtleListener;
+
+    turtleListener
+        .propertyChange(
+            new PropertyChangeEvent(this, "LOCATION", this.coordinates, this.coordinates));
+    turtleListener
+        .propertyChange(
+            new PropertyChangeEvent(this, "HEADING", this.coordinates.getHeading(),
+                this.coordinates.getHeading()));
+    turtleListener
+        .propertyChange(
+            new PropertyChangeEvent(this, "VISIBILITY", this.isVisible, this.isVisible));
+  }
+
+  /**
+   * Constructor with no listeners attached
+   */
+  public Turtle(Coordinates coordinates, Pen pen) {
+    this(coordinates, pen, evt -> {
+    }, evt -> {
+    });
+  }
+
+  public Variables getVars() {
+    return vars;
+  }
+
+  public Pen getPen() {
+    return pen;
+  }
+
+  public boolean isPenActive() {
+    return pen.isPenActive();
   }
 
   /**
    * Creates a new Turtle object given parameters of a starting position and heading.
    *
-   * @param x X coordinate
-   * @param y Y coordinate
+   * @param x       X coordinate
+   * @param y       Y coordinate
    * @param heading direction turtle is facing relative to positive x-axis
    */
-  public Turtle(double x, double y, double heading) {
-    xPos = x;
-    yPos = y;
-    this.heading = heading % MAX_DEGREES;
+
+  public Turtle(Coordinates coordinates, double x, double y, double heading) {
+    this.coordinates = coordinates;
+    coordinates.setX(x);
+    coordinates.setY(y);
+    coordinates.setHeading(heading);
   }
 
   /**
@@ -42,17 +83,46 @@ public class Turtle implements Coordinates{
    * @param pixels number of pixels the turtle will move forward
    */
   public void forward(double pixels) {
+    double xPos = coordinates.getX();
+    double yPos = coordinates.getY();
+    double heading = coordinates.getHeading();
+
     xPos += pixels * Math.cos(Math.toRadians(heading));
     yPos += pixels * Math.sin(Math.toRadians(heading));
+
+    setPosition(xPos, yPos);
   }
 
   /**
-   * Turns the turtle to the right for a certain number of degrees.
+   * Turns the turtle to the right for a certain number of degrees. Notifies turtle listener of
+   * heading change
    *
    * @param degrees number of degrees the turtle will move clockwise
    */
   public void right(double degrees) {
+
+    double heading = coordinates.getHeading();
+
+    turtleListener
+        .propertyChange(new PropertyChangeEvent(this, "HEADING", heading, heading - degrees));
+
     setHeading(heading - degrees);
+  }
+
+  /**
+   * Turns the turtle to the left for a certain number of degrees. Notifies turtle listener of
+   * heading change
+   *
+   * @param degrees number of degrees the turtle will move counter-clockwise
+   */
+  public void left(double degrees) {
+
+    double heading = coordinates.getHeading();
+
+    turtleListener
+        .propertyChange(new PropertyChangeEvent(this, "HEADING", heading, heading - degrees));
+
+    setHeading(heading + degrees);
   }
 
   /**
@@ -60,19 +130,9 @@ public class Turtle implements Coordinates{
    *
    * @return double of turtle's x-coordinate
    */
-  @Override
-  public double getX() {
-    return xPos;
-  }
 
-  /**
-   * Setter method for the x-coordinate of the turtle.
-   *
-   * @param x The new x-coordinate of the object.
-   */
-  @Override
-  public void setX(double x) {
-    xPos = x;
+  public double getX() {
+    return coordinates.getX();
   }
 
   /**
@@ -80,43 +140,82 @@ public class Turtle implements Coordinates{
    *
    * @return double of turtle's y-coordinate
    */
-  @Override
+
   public double getY() {
-    return yPos;
+    return coordinates.getY();
   }
 
   /**
-   * Setter method for the y-coordinate of the turtle.
+   * Sets x and y coordinates of the turtle Notifies turtle listener of position change
    *
-   * @param y The new y-coordinate of the object
+   * @param x New x-coordinate
+   * @param y New y-coordinate
    */
-  @Override
-  public void setY(double y) {
-    yPos = y;
+  public void setPosition(double x, double y) {
+    Coordinates prevCoordinates = new GridCoordinates(coordinates);
+    coordinates.setX(x);
+    coordinates.setY(y);
+    turtleListener
+        .propertyChange(new PropertyChangeEvent(this, "LOCATION", prevCoordinates, coordinates));
   }
 
   /**
-   * Getter method for obtaining the heading of the turtle
-   * in degrees counterclockwise from the x-axis.
+   * Getter method for obtaining the heading of the turtle in degrees counterclockwise from the
+   * x-axis.
    *
    * @return heading of the turtle in degrees
    */
-  @Override
+
   public double getHeading() {
-    return heading;
+    return coordinates.getHeading();
   }
 
   /**
-   * Setter method for the heading of the turtle. Automatically recalculates to a number
-   * between 0 and 360 degrees.
+   * Setter method for the heading of the turtle. Automatically recalculates to a number between 0
+   * and 360 degrees.
    *
    * @param heading The new heading of the object in degrees.
    */
-  @Override
+
   public void setHeading(double heading) {
-    if (heading % MAX_DEGREES >= 0) {
-      this.heading = heading % MAX_DEGREES;
-    }
-    else this.heading = (heading % MAX_DEGREES) + MAX_DEGREES;
+    turtleListener
+        .propertyChange(new PropertyChangeEvent(this, "HEADING", coordinates, heading));
+    coordinates.setHeading(heading);
+  }
+
+  /**
+   * Returns if the turtle is visible on screen.
+   *
+   * @return boolean whether the turtle is visible
+   */
+  public boolean isVisible() {
+    return isVisible;
+  }
+
+  /**
+   * Sets the visibility of the turtle.
+   *
+   * @param isVisible boolean whether the turtle is visible
+   */
+  public void setVisible(boolean isVisible) {
+    turtleListener
+        .propertyChange(new PropertyChangeEvent(this, "VISIBILITY", this.isVisible, isVisible));
+    this.isVisible = isVisible;
+  }
+
+  /**
+   * Makes the pen inactive Notifies turtle listener of pen change
+   */
+  public void liftPen() {
+    turtleListener.propertyChange(new PropertyChangeEvent(this, "PEN", isPenActive(), false));
+    pen.liftPen();
+  }
+
+  /**
+   * Makes the pen active Notifies turtle listener of pen change
+   */
+  public void placePen() {
+    turtleListener.propertyChange(new PropertyChangeEvent(this, "PEN", isPenActive(), true));
+    pen.placePen();
   }
 }

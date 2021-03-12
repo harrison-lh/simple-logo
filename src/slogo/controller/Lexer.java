@@ -104,7 +104,7 @@ public class Lexer {
    * @throws IllegalArgumentException If the text is unable to be tokenized.
    */
   public Token tokenize(String text) throws IllegalArgumentException {
-    final String ERROR = "NO MATCH! ILLEGAL ARGUMENT!";
+    final String ERROR = "NO MATCH! UNRECOGNIZED TOKEN!";
     for (Entry<String, Pattern> e : syntaxSymbols) {
       if (match(text, e.getValue())) {
         switch (e.getKey()) {
@@ -127,6 +127,25 @@ public class Lexer {
             return Token.LIST_END;
           }
         }
+      }
+    }
+    throw new IllegalArgumentException(ERROR);
+  }
+
+  /**
+   * Return a String that matches the type of command that is being lexed in text. If the text
+   * cannot be matched to a valid SLogo command using the provided regexes, then it is assumed to be
+   * erroneous and an IllegalArgumentException is thrown.
+   *
+   * @param text The text to lex.
+   * @return A String that matches the command type that has been lexed, if it exists.
+   * @throws IllegalArgumentException If the text is unable to be lexed.
+   */
+  public String lexLangDefinedCommands(String text) throws IllegalArgumentException {
+    final String ERROR = "NO MATCH! UNRECOGNIZED SYNTAX!";
+    for (Entry<String, Pattern> e : langSymbols) {
+      if (match(text, e.getValue())) {
+        return e.getKey();
       }
     }
     throw new IllegalArgumentException(ERROR);

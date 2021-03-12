@@ -6,10 +6,18 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import slogo.view.Selector;
 
+/**
+ * Selector for color of the canvas background
+ *
+ * @author David Li
+ */
 public class TurtleSelector extends VBox implements Selector<String> {
 
   private final ComboBox<String> myComboBox;
 
+  /**
+   * Main constructor
+   */
   public TurtleSelector() {
     this.setId("TurtleSelector");
     this.getStyleClass().add("selector");
@@ -22,6 +30,9 @@ public class TurtleSelector extends VBox implements Selector<String> {
     this.getChildren().addAll(myLabel, myComboBox);
   }
 
+  /**
+   * Passes the selected turtle image to the consumer
+   */
   @Override
   public void setUpdateAction(Consumer<String> response) {
     myComboBox.setOnAction(e -> response.accept(myComboBox.getValue()));

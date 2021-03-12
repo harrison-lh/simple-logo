@@ -2,6 +2,7 @@ package slogo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import slogo.model.Turtle;
 
 /**
  * Node represents the most basic unit of a parse-tree/AST. It is extended by several other classes,
@@ -12,7 +13,9 @@ import java.util.List;
  * @author Harrison Huang
  */
 public abstract class Node {
-  List<Node> children = new ArrayList<>();
+
+  private List<Node> children = new ArrayList<>();
+  private int numParams = 0;
 
   /**
    * Add an additional child Node to the Node.
@@ -30,6 +33,31 @@ public abstract class Node {
    */
   public List<Node> getChildren() {
     return children;
+  }
+
+  /**
+   * The execution behavior of the Node. That is, what it does once the AST is being consumed.
+   *
+   * @return The double for the return value of each execute
+   */
+  public abstract double execute(Turtle turtle);
+
+  /**
+   * Sets the number of parameters that the Node takes.
+   *
+   * @param numParams The number of parameters the Node takes
+   */
+  protected void setNumParams(int numParams) {
+    this.numParams = numParams;
+  }
+
+  /**
+   * Returns the number of parameters that this Node has.
+   *
+   * @return The number of parameters that this Node has.
+   */
+  public int getNumParams() {
+    return numParams;
   }
 
 }
