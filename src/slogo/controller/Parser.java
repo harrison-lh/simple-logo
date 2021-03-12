@@ -19,16 +19,17 @@ public class Parser {
   private final Lexer lexer;
   private Queue<String> splitText;
   private Queue<Token> tokenizedText;
-  private final Queue<Node> parsedNodeQueue;
-  private final Queue<Node> assembledNodeQueue;
+  private final Queue<Command> parsedCommandQueue;
+  private final Queue<Command> assembledCommandQueue;
+
 
   public Parser(TurtleController controller, String syntaxLang) {
     this.controller = controller;
     this.lexer = new Lexer(syntaxLang);
     this.splitText = new LinkedList<>();
     this.tokenizedText = new LinkedList<>();
-    this.parsedNodeQueue = new LinkedList<>();
-    this.assembledNodeQueue = new LinkedList<>();
+    this.parsedCommandQueue = new LinkedList<>();
+    this.assembledCommandQueue = new LinkedList<>();
   }
 
   private void splitText(String text) {
@@ -47,42 +48,95 @@ public class Parser {
     this.tokenizedText = tokenList;
   }
 
-  private void mapTokensToNodes() {
+  private void mapTokensToCommands() {
     while (!tokenizedText.isEmpty()) {
-      parsedNodeQueue.add(patternMatchToken(tokenizedText.poll(), splitText.poll()));
+      parsedCommandQueue.add(patternMatchToken(tokenizedText.poll(), splitText.poll()));
     }
   }
 
-  private Node patternMatchToken(Token token, String text) {
+  private Command patternMatchToken(Token token, String text) {
     switch (token) {
       case COMMAND -> {
         String commandType = lexer.lexLangDefinedCommands(text);
         System.out.println(commandType);
         try {
           Class<?> commandClass = Class.forName("slogo.controller.commands."+commandType + "Command");
-          return (Node) commandClass.getConstructor().newInstance();
+          return (Command) commandClass.getConstructor().newInstance();
         } catch (Exception e) {
           System.err.println("LOOKUP NO WORK!!!");
           // TODO: Might be a user-defined command, so we must check those!
         }
       }
       case CONSTANT -> {
-        return new ConstantNode(Double.parseDouble(text));
+        return new ConstantCommand(Double.parseDouble(text));
       }
       case VARIABLE -> {
         if (!controller.getTurtle().getVars().containsKey(text)) {
           controller.getTurtle().getVars().setValue(text, 0);
         }
-        return new VariableNode(text);
+        return new VariableCommand(text);
       }
       case LIST_START -> {
-        // TODO: Create ListStartNode
+        ListCommandHead listStartCommand = new ListCommandHead();
+        listStartCommand.setNumParams(0);
+        if(tokenizedText.isEmpty() || splitText.isEmpty()){
+          //TODO: Throw error
+
+        }
+        Command innerChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
+        fillList(listStartCommand, innerChild);
+        return listStartCommand;
       }
       case LIST_END -> {
-        // TODO: Create ListEndNode
+        // this case is never called in new implementation
+        //System.out.println("IN LIST END: SHOULD NEVER APPEAR");
+        Command listEndCommand = new ListCommandTail();
+
+        return listEndCommand;
       }
     }
     return null;
+  }
+
+  private ListCommandHead fillList(ListCommandHead listHead, Command innerCommand){
+    //Start Base Case
+    if(innerCommand.getIsListEnd()){
+
+      return listHead;
+    }
+
+
+    //End Base Case
+
+    listHead.addInnerChild(innerCommand);
+
+    grandChildHandler(innerCommand);
+
+    if(tokenizedText.isEmpty()){
+      //TODO: Create IllegalCommandException to throw
+      return null;
+    }
+
+    Command nextChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
+
+    fillList(listHead, nextChild);
+
+    //should never reach here
+    //TODO: create IllegalCommandException
+    return null;
+  }
+
+  private void grandChildHandler(Command innerCommand){
+    int numInnerGrandChildren = innerCommand.getNumParams();
+
+    for(int i = 0; i < numInnerGrandChildren; i++) {
+
+      Command grandChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
+      innerCommand.addChild(grandChild);
+      if(grandChild.getNumParams() > 0){
+        grandChildHandler(grandChild);
+      }
+    }
   }
 
   private boolean handleCommentsAndBlankLines() {
@@ -90,32 +144,34 @@ public class Parser {
   }
 
   private void assembleCommandQueue() {
-    while(!parsedNodeQueue.isEmpty()) {
-      Stack<Node> pendingFilledArgs = new Stack<>();
-      Node rootNode = parsedNodeQueue.poll();
-      Node curNode = rootNode;
-      dfsHelper(pendingFilledArgs, curNode);
+    while(!parsedCommandQueue.isEmpty()) {
+      Stack<Command> pendingFilledArgs = new Stack<>();
+      Command rootCommand = parsedCommandQueue.poll();
+      Command curCommand = rootCommand;
+      dfsHelper(pendingFilledArgs, curCommand);
+
       while(!pendingFilledArgs.isEmpty()) {
-        curNode = pendingFilledArgs.pop();
-        dfsHelper(pendingFilledArgs, curNode);
+        curCommand = pendingFilledArgs.pop();
+        dfsHelper(pendingFilledArgs, curCommand);
       }
-      assembledNodeQueue.add(rootNode);
+      assembledCommandQueue.add(rootCommand);
     }
   }
 
-  private void dfsHelper(Stack<Node> pendingFilledArgs, Node curNode) {
-    while (curNode.getNumParams() > curNode.getChildren().size()) {
-      Node childNode = parsedNodeQueue.poll();
-      curNode.addChild(childNode);
-      if (childNode.getNumParams() > 0 && curNode.getNumParams() > curNode.getChildren().size()) {
-        pendingFilledArgs.push(curNode);
-        curNode = childNode;
+  private void dfsHelper(Stack<Command> pendingFilledArgs, Command curCommand) {
+    while (curCommand.getNumParams() > curCommand.getChildren().size()) {
+      Command childCommand = parsedCommandQueue.poll();
+      curCommand.addChild(childCommand);
+      if (childCommand.getNumParams() > 0 && curCommand.getNumParams() > curCommand.getChildren().size()) {
+        pendingFilledArgs.push(curCommand);
+        curCommand = childCommand;
       }
-      else if (childNode.getNumParams() > 0) {
-        curNode = childNode;
+      else if (childCommand.getNumParams() > 0) {
+        curCommand = childCommand;
       }
     }
   }
+
 
   public void setSyntaxLang(String syntaxLang) {
     lexer.setLangSymbols(syntaxLang);
@@ -127,13 +183,13 @@ public class Parser {
     if (handleCommentsAndBlankLines()) {
       return; // If it's a comment line, return early. Comments have no commands.
     }
-    mapTokensToNodes();
+    mapTokensToCommands();
     assembleCommandQueue();
-    for(Node node : assembledNodeQueue) {
-      System.out.println(node);
+    for(Command command : assembledCommandQueue) {
+      System.out.println(command);
     }
-    controller.pushNodes(assembledNodeQueue);
-    assembledNodeQueue.clear();
+    controller.pushCommands(assembledCommandQueue);
+    assembledCommandQueue.clear();
     // Clean up after we're done
   }
 

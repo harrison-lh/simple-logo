@@ -1,7 +1,6 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
-import slogo.controller.ConstantNode;
 import slogo.model.Turtle;
 
 /**
@@ -29,9 +28,7 @@ public class NotEqualCommand extends Command {
    * @return 1 if first is not equal to second, else 0
    */
   @Override
-  public double execute(Turtle turtle) {
-    assert(getChildren().size() == getNumParams());
-
+  protected double executeCommand(Turtle turtle) {
     double firstVal = getChildren().get(0).execute(turtle);
     double secondVal = getChildren().get(1).execute(turtle);
 
