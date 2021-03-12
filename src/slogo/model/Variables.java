@@ -20,12 +20,14 @@ public class Variables {
   }
 
   public void setValue(String key, double value) {
+    Variable newVariable = new Variable(key, value);
     if (varMap.containsKey(key)) {
+      Variable prevVar = new Variable(key, varMap.get(key));
       variablesListener
-          .propertyChange(new PropertyChangeEvent(this, "UPDATE", varMap.get(key), value));
+          .propertyChange(new PropertyChangeEvent(this, "UPDATE", prevVar, newVariable));
     } else {
       variablesListener
-          .propertyChange(new PropertyChangeEvent(this, "ADD", 0, value));
+          .propertyChange(new PropertyChangeEvent(this, "ADD", newVariable, newVariable));
     }
     varMap.put(key, value);
   }
