@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Variables {
 
-  private Map<String, Double> varMap;
+  private Map<String, Variable> varMap;
   private PropertyChangeListener variablesListener;
 
   public Variables(PropertyChangeListener variablesListener) {
@@ -16,18 +16,19 @@ public class Variables {
   }
 
   public double getValue(String key) {
-    return varMap.get(key);
+    return varMap.get(key).getValue();
   }
 
   public void setValue(String key, double value) {
     if (varMap.containsKey(key)) {
       variablesListener
           .propertyChange(new PropertyChangeEvent(this, "UPDATE", varMap.get(key), value));
+      varMap.get(key).setValue(value);
     } else {
       variablesListener
           .propertyChange(new PropertyChangeEvent(this, "ADD", 0, value));
+      varMap.put(key, new Variable(key, value));
     }
-    varMap.put(key, value);
   }
 
   public boolean containsKey(String key) {
