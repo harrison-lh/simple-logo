@@ -28,6 +28,7 @@ public class BackwardCommand extends Command {
    */
   @Override
   protected double executeCommand(Turtle turtle) {
+
     double distance = getChildren().get(0).execute(turtle);
     turtle.forward(-1 * distance);
     return distance;
