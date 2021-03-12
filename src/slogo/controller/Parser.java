@@ -81,7 +81,7 @@ public class Parser implements SelectorTarget<String> {
         listStartCommand.setNumParams(0);
         if (tokenizedText.isEmpty() || splitText.isEmpty()) {
           throw new IllegalArgumentException(
-              "ILLEGAL ARGUMENT EXCEPTION: OPEN LIST WITH NO ARGUMENTS");
+              "ILLEGAL ARGUMENT EXCEPTION: OPEN LIST WITHOUT CLOSURE!");
         }
         Command innerChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
         fillList(listStartCommand, innerChild);
