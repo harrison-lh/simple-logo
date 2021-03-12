@@ -162,17 +162,21 @@ public class Parser implements SelectorTarget<String> {
     }
   }
 
-  private void dfsHelper(Stack<Command> pendingFilledArgs, Command curCommand) {
+  private void dfsHelper(Stack<Command> pendingFilledArgs, Command curCommand)
+      throws NullPointerException {
     while (curCommand.getNumParams() > curCommand.getChildren().size()) {
       Command childCommand = parsedCommandQueue.poll();
       curCommand.addChild(childCommand);
-      assert childCommand != null;
-      if (childCommand.getNumParams() > 0 && curCommand.getNumParams() > curCommand.getChildren()
-          .size()) {
-        pendingFilledArgs.push(curCommand);
-        curCommand = childCommand;
-      } else if (childCommand.getNumParams() > 0) {
-        curCommand = childCommand;
+      if (childCommand != null) {
+        if (childCommand.getNumParams() > 0 && curCommand.getNumParams() > curCommand.getChildren()
+            .size()) {
+          pendingFilledArgs.push(curCommand);
+          curCommand = childCommand;
+        } else if (childCommand.getNumParams() > 0) {
+          curCommand = childCommand;
+        }
+      } else {
+        throw new NullPointerException("NULL POINTER EXCEPTION: CHECK YOUR ARGUMENT COUNT!!!");
       }
     }
   }
@@ -195,8 +199,11 @@ public class Parser implements SelectorTarget<String> {
    * @param text The command String to parse
    * @throws IllegalArgumentException If the provided command String is not syntactically correct.
    *                                  The error message elucidates more detail about this.
+   * @throws NullPointerException     If the any of the commands within the provided command String
+   *                                  has the wrong number of args!
    */
-  public void parseCommandString(String text) throws IllegalArgumentException {
+  public void parseCommandString(String text)
+      throws IllegalArgumentException, NullPointerException {
     splitText(text);
     tokenizeText();
     if (handleCommentsAndBlankLines()) {
@@ -220,8 +227,11 @@ public class Parser implements SelectorTarget<String> {
    * command String and move the Turtle.
    * @throws IllegalArgumentException If the provided command String is not syntactically correct.
    *                                  The error message elucidates more detail about this.
+   * @throws NullPointerException     If the any of the commands within the provided command String
+   *                                  has * the wrong number of args!
    */
-  public Consumer<String> receiveInputAction() throws IllegalArgumentException {
+  public Consumer<String> receiveInputAction()
+      throws IllegalArgumentException, NullPointerException {
     return command -> {
       parseCommandString(command);
       controller.setIsAllowedToExecute(true);
