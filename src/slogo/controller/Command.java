@@ -18,6 +18,8 @@ public abstract class Command {
 
   private List<Command> children = new ArrayList<>();
   private int numParams = 0;
+  private boolean isListEnd = false;
+
 
   /**
    * Add an additional child Command to the Command.
@@ -26,6 +28,14 @@ public abstract class Command {
    */
   public void addChild(Command child) {
     children.add(child);
+  }
+
+  public void setIsListEnd(boolean isListEnd){
+    this.isListEnd = isListEnd;
+  }
+
+  public boolean getIsListEnd(){
+    return isListEnd;
   }
 
   /**
