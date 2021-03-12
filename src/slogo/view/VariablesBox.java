@@ -26,7 +26,9 @@ public class VariablesBox extends ScrollPane implements PropertyChangeListener {
     this.setId("VariablesBox");
     myContents = new VBox();
     this.setContent(myContents);
-    myContents.getChildren().add(new Label("Variables"));
+    Label title = new Label("Variables");
+    title.getStyleClass().add("box-title");
+    myContents.getChildren().add(title);
     myVariableNamesList = new ArrayList<>();
     myVariableTextList = new ArrayList<>();
   }
