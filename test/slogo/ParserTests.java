@@ -255,6 +255,13 @@ public class ParserTests {
   }
 
   @Test
+  public void testUninitialized() {
+    double initY = turtle.getY();
+    parser.parseCommandString("fd sum :A :B");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY);
+  }
   public void testSetTowards() {
     turtle.setPosition(0, 0);
     turtle.setHeading(0);
@@ -389,5 +396,95 @@ public class ParserTests {
     controller.setIsAllowedToExecute(true);
     controller.runCommands();
     assertEquals(initY + Math.PI, turtle.getY());
+  }
+
+  @Test
+  public void testRepeatBasic() {
+    double initY = turtle.getY();
+    parser.parseCommandString("repeat 2 [ fd 50 ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 100);
+  }
+
+  @Test
+  public void testRepeatBasic2() {
+    double initY = turtle.getY();
+    parser.parseCommandString("repeat 4 [ fd 50 bk 50 ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY, turtle.getY());
+  }
+
+  @Test
+  public void testRepeatBasic3() {
+    double initY = turtle.getY();
+    parser.parseCommandString("repeat 5 [ fd sum 50 50 ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 500);
+  }
+
+  @Test
+  public void testRepeatAdvanced() {
+    double initY = turtle.getY();
+    parser.parseCommandString("repeat 5 [ repeat 2 [ fd 50 ] ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 500);
+  }
+
+  @Test
+  public void testRepeatWithVariables() {
+    double initY = turtle.getY();
+    parser.parseCommandString("make :A 10 repeat :A [ repeat 2 [ fd 50 ] ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 1000);
+  }
+
+  @Test
+  public void normalThenRepeat() {
+    double initY = turtle.getY();
+    parser.parseCommandString("fd 50 repeat 5 [ fd 50 ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 300);
+  }
+
+  @Test
+  public void repeatThenNormal() {
+    double initY = turtle.getY();
+    parser.parseCommandString("repeat 5 [ fd 50 ] fd 50");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 300);
+  }
+
+  @Test
+  public void multipleRepeats() {
+    double initY = turtle.getY();
+    parser.parseCommandString("repeat 5 [ fd 50 ] repeat 5 [ bk 50 ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY);
+  }
+
+  @Test
+  public void weirdNestedRepeats() {
+    double initY = turtle.getY();
+    parser.parseCommandString("repeat 5 [ repeat 5 [ fd 50 ] bk 10 ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 1200);
+  }
+
+  @Test
+  public void testForLoops() {
+    double initY = turtle.getY();
+    parser.parseCommandString("for [ :i 0 10 1 ] [ fd 1 ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 10);
   }
 }

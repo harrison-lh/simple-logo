@@ -22,6 +22,7 @@ public class Parser {
   private final Queue<Command> parsedCommandQueue;
   private final Queue<Command> assembledCommandQueue;
 
+
   public Parser(TurtleController controller, String syntaxLang) {
     this.controller = controller;
     this.lexer = new Lexer(syntaxLang);
@@ -76,13 +77,66 @@ public class Parser {
         return new VariableCommand(text);
       }
       case LIST_START -> {
-        // TODO: Create ListStartCommand
+        ListCommandHead listStartCommand = new ListCommandHead();
+        listStartCommand.setNumParams(0);
+        if(tokenizedText.isEmpty() || splitText.isEmpty()){
+          //TODO: Throw error
+
+        }
+        Command innerChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
+        fillList(listStartCommand, innerChild);
+        return listStartCommand;
       }
       case LIST_END -> {
-        // TODO: Create ListEndCommand
+        // this case is never called in new implementation
+        //System.out.println("IN LIST END: SHOULD NEVER APPEAR");
+        Command listEndCommand = new ListCommandTail();
+
+        return listEndCommand;
       }
     }
     return null;
+  }
+
+  private ListCommandHead fillList(ListCommandHead listHead, Command innerCommand){
+    //Start Base Case
+    if(innerCommand.getIsListEnd()){
+
+      return listHead;
+    }
+
+
+    //End Base Case
+
+    listHead.addInnerChild(innerCommand);
+
+    grandChildHandler(innerCommand);
+
+    if(tokenizedText.isEmpty()){
+      //TODO: Create IllegalCommandException to throw
+      return null;
+    }
+
+    Command nextChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
+
+    fillList(listHead, nextChild);
+
+    //should never reach here
+    //TODO: create IllegalCommandException
+    return null;
+  }
+
+  private void grandChildHandler(Command innerCommand){
+    int numInnerGrandChildren = innerCommand.getNumParams();
+
+    for(int i = 0; i < numInnerGrandChildren; i++) {
+
+      Command grandChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
+      innerCommand.addChild(grandChild);
+      if(grandChild.getNumParams() > 0){
+        grandChildHandler(grandChild);
+      }
+    }
   }
 
   private boolean handleCommentsAndBlankLines() {
@@ -95,6 +149,7 @@ public class Parser {
       Command rootCommand = parsedCommandQueue.poll();
       Command curCommand = rootCommand;
       dfsHelper(pendingFilledArgs, curCommand);
+
       while(!pendingFilledArgs.isEmpty()) {
         curCommand = pendingFilledArgs.pop();
         dfsHelper(pendingFilledArgs, curCommand);
@@ -116,6 +171,7 @@ public class Parser {
       }
     }
   }
+
 
   public void setSyntaxLang(String syntaxLang) {
     lexer.setLangSymbols(syntaxLang);
