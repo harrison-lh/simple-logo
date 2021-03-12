@@ -27,7 +27,7 @@ public class PiCommand extends Command {
    * @return value of pi
    */
   @Override
-  public double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle) {
     return Math.PI;
   }
 

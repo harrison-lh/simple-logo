@@ -27,7 +27,7 @@ public class IsPenDownCommand extends Command {
    * @return boolean of visibility of Pen
    */
   @Override
-  public double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle) {
     return turtle.isPenActive() ? 1 : 0;
   }
 

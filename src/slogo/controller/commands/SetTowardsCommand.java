@@ -29,7 +29,7 @@ public class SetTowardsCommand extends Command {
    * @return The number of degrees the turtle turned
    */
   @Override
-  public double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle) {
     double toXPos = getChildren().get(0).execute(turtle);
     double toYPos = getChildren().get(1).execute(turtle);
 

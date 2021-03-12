@@ -12,7 +12,7 @@ public class SineCommand extends Command {
   }
 
   @Override
-  public double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle) {
     double degrees = getChildren().get(0).execute(turtle);
 
     return Math.toDegrees(Math.sin(Math.toRadians(degrees)));

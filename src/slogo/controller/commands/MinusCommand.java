@@ -12,7 +12,7 @@ public class MinusCommand extends Command {
   }
 
   @Override
-  public double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle) {
     double a = getChildren().get(0).execute(turtle);
 
     return a * -1;

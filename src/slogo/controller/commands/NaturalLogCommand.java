@@ -27,7 +27,7 @@ public class NaturalLogCommand extends Command {
    * @return double of natural log of value
    */
   @Override
-  public double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle) {
     double val = getChildren().get(0).execute(turtle);
     return Math.log(val);
   }

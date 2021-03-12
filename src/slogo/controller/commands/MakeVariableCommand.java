@@ -18,7 +18,7 @@ public class MakeVariableCommand extends Command {
   }
 
   @Override
-  public double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle) {
     turtle.getVars().setValue(((VariableCommand) getChildren().get(0)).getName(),
         getChildren().get(1).execute(turtle));
     return getChildren().get(1).execute(turtle);

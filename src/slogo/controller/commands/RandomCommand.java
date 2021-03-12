@@ -13,7 +13,7 @@ public class RandomCommand extends Command {
   }
 
   @Override
-  public double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle) {
     double bound = getChildren().get(0).execute(turtle);
 
     return ThreadLocalRandom.current().nextDouble(0, bound);

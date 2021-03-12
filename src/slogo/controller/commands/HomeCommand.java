@@ -28,7 +28,7 @@ public class HomeCommand extends Command {
    * @return The distance the turtle moved
    */
   @Override
-  public double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle) {
     Command setXY = new SetPositionCommand();
     setXY.addChild(new ConstantCommand(0));
     setXY.addChild(new ConstantCommand(0));

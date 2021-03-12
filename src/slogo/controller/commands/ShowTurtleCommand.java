@@ -27,7 +27,7 @@ public class ShowTurtleCommand extends Command {
    * @return 1
    */
   @Override
-  public double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle) {
     turtle.setVisible(true);
     return 1;
   }

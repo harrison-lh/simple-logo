@@ -28,7 +28,7 @@ public class SetHeadingCommand extends Command {
    * @return The direction the turtle is now pointing
    */
   @Override
-  public double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle) {
     double degrees = getChildren().get(0).execute(turtle);
     turtle.setHeading(degrees);
     return degrees;

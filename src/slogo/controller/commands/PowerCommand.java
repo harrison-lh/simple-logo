@@ -28,7 +28,7 @@ public class PowerCommand extends Command {
    * @return the first value to the power of the second value
    */
   @Override
-  public double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle) {
     double firstVal = getChildren().get(0).execute(turtle);
     double secondVal = getChildren().get(1).execute(turtle);
 

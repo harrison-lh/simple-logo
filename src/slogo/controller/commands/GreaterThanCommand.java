@@ -28,7 +28,7 @@ public class GreaterThanCommand extends Command {
    * @return 1 if first is greater than second, else 0
    */
   @Override
-  public double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle) {
     double firstVal = getChildren().get(0).execute(turtle);
     double secondVal = getChildren().get(1).execute(turtle);
 

@@ -27,7 +27,7 @@ public class IsShowingCommand extends Command {
    * @return boolean of visibility of turtle
    */
   @Override
-  public double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle) {
     return turtle.isVisible() ? 1 : 0;
   }
 
