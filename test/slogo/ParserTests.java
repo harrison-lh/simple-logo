@@ -536,7 +536,7 @@ public class ParserTests {
 
   @Test
   public void testErrorHandling() {
-    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
           parser.parseCommandString("df 50");
         }
     );
@@ -562,6 +562,12 @@ public class ParserTests {
 
     exception = assertThrows(IllegalArgumentException.class, () -> {
           parser.parseCommandString("repeat 5 [ ava 50 ]");
+        }
+    );
+    System.out.println(exception.getMessage());
+
+    exception = assertThrows(NullPointerException.class, () -> {
+          parser.parseCommandString("setxy 50");
         }
     );
     System.out.println(exception.getMessage());
