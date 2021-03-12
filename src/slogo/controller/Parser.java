@@ -25,6 +25,13 @@ public class Parser implements SelectorTarget<String> {
   private Queue<Token> tokenizedText;
 
 
+  /**
+   * Constructor for the Parser. Takes in a TurtleController to execute Commands on, and an initial
+   * syntaxLang to be constructed with.
+   *
+   * @param controller The TurtleController upon which this Parser acts
+   * @param syntaxLang The initial language for which this Parser is configured.
+   */
   public Parser(TurtleController controller, String syntaxLang) {
     this.controller = controller;
     this.lexer = new Lexer(syntaxLang);
@@ -171,10 +178,24 @@ public class Parser implements SelectorTarget<String> {
   }
 
 
+  /**
+   * Change the syntaxLang of the Parser by modifying the syntaxLang of the attached Lexer.
+   *
+   * @param syntaxLang The new language for the Parser
+   */
   public void setSyntaxLang(String syntaxLang) {
     lexer.setLangSymbols(syntaxLang);
   }
 
+  /**
+   * The primary parsing method for this Parser, parseCommandString is the core engine behind SLogo.
+   * This method unifies the Lexer and the parser into one unit and creates an AST which is then
+   * traversed to create a Queue of Commands for the Turtle to execute.
+   *
+   * @param text The command String to parse
+   * @throws IllegalArgumentException If the provided command String is not syntactically correct.
+   *                                  The error message elucidates more detail about this.
+   */
   public void parseCommandString(String text) throws IllegalArgumentException {
     splitText(text);
     tokenizeText();
@@ -191,6 +212,15 @@ public class Parser implements SelectorTarget<String> {
     // Clean up after we're done
   }
 
+  /**
+   * A simple hook for the Consumer Interface that allows the Parser to be fed a new command String
+   * from the front-end.
+   *
+   * @return A Consumer of Strings that calls the requisite methods to have the parser parse the
+   * command String and move the Turtle.
+   * @throws IllegalArgumentException If the provided command String is not syntactically correct.
+   *                                  The error message elucidates more detail about this.
+   */
   public Consumer<String> receiveInputAction() throws IllegalArgumentException {
     return command -> {
       parseCommandString(command);
@@ -199,6 +229,13 @@ public class Parser implements SelectorTarget<String> {
     };
   }
 
+  /**
+   * A simple hook for the Consumer Interface that allows the language of this Parser to be updated
+   * by the front-end.
+   *
+   * @return A Consumer of strings that contains the method to call to update the syntax language of
+   * the Parser
+   */
   @Override
   public Consumer<String> updateAction() {
     return this::setSyntaxLang;
