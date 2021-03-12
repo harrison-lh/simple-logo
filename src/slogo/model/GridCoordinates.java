@@ -2,11 +2,11 @@ package slogo.model;
 
 public class GridCoordinates extends Coordinates {
 
-  public GridCoordinates(double x, double y, double heading){
+  public GridCoordinates(double x, double y, double heading) {
     super(x, y, heading);
   }
 
-  public GridCoordinates(){
+  public GridCoordinates() {
     super();
   }
 
@@ -42,12 +42,12 @@ public class GridCoordinates extends Coordinates {
   @Override
   public void setHeading(double heading) {
 
-    if(heading > MAX_DEGREES){
+    if (heading > MAX_DEGREES) {
       heading = heading % MAX_DEGREES;
     }
 
-    if(heading < 0){
-      while(heading < 0){
+    if (heading < 0) {
+      while (heading < 0) {
         heading += MAX_DEGREES;
       }
     }

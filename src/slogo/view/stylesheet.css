@@ -7,6 +7,11 @@
   -fx-stroke: blue;
 }
 
+.box-title {
+  -fx-underline: true;
+  -fx-font-size: 14pt;
+}
+
 .command-title {
   -fx-font-size: 24pt;
   -fx-font-weight: bold;

@@ -2,8 +2,11 @@ package slogo.view;
 
 import java.beans.PropertyChangeListener;
 import java.util.function.Consumer;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import slogo.controller.Command;
@@ -148,7 +151,7 @@ public class MainView extends VBox implements View {
     myTurtleView = myCanvasHolder.getTurtleView();
     body.getChildren().add(myCanvasHolder);
 
-    VBox infoBoxes = createInfoBoxes();
+    GridPane infoBoxes = createInfoBoxes();
     body.getChildren().add(infoBoxes);
 
     HBox.setHgrow(myCanvasHolder, Priority.ALWAYS);
@@ -156,18 +159,26 @@ public class MainView extends VBox implements View {
     return body;
   }
 
-  private VBox createInfoBoxes() {
-    VBox infoBoxes = new VBox();
+  private GridPane createInfoBoxes() {
+    GridPane infoBoxes = new GridPane();
     infoBoxes.setId("InfoBoxes");
 
     myVariablesBox = new VariablesBox();
-    infoBoxes.getChildren().add(myVariablesBox);
+    infoBoxes.add(myVariablesBox, 0, 0);
 
     myUDCommandsBox = new UDCommandsBox();
-    infoBoxes.getChildren().add(myUDCommandsBox);
+    infoBoxes.add(myUDCommandsBox, 0, 1);
 
-    VBox.setVgrow(myVariablesBox, Priority.SOMETIMES);
-    VBox.setVgrow(myUDCommandsBox, Priority.SOMETIMES);
+    for (int i = 0 ; i < 2 ; i++) {
+      RowConstraints rc = new RowConstraints();
+      rc.setPercentHeight(100.0/2.0);
+      rc.setVgrow(Priority.ALWAYS);
+      infoBoxes.getRowConstraints().add(rc);
+    }
+
+    ColumnConstraints cc = new ColumnConstraints();
+    cc.setHgrow(Priority.ALWAYS);
+    infoBoxes.getColumnConstraints().add(cc);
 
     return infoBoxes;
   }

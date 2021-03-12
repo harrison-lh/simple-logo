@@ -20,6 +20,8 @@ public class UDCommandsBox extends ScrollPane {
     this.setId("UDCommandsBox");
     myContents = new Group();
     this.setContent(myContents);
-    myContents.getChildren().add(new Label("user defined commands"));
+    Label title = new Label("User-Defined Commands");
+    title.getStyleClass().add("box-title");
+    myContents.getChildren().add(title);
   }
 }
