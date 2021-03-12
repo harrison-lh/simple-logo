@@ -21,7 +21,7 @@ import slogo.view.menubar.MenuBar;
  *
  * @author David Li
  */
-public class MainView extends VBox implements View {
+public class MainView extends VBox {
 
   private MenuBar myMenuBar;
   private CanvasHolder myCanvasHolder;
@@ -75,41 +75,6 @@ public class MainView extends VBox implements View {
    */
   public void resizeElements() {
     myCanvasHolder.resizeElements();
-  }
-
-  @Override
-  public void addVariable(Variables variables) {
-
-  }
-
-  @Override
-  public void updateVariable(Variables variables) {
-
-  }
-
-  @Override
-  public void removeVariable(Variables variables) {
-
-  }
-
-  @Override
-  public void addUDCommand(Command command) {
-
-  }
-
-  @Override
-  public void updateUDCommand(Command command) {
-
-  }
-
-  @Override
-  public void removeUDCommand(Command command) {
-
-  }
-
-  @Override
-  public void throwError(Error error) {
-
   }
 
   /**
