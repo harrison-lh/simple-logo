@@ -21,13 +21,15 @@ public class Variables {
 
   public void setValue(String key, double value) {
     if (varMap.containsKey(key)) {
-      variablesListener
-          .propertyChange(new PropertyChangeEvent(this, "UPDATE", varMap.get(key), value));
+      Variable prevVar = new Variable(varMap.get(key));
       varMap.get(key).setValue(value);
-    } else {
       variablesListener
-          .propertyChange(new PropertyChangeEvent(this, "ADD", 0, value));
+          .propertyChange(new PropertyChangeEvent(this, "UPDATE", prevVar, varMap.get(key)));
+
+    } else {
       varMap.put(key, new Variable(key, value));
+      variablesListener
+          .propertyChange(new PropertyChangeEvent(this, "ADD", varMap.get(key), varMap.get(key)));
     }
   }
 

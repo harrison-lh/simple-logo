@@ -10,6 +10,11 @@ public class Variable {
     this.value = value;
   }
 
+  public Variable(Variable other) {
+    this.name = other.getName();
+    this.value = other.getValue();
+  }
+
   public String getName() {
     return name;
   }
