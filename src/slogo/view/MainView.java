@@ -66,6 +66,10 @@ public class MainView extends VBox implements View {
     return myVariablesBox;
   }
 
+  public Selector<String> getLanguageSelector() {
+    return myMenuBar.getLanguageSelector();
+  }
+
   /**
    * Adjust the size of elements when the window changes size
    */
