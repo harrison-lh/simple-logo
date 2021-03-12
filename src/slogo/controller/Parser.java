@@ -112,8 +112,7 @@ public class Parser implements SelectorTarget<String> {
     grandChildHandler(innerCommand);
 
     if (tokenizedText.isEmpty()) {
-      throw new IllegalArgumentException(
-          "ILLEGAL ARGUMENT EXCEPTION: THE COMMAND LIST IS EMPTY! CHECK FOR MISMATCHED []!");
+      return;
     }
 
     Command nextChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
@@ -121,8 +120,6 @@ public class Parser implements SelectorTarget<String> {
     fillList(listHead, nextChild);
 
     //should never reach here
-    throw new IllegalArgumentException(
-        "ILLEGAL ARGUMENT EXCEPTION: THE COMMAND LIST IS EMPTY! CHECK FOR MISMATCHED [] AND ILLEGAL SYNTAX!");
   }
 
   private void grandChildHandler(Command innerCommand) {
