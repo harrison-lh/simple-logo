@@ -487,4 +487,49 @@ public class ParserTests {
     controller.runCommands();
     assertEquals(turtle.getY(), initY + 10);
   }
+
+  @Test
+  public void testDoTimes() {
+    double initY = turtle.getY();
+    parser.parseCommandString("DoTimes [ :var 5 ] [ fd 5 ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + 25, turtle.getY());
+  }
+
+  @Test
+  public void testNestedDoTimes() {
+    double initY = turtle.getY();
+    parser.parseCommandString("DoTimes [ :var 5 ] [ DoTimes [ :var 5 ] [ fd 5 ] ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + 125, turtle.getY());
+  }
+
+  @Test
+  public void testIfCommand() {
+    double initY = turtle.getY();
+    parser.parseCommandString("IF 10 [ fd 50 ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + 50, turtle.getY());
+  }
+
+  @Test
+  public void testComplexIfCommand() {
+    double initY = turtle.getY();
+    parser.parseCommandString("IF EQUAL? 10 10 [ fd 50 ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + 50, turtle.getY());
+  }
+
+  @Test
+  public void testNegativeComplexIfCommand() {
+    double initY = turtle.getY();
+    parser.parseCommandString("IF EQUAL? 5 10 [ fd 50 ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY, turtle.getY());
+  }
 }
