@@ -29,6 +29,6 @@ public class Variable {
 
   @Override
   public String toString() {
-    return name + " = " + value;
+    return name.substring(1) + " = " + value; // Remove colon
   }
 }

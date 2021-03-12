@@ -25,7 +25,6 @@ public class Variables {
       varMap.get(key).setValue(value);
       variablesListener
           .propertyChange(new PropertyChangeEvent(this, "UPDATE", prevVar, varMap.get(key)));
-
     } else {
       varMap.put(key, new Variable(key, value));
       variablesListener
