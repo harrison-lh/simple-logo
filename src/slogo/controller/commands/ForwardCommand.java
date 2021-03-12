@@ -27,9 +27,7 @@ public class ForwardCommand extends Command {
    * @return The distance that the turtle moved
    */
   @Override
-  public double execute(Turtle turtle) {
-    assert(getChildren().size() == getNumParams());
-
+  protected double executeCommand(Turtle turtle) {
     double distance = getChildren().get(0).execute(turtle);
     turtle.forward(distance);
     return distance;

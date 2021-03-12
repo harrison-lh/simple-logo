@@ -1,7 +1,7 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
-import slogo.controller.ConstantNode;
+import slogo.controller.ConstantCommand;
 import slogo.model.Turtle;
 
 /**
@@ -28,12 +28,10 @@ public class HomeCommand extends Command {
    * @return The distance the turtle moved
    */
   @Override
-  public double execute(Turtle turtle) {
-    assert(getChildren().size() == getNumParams());
-
+  protected double executeCommand(Turtle turtle) {
     Command setXY = new SetPositionCommand();
-    setXY.addChild(new ConstantNode(0));
-    setXY.addChild(new ConstantNode(0));
+    setXY.addChild(new ConstantCommand(0));
+    setXY.addChild(new ConstantCommand(0));
 
     return setXY.execute(turtle);
   }

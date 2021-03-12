@@ -12,7 +12,7 @@ public class PenUpCommand extends Command {
   }
 
   @Override
-  public double execute(Turtle turtle) {
+  protected double executeCommand(Turtle turtle) {
     turtle.liftPen();
     return turtle.isPenActive() ? 1 : 0;
   }
