@@ -487,4 +487,22 @@ public class ParserTests {
     controller.runCommands();
     assertEquals(turtle.getY(), initY + 10);
   }
+
+  @Test
+  public void testDoTimes() {
+    double initY = turtle.getY();
+    parser.parseCommandString("DoTimes [ :var 5 ] [ fd 5 ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + 25, turtle.getY());
+  }
+
+  @Test
+  public void testNestedDoTimes() {
+    double initY = turtle.getY();
+    parser.parseCommandString("DoTimes [ :var 5 ] [ DoTimes [ :var 5 ] [ fd 5 ] ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + 125, turtle.getY());
+  }
 }
