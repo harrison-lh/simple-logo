@@ -5,7 +5,7 @@ import slogo.controller.ListCommandHead;
 import slogo.model.Turtle;
 
 public class IfElseCommand extends Command {
-  private static final int NUM_PARAMS = 2;
+  private static final int NUM_PARAMS = 3;
   private static final int EXPR_INDEX = 0;
   private static final int TRUE_INDEX = 1;
   private static final int FALSE_INDEX = 2;
@@ -19,9 +19,9 @@ public class IfElseCommand extends Command {
     double expr = getChildren().get(EXPR_INDEX).execute(turtle);
 
     if(expr != 0){
-      return ( (ListCommandHead) getChildren().get(TRUE_INDEX)).getInnerChildren().get(0).execute(turtle);
+      return ( (ListCommandHead) getChildren().get(TRUE_INDEX)).execute(turtle);
     } else {
-      return ( (ListCommandHead) getChildren().get(FALSE_INDEX)).getInnerChildren().get(0).execute(turtle);
+      return ( (ListCommandHead) getChildren().get(FALSE_INDEX)).execute(turtle);
     }
 
 

@@ -30,7 +30,10 @@ public class Controller {
     myTurtleController = new TurtleController(myTurtle);
     myParser = new Parser(myTurtleController, "English");
 
+    // Input button action
     myMainView.setInputAction(myParser.receiveInputAction());
+    // Select language action
+    myMainView.getLanguageSelector().setUpdateAction(myParser.updateAction());
   }
 
   public MainView getMainView() {

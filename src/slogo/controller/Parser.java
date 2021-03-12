@@ -2,9 +2,11 @@ package slogo.controller;
 
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.Queue;
 import java.util.Stack;
 import java.util.function.Consumer;
+import slogo.view.SelectorTarget;
 
 /**
  * Parser is the meat-and-potatoes of the SLogo Control layer. This class takes in a String of SLogo
@@ -13,16 +15,23 @@ import java.util.function.Consumer;
  *
  * @author Marc Chmielewski
  */
-public class Parser {
+public class Parser implements SelectorTarget<String> {
 
   private final TurtleController controller;
   private final Lexer lexer;
-  private Queue<String> splitText;
-  private Queue<Token> tokenizedText;
   private final Queue<Command> parsedCommandQueue;
   private final Queue<Command> assembledCommandQueue;
+  private Queue<String> splitText;
+  private Queue<Token> tokenizedText;
 
 
+  /**
+   * Constructor for the Parser. Takes in a TurtleController to execute Commands on, and an initial
+   * syntaxLang to be constructed with.
+   *
+   * @param controller The TurtleController upon which this Parser acts
+   * @param syntaxLang The initial language for which this Parser is configured.
+   */
   public Parser(TurtleController controller, String syntaxLang) {
     this.controller = controller;
     this.lexer = new Lexer(syntaxLang);
@@ -39,11 +48,7 @@ public class Parser {
   private void tokenizeText() throws IllegalArgumentException {
     Queue<Token> tokenList = new LinkedList<>();
     for (String curString : splitText) {
-      try {
-        tokenList.add(lexer.tokenize(curString));
-      } catch (IllegalArgumentException e) {
-        throw e;
-      }
+      tokenList.add(lexer.tokenize(curString));
     }
     this.tokenizedText = tokenList;
   }
@@ -54,17 +59,19 @@ public class Parser {
     }
   }
 
-  private Command patternMatchToken(Token token, String text) {
+  private Command patternMatchToken(Token token, String text) throws IllegalArgumentException {
     switch (token) {
       case COMMAND -> {
         String commandType = lexer.lexLangDefinedCommands(text);
         System.out.println(commandType);
         try {
-          Class<?> commandClass = Class.forName("slogo.controller.commands."+commandType + "Command");
+          Class<?> commandClass = Class
+              .forName("slogo.controller.commands." + commandType + "Command");
           return (Command) commandClass.getConstructor().newInstance();
         } catch (Exception e) {
-          System.err.println("LOOKUP NO WORK!!!");
+          System.err.println("LOOKUP FAILED!!!");
           // TODO: Might be a user-defined command, so we must check those!
+          throw new IllegalArgumentException("ILLEGAL ARGUMENT EXCEPTION: COMMAND UNDEFINED!");
         }
       }
       case CONSTANT -> {
@@ -79,9 +86,9 @@ public class Parser {
       case LIST_START -> {
         ListCommandHead listStartCommand = new ListCommandHead();
         listStartCommand.setNumParams(0);
-        if(tokenizedText.isEmpty() || splitText.isEmpty()){
-          //TODO: Throw error
-
+        if (tokenizedText.isEmpty() || splitText.isEmpty()) {
+          throw new IllegalArgumentException(
+              "ILLEGAL ARGUMENT EXCEPTION: OPEN LIST WITHOUT CLOSURE!");
         }
         Command innerChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
         fillList(listStartCommand, innerChild);
@@ -90,21 +97,20 @@ public class Parser {
       case LIST_END -> {
         // this case is never called in new implementation
         //System.out.println("IN LIST END: SHOULD NEVER APPEAR");
-        Command listEndCommand = new ListCommandTail();
 
-        return listEndCommand;
+        return new ListCommandTail();
       }
     }
-    return null;
+    throw new IllegalArgumentException(
+        "ILLEGAL ARGUMENT EXCEPTION: UNABLE TO TOKENIZE ARGUMENT! PLEASE VERIFY SYNTAX!");
   }
 
-  private ListCommandHead fillList(ListCommandHead listHead, Command innerCommand){
+  private void fillList(ListCommandHead listHead, Command innerCommand)
+      throws IllegalArgumentException {
     //Start Base Case
-    if(innerCommand.getIsListEnd()){
-
-      return listHead;
+    if (innerCommand.getIsListEnd()) {
+      return;
     }
-
 
     //End Base Case
 
@@ -112,9 +118,8 @@ public class Parser {
 
     grandChildHandler(innerCommand);
 
-    if(tokenizedText.isEmpty()){
-      //TODO: Create IllegalCommandException to throw
-      return null;
+    if (tokenizedText.isEmpty()) {
+      return;
     }
 
     Command nextChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
@@ -122,18 +127,17 @@ public class Parser {
     fillList(listHead, nextChild);
 
     //should never reach here
-    //TODO: create IllegalCommandException
-    return null;
   }
 
-  private void grandChildHandler(Command innerCommand){
+  private void grandChildHandler(Command innerCommand) {
     int numInnerGrandChildren = innerCommand.getNumParams();
 
-    for(int i = 0; i < numInnerGrandChildren; i++) {
+    for (int i = 0; i < numInnerGrandChildren; i++) {
 
-      Command grandChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
+      Command grandChild = patternMatchToken(Objects.requireNonNull(tokenizedText.poll()),
+          splitText.poll());
       innerCommand.addChild(grandChild);
-      if(grandChild.getNumParams() > 0){
+      if (grandChild.getNumParams() > 0) {
         grandChildHandler(grandChild);
       }
     }
@@ -144,13 +148,13 @@ public class Parser {
   }
 
   private void assembleCommandQueue() {
-    while(!parsedCommandQueue.isEmpty()) {
+    while (!parsedCommandQueue.isEmpty()) {
       Stack<Command> pendingFilledArgs = new Stack<>();
       Command rootCommand = parsedCommandQueue.poll();
       Command curCommand = rootCommand;
       dfsHelper(pendingFilledArgs, curCommand);
 
-      while(!pendingFilledArgs.isEmpty()) {
+      while (!pendingFilledArgs.isEmpty()) {
         curCommand = pendingFilledArgs.pop();
         dfsHelper(pendingFilledArgs, curCommand);
       }
@@ -158,26 +162,48 @@ public class Parser {
     }
   }
 
-  private void dfsHelper(Stack<Command> pendingFilledArgs, Command curCommand) {
+  private void dfsHelper(Stack<Command> pendingFilledArgs, Command curCommand)
+      throws NullPointerException {
     while (curCommand.getNumParams() > curCommand.getChildren().size()) {
       Command childCommand = parsedCommandQueue.poll();
       curCommand.addChild(childCommand);
-      if (childCommand.getNumParams() > 0 && curCommand.getNumParams() > curCommand.getChildren().size()) {
-        pendingFilledArgs.push(curCommand);
-        curCommand = childCommand;
-      }
-      else if (childCommand.getNumParams() > 0) {
-        curCommand = childCommand;
+      if (childCommand != null) {
+        if (childCommand.getNumParams() > 0 && curCommand.getNumParams() > curCommand.getChildren()
+            .size()) {
+          pendingFilledArgs.push(curCommand);
+          curCommand = childCommand;
+        } else if (childCommand.getNumParams() > 0) {
+          curCommand = childCommand;
+        }
+      } else {
+        throw new NullPointerException("NULL POINTER EXCEPTION: CHECK YOUR ARGUMENT COUNT!!!");
       }
     }
   }
 
 
+  /**
+   * Change the syntaxLang of the Parser by modifying the syntaxLang of the attached Lexer.
+   *
+   * @param syntaxLang The new language for the Parser
+   */
   public void setSyntaxLang(String syntaxLang) {
     lexer.setLangSymbols(syntaxLang);
   }
 
-  public void parseCommandString(String text) {
+  /**
+   * The primary parsing method for this Parser, parseCommandString is the core engine behind SLogo.
+   * This method unifies the Lexer and the parser into one unit and creates an AST which is then
+   * traversed to create a Queue of Commands for the Turtle to execute.
+   *
+   * @param text The command String to parse
+   * @throws IllegalArgumentException If the provided command String is not syntactically correct.
+   *                                  The error message elucidates more detail about this.
+   * @throws NullPointerException     If the any of the commands within the provided command String
+   *                                  has the wrong number of args!
+   */
+  public void parseCommandString(String text)
+      throws IllegalArgumentException, NullPointerException {
     splitText(text);
     tokenizeText();
     if (handleCommentsAndBlankLines()) {
@@ -185,7 +211,7 @@ public class Parser {
     }
     mapTokensToCommands();
     assembleCommandQueue();
-    for(Command command : assembledCommandQueue) {
+    for (Command command : assembledCommandQueue) {
       System.out.println(command);
     }
     controller.pushCommands(assembledCommandQueue);
@@ -193,11 +219,35 @@ public class Parser {
     // Clean up after we're done
   }
 
-  public Consumer<String> receiveInputAction() {
+  /**
+   * A simple hook for the Consumer Interface that allows the Parser to be fed a new command String
+   * from the front-end.
+   *
+   * @return A Consumer of Strings that calls the requisite methods to have the parser parse the
+   * command String and move the Turtle.
+   * @throws IllegalArgumentException If the provided command String is not syntactically correct.
+   *                                  The error message elucidates more detail about this.
+   * @throws NullPointerException     If the any of the commands within the provided command String
+   *                                  has * the wrong number of args!
+   */
+  public Consumer<String> receiveInputAction()
+      throws IllegalArgumentException, NullPointerException {
     return command -> {
       parseCommandString(command);
       controller.setIsAllowedToExecute(true);
       controller.runCommands();
     };
+  }
+
+  /**
+   * A simple hook for the Consumer Interface that allows the language of this Parser to be updated
+   * by the front-end.
+   *
+   * @return A Consumer of strings that contains the method to call to update the syntax language of
+   * the Parser
+   */
+  @Override
+  public Consumer<String> updateAction() {
+    return this::setSyntaxLang;
   }
 }

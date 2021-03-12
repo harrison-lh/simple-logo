@@ -1,6 +1,7 @@
 package slogo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -569,4 +570,42 @@ public class ParserTests {
     assertEquals(initY + 25, turtle.getY());
   }
 
+  @Test
+  public void testErrorHandling() {
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+          parser.parseCommandString("df 50");
+        }
+    );
+    System.out.println(exception.getMessage());
+
+    exception = assertThrows(IllegalArgumentException.class, () -> {
+      parser.parseCommandString("repeat 5 [ fd 50 [");
+        }
+    );
+    System.out.println(exception.getMessage());
+
+    exception = assertThrows(IllegalArgumentException.class, () -> {
+          parser.parseCommandString("");
+        }
+    );
+    System.out.println(exception.getMessage());
+
+    exception = assertThrows(IllegalArgumentException.class, () -> {
+          parser.parseCommandString("RIP 'EM UP TEAR 'EM UP GIVE 'EM HELL DUKE!");
+        }
+    );
+    System.out.println(exception.getMessage());
+
+    exception = assertThrows(IllegalArgumentException.class, () -> {
+          parser.parseCommandString("repeat 5 [ ava 50 ]");
+        }
+    );
+    System.out.println(exception.getMessage());
+
+    exception = assertThrows(NullPointerException.class, () -> {
+          parser.parseCommandString("setxy 50");
+        }
+    );
+    System.out.println(exception.getMessage());
+  }
 }

@@ -104,7 +104,7 @@ public class Lexer {
    * @throws IllegalArgumentException If the text is unable to be tokenized.
    */
   public Token tokenize(String text) throws IllegalArgumentException {
-    final String ERROR = "NO MATCH! UNRECOGNIZED TOKEN!";
+    final String ERROR = "ILLEGAL ARGUMENT EXCEPTION: NO MATCH! UNRECOGNIZED TOKEN!";
     for (Entry<String, Pattern> e : syntaxSymbols) {
       if (match(text, e.getValue())) {
         switch (e.getKey()) {
@@ -142,7 +142,7 @@ public class Lexer {
    * @throws IllegalArgumentException If the text is unable to be lexed.
    */
   public String lexLangDefinedCommands(String text) throws IllegalArgumentException {
-    final String ERROR = "NO MATCH! UNRECOGNIZED SYNTAX!";
+    final String ERROR = "ILLEGAL ARGUMENT EXCEPTION: NO MATCH! UNRECOGNIZED SYNTAX!";
     for (Entry<String, Pattern> e : langSymbols) {
       if (match(text, e.getValue())) {
         return e.getKey();
