@@ -1,6 +1,5 @@
 package slogo.controller.commands;
 
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import slogo.controller.Command;
 import slogo.model.Turtle;
@@ -14,7 +13,7 @@ public class RandomCommand extends Command {
   }
 
   @Override
-  public double execute(Turtle turtle) {
+  public double executeCommand(Turtle turtle) {
     double bound = getChildren().get(0).execute(turtle);
 
     return ThreadLocalRandom.current().nextDouble(0, bound);

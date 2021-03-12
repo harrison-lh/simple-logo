@@ -27,9 +27,7 @@ public class LeftCommand extends Command {
    * @return The degrees that the turtle rotated
    */
   @Override
-  public double execute(Turtle turtle) {
-    assert(getChildren().size() == getNumParams());
-
+  public double executeCommand(Turtle turtle) {
     double degrees = getChildren().get(0).execute(turtle);
     turtle.right(-1 * degrees);
     return degrees;

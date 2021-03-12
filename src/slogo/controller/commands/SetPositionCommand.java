@@ -27,9 +27,7 @@ public class SetPositionCommand extends Command {
    * @return The distance the turtle moved
    */
   @Override
-  public double execute(Turtle turtle) {
-    assert(getChildren().size() == getNumParams());
-
+  public double executeCommand(Turtle turtle) {
     double newX = getChildren().get(0).execute(turtle);
     double newY = getChildren().get(1).execute(turtle);
     double distance = getDistance(turtle.getX(), turtle.getY(), newX, newY);

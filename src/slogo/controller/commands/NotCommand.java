@@ -1,7 +1,6 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
-import slogo.controller.ConstantNode;
 import slogo.model.Turtle;
 
 /**
@@ -28,11 +27,8 @@ public class NotCommand extends Command {
    * @return 1 if the value is 0, and 0 if the value is nonzero
    */
   @Override
-  public double execute(Turtle turtle) {
-    assert(getChildren().size() == getNumParams());
-
+  public double executeCommand(Turtle turtle) {
     double val = getChildren().get(0).execute(turtle);
-
     return (val == 0) ? 1 : 0;
   }
 }

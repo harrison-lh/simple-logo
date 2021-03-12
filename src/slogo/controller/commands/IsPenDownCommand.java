@@ -1,7 +1,6 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
-import slogo.controller.ConstantNode;
 import slogo.model.Turtle;
 
 /**
@@ -28,9 +27,7 @@ public class IsPenDownCommand extends Command {
    * @return boolean of visibility of Pen
    */
   @Override
-  public double execute(Turtle turtle) {
-    assert(getChildren().size() == getNumParams());
-
+  public double executeCommand(Turtle turtle) {
     return turtle.isPenActive() ? 1 : 0;
   }
 

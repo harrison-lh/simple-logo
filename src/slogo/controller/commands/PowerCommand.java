@@ -1,7 +1,6 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
-import slogo.controller.ConstantNode;
 import slogo.model.Turtle;
 
 /**
@@ -29,9 +28,7 @@ public class PowerCommand extends Command {
    * @return the first value to the power of the second value
    */
   @Override
-  public double execute(Turtle turtle) {
-    assert(getChildren().size() == getNumParams());
-
+  public double executeCommand(Turtle turtle) {
     double firstVal = getChildren().get(0).execute(turtle);
     double secondVal = getChildren().get(1).execute(turtle);
 

@@ -1,7 +1,7 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
-import slogo.controller.VariableNode;
+import slogo.controller.VariableCommand;
 import slogo.model.Turtle;
 
 /**
@@ -18,9 +18,8 @@ public class MakeVariableCommand extends Command {
   }
 
   @Override
-  public double execute(Turtle turtle) {
-    assert (getChildren().size() == getNumParams());
-    turtle.getVars().setValue(((VariableNode) getChildren().get(0)).getName(),
+  public double executeCommand(Turtle turtle) {
+    turtle.getVars().setValue(((VariableCommand) getChildren().get(0)).getName(),
         getChildren().get(1).execute(turtle));
     return getChildren().get(1).execute(turtle);
   }

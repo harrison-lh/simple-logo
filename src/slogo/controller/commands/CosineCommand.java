@@ -1,7 +1,5 @@
 package slogo.controller.commands;
 
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 import slogo.controller.Command;
 import slogo.model.Turtle;
 
@@ -14,7 +12,7 @@ public class CosineCommand extends Command {
   }
 
   @Override
-  public double execute(Turtle turtle) {
+  protected double executeCommand(Turtle turtle) {
     double degrees = getChildren().get(0).execute(turtle);
 
     return Math.toDegrees(Math.cos(Math.toRadians(degrees)));

@@ -12,7 +12,7 @@ public class HeadingCommand extends Command {
   }
 
   @Override
-  public double execute(Turtle turtle) {
+  public double executeCommand(Turtle turtle) {
     return turtle.getHeading();
   }
 }
