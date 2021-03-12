@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import slogo.model.Turtle;
 
-public class ListNodeHead extends Command {
+public class ListCommandHead extends Command {
   private List<Command> innerChildren;
 
-  public ListNodeHead(){
+  public ListCommandHead(){
     innerChildren = new ArrayList<>();
 
   }

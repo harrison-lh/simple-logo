@@ -1,7 +1,7 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
-import slogo.controller.ListNodeHead;
+import slogo.controller.ListCommandHead;
 import slogo.controller.VariableCommand;
 import slogo.model.Turtle;
 
@@ -31,10 +31,10 @@ public class ForCommand extends Command {
   @Override
   protected double executeCommand(Turtle turtle) {
 
-    VariableCommand var = ( (VariableCommand) ( (ListNodeHead) getChildren().get(0)).getInnerChildren().get(VAR_INDEX));
-    double start = ( (ListNodeHead) getChildren().get(0)).getInnerChildren().get(START_INDEX).execute(turtle);
-    double end = ( (ListNodeHead) getChildren().get(0)).getInnerChildren().get(END_INDEX).execute(turtle);
-    double increment = ( (ListNodeHead) getChildren().get(0)).getInnerChildren().get(INCREMENT_INDEX).execute(turtle);
+    VariableCommand var = ( (VariableCommand) ( (ListCommandHead) getChildren().get(0)).getInnerChildren().get(VAR_INDEX));
+    double start = ( (ListCommandHead) getChildren().get(0)).getInnerChildren().get(START_INDEX).execute(turtle);
+    double end = ( (ListCommandHead) getChildren().get(0)).getInnerChildren().get(END_INDEX).execute(turtle);
+    double increment = ( (ListCommandHead) getChildren().get(0)).getInnerChildren().get(INCREMENT_INDEX).execute(turtle);
 
     double lastVal = 0;
     var.setValue(start);

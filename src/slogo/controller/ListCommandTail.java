@@ -2,9 +2,9 @@ package slogo.controller;
 
 import slogo.model.Turtle;
 
-public class ListNodeTail extends Command {
+public class ListCommandTail extends Command {
 
-  public ListNodeTail() {
+  public ListCommandTail() {
     setIsListEnd(true);
   }
 

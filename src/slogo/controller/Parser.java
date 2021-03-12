@@ -77,30 +77,28 @@ public class Parser {
         return new VariableCommand(text);
       }
       case LIST_START -> {
-        // TODO: Create ListStartNode
-        ListNodeHead listStartNode = new ListNodeHead();
-        listStartNode.setNumParams(0);
+        ListCommandHead listStartCommand = new ListCommandHead();
+        listStartCommand.setNumParams(0);
         if(tokenizedText.isEmpty() || splitText.isEmpty()){
           //TODO: Throw error
 
         }
         Command innerChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
-        fillList(listStartNode, innerChild);
-        return listStartNode;
+        fillList(listStartCommand, innerChild);
+        return listStartCommand;
       }
       case LIST_END -> {
         // this case is never called in new implementation
         //System.out.println("IN LIST END: SHOULD NEVER APPEAR");
-        // TODO: Create ListEndNode
-        Command listEndNode = new ListNodeTail();
+        Command listEndCommand = new ListCommandTail();
 
-        return listEndNode;
+        return listEndCommand;
       }
     }
     return null;
   }
 
-  private ListNodeHead fillList(ListNodeHead listHead, Command innerCommand){
+  private ListCommandHead fillList(ListCommandHead listHead, Command innerCommand){
     //Start Base Case
     if(innerCommand.getIsListEnd()){
 
