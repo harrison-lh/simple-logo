@@ -32,6 +32,6 @@ public class ListCommandHead extends Command {
 
   @Override
   public String toString(){
-    return "ListNodeHead";
+    return "ListCommandHead";
   }
 }
