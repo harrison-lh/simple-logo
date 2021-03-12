@@ -47,13 +47,13 @@ public class Parser {
     this.tokenizedText = tokenList;
   }
 
-  private void mapTokensToNodes() {
+  private void mapTokensToNodes() throws IllegalArgumentException {
     while (!tokenizedText.isEmpty()) {
       parsedNodeQueue.add(patternMatchToken(tokenizedText.poll(), splitText.poll()));
     }
   }
 
-  private Node patternMatchToken(Token token, String text) {
+  private Node patternMatchToken(Token token, String text) throws IllegalArgumentException {
     switch (token) {
       case COMMAND -> {
         String commandType = lexer.lexLangDefinedCommands(text);
@@ -64,6 +64,7 @@ public class Parser {
         } catch (Exception e) {
           System.err.println("LOOKUP NO WORK!!!");
           // TODO: Might be a user-defined command, so we must check those!
+          throw new IllegalArgumentException("ILLEGAL ARGUMENT EXCEPTION: COMMAND UNDEFINED!");
         }
       }
       case CONSTANT -> {
@@ -121,7 +122,7 @@ public class Parser {
     lexer.setLangSymbols(syntaxLang);
   }
 
-  public void parseCommandString(String text) {
+  public void parseCommandString(String text) throws IllegalArgumentException {
     splitText(text);
     tokenizeText();
     if (handleCommentsAndBlankLines()) {
