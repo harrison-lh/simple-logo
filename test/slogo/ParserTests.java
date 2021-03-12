@@ -532,4 +532,41 @@ public class ParserTests {
     controller.runCommands();
     assertEquals(initY, turtle.getY());
   }
+
+  @Test
+  public void testIfElseTrueCommand() {
+    double initY = turtle.getY();
+    parser.parseCommandString("IFELSE 10 [ fd 50 ] [ fd 25 ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + 50, turtle.getY());
+  }
+
+  @Test
+  public void testIfElseFalseCommand() {
+    double initY = turtle.getY();
+    parser.parseCommandString("IFELSE 0 [ fd 50 ] [ fd 25 ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + 25, turtle.getY());
+  }
+
+  @Test
+  public void testComplexIfElseTrueCommand() {
+    double initY = turtle.getY();
+    parser.parseCommandString("IFELSE LESS? 5 10 [ fd 50 ] [ fd 25 ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + 50, turtle.getY());
+  }
+
+  @Test
+  public void testComplexIfElseFalseCommand() {
+    double initY = turtle.getY();
+    parser.parseCommandString("IFELSE AND 0 10 [ fd 50 ] [ fd 25 ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + 25, turtle.getY());
+  }
+
 }
