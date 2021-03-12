@@ -2,6 +2,7 @@ package slogo.controller;
 
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.Queue;
 import java.util.Stack;
 import java.util.function.Consumer;
@@ -18,10 +19,10 @@ public class Parser implements SelectorTarget<String> {
 
   private final TurtleController controller;
   private final Lexer lexer;
-  private Queue<String> splitText;
-  private Queue<Token> tokenizedText;
   private final Queue<Command> parsedCommandQueue;
   private final Queue<Command> assembledCommandQueue;
+  private Queue<String> splitText;
+  private Queue<Token> tokenizedText;
 
 
   public Parser(TurtleController controller, String syntaxLang) {
@@ -40,11 +41,7 @@ public class Parser implements SelectorTarget<String> {
   private void tokenizeText() throws IllegalArgumentException {
     Queue<Token> tokenList = new LinkedList<>();
     for (String curString : splitText) {
-      try {
-        tokenList.add(lexer.tokenize(curString));
-      } catch (IllegalArgumentException e) {
-        throw e;
-      }
+      tokenList.add(lexer.tokenize(curString));
     }
     this.tokenizedText = tokenList;
   }
@@ -55,16 +52,17 @@ public class Parser implements SelectorTarget<String> {
     }
   }
 
-  private Command patternMatchToken(Token token, String text) {
+  private Command patternMatchToken(Token token, String text) throws IllegalArgumentException {
     switch (token) {
       case COMMAND -> {
         String commandType = lexer.lexLangDefinedCommands(text);
         System.out.println(commandType);
         try {
-          Class<?> commandClass = Class.forName("slogo.controller.commands."+commandType + "Command");
+          Class<?> commandClass = Class
+              .forName("slogo.controller.commands." + commandType + "Command");
           return (Command) commandClass.getConstructor().newInstance();
         } catch (Exception e) {
-          System.err.println("LOOKUP NO WORK!!!");
+          System.err.println("LOOKUP FAILED!!!");
           // TODO: Might be a user-defined command, so we must check those!
           throw new IllegalArgumentException("ILLEGAL ARGUMENT EXCEPTION: COMMAND UNDEFINED!");
         }
@@ -81,9 +79,9 @@ public class Parser implements SelectorTarget<String> {
       case LIST_START -> {
         ListCommandHead listStartCommand = new ListCommandHead();
         listStartCommand.setNumParams(0);
-        if(tokenizedText.isEmpty() || splitText.isEmpty()){
-          //TODO: Throw error
-
+        if (tokenizedText.isEmpty() || splitText.isEmpty()) {
+          throw new IllegalArgumentException(
+              "ILLEGAL ARGUMENT EXCEPTION: OPEN LIST WITH NO ARGUMENTS");
         }
         Command innerChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
         fillList(listStartCommand, innerChild);
@@ -92,21 +90,20 @@ public class Parser implements SelectorTarget<String> {
       case LIST_END -> {
         // this case is never called in new implementation
         //System.out.println("IN LIST END: SHOULD NEVER APPEAR");
-        Command listEndCommand = new ListCommandTail();
 
-        return listEndCommand;
+        return new ListCommandTail();
       }
     }
-    return null;
+    throw new IllegalArgumentException(
+        "ILLEGAL ARGUMENT EXCEPTION: UNABLE TO TOKENIZE ARGUMENT! PLEASE VERIFY SYNTAX!");
   }
 
-  private ListCommandHead fillList(ListCommandHead listHead, Command innerCommand){
+  private void fillList(ListCommandHead listHead, Command innerCommand)
+      throws IllegalArgumentException {
     //Start Base Case
-    if(innerCommand.getIsListEnd()){
-
-      return listHead;
+    if (innerCommand.getIsListEnd()) {
+      return;
     }
-
 
     //End Base Case
 
@@ -114,9 +111,9 @@ public class Parser implements SelectorTarget<String> {
 
     grandChildHandler(innerCommand);
 
-    if(tokenizedText.isEmpty()){
-      //TODO: Create IllegalCommandException to throw
-      return null;
+    if (tokenizedText.isEmpty()) {
+      throw new IllegalArgumentException(
+          "ILLEGAL ARGUMENT EXCEPTION: THE COMMAND LIST IS EMPTY! CHECK FOR MISMATCHED []!");
     }
 
     Command nextChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
@@ -124,18 +121,19 @@ public class Parser implements SelectorTarget<String> {
     fillList(listHead, nextChild);
 
     //should never reach here
-    //TODO: create IllegalCommandException
-    return null;
+    throw new IllegalArgumentException(
+        "ILLEGAL ARGUMENT EXCEPTION: THE COMMAND LIST IS EMPTY! CHECK FOR MISMATCHED [] AND ILLEGAL SYNTAX!");
   }
 
-  private void grandChildHandler(Command innerCommand){
+  private void grandChildHandler(Command innerCommand) {
     int numInnerGrandChildren = innerCommand.getNumParams();
 
-    for(int i = 0; i < numInnerGrandChildren; i++) {
+    for (int i = 0; i < numInnerGrandChildren; i++) {
 
-      Command grandChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
+      Command grandChild = patternMatchToken(Objects.requireNonNull(tokenizedText.poll()),
+          splitText.poll());
       innerCommand.addChild(grandChild);
-      if(grandChild.getNumParams() > 0){
+      if (grandChild.getNumParams() > 0) {
         grandChildHandler(grandChild);
       }
     }
@@ -146,13 +144,13 @@ public class Parser implements SelectorTarget<String> {
   }
 
   private void assembleCommandQueue() {
-    while(!parsedCommandQueue.isEmpty()) {
+    while (!parsedCommandQueue.isEmpty()) {
       Stack<Command> pendingFilledArgs = new Stack<>();
       Command rootCommand = parsedCommandQueue.poll();
       Command curCommand = rootCommand;
       dfsHelper(pendingFilledArgs, curCommand);
 
-      while(!pendingFilledArgs.isEmpty()) {
+      while (!pendingFilledArgs.isEmpty()) {
         curCommand = pendingFilledArgs.pop();
         dfsHelper(pendingFilledArgs, curCommand);
       }
@@ -164,11 +162,12 @@ public class Parser implements SelectorTarget<String> {
     while (curCommand.getNumParams() > curCommand.getChildren().size()) {
       Command childCommand = parsedCommandQueue.poll();
       curCommand.addChild(childCommand);
-      if (childCommand.getNumParams() > 0 && curCommand.getNumParams() > curCommand.getChildren().size()) {
+      assert childCommand != null;
+      if (childCommand.getNumParams() > 0 && curCommand.getNumParams() > curCommand.getChildren()
+          .size()) {
         pendingFilledArgs.push(curCommand);
         curCommand = childCommand;
-      }
-      else if (childCommand.getNumParams() > 0) {
+      } else if (childCommand.getNumParams() > 0) {
         curCommand = childCommand;
       }
     }
@@ -187,7 +186,7 @@ public class Parser implements SelectorTarget<String> {
     }
     mapTokensToCommands();
     assembleCommandQueue();
-    for(Command command : assembledCommandQueue) {
+    for (Command command : assembledCommandQueue) {
       System.out.println(command);
     }
     controller.pushCommands(assembledCommandQueue);
@@ -195,7 +194,7 @@ public class Parser implements SelectorTarget<String> {
     // Clean up after we're done
   }
 
-  public Consumer<String> receiveInputAction() {
+  public Consumer<String> receiveInputAction() throws IllegalArgumentException {
     return command -> {
       parseCommandString(command);
       controller.setIsAllowedToExecute(true);
