@@ -2,6 +2,7 @@ package slogo.view;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
@@ -15,6 +16,8 @@ import slogo.model.Variable;
 public class VariablesBox extends ScrollPane implements PropertyChangeListener {
 
   private VBox myContents;
+  private List<Variable> myVariableList;
+  private List<Label> myVariableTextList;
 
   /**
    * Main constructor
@@ -24,15 +27,21 @@ public class VariablesBox extends ScrollPane implements PropertyChangeListener {
     myContents = new VBox();
     this.setContent(myContents);
     myContents.getChildren().add(new Label("Variables"));
+    myVariableList = new ArrayList<>();
+    myVariableTextList = new ArrayList<>();
   }
 
   // TODO: Implement adding and updating variables in variables box
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
+    Variable variable = (Variable) evt.getNewValue();
     if (evt.getPropertyName().equals("ADD")) {
-      myContents.getChildren().add(new VariableText((Variable) evt.getNewValue()));
+      myVariableList.add(variable);
+      Label variableText = new Label(variable.toString());
+      myVariableTextList.add(variableText);
+      myContents.getChildren().add(variableText);
     } else if (evt.getPropertyName().equals("UPDATE")) {
-      System.out.println(evt.getNewValue());
+      myVariableTextList.get(myVariableList.indexOf(variable)).setText(variable.toString());
     }
   }
 }
