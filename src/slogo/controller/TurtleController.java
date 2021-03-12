@@ -46,7 +46,7 @@ public class TurtleController {
    *
    * @param commands The Queue of Commands to add to the commandQueue.
    */
-  public void pushNodes(Queue<Command> commands) {
+  public void pushCommands(Queue<Command> commands) {
     commandQueue.addAll(commands);
   }
 

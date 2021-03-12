@@ -29,9 +29,9 @@ public abstract class Command {
   }
 
   /**
-   * Simple getter to return the list of child Nodes
+   * Simple getter to return the list of child Commands
    *
-   * @return A List of child Nodes
+   * @return A List of child Commands
    */
   public List<Command> getChildren() {
     return children;

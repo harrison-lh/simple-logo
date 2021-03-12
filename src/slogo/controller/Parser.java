@@ -47,7 +47,7 @@ public class Parser {
     this.tokenizedText = tokenList;
   }
 
-  private void mapTokensToNodes() {
+  private void mapTokensToCommands() {
     while (!tokenizedText.isEmpty()) {
       parsedCommandQueue.add(patternMatchToken(tokenizedText.poll(), splitText.poll()));
     }
@@ -76,10 +76,10 @@ public class Parser {
         return new VariableCommand(text);
       }
       case LIST_START -> {
-        // TODO: Create ListStartNode
+        // TODO: Create ListStartCommand
       }
       case LIST_END -> {
-        // TODO: Create ListEndNode
+        // TODO: Create ListEndCommand
       }
     }
     return null;
@@ -127,12 +127,12 @@ public class Parser {
     if (handleCommentsAndBlankLines()) {
       return; // If it's a comment line, return early. Comments have no commands.
     }
-    mapTokensToNodes();
+    mapTokensToCommands();
     assembleCommandQueue();
     for(Command command : assembledCommandQueue) {
       System.out.println(command);
     }
-    controller.pushNodes(assembledCommandQueue);
+    controller.pushCommands(assembledCommandQueue);
     assembledCommandQueue.clear();
     // Clean up after we're done
   }
