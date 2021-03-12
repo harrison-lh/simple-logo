@@ -15,8 +15,8 @@ import slogo.model.Turtle;
 public class TurtleController {
 
   private Turtle turtle;
-  private Deque<Node> commandQueue;
-  private Deque<Node> commandHistory;
+  private Deque<Command> commandQueue;
+  private Deque<Command> commandHistory;
   private boolean executeCommands;
 
   /**
@@ -36,7 +36,7 @@ public class TurtleController {
     while (!commandQueue.isEmpty()) {
       if (executeCommands) {
         commandHistory.add(commandQueue.peek());
-        commandQueue.poll().execute(turtle);
+        commandQueue.poll().executeCommand(turtle);
       }
     }
   }
@@ -46,7 +46,7 @@ public class TurtleController {
    *
    * @param commands The Queue of Commands to add to the commandQueue.
    */
-  public void pushNodes(Queue<Node> commands) {
+  public void pushCommands(Queue<Command> commands) {
     commandQueue.addAll(commands);
   }
 
