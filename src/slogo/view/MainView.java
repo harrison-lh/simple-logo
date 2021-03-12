@@ -120,10 +120,19 @@ public class MainView extends VBox implements View {
   public void setInputAction(Consumer<String> response) {
     myInputBox.setInputAction(e -> {
       String command = myInputBox.getText();
-      response.accept(command);
-      myInputBox.clear();
-      myCommandHistoryBox.addCommand(command);
+      try {
+        response.accept(command);
+        myInputBox.clear();
+        myCommandHistoryBox.addCommand(command);
+      }
+      catch (Exception exception) {
+        openErrorWindow(exception);
+      }
     });
+  }
+
+  private void openErrorWindow(Exception exception) {
+    System.out.println("opening error window");
   }
 
   private void connectColorSelector(SelectorTarget<Color> target, Selector<Color> selector) {
