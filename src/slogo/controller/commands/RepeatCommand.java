@@ -8,6 +8,7 @@ import slogo.model.Variables;
  * RepeatCommand implements the ability to repeat an list of Commands a number of times
  *
  * @author Marc Chmielewski
+ * @author Cole Spector
  */
 public class RepeatCommand extends Command {
 
@@ -29,13 +30,14 @@ public class RepeatCommand extends Command {
    */
   @Override
   public double execute(Turtle turtle) {
-    assert (getChildren().size() >= getNumParams());
+    assert (getChildren().size() == getNumParams());
 
     double repititionNum = getChildren().get(0).execute(turtle);
     double lastVal = 0;
-    //Variables.setValue(":repcount", 1);
+    turtle.getVars().setValue(":repcount", 1);
     for(int i = 0; i < repititionNum; i ++){
       lastVal = getChildren().get(1).execute(turtle);
+      turtle.getVars().setValue(":repcount", i);
     }
     return lastVal;
   }

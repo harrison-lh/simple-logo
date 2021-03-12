@@ -5,21 +5,25 @@ import java.util.List;
 import slogo.model.Turtle;
 
 public class ListNodeHead extends Node {
-  private List<Node> children;
+  private List<Node> innerChildren;
 
   public ListNodeHead(){
-    children = new ArrayList<>();
+    innerChildren = new ArrayList<>();
 
   }
 
+  public List<Node> getInnerChildren(){
+    return innerChildren;
+  }
+
   public void addInnerChild(Node innerChild){
-    this.children.add(innerChild);
+    this.innerChildren.add(innerChild);
   }
 
   @Override
   public double execute(Turtle turtle) {
     double lastVal = 0;
-    for(Node child : children){
+    for(Node child : innerChildren){
       lastVal = child.execute(turtle);
     }
     return lastVal;

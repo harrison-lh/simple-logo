@@ -83,7 +83,7 @@ public class Parser {
         listStartNode.setNumParams(0);
         if(tokenizedText.isEmpty() || splitText.isEmpty()){
           //TODO: Throw error
-          System.out.println("THIS IS AN ERROR");
+
         }
         Node innerChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
         fillList(listStartNode, innerChild);
@@ -104,12 +104,13 @@ public class Parser {
   private ListNodeHead fillList(ListNodeHead listHead, Node innerNode){
     //Start Base Case
     if(innerNode.getIsListEnd()){
-      System.out.println("Recursion Finished");
+
       return listHead;
     }
 
+
     //End Base Case
-    System.out.println("Adding Child");
+
     listHead.addInnerChild(innerNode);
 
     grandChildHandler(innerNode);
@@ -132,7 +133,7 @@ public class Parser {
     int numInnerGrandChildren = innerNode.getNumParams();
 
     for(int i = 0; i < numInnerGrandChildren; i++) {
-      System.out.println("Adding GrandChild");
+
       Node grandChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
       innerNode.addChild(grandChild);
       if(grandChild.getNumParams() > 0){
@@ -149,12 +150,12 @@ public class Parser {
     Queue<Node> assembledNodeQueue = new LinkedList<>();
     while(!parsedNodeQueue.isEmpty()) {
       Stack<Node> pendingFilledArgs = new Stack<>();
-      //Node rootNode = listCompatiblePoll();
+
       Node rootNode = parsedNodeQueue.poll();
       Node curNode = rootNode;
-      //System.out.println("Pre-dfsHelper");
+
       dfsHelper(pendingFilledArgs, curNode);
-      //System.out.println("Post-dfsHelper");
+
       while(!pendingFilledArgs.isEmpty()) {
         curNode = pendingFilledArgs.pop();
         dfsHelper(pendingFilledArgs, curNode);
@@ -170,7 +171,6 @@ public class Parser {
       //Node childNode = listCompatiblePoll();
       Node childNode = parsedNodeQueue.poll();
 
-      //System.out.println("Adding Child: " + childNode);
 
       curNode.addChild(childNode);
       if (childNode.getNumParams() > 0 && curNode.getNumParams() > curNode.getChildren().size()) {
@@ -183,23 +183,6 @@ public class Parser {
     }
   }
 
-//  private Node listCompatiblePoll() {
-//    if(!parsedNodeQueue.isEmpty()) {
-//
-//      Node polledNode = parsedNodeQueue.poll();
-//      if(polledNode.getListNodeType() == ListNodeType.START_LIST) {
-//        pendingCompleteList.push((ListNode) polledNode);
-//        ((ListNode) polledNode).addNodesToList(assembleCommandQueue());
-//      }
-//      else if(polledNode.getListNodeType() == ListNodeType.END_LIST) {
-//        if(!pendingCompleteList.isEmpty()) {
-//          pendingCompleteList.pop(); // Pop off the list we're completing
-//        }
-//      }
-//      return polledNode;
-//    }
-//    return null;
-//  }
 
   public void setSyntaxLang(String syntaxLang) {
     lexer.setLangSymbols(syntaxLang);
@@ -212,9 +195,9 @@ public class Parser {
       return; // If it's a comment line, return early. Comments have no commands.
     }
     mapTokensToNodes();
-    //System.out.println("Pre-AssembleCommandQueue");
+
     Queue<Node> assembledNodeQueue = assembleCommandQueue();
-    //System.out.println("Post-AssembleCommandQueue");
+
     for(Node node : assembledNodeQueue) {
       System.out.println(node);
     }

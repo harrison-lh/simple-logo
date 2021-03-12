@@ -483,7 +483,7 @@ public class ParserTests {
   @Test
   public void testForLoops() {
     double initY = turtle.getY();
-    parser.parseCommandString("for [ :i 1 10 1 ] [ fd 1 ]");
+    parser.parseCommandString("for [ :i 0 10 1 ] [ fd 1 ]");
     controller.setIsAllowedToExecute(true);
     controller.runCommands();
     assertEquals(turtle.getY(), initY + 10);

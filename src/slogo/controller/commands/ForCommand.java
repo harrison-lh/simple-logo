@@ -2,9 +2,11 @@ package slogo.controller.commands;
 
 import slogo.controller.Command;
 import slogo.controller.ListNode;
+import slogo.controller.ListNodeHead;
 import slogo.controller.Node;
 import slogo.controller.VariableNode;
 import slogo.model.Turtle;
+import slogo.model.Variables;
 
 /**
  * ForCommand more or less implements for-loops in SLogo.
@@ -14,6 +16,10 @@ import slogo.model.Turtle;
 public class ForCommand extends Command {
 
   private static final int NUM_PARAMS = 2;
+  private static final int VAR_INDEX = 0;
+  private static final int START_INDEX = 1;
+  private static final int END_INDEX = 2;
+  private static final int INCREMENT_INDEX = 3;
 
   public ForCommand() {
     setNumParams(NUM_PARAMS);
@@ -30,20 +36,19 @@ public class ForCommand extends Command {
 
     assert (getChildren().size() == getNumParams());
 
-    Node node = ((ListNode) getChildren().get(0)).getNodeList().get(0);
-    VariableNode variableNode = (VariableNode) node;
-    String variableName = variableNode.getName();
+    VariableNode var = ( (VariableNode) ( (ListNodeHead) getChildren().get(0)).getInnerChildren().get(VAR_INDEX));
+    double start = ( (ListNodeHead) getChildren().get(0)).getInnerChildren().get(START_INDEX).execute(turtle);
+    double end = ( (ListNodeHead) getChildren().get(0)).getInnerChildren().get(END_INDEX).execute(turtle);
+    double increment = ( (ListNodeHead) getChildren().get(0)).getInnerChildren().get(INCREMENT_INDEX).execute(turtle);
 
-    double initVal = ((ListNode) getChildren().get(0)).getNodeList().get(1).execute(turtle);
-    turtle.getVars().setValue(variableName, initVal);
-    double endVal = ((ListNode) getChildren().get(0)).getNodeList().get(2).execute(turtle);
-    double incrementVal = ((ListNode) getChildren().get(0)).getNodeList().get(3).execute(turtle);
+    double lastVal = 0;
+    var.setValue(start);
 
-    double lastVal = 0.0;
-    for (double i = initVal; i < endVal; i += incrementVal) {
-      turtle.getVars().setValue(variableName, i);
+    for(double i = start; i < end; i += increment){
       lastVal = getChildren().get(1).execute(turtle);
+      var.setValue(i);
     }
+
     return lastVal;
   }
 }
