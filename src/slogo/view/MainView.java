@@ -93,13 +93,13 @@ public class MainView extends VBox {
         myInputBox.clear();
         myCommandHistoryBox.addCommand(command);
       }
-      catch (IllegalArgumentException exception) {
+      catch (IllegalArgumentException | NullPointerException exception) {
         openErrorWindow(exception);
       }
     });
   }
 
-  private void openErrorWindow(IllegalArgumentException exception) {
+  private void openErrorWindow(Exception exception) {
     Alert alert = new Alert(AlertType.ERROR, exception.getMessage());
     alert.showAndWait();
   }
