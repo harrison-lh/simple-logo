@@ -170,9 +170,9 @@ Harrison Huang (hlh38)
 
 * Function Storage
     * *Scenario 1:* The Parser recieves the input `TO TEST [ A ] [ fd A ]`
-        * Expected Outcome: The parser traverses the AST and calls the appropriate function for the command `TO` with the parameter `A`, and then traverses the AST for each command, buliding out a commandList of `fd A`. This is then saved to a new node on the AST named `TEST`.
+        * Expected Outcome: The parser traverses the AST and calls the appropriate function for the command `TO` with the parameter `A`, and then traverses the AST for each command, buliding out a commandList of `fd A`. This is then saved to a new command on the AST named `TEST`.
     * *Scenario 2:* The Parser recieves the input `TO TEST [ A ] [ fd A ]`, but `TEST` has already been defined.
-        * Expected Outcome: The parser traverses the AST and calls the appropriate function for the command `TO` with the parameter `A`, and then traverses the AST for each command, buliding out a commandList of `fd A`. This is then saved to a the node on the AST named `TEST`, overwriting what is presently saved there.
+        * Expected Outcome: The parser traverses the AST and calls the appropriate function for the command `TO` with the parameter `A`, and then traverses the AST for each command, buliding out a commandList of `fd A`. This is then saved to a the command on the AST named `TEST`, overwriting what is presently saved there.
     * *Scenario 3:* The Parser recieves the input `TO MAKE [ A ] [ fd A ]`, but `MAKE` is a reserved keyword.
         * Expected Outcome: The parser traverses the AST and calls the appropriate function for the command `TO` with the parameter `A`, and then traverses the AST for each command, buliding out a commandList of `fd A`. However, when this is attempted to be saved to the AST, it is recognized as a reserved keyword and the write is denied, throwing a `ReservedKeywordException`
 
