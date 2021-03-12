@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 import java.util.function.Consumer;
+import slogo.view.SelectorTarget;
 
 /**
  * Parser is the meat-and-potatoes of the SLogo Control layer. This class takes in a String of SLogo
@@ -13,7 +14,7 @@ import java.util.function.Consumer;
  *
  * @author Marc Chmielewski
  */
-public class Parser {
+public class Parser implements SelectorTarget<String> {
 
   private final TurtleController controller;
   private final Lexer lexer;
@@ -199,5 +200,10 @@ public class Parser {
       controller.setIsAllowedToExecute(true);
       controller.runCommands();
     };
+  }
+
+  @Override
+  public Consumer<String> updateAction() {
+    return this::setSyntaxLang;
   }
 }
