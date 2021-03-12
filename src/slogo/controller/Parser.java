@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 import java.util.function.Consumer;
+import slogo.controller.commands.ListNodeTail;
 
 /**
  * Parser is the meat-and-potatoes of the SLogo Control layer. This class takes in a String of SLogo
@@ -78,18 +79,66 @@ public class Parser {
       }
       case LIST_START -> {
         // TODO: Create ListStartNode
-        ListNode listStartNode = new ListNode(ListNodeType.START_LIST);
-        listStartNode.setNumParams(1);
+        ListNodeHead listStartNode = new ListNodeHead();
+        listStartNode.setNumParams(0);
+        if(tokenizedText.isEmpty() || splitText.isEmpty()){
+          //TODO: Throw error
+          System.out.println("THIS IS AN ERROR");
+        }
+        Node innerChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
+        fillList(listStartNode, innerChild);
         return listStartNode;
       }
       case LIST_END -> {
+        // this case is never called in new implementation
+        //System.out.println("IN LIST END: SHOULD NEVER APPEAR");
         // TODO: Create ListEndNode
-        ListNode listEndNode = new ListNode(ListNodeType.END_LIST);
-        listEndNode.setNumParams(0);
+        Node listEndNode = new ListNodeTail();
+
         return listEndNode;
       }
     }
     return null;
+  }
+
+  private ListNodeHead fillList(ListNodeHead listHead, Node innerNode){
+    //Start Base Case
+    if(innerNode.getIsListEnd()){
+      System.out.println("Recursion Finished");
+      return listHead;
+    }
+
+    //End Base Case
+    System.out.println("Adding Child");
+    listHead.addInnerChild(innerNode);
+
+    grandChildHandler(innerNode);
+
+    if(tokenizedText.isEmpty()){
+      //TODO: Create IllegalCommandException to throw
+      return null;
+    }
+
+    Node nextChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
+
+    fillList(listHead, nextChild);
+
+    //should never reach here
+    //TODO: create IllegalCommandException
+    return null;
+  }
+
+  private void grandChildHandler(Node innerNode){
+    int numInnerGrandChildren = innerNode.getNumParams();
+
+    for(int i = 0; i < numInnerGrandChildren; i++) {
+      System.out.println("Adding GrandChild");
+      Node grandChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
+      innerNode.addChild(grandChild);
+      if(grandChild.getNumParams() > 0){
+        grandChildHandler(grandChild);
+      }
+    }
   }
 
   private boolean handleCommentsAndBlankLines() {
@@ -100,9 +149,12 @@ public class Parser {
     Queue<Node> assembledNodeQueue = new LinkedList<>();
     while(!parsedNodeQueue.isEmpty()) {
       Stack<Node> pendingFilledArgs = new Stack<>();
-      Node rootNode = listCompatiblePoll();
+      //Node rootNode = listCompatiblePoll();
+      Node rootNode = parsedNodeQueue.poll();
       Node curNode = rootNode;
+      //System.out.println("Pre-dfsHelper");
       dfsHelper(pendingFilledArgs, curNode);
+      //System.out.println("Post-dfsHelper");
       while(!pendingFilledArgs.isEmpty()) {
         curNode = pendingFilledArgs.pop();
         dfsHelper(pendingFilledArgs, curNode);
@@ -115,7 +167,11 @@ public class Parser {
 
   private void dfsHelper(Stack<Node> pendingFilledArgs, Node curNode) {
     while (curNode.getNumParams() > curNode.getChildren().size() && !parsedNodeQueue.isEmpty()) {
-      Node childNode = listCompatiblePoll();
+      //Node childNode = listCompatiblePoll();
+      Node childNode = parsedNodeQueue.poll();
+
+      //System.out.println("Adding Child: " + childNode);
+
       curNode.addChild(childNode);
       if (childNode.getNumParams() > 0 && curNode.getNumParams() > curNode.getChildren().size()) {
         pendingFilledArgs.push(curNode);
@@ -127,22 +183,23 @@ public class Parser {
     }
   }
 
-  private Node listCompatiblePoll() {
-    if(!parsedNodeQueue.isEmpty()) {
-      Node polledNode = parsedNodeQueue.poll();
-      if(polledNode.getListNodeType() == ListNodeType.START_LIST) {
-        pendingCompleteList.push((ListNode) polledNode);
-        ((ListNode) polledNode).addNodesToList(assembleCommandQueue());
-      }
-      else if(polledNode.getListNodeType() == ListNodeType.END_LIST) {
-        if(!pendingCompleteList.isEmpty()) {
-          pendingCompleteList.pop(); // Pop off the list we're completing
-        }
-      }
-      return polledNode;
-    }
-    return null;
-  }
+//  private Node listCompatiblePoll() {
+//    if(!parsedNodeQueue.isEmpty()) {
+//
+//      Node polledNode = parsedNodeQueue.poll();
+//      if(polledNode.getListNodeType() == ListNodeType.START_LIST) {
+//        pendingCompleteList.push((ListNode) polledNode);
+//        ((ListNode) polledNode).addNodesToList(assembleCommandQueue());
+//      }
+//      else if(polledNode.getListNodeType() == ListNodeType.END_LIST) {
+//        if(!pendingCompleteList.isEmpty()) {
+//          pendingCompleteList.pop(); // Pop off the list we're completing
+//        }
+//      }
+//      return polledNode;
+//    }
+//    return null;
+//  }
 
   public void setSyntaxLang(String syntaxLang) {
     lexer.setLangSymbols(syntaxLang);
@@ -155,7 +212,9 @@ public class Parser {
       return; // If it's a comment line, return early. Comments have no commands.
     }
     mapTokensToNodes();
+    //System.out.println("Pre-AssembleCommandQueue");
     Queue<Node> assembledNodeQueue = assembleCommandQueue();
+    //System.out.println("Post-AssembleCommandQueue");
     for(Node node : assembledNodeQueue) {
       System.out.println(node);
     }

@@ -14,7 +14,7 @@ import slogo.model.Turtle;
  */
 public abstract class Node {
 
-  private ListNodeType listNodeType = ListNodeType.NOT_LIST;
+  private boolean isListEnd = false;
   private List<Node> children = new ArrayList<>();
   private int numParams = 0;
 
@@ -64,10 +64,10 @@ public abstract class Node {
   /**
    * Set the type of ListNode, if any, that this Node is.
    *
-   * @param listNodeType The type of ListNode that this Node is.
+   * @param isListEnd The type of ListNode that this Node is.
    */
-  public void setListNodeType(ListNodeType listNodeType) {
-    this.listNodeType = listNodeType;
+  public void setIsListEnd(Boolean isListEnd) {
+    this.isListEnd = isListEnd;
   }
 
   /**
@@ -75,7 +75,7 @@ public abstract class Node {
    *
    * @return The type of ListNode, if any, that this Node is.
    */
-  public ListNodeType getListNodeType() {
-    return this.listNodeType;
+  public Boolean getIsListEnd() {
+    return this.isListEnd;
   }
 }

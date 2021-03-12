@@ -28,6 +28,7 @@ public class ForwardCommand extends Command {
    */
   @Override
   public double execute(Turtle turtle) {
+    System.out.println("running Forward");
     assert(getChildren().size() == getNumParams());
 
     double distance = getChildren().get(0).execute(turtle);

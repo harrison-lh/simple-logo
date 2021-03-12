@@ -41,4 +41,9 @@ public class ConstantNode extends Node {
   public double execute(Turtle turtle) {
     return value;
   }
+
+  @Override
+  public String toString(){
+    return ("Constant of Value: " + Double.toString(value));
+  }
 }

@@ -414,7 +414,7 @@ public class ParserTests {
     parser.parseCommandString("repeat 4 [ fd 50 bk 50 ]");
     controller.setIsAllowedToExecute(true);
     controller.runCommands();
-    assertEquals(turtle.getY(), initY);
+    assertEquals(initY, turtle.getY());
   }
 
   @Test
