@@ -31,8 +31,6 @@ public class ForCommand extends Command {
   @Override
   protected double executeCommand(Turtle turtle) {
 
-    assert (getChildren().size() == getNumParams());
-
     VariableCommand var = ( (VariableCommand) ( (ListNodeHead) getChildren().get(0)).getInnerChildren().get(VAR_INDEX));
     double start = ( (ListNodeHead) getChildren().get(0)).getInnerChildren().get(START_INDEX).execute(turtle);
     double end = ( (ListNodeHead) getChildren().get(0)).getInnerChildren().get(END_INDEX).execute(turtle);

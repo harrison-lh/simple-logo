@@ -30,7 +30,6 @@ public class RepeatCommand extends Command {
    */
   @Override
   public double executeCommand(Turtle turtle) {
-    assert (getChildren().size() == getNumParams());
 
     double repititionNum = getChildren().get(0).execute(turtle);
     double lastVal = 0;
