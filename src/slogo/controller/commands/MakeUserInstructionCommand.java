@@ -38,7 +38,7 @@ public class MakeUserInstructionCommand extends Command {
 
       return 1;
     } catch (Exception e){
-      System.out.println("failed");
+      //System.out.println("failed");
       return 0;
     }
 

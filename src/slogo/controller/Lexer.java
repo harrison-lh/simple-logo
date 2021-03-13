@@ -46,15 +46,15 @@ public class Lexer {
   }
 
   public void addUserCommand(UserCommand command){
-    System.out.printf("before add userCommands.size() = %d\n", userCommands.size());
+
     userCommands.add(command);
-    System.out.printf("after add userCommands.size() = %d\n", userCommands.size());
+
   }
 
   public boolean containsUserCommand(String name){
-    System.out.printf("userCommands.size() = %d\n", userCommands.size());
+
     for(UserCommand command : userCommands){
-      System.out.printf("name = %s, commandName = %s\n", name, command.getName());
+
       if(command.getName().equals(name)){
         return true;
       }
