@@ -69,6 +69,9 @@ public class MainView extends VBox {
     return myVariablesBox;
   }
 
+  /**
+   * @return The elements that listens for user-defined commands updates in the model
+   */
   public PropertyChangeListener getCommandsListener() {
     return myUDCommandsBox;
   }

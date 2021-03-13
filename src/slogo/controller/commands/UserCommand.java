@@ -36,6 +36,13 @@ public class UserCommand extends Command {
     return name;
   }
 
+  public void updateCommand(UserCommand command) {
+    this.name = command.name;
+    this.parameters = command.parameters;
+    this.commands = command.commands;
+    setNumParams(parameters.size());
+  }
+
   @Override
   protected double executeCommand(Turtle turtle) {
 

@@ -44,7 +44,9 @@ public class Lexer {
    * @param syntaxLanguage The language with which to initialize the symbols.
    */
   public Lexer(String syntaxLanguage) {
-    this(syntaxLanguage, e -> {});
+    this(syntaxLanguage, e -> {
+      System.out.println("hi");
+    });
   }
 
   /**
@@ -59,26 +61,33 @@ public class Lexer {
     this.commandsListener = commandsListener;
   }
 
-  public void addUserCommand(UserCommand command){
-
-    userCommands.add(command);
-
+  public void addUserCommand(UserCommand command) {
+    if (containsUserCommand(command.getName())) {
+      commandsListener
+          .propertyChange(new PropertyChangeEvent(this, "UPDATE", command.getName(), command.getName()));
+      getUserCommand(command.getName()).updateCommand(command);
+    }
+    else {
+      commandsListener
+          .propertyChange(new PropertyChangeEvent(this, "ADD", command.getName(), command.getName()));
+      userCommands.add(command);
+    }
   }
 
-  public boolean containsUserCommand(String name){
+  public boolean containsUserCommand(String name) {
 
-    for(UserCommand command : userCommands){
+    for (UserCommand command : userCommands) {
 
-      if(command.getName().equals(name)){
+      if (command.getName().equals(name)) {
         return true;
       }
     }
     return false;
   }
 
-  public UserCommand getUserCommand(String name){
-    for(UserCommand command : userCommands){
-      if(command.getName().equals(name)){
+  public UserCommand getUserCommand(String name) {
+    for (UserCommand command : userCommands) {
+      if (command.getName().equals(name)) {
         return command;
       }
     }
