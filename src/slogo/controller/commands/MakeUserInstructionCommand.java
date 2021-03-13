@@ -32,7 +32,9 @@ public class MakeUserInstructionCommand extends Command {
       }
       ListCommandHead commands = ( (ListCommandHead) getChildren().get(COMMANDS_INDEX));
 
-
+      if(lexer.containsUserCommand(name)){
+        lexer.deleteUserCommand(name);
+      }
       lexer.addUserCommand(new UserCommand(name, varNames, commands));
 
       return 1;

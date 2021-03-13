@@ -666,4 +666,20 @@ public class ParserTests {
     assertEquals(initY + 150, turtle.getY());
   }
 
+  @Test
+  public void testReDefiningToCommandWithParams() {
+    double initY = turtle.getY();
+    parser.parseCommandString("to test [ :amount ] [ fd :amount ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    parser.parseCommandString("test 50");
+    controller.runCommands();
+    parser.parseCommandString("to test [ :amount ] [ bk :amount ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    parser.parseCommandString("test 50");
+    controller.runCommands();
+    assertEquals(initY, turtle.getY());
+  }
+
 }

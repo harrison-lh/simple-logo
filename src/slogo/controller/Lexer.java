@@ -61,6 +61,10 @@ public class Lexer {
     this.commandsListener = commandsListener;
   }
 
+  public void deleteUserCommand(String name){
+    userCommands.removeIf(command -> command.getName().equals(name));
+  }
+
   public void addUserCommand(UserCommand command) {
     if (containsUserCommand(command.getName())) {
       commandsListener
