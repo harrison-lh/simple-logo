@@ -9,7 +9,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import slogo.model.Coordinates;
 import slogo.view.SelectorTarget;
-import slogo.view.ViewPen;
 
 /**
  * Contains the gridlines, turtle view, and pen lines. Listens for updates from the model and

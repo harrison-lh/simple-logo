@@ -1,10 +1,11 @@
-package slogo.view;
+package slogo.view.canvas;
 
 import java.util.function.Consumer;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import slogo.model.Pen;
+import slogo.view.SelectorTarget;
 
 /**
  * Pen object used by the view that stores color and whether or not

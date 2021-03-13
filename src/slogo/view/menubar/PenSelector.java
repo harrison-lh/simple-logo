@@ -24,12 +24,12 @@ public class PenSelector extends VBox implements Selector<Color> {
   public PenSelector() {
     this.setId("PenSelector");
     this.getStyleClass().add("selector");
-    Label myLabel = new Label("Pen Color");
+    Label label = new Label("Pen Color");
     myColorPicker = new ColorPicker(DEFAULT_PEN_COLOR);
     myColorPicker.setId("PenColorPicker");
     myColorPicker.setValue((Color) Pen.DEFAULT_COLOR);
 
-    this.getChildren().addAll(myLabel, myColorPicker);
+    this.getChildren().addAll(label, myColorPicker);
   }
 
   /**

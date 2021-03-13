@@ -21,13 +21,13 @@ public class TurtleSelector extends VBox implements Selector<String> {
   public TurtleSelector() {
     this.setId("TurtleSelector");
     this.getStyleClass().add("selector");
-    Label myLabel = new Label("Turtle Image");
+    Label label = new Label("Turtle Image");
     myComboBox = new ComboBox<>();
     myComboBox.setId("TurtleSelectorComboBox");
     myComboBox.getItems().addAll("Default", "Realistic");
     myComboBox.getSelectionModel().selectFirst();
 
-    this.getChildren().addAll(myLabel, myComboBox);
+    this.getChildren().addAll(label, myComboBox);
   }
 
   /**

@@ -21,7 +21,7 @@ public class LanguageSelector extends VBox implements Selector<String> {
   public LanguageSelector() {
     this.setId("LanguageSelector");
     this.getStyleClass().add("selector");
-    Label myLabel = new Label("Language");
+    Label label = new Label("Language");
     myComboBox = new ComboBox<>();
     myComboBox.getItems()
         .addAll("English",
@@ -35,7 +35,7 @@ public class LanguageSelector extends VBox implements Selector<String> {
             "Urdu");
     myComboBox.getSelectionModel().selectFirst();
 
-    this.getChildren().addAll(myLabel, myComboBox);
+    this.getChildren().addAll(label, myComboBox);
   }
 
   /**
