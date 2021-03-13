@@ -6,12 +6,15 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import slogo.view.HelpWindow;
+import slogo.view.Selector;
 
 /**
  * Holds all selectors and help button at the top of the window
+ *
+ * @author David Li
  */
 public class MenuBar extends HBox {
 
@@ -20,6 +23,7 @@ public class MenuBar extends HBox {
   private final TurtleSelector myTurtleSelector;
   private final PenSelector myPenSelector;
   private final LanguageSelector myLanguageSelector;
+  private final HelpWindow myHelpWindow;
 
   /**
    * Main constructor
@@ -28,16 +32,18 @@ public class MenuBar extends HBox {
     this.setId("MenuBar");
     this.getStyleClass().add("box");
     this.setAlignment(Pos.CENTER_LEFT);
+
     myBackgroundSelector = new BackgroundSelector();
     myGridSelector = new GridSelector();
     myTurtleSelector = new TurtleSelector();
     myPenSelector = new PenSelector();
     myLanguageSelector = new LanguageSelector();
+    myHelpWindow = new HelpWindow();
 
     Button infoButton = new Button("?");
     infoButton.setId("InfoButton");
     infoButton.setShape(new Circle(2));
-    infoButton.setOnAction(e -> openCommandsWindow());
+    infoButton.setOnAction(e -> openHelpWindow());
 
     // Used to align info button to the right
     Pane spacer = new Pane();
@@ -48,32 +54,31 @@ public class MenuBar extends HBox {
             myLanguageSelector, spacer, infoButton);
   }
 
-  public BackgroundSelector getBackgroundSelector() {
+  public Selector<Color> getBackgroundSelector() {
     return myBackgroundSelector;
   }
 
-  public GridSelector getGridSelector() {
+  public Selector<String> getGridSelector() {
     return myGridSelector;
   }
 
-  public TurtleSelector getTurtleSelector() {
+  public Selector<String> getTurtleSelector() {
     return myTurtleSelector;
   }
 
-  public PenSelector getPenSelector() {
+  public Selector<Color> getPenSelector() {
     return myPenSelector;
   }
 
-  public LanguageSelector getLanguageSelector() {
+  public Selector<String> getLanguageSelector() {
     return myLanguageSelector;
   }
 
-  private void openCommandsWindow() {
-    Stage stage = new Stage();
-    stage.setTitle("All Commands");
-    Scene scene = new Scene(new HelpWindow(), HelpWindow.WIDTH, HelpWindow.HEIGHT);
-    scene.getStylesheets().add("slogo/view/stylesheet.css");
-    stage.setScene(scene);
-    stage.show();
+  public boolean helpWindowIsOpen() {
+    return myHelpWindow.isShowing();
+  }
+
+  private void openHelpWindow() {
+    myHelpWindow.show();
   }
 }

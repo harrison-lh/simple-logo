@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
 public class CommandHistoryBox extends ScrollPane {
 
   private final VBox myContents;
-  private Deque<String> pastCommands;
+  private final Deque<String> pastCommands;
 
   /**
    * Main constructor
@@ -43,7 +43,10 @@ public class CommandHistoryBox extends ScrollPane {
    * @param command Command to be added
    */
   public void addCommand(String command) {
+    String reformattedCommand = "> " + command.replace("\n", "\n  ");
     pastCommands.add(command);
-    myContents.getChildren().add(new Label("> " + command));
+    Label commandLabel = new Label(reformattedCommand);
+    commandLabel.getStyleClass().add("monospace-font");
+    myContents.getChildren().add(commandLabel);
   }
 }

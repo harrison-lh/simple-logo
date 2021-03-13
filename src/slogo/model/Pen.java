@@ -1,10 +1,14 @@
 package slogo.model;
 
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+
 public abstract class Pen {
 
-  protected boolean isActive = true;
+  public static final Paint DEFAULT_COLOR = Color.BLACK;
 
-  public abstract void stamp(double x, double y, double heading);
+  private boolean isActive = true;
+  private Paint color = DEFAULT_COLOR;
 
   public void liftPen(){
     isActive = false;
@@ -17,4 +21,14 @@ public abstract class Pen {
   public boolean isPenActive(){
     return isActive;
   }
+
+  public Paint getColor() {
+    return color;
+  }
+
+  public void setColor(Paint color) {
+    this.color = color;
+  }
+
+  // public abstract void stamp(double x, double y, double heading);
 }

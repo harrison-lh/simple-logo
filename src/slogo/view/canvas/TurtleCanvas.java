@@ -6,22 +6,26 @@ import java.util.function.Consumer;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import slogo.model.Coordinates;
-import slogo.view.JavaFXPen;
 import slogo.view.SelectorTarget;
 
+/**
+ * Contains the gridlines, turtle view, and pen lines. Listens for updates from the model and
+ * updates turtle and pen lines accordingly
+ *
+ * @author David Li
+ */
 public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     PropertyChangeListener {
 
-  public static final double DEFAULT_GRID_WIDTH = 600;
-  public static final double DEFAULT_GRID_HEIGHT =
-      DEFAULT_GRID_WIDTH / CanvasHolder.TURTLE_CANVAS_ASPECT_RATIO;
+  private static final double DEFAULT_GRID_WIDTH = 600;
+  private static final double DEFAULT_GRID_HEIGHT = 450;
+  public static final double ASPECT_RATIO = DEFAULT_GRID_WIDTH / DEFAULT_GRID_HEIGHT;
 
   private final GridLines myGridLines;
   private final TurtleView myTurtleView;
-  private final JavaFXPen myPen;
+  private final ViewPen myPen;
   private final Pane myPenLines;
 
   public TurtleCanvas() {
@@ -29,11 +33,13 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
 
     myGridLines = new GridLines();
     myGridLines.changeGridType("None");
+
     myTurtleView = new TurtleView();
     myTurtleView.setXCoordinate(convertXCoordinate(0));
     myTurtleView.setYCoordinate(convertYCoordinate(0));
     myTurtleView.setHeading(convertHeading(0));
-    myPen = new JavaFXPen(Color.BLACK);
+
+    myPen = new ViewPen();
     myPenLines = new Pane();
 
     this.getChildren().addAll(myGridLines, myPenLines, myTurtleView);
@@ -43,7 +49,7 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     return myTurtleView;
   }
 
-  public JavaFXPen getPen() {
+  public ViewPen getPen() {
     return myPen;
   }
 
@@ -70,6 +76,9 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     }
   }
 
+  /**
+   * Resize contents of canvas based on canvas size
+   */
   public void resizeElements() {
     myGridLines.resize();
     myPenLines.setPrefSize(this.getWidth(), this.getHeight());

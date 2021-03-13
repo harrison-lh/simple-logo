@@ -35,17 +35,15 @@ public class Lexer {
     syntaxSymbols = instantiateSymbols(SYNTAX);
     langSymbols = new ArrayList<>();
     userCommands = new ArrayList<>();
+    commandsListener = evt -> {
+    };
   }
 
   /**
-   * A more useful constructor for Lexer. Takes in a language for which to initialize the symbols.
-   * Sets commandsListener to a listener that doesn't do anything
-   *
-   * @param syntaxLanguage The language with which to initialize the symbols.
+   * Calls main constructor, passing in an empty commands listener
    */
   public Lexer(String syntaxLanguage) {
     this(syntaxLanguage, e -> {
-      System.out.println("hi");
     });
   }
 
@@ -68,12 +66,13 @@ public class Lexer {
   public void addUserCommand(UserCommand command) {
     if (containsUserCommand(command.getName())) {
       commandsListener
-          .propertyChange(new PropertyChangeEvent(this, "UPDATE", command.getName(), command.getName()));
+          .propertyChange(
+              new PropertyChangeEvent(this, "UPDATE", command.getName(), command.getName()));
       getUserCommand(command.getName()).updateCommand(command);
-    }
-    else {
+    } else {
       commandsListener
-          .propertyChange(new PropertyChangeEvent(this, "ADD", command.getName(), command.getName()));
+          .propertyChange(
+              new PropertyChangeEvent(this, "ADD", command.getName(), command.getName()));
       userCommands.add(command);
     }
   }

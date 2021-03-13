@@ -7,6 +7,11 @@
   -fx-stroke: blue;
 }
 
+.monospace-font {
+  -fx-font-family: Menlo;
+  -fx-font-size: 10pt;
+}
+
 .box-title {
   -fx-underline: true;
   -fx-font-size: 14pt;

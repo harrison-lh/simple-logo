@@ -15,7 +15,7 @@ import slogo.view.Selector;
 public class BackgroundSelector extends VBox implements Selector<Color> {
 
   private final ColorPicker myColorPicker;
-  public static final Color DEFAULT_CANVAS_COLOR = Color.WHITE;
+  private static final Color DEFAULT_CANVAS_COLOR = Color.WHITE;
 
   /**
    * Main constructor
@@ -23,11 +23,11 @@ public class BackgroundSelector extends VBox implements Selector<Color> {
   public BackgroundSelector() {
     this.setId("BackgroundSelector");
     this.getStyleClass().add("selector");
-    Label myLabel = new Label("Canvas Background");
+    Label label = new Label("Canvas Background");
     myColorPicker = new ColorPicker(DEFAULT_CANVAS_COLOR);
     myColorPicker.setId("BackgroundColorPicker");
 
-    this.getChildren().addAll(myLabel, myColorPicker);
+    this.getChildren().addAll(label, myColorPicker);
   }
 
   /**

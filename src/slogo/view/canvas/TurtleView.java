@@ -15,6 +15,7 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
   public static final String IMAGES_DIRECTORY = "resources/images/";
   public static final String DEFAULT_TURTLE = "turtle-default.png";
   public static final String REALISTIC_TURTLE = "turtle-realistic.png";
+  private static final double HEIGHT = 50;
 
   private Image myTurtleImage;
   private double xCoordinate;
@@ -27,7 +28,7 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
   public TurtleView() {
     this.setId("TurtleView");
     changeTurtleImage("Default");
-    this.setFitHeight(50);
+    this.setFitHeight(HEIGHT);
     this.setPreserveRatio(true);
     this.setSmooth(true);
     this.setCache(true);
@@ -77,8 +78,7 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
     if (turtleImage.equals("Default")) {
       myTurtleImage = new Image(IMAGES_DIRECTORY + DEFAULT_TURTLE);
       this.setImage(myTurtleImage);
-    }
-    else if (turtleImage.equals("Realistic")) {
+    } else if (turtleImage.equals("Realistic")) {
       myTurtleImage = new Image(IMAGES_DIRECTORY + REALISTIC_TURTLE);
       this.setImage(myTurtleImage);
     }
