@@ -641,5 +641,29 @@ public class ParserTests {
     controller.runCommands();
     assertEquals(initY + 50, turtle.getY());
   }
+  @Test
+  public void testMultipleToCommandWithParams() {
+    double initY = turtle.getY();
+    parser.parseCommandString("to test [ :amount ] [ fd :amount ]");
+
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    parser.parseCommandString("test 100 test 50");
+    controller.runCommands();
+    assertEquals(initY + 150, turtle.getY());
+  }
+  @Test
+  public void testMultipleToCommandWithParamsButInDifferentRuns() {
+    double initY = turtle.getY();
+    parser.parseCommandString("to test [ :amount ] [ fd :amount ]");
+
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    parser.parseCommandString("test 100");
+    controller.runCommands();
+    parser.parseCommandString("test 50");
+    controller.runCommands();
+    assertEquals(initY + 150, turtle.getY());
+  }
 
 }
