@@ -2,6 +2,9 @@ package slogo.view;
 
 import java.beans.PropertyChangeListener;
 import java.util.function.Consumer;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -21,7 +24,7 @@ import slogo.view.menubar.MenuBar;
  *
  * @author David Li
  */
-public class MainView extends VBox implements View {
+public class MainView extends VBox {
 
   private MenuBar myMenuBar;
   private CanvasHolder myCanvasHolder;
@@ -77,41 +80,6 @@ public class MainView extends VBox implements View {
     myCanvasHolder.resizeElements();
   }
 
-  @Override
-  public void addVariable(Variables variables) {
-
-  }
-
-  @Override
-  public void updateVariable(Variables variables) {
-
-  }
-
-  @Override
-  public void removeVariable(Variables variables) {
-
-  }
-
-  @Override
-  public void addUDCommand(Command command) {
-
-  }
-
-  @Override
-  public void updateUDCommand(Command command) {
-
-  }
-
-  @Override
-  public void removeUDCommand(Command command) {
-
-  }
-
-  @Override
-  public void throwError(Error error) {
-
-  }
-
   /**
    * Sets what happens when the input button is clicked and passes
    * the text from the input box to the response
@@ -120,10 +88,20 @@ public class MainView extends VBox implements View {
   public void setInputAction(Consumer<String> response) {
     myInputBox.setInputAction(e -> {
       String command = myInputBox.getText();
-      response.accept(command);
-      myInputBox.clear();
-      myCommandHistoryBox.addCommand(command);
+      try {
+        response.accept(command);
+        myInputBox.clear();
+        myCommandHistoryBox.addCommand(command);
+      }
+      catch (IllegalArgumentException | NullPointerException exception) {
+        openErrorWindow(exception);
+      }
     });
+  }
+
+  private void openErrorWindow(Exception exception) {
+    Alert alert = new Alert(AlertType.ERROR, exception.getMessage());
+    alert.showAndWait();
   }
 
   private void connectColorSelector(SelectorTarget<Color> target, Selector<Color> selector) {
