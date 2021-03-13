@@ -4,8 +4,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 
 /**
- * Holds axes of the grid
- * Maybe add more gridlines in the future
+ * Holds axes of the grid. Maybe add more gridlines in the future
  *
  * @author David Li
  */
@@ -42,8 +41,7 @@ public class GridLines extends Pane {
       xAxis.setOpacity(0);
       yAxis.setOpacity(0);
       axesAreVisible = false;
-    }
-    else if (gridType.equals("Axis")) {
+    } else if (gridType.equals("Axis")) {
       xAxis.setOpacity(1);
       yAxis.setOpacity(1);
       axesAreVisible = true;
@@ -56,8 +54,7 @@ public class GridLines extends Pane {
   }
 
   /**
-   * Adjusts grid lines locations and sizes to follow
-   * window size adjustments
+   * Adjusts grid lines locations and sizes to follow window size adjustments
    */
   public void resize() {
     xAxis.setStartX(0);

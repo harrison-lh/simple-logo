@@ -6,12 +6,17 @@ import java.util.function.Consumer;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import slogo.model.Coordinates;
-import slogo.view.ViewPen;
 import slogo.view.SelectorTarget;
+import slogo.view.ViewPen;
 
+/**
+ * Contains the gridlines, turtle view, and pen lines. Listens for updates from the model and
+ * updates turtle and pen lines accordingly
+ *
+ * @author David Li
+ */
 public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     PropertyChangeListener {
 
@@ -72,6 +77,9 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     }
   }
 
+  /**
+   * Resize contents of canvas based on canvas size
+   */
   public void resizeElements() {
     myGridLines.resize();
     myPenLines.setPrefSize(this.getWidth(), this.getHeight());

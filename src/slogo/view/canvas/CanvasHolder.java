@@ -10,14 +10,14 @@ import javafx.scene.paint.Color;
 import slogo.view.SelectorTarget;
 
 /**
- * Holds the turtle canvas in the main part of the application window
- * Responsible for maintaining the aspect ratio of the turtle canvas
+ * Holds the turtle canvas in the main part of the application window Responsible for maintaining
+ * the aspect ratio of the turtle canvas
  *
  * @author David Li
  */
 public class CanvasHolder extends AnchorPane implements SelectorTarget<Color> {
 
-  public static final double CANVAS_MARGIN = 6;
+  private static final double CANVAS_MARGIN = 6;
 
   private final TurtleCanvas myTurtleCanvas;
 
@@ -34,8 +34,7 @@ public class CanvasHolder extends AnchorPane implements SelectorTarget<Color> {
   }
 
   /**
-   * Changes background color of the turtle canvas when a new background
-   * color is selected
+   * Changes background color of the turtle canvas when a new background color is selected
    */
   @Override
   public Consumer<Color> updateAction() {
@@ -60,10 +59,11 @@ public class CanvasHolder extends AnchorPane implements SelectorTarget<Color> {
     double heightMargin;
     if (constrainedByWidth) {
       widthMargin = CANVAS_MARGIN;
-      heightMargin = CANVAS_MARGIN + (this.getHeight() - (1 / TurtleCanvas.ASPECT_RATIO) * this.getWidth()) / 2;
-    }
-    else {
-      widthMargin = CANVAS_MARGIN + (this.getWidth() - TurtleCanvas.ASPECT_RATIO * this.getHeight()) / 2;
+      heightMargin = CANVAS_MARGIN
+          + (this.getHeight() - (1 / TurtleCanvas.ASPECT_RATIO) * this.getWidth()) / 2;
+    } else {
+      widthMargin =
+          CANVAS_MARGIN + (this.getWidth() - TurtleCanvas.ASPECT_RATIO * this.getHeight()) / 2;
       heightMargin = CANVAS_MARGIN;
     }
     AnchorPane.setTopAnchor(myTurtleCanvas, heightMargin);

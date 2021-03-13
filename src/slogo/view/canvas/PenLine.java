@@ -4,16 +4,17 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 
 /**
- * Single line drawn by the pen in the turtle canvas
+ * Single line drawn by the pen in the turtle canvas. Coordinates based on internal coordinate
+ * system
  *
  * @author David Li
  */
 public class PenLine extends Line {
 
-  private double startX;
-  private double startY;
-  private double endX;
-  private double endY;
+  private final double startX;
+  private final double startY;
+  private final double endX;
+  private final double endY;
 
   /**
    * Main constructor
