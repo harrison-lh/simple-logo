@@ -1,5 +1,6 @@
 package slogo.controller;
 
+import java.beans.PropertyChangeListener;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Objects;
@@ -29,13 +30,28 @@ public class Parser implements SelectorTarget<String> {
   /**
    * Constructor for the Parser. Takes in a TurtleController to execute Commands on, and an initial
    * syntaxLang to be constructed with.
+   * Sets commandsListener in lexer to listener that doesn't do anything
    *
    * @param controller The TurtleController upon which this Parser acts
    * @param syntaxLang The initial language for which this Parser is configured.
    */
   public Parser(TurtleController controller, String syntaxLang) {
+    this(controller, syntaxLang, evt -> {
+    });
+  }
+
+  /**
+   * Constructor for the Parser. Takes in a TurtleController to execute Commands on, and an initial
+   * syntaxLang to be constructed with.
+   *
+   * @param controller The TurtleController upon which this Parser acts
+   * @param syntaxLang The initial language for which this Parser is configured.
+   * @param commandsListener
+   */
+  public Parser(TurtleController controller, String syntaxLang,
+      PropertyChangeListener commandsListener) {
     this.controller = controller;
-    this.lexer = new Lexer(syntaxLang);
+    this.lexer = new Lexer(syntaxLang, commandsListener);
     this.splitText = new LinkedList<>();
     this.tokenizedText = new LinkedList<>();
     this.parsedCommandQueue = new LinkedList<>();
@@ -70,7 +86,7 @@ public class Parser implements SelectorTarget<String> {
           return new MakeUserInstructionCommand(splitText.poll(), lexer);
         } else {
           try {
-            if(lexer.containsUserCommand(text)){
+            if (lexer.containsUserCommand(text)) {
               return lexer.getUserCommand(text);
             }
             Class<?> commandClass = Class

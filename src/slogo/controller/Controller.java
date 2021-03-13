@@ -28,7 +28,7 @@ public class Controller {
     myTurtle = new Turtle(new GridCoordinates(), new JavaFXPen(Color.BLACK, new ImageView()),
         myMainView.getTurtleListener(), myMainView.getVariablesListener());
     myTurtleController = new TurtleController(myTurtle);
-    myParser = new Parser(myTurtleController, "English");
+    myParser = new Parser(myTurtleController, "English", myMainView.getCommandsListener());
 
     // Input button action
     myMainView.setInputAction(myParser.receiveInputAction());

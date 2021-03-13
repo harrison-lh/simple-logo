@@ -69,6 +69,10 @@ public class MainView extends VBox {
     return myVariablesBox;
   }
 
+  public PropertyChangeListener getCommandsListener() {
+    return myUDCommandsBox;
+  }
+
   public Selector<String> getLanguageSelector() {
     return myMenuBar.getLanguageSelector();
   }
@@ -164,4 +168,5 @@ public class MainView extends VBox {
 
     return infoBoxes;
   }
+
 }

@@ -1,5 +1,7 @@
 package slogo.controller;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,6 +26,7 @@ public class Lexer {
   private List<Entry<String, Pattern>> syntaxSymbols;
   private List<Entry<String, Pattern>> langSymbols;
   private List<UserCommand> userCommands;
+  private PropertyChangeListener commandsListener;
 
   /**
    * Default constructor for Lexer. Takes no language, but has syntaxSymbols
@@ -36,13 +39,24 @@ public class Lexer {
 
   /**
    * A more useful constructor for Lexer. Takes in a language for which to initialize the symbols.
+   * Sets commandsListener to a listener that doesn't do anything
    *
    * @param syntaxLanguage The language with which to initialize the symbols.
    */
   public Lexer(String syntaxLanguage) {
+    this(syntaxLanguage, e -> {});
+  }
+
+  /**
+   * A more useful constructor for Lexer. Takes in a language for which to initialize the symbols.
+   *
+   * @param syntaxLanguage The language with which to initialize the symbols.
+   */
+  public Lexer(String syntaxLanguage, PropertyChangeListener commandsListener) {
     syntaxSymbols = instantiateSymbols(SYNTAX);
     langSymbols = instantiateSymbols(syntaxLanguage);
     userCommands = new ArrayList<>();
+    this.commandsListener = commandsListener;
   }
 
   public void addUserCommand(UserCommand command){
