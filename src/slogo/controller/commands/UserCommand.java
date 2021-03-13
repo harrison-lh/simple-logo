@@ -32,7 +32,9 @@ public class UserCommand extends Command {
     setNumParams(parameters.size());
   }
 
-
+  public String getName(){
+    return name;
+  }
 
   @Override
   protected double executeCommand(Turtle turtle) {

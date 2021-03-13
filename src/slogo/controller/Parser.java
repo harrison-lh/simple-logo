@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.Queue;
 import java.util.Stack;
 import java.util.function.Consumer;
+import slogo.controller.commands.MakeUserInstructionCommand;
 import slogo.view.SelectorTarget;
 
 /**
@@ -64,14 +65,23 @@ public class Parser implements SelectorTarget<String> {
       case COMMAND -> {
         String commandType = lexer.lexLangDefinedCommands(text);
         System.out.println(commandType);
-        try {
-          Class<?> commandClass = Class
-              .forName("slogo.controller.commands." + commandType + "Command");
-          return (Command) commandClass.getConstructor().newInstance();
-        } catch (Exception e) {
-          System.err.println("LOOKUP FAILED!!!");
-          // TODO: Might be a user-defined command, so we must check those!
-          throw new IllegalArgumentException("ILLEGAL ARGUMENT EXCEPTION: COMMAND UNDEFINED!");
+        if (commandType.equals("MakeUserInstruction") && tokenizedText.peek() == Token.COMMAND) {
+          tokenizedText.poll();
+          return new MakeUserInstructionCommand(splitText.poll(), lexer);
+        } else {
+          try {
+            if(lexer.containsUserCommand(text)){
+              return lexer.getUserCommand(text);
+            }
+            Class<?> commandClass = Class
+                .forName("slogo.controller.commands." + commandType + "Command");
+            return (Command) commandClass.getConstructor().newInstance();
+          } catch (Exception e) {
+
+            System.err.println("LOOKUP FAILED!!!");
+            // TODO: Might be a user-defined command, so we must check those!
+            throw new IllegalArgumentException("ILLEGAL ARGUMENT EXCEPTION: COMMAND UNDEFINED!");
+          }
         }
       }
       case CONSTANT -> {
