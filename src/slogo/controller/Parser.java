@@ -26,14 +26,8 @@ public class Parser implements SelectorTarget<String> {
   private Queue<String> splitText;
   private Queue<Token> tokenizedText;
 
-
   /**
-   * Constructor for the Parser. Takes in a TurtleController to execute Commands on, and an initial
-   * syntaxLang to be constructed with.
-   * Sets commandsListener in lexer to listener that doesn't do anything
-   *
-   * @param controller The TurtleController upon which this Parser acts
-   * @param syntaxLang The initial language for which this Parser is configured.
+   * Calls main constructor, passing in an empty command listener
    */
   public Parser(TurtleController controller, String syntaxLang) {
     this(controller, syntaxLang, evt -> {
