@@ -65,6 +65,8 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
       setTurtleVisibility((Boolean) evt.getNewValue());
     } else if (evt.getPropertyName().equals("PEN")) {
       setPenActive((Boolean) evt.getNewValue());
+    } else if (evt.getPropertyName().equals("CLEAR")) {
+      clearScreen();
     }
   }
 
@@ -134,5 +136,9 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
 
   private double convertYCoordinate(double y) {
     return -1 * y * this.getHeight() / DEFAULT_GRID_HEIGHT;
+  }
+
+  private void clearScreen() {
+    myPenLines.getChildren().clear();
   }
 }
