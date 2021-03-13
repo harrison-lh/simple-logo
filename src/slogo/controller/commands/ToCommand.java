@@ -21,14 +21,13 @@ public class ToCommand extends Command {
   @Override
   protected double executeCommand(Turtle turtle) {
 
-    VariableCommand commandName = ( (VariableCommand) getChildren().get(NAME_INDEX));
+    Command commandName = getChildren().get(NAME_INDEX);
     ListCommandHead variables = ( (ListCommandHead) getChildren().get(VAR_INDEX));
     for(Command command : variables.getInnerChildren()){
       VariableCommand varCom = (VariableCommand) command;
       turtle.getVars().setValue(varCom.getName(), varCom.getValue());
     }
     ListCommandHead commands = ( (ListCommandHead) getChildren().get(COMMANDS_INDEX));
-    turtle.getVars().setValue(commandName.getName(), commands);
 
     return 0;
   }
