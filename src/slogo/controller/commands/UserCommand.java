@@ -45,8 +45,9 @@ public class UserCommand extends Command {
       System.out.println(parameters.get(i));
       turtle.getVars().setValue(parameters.get(i), value);
     }
-
-    return commands.execute(turtle);
+    double retVal = commands.execute(turtle);
+    getChildren().clear();
+    return retVal;
   }
 
   @Override
