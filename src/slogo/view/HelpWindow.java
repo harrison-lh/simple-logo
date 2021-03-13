@@ -42,7 +42,7 @@ public class HelpWindow extends ScrollPane {
     commandLinks = new VBox();
     File references = new File(REFERENCE_PATH);
     try {
-      String[] commandsList = Objects.requireNonNull(references.list()).clone();
+      String[] commandsList = references.list().clone();
       Arrays.sort(commandsList);
       for (String command : commandsList) {
         Hyperlink link = new Hyperlink(command.toUpperCase());
@@ -50,8 +50,8 @@ public class HelpWindow extends ScrollPane {
         link.setOnAction(e -> openCommandPage(command));
         commandLinks.getChildren().add(link);
       }
-    } catch (Exception e) {
-      e.printStackTrace();
+    } catch (NullPointerException e) {
+      throw new NullPointerException("INVALID REFERENCE PATH");
     }
     this.setContent(commandLinks);
   }
@@ -61,6 +61,7 @@ public class HelpWindow extends ScrollPane {
     StackPane header = new StackPane();
     Label title = new Label(command.toUpperCase());
     title.getStyleClass().add("command-title");
+
     Button backButton = new Button("Back");
     backButton.setOnAction(e -> this.setContent(commandLinks));
     header.getChildren().addAll(backButton, title);

@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
 public class CommandHistoryBox extends ScrollPane {
 
   private final VBox myContents;
-  private Deque<String> pastCommands;
+  private final Deque<String> pastCommands;
 
   /**
    * Main constructor
