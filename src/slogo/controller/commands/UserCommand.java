@@ -25,6 +25,10 @@ public class UserCommand extends Command {
     this(defaultName, defaultParams, defaultCommands);
   }
 
+  public UserCommand(UserCommand commandToCopy){
+    this(commandToCopy.name, commandToCopy.parameters, commandToCopy.commands);
+  }
+
   public UserCommand(String name, List<String> parameters, ListCommandHead commands){
     this.name = name;
     this.parameters = parameters;
@@ -48,9 +52,17 @@ public class UserCommand extends Command {
 
     for(int i = 0; i < getNumParams(); i++){
       double value = getChildren().get(i).execute(turtle);
+      System.out.println(value);
+      System.out.println(parameters.get(i));
       turtle.getVars().setValue(parameters.get(i), value);
     }
+    double retVal = commands.execute(turtle);
 
-    return commands.execute(turtle);
+    return retVal;
+  }
+
+  @Override
+  public String toString(){
+    return name;
   }
 }

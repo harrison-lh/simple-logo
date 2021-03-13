@@ -8,6 +8,7 @@ import java.util.Queue;
 import java.util.Stack;
 import java.util.function.Consumer;
 import slogo.controller.commands.MakeUserInstructionCommand;
+import slogo.controller.commands.UserCommand;
 import slogo.view.SelectorTarget;
 
 /**
@@ -80,8 +81,8 @@ public class Parser implements SelectorTarget<String> {
           return new MakeUserInstructionCommand(splitText.poll(), lexer);
         } else {
           try {
-            if (lexer.containsUserCommand(text)) {
-              return lexer.getUserCommand(text);
+            if(lexer.containsUserCommand(text)){
+              return new UserCommand(lexer.getUserCommand(text));
             }
             Class<?> commandClass = Class
                 .forName("slogo.controller.commands." + commandType + "Command");
