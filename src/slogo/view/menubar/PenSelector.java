@@ -5,6 +5,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import slogo.model.Pen;
 import slogo.view.Selector;
 
 /**
@@ -26,6 +27,7 @@ public class PenSelector extends VBox implements Selector<Color> {
     Label myLabel = new Label("Pen Color");
     myColorPicker = new ColorPicker(DEFAULT_PEN_COLOR);
     myColorPicker.setId("PenColorPicker");
+    myColorPicker.setValue((Color) Pen.DEFAULT_COLOR);
 
     this.getChildren().addAll(myLabel, myColorPicker);
   }

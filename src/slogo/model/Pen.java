@@ -5,7 +5,7 @@ import javafx.scene.paint.Paint;
 
 public abstract class Pen {
 
-  private static final Paint DEFAULT_COLOR = Color.BLACK;
+  public static final Paint DEFAULT_COLOR = Color.BLACK;
 
   private boolean isActive = true;
   private Paint color = DEFAULT_COLOR;
