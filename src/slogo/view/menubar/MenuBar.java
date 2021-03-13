@@ -9,7 +9,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import slogo.view.HelpWindow;
 import slogo.view.Selector;
 
 /**
@@ -24,6 +23,7 @@ public class MenuBar extends HBox {
   private final TurtleSelector myTurtleSelector;
   private final PenSelector myPenSelector;
   private final LanguageSelector myLanguageSelector;
+  private final HelpWindow myHelpWindow;
 
   /**
    * Main constructor
@@ -38,11 +38,12 @@ public class MenuBar extends HBox {
     myTurtleSelector = new TurtleSelector();
     myPenSelector = new PenSelector();
     myLanguageSelector = new LanguageSelector();
+    myHelpWindow = new HelpWindow();
 
     Button infoButton = new Button("?");
     infoButton.setId("InfoButton");
     infoButton.setShape(new Circle(2));
-    infoButton.setOnAction(e -> openCommandsWindow());
+    infoButton.setOnAction(e -> openHelpWindow());
 
     // Used to align info button to the right
     Pane spacer = new Pane();
@@ -73,12 +74,7 @@ public class MenuBar extends HBox {
     return myLanguageSelector;
   }
 
-  private void openCommandsWindow() {
-    Stage stage = new Stage();
-    stage.setTitle("Commands");
-    Scene scene = new Scene(new HelpWindow(), HelpWindow.WIDTH, HelpWindow.HEIGHT);
-    scene.getStylesheets().add("slogo/view/stylesheet.css");
-    stage.setScene(scene);
-    stage.show();
+  private void openHelpWindow() {
+    myHelpWindow.show();
   }
 }
