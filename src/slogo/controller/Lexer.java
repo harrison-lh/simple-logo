@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
+import slogo.controller.commands.UserCommand;
 
 /**
  * Lexer implements the tokenization behavior of the Parser. That is, the Lexer is responsible for
@@ -22,6 +23,7 @@ public class Lexer {
   private static final String SYNTAX = "Syntax";
   private List<Entry<String, Pattern>> syntaxSymbols;
   private List<Entry<String, Pattern>> langSymbols;
+  private List<UserCommand> userCommands;
 
   /**
    * Default constructor for Lexer. Takes no language, but has syntaxSymbols
@@ -29,6 +31,7 @@ public class Lexer {
   public Lexer() {
     syntaxSymbols = instantiateSymbols(SYNTAX);
     langSymbols = new ArrayList<>();
+    userCommands = new ArrayList<>();
   }
 
   /**
@@ -39,6 +42,33 @@ public class Lexer {
   public Lexer(String syntaxLanguage) {
     syntaxSymbols = instantiateSymbols(SYNTAX);
     langSymbols = instantiateSymbols(syntaxLanguage);
+    userCommands = new ArrayList<>();
+  }
+
+  public void addUserCommand(UserCommand command){
+
+    userCommands.add(command);
+
+  }
+
+  public boolean containsUserCommand(String name){
+
+    for(UserCommand command : userCommands){
+
+      if(command.getName().equals(name)){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public UserCommand getUserCommand(String name){
+    for(UserCommand command : userCommands){
+      if(command.getName().equals(name)){
+        return command;
+      }
+    }
+    return null;
   }
 
   /**
@@ -143,10 +173,13 @@ public class Lexer {
    */
   public String lexLangDefinedCommands(String text) throws IllegalArgumentException {
     final String ERROR = "ILLEGAL ARGUMENT EXCEPTION: NO MATCH! UNRECOGNIZED SYNTAX!";
+    if (containsUserCommand(text)) {
+      return "User";
+    }
     for (Entry<String, Pattern> e : langSymbols) {
       if (match(text, e.getValue())) {
         return e.getKey();
-      }
+      }  //System.out.println("Unable to find user command");
     }
     throw new IllegalArgumentException(ERROR);
   }

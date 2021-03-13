@@ -535,6 +535,42 @@ public class ParserTests {
   }
 
   @Test
+  public void testIfElseTrueCommand() {
+    double initY = turtle.getY();
+    parser.parseCommandString("IFELSE 10 [ fd 50 ] [ fd 25 ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + 50, turtle.getY());
+  }
+
+  @Test
+  public void testIfElseFalseCommand() {
+    double initY = turtle.getY();
+    parser.parseCommandString("IFELSE 0 [ fd 50 ] [ fd 25 ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + 25, turtle.getY());
+  }
+
+  @Test
+  public void testComplexIfElseTrueCommand() {
+    double initY = turtle.getY();
+    parser.parseCommandString("IFELSE LESS? 5 10 [ fd 50 ] [ fd 25 ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + 50, turtle.getY());
+  }
+
+  @Test
+  public void testComplexIfElseFalseCommand() {
+    double initY = turtle.getY();
+    parser.parseCommandString("IFELSE AND 0 10 [ fd 50 ] [ fd 25 ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + 25, turtle.getY());
+  }
+
+  @Test
   public void testErrorHandling() {
     Exception exception = assertThrows(IllegalArgumentException.class, () -> {
           parser.parseCommandString("df 50");
@@ -572,4 +608,38 @@ public class ParserTests {
     );
     System.out.println(exception.getMessage());
   }
+
+  @Test
+  public void testForVariable(){
+    double initY = turtle.getY();
+    parser.parseCommandString("for [ :i 0 10 1 ] [ fd :i ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + 45, turtle.getY());
+  }
+
+  @Test
+  public void testToCommand() {
+    double initY = turtle.getY();
+    parser.parseCommandString("to test [ ] [ fd 50 ]");
+
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    parser.parseCommandString("test");
+    controller.runCommands();
+    assertEquals(initY + 50, turtle.getY());
+  }
+
+  @Test
+  public void testToCommandWithParams() {
+    double initY = turtle.getY();
+    parser.parseCommandString("to test [ :amount ] [ fd :amount ]");
+
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    parser.parseCommandString("test 50");
+    controller.runCommands();
+    assertEquals(initY + 50, turtle.getY());
+  }
+
 }
