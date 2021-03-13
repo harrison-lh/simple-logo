@@ -9,7 +9,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import slogo.model.Coordinates;
-import slogo.view.JavaFXPen;
+import slogo.view.ViewPen;
 import slogo.view.SelectorTarget;
 
 public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
@@ -21,7 +21,7 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
 
   private final GridLines myGridLines;
   private final TurtleView myTurtleView;
-  private final JavaFXPen myPen;
+  private final ViewPen myPen;
   private final Pane myPenLines;
 
   public TurtleCanvas() {
@@ -33,7 +33,7 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     myTurtleView.setXCoordinate(convertXCoordinate(0));
     myTurtleView.setYCoordinate(convertYCoordinate(0));
     myTurtleView.setHeading(convertHeading(0));
-    myPen = new JavaFXPen(Color.BLACK);
+    myPen = new ViewPen(Color.BLACK);
     myPenLines = new Pane();
 
     this.getChildren().addAll(myGridLines, myPenLines, myTurtleView);
@@ -43,7 +43,7 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     return myTurtleView;
   }
 
-  public JavaFXPen getPen() {
+  public ViewPen getPen() {
     return myPen;
   }
 

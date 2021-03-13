@@ -14,15 +14,15 @@ import slogo.model.Pen;
  *
  * @author David Li
  */
-public class JavaFXPen extends Pen implements SelectorTarget<Color> {
+public class ViewPen extends Pen implements SelectorTarget<Color> {
 
   private Paint color;
 
-  public JavaFXPen(Paint color, ImageView image){
+  public ViewPen(Paint color, ImageView image){
     this.color = color;
   }
 
-  public JavaFXPen(Paint color){
+  public ViewPen(Paint color){
     this.color = color;
   }
 

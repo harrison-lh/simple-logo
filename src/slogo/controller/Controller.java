@@ -3,8 +3,8 @@ package slogo.controller;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import slogo.model.GridCoordinates;
+import slogo.model.ModelPen;
 import slogo.model.Turtle;
-import slogo.view.JavaFXPen;
 import slogo.view.MainView;
 
 /**
@@ -25,7 +25,7 @@ public class Controller {
    */
   public Controller() {
     myMainView = new MainView();
-    myTurtle = new Turtle(new GridCoordinates(), new JavaFXPen(Color.BLACK, new ImageView()),
+    myTurtle = new Turtle(new GridCoordinates(), new ModelPen(Color.BLACK, new ImageView()),
         myMainView.getTurtleListener(), myMainView.getVariablesListener());
     myTurtleController = new TurtleController(myTurtle);
     myParser = new Parser(myTurtleController, "English", myMainView.getCommandsListener());

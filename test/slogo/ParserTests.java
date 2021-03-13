@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 import slogo.controller.Parser;
 import slogo.controller.TurtleController;
 import slogo.model.GridCoordinates;
+import slogo.model.ModelPen;
 import slogo.model.Turtle;
-import slogo.view.JavaFXPen;
 
 /**
  * A testing suite for the Parser!
@@ -25,7 +25,7 @@ public class ParserTests {
 
   @BeforeEach
   public void setup() {
-    turtle = new Turtle(new GridCoordinates(), new JavaFXPen(Color.BLACK, new ImageView()));
+    turtle = new Turtle(new GridCoordinates(), new ModelPen(Color.BLACK, new ImageView()));
     controller = new TurtleController(turtle);
     parser = new Parser(controller, "English");
   }
