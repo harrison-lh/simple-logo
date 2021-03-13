@@ -76,6 +76,9 @@ public class MainView extends VBox {
     return myUDCommandsBox;
   }
 
+  /**
+   * @return The language selector
+   */
   public Selector<String> getLanguageSelector() {
     return myMenuBar.getLanguageSelector();
   }

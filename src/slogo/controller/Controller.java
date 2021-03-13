@@ -1,7 +1,5 @@
 package slogo.controller;
 
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import slogo.model.GridCoordinates;
 import slogo.model.ModelPen;
 import slogo.model.Turtle;
@@ -14,6 +12,8 @@ import slogo.view.MainView;
  */
 
 public class Controller {
+
+  private static final String DEFAULT_LANGUAGE = "English";
 
   private final MainView myMainView;
   private final Parser myParser;
@@ -28,7 +28,7 @@ public class Controller {
     myTurtle = new Turtle(new GridCoordinates(), new ModelPen(),
         myMainView.getTurtleListener(), myMainView.getVariablesListener());
     myTurtleController = new TurtleController(myTurtle);
-    myParser = new Parser(myTurtleController, "English", myMainView.getCommandsListener());
+    myParser = new Parser(myTurtleController, DEFAULT_LANGUAGE, myMainView.getCommandsListener());
 
     // Input button action
     myMainView.setInputAction(myParser.receiveInputAction());
