@@ -28,10 +28,10 @@ public class ClearScreenCommand extends Command {
    */
   @Override
   protected double executeCommand(Turtle turtle) {
-    //TODO: tell view to remove all lines
-
     Command goHome = new HomeCommand();
-    return goHome.execute(turtle);
+    double distance = goHome.execute(turtle);
+    turtle.clearScreen();
+    return distance;
   }
 
 }

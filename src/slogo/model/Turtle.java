@@ -218,4 +218,11 @@ public class Turtle {
     turtleListener.propertyChange(new PropertyChangeEvent(this, "PEN", isPenActive(), true));
     pen.placePen();
   }
+
+  /**
+   * Clears the screen of the Turtle's lines.
+   */
+  public void clearScreen() {
+    turtleListener.propertyChange(new PropertyChangeEvent(this, "CLEAR", null, null));
+  }
 }
