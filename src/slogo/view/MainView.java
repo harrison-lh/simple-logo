@@ -69,6 +69,13 @@ public class MainView extends VBox {
     return myVariablesBox;
   }
 
+  /**
+   * @return The elements that listens for user-defined commands updates in the model
+   */
+  public PropertyChangeListener getCommandsListener() {
+    return myUDCommandsBox;
+  }
+
   public Selector<String> getLanguageSelector() {
     return myMenuBar.getLanguageSelector();
   }
@@ -164,4 +171,5 @@ public class MainView extends VBox {
 
     return infoBoxes;
   }
+
 }
