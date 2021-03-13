@@ -6,7 +6,6 @@ import slogo.controller.Lexer;
 import slogo.controller.ListCommandHead;
 import slogo.controller.VariableCommand;
 import slogo.model.Turtle;
-import slogo.model.Variables;
 
 public class MakeUserInstructionCommand extends Command {
 
