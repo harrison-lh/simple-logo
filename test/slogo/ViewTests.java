@@ -22,6 +22,7 @@ import slogo.view.MainView;
 import slogo.view.canvas.GridLines;
 import slogo.view.canvas.TurtleCanvas;
 import slogo.view.canvas.TurtleView;
+import slogo.view.menubar.MenuBar;
 import util.DukeApplicationTest;
 
 class ViewTests extends DukeApplicationTest {
@@ -108,10 +109,11 @@ class ViewTests extends DukeApplicationTest {
         lookup("#TurtleCanvas").queryAs(TurtleCanvas.class).getPen().getColor());
   }
 
-//  @Test
-//  void testHelpWindow() {
-//    // TODO: Not sure how to check if new window opens
-//  }
+  @Test
+  void testHelpWindow() {
+    clickOn(lookup("#InfoButton").queryButton());
+    assertTrue(lookup("#MenuBar").queryAs(MenuBar.class).helpWindowIsOpen());
+  }
 
   @Test
   void testInputCommand() {

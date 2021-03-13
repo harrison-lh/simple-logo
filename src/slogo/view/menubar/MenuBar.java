@@ -74,6 +74,10 @@ public class MenuBar extends HBox {
     return myLanguageSelector;
   }
 
+  public boolean helpWindowIsOpen() {
+    return myHelpWindow.isShowing();
+  }
+
   private void openHelpWindow() {
     myHelpWindow.show();
   }
