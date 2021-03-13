@@ -25,7 +25,7 @@ public class ParserTests {
 
   @BeforeEach
   public void setup() {
-    turtle = new Turtle(new GridCoordinates(), new ModelPen(Color.BLACK));
+    turtle = new Turtle(new GridCoordinates(), new ModelPen());
     controller = new TurtleController(turtle);
     parser = new Parser(controller, "English");
   }

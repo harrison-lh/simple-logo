@@ -24,7 +24,7 @@ public class TurtleTests extends DukeApplicationTest {
 
   @BeforeEach
   public void setupTurtle() {
-    turtle = new Turtle(new GridCoordinates(), new ModelPen(Color.BLACK));
+    turtle = new Turtle(new GridCoordinates(), new ModelPen());
   }
 
   @Test

@@ -35,7 +35,7 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     myTurtleView.setYCoordinate(convertYCoordinate(0));
     myTurtleView.setHeading(convertHeading(0));
 
-    myPen = new ViewPen(Color.BLACK);
+    myPen = new ViewPen();
     myPenLines = new Pane();
 
     this.getChildren().addAll(myGridLines, myPenLines, myTurtleView);
