@@ -42,6 +42,7 @@ public class UserCommand extends Command {
     for(int i = 0; i < getNumParams(); i++){
       double value = getChildren().get(i).execute(turtle);
       System.out.println(value);
+      System.out.println(parameters.get(i));
       turtle.getVars().setValue(parameters.get(i), value);
     }
 

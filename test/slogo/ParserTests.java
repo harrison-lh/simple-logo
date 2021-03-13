@@ -648,7 +648,7 @@ public class ParserTests {
 
     controller.setIsAllowedToExecute(true);
     controller.runCommands();
-    parser.parseCommandString("test 50 test 100");
+    parser.parseCommandString("test 100 test 50");
     controller.runCommands();
     assertEquals(initY + 150, turtle.getY());
   }
