@@ -25,7 +25,7 @@ public class Controller {
    */
   public Controller() {
     myMainView = new MainView();
-    myTurtle = new Turtle(new GridCoordinates(), new ModelPen(Color.BLACK, new ImageView()),
+    myTurtle = new Turtle(new GridCoordinates(), new ModelPen(Color.BLACK),
         myMainView.getTurtleListener(), myMainView.getVariablesListener());
     myTurtleController = new TurtleController(myTurtle);
     myParser = new Parser(myTurtleController, "English", myMainView.getCommandsListener());

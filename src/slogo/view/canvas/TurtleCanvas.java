@@ -15,9 +15,9 @@ import slogo.view.SelectorTarget;
 public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     PropertyChangeListener {
 
-  public static final double DEFAULT_GRID_WIDTH = 600;
-  public static final double DEFAULT_GRID_HEIGHT =
-      DEFAULT_GRID_WIDTH / CanvasHolder.TURTLE_CANVAS_ASPECT_RATIO;
+  private static final double DEFAULT_GRID_WIDTH = 600;
+  private static final double DEFAULT_GRID_HEIGHT = 450;
+  public static final double ASPECT_RATIO = DEFAULT_GRID_WIDTH / DEFAULT_GRID_HEIGHT;
 
   private final GridLines myGridLines;
   private final TurtleView myTurtleView;
@@ -29,10 +29,12 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
 
     myGridLines = new GridLines();
     myGridLines.changeGridType("None");
+
     myTurtleView = new TurtleView();
     myTurtleView.setXCoordinate(convertXCoordinate(0));
     myTurtleView.setYCoordinate(convertYCoordinate(0));
     myTurtleView.setHeading(convertHeading(0));
+
     myPen = new ViewPen(Color.BLACK);
     myPenLines = new Pane();
 

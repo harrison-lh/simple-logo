@@ -18,25 +18,8 @@ public class ViewPen extends Pen implements SelectorTarget<Color> {
 
   private Paint color;
 
-  public ViewPen(Paint color, ImageView image){
-    this.color = color;
-  }
-
   public ViewPen(Paint color){
     this.color = color;
-  }
-
-  public Paint getColor() {
-    return color;
-  }
-
-  public void setColor(Paint color) {
-    this.color = color;
-  }
-
-  @Override
-  public void stamp(double x, double y, double heading) {
-    // TODO: place image on screen at parameter locations
   }
 
   /**

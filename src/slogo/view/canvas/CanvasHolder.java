@@ -18,7 +18,6 @@ import slogo.view.SelectorTarget;
 public class CanvasHolder extends AnchorPane implements SelectorTarget<Color> {
 
   public static final double CANVAS_MARGIN = 6;
-  public static final double TURTLE_CANVAS_ASPECT_RATIO = 4.0 / 3;
 
   private final TurtleCanvas myTurtleCanvas;
 
@@ -56,15 +55,15 @@ public class CanvasHolder extends AnchorPane implements SelectorTarget<Color> {
    * Resizes the turtle canvas when the window size changes
    */
   public void resizeElements() {
-    boolean constrainedByWidth = (this.getWidth() / this.getHeight() < TURTLE_CANVAS_ASPECT_RATIO);
+    boolean constrainedByWidth = (this.getWidth() / this.getHeight() < TurtleCanvas.ASPECT_RATIO);
     double widthMargin;
     double heightMargin;
     if (constrainedByWidth) {
       widthMargin = CANVAS_MARGIN;
-      heightMargin = CANVAS_MARGIN + (this.getHeight() - (1 / TURTLE_CANVAS_ASPECT_RATIO) * this.getWidth()) / 2;
+      heightMargin = CANVAS_MARGIN + (this.getHeight() - (1 / TurtleCanvas.ASPECT_RATIO) * this.getWidth()) / 2;
     }
     else {
-      widthMargin = CANVAS_MARGIN + (this.getWidth() - TURTLE_CANVAS_ASPECT_RATIO * this.getHeight()) / 2;
+      widthMargin = CANVAS_MARGIN + (this.getWidth() - TurtleCanvas.ASPECT_RATIO * this.getHeight()) / 2;
       heightMargin = CANVAS_MARGIN;
     }
     AnchorPane.setTopAnchor(myTurtleCanvas, heightMargin);
