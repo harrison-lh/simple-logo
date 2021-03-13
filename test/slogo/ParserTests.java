@@ -608,4 +608,13 @@ public class ParserTests {
     );
     System.out.println(exception.getMessage());
   }
+
+  @Test
+  public void testForVariable(){
+    double initY = turtle.getY();
+    parser.parseCommandString("for [ :i 0 10 1 ] [ fd :i ]");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(initY + 45, turtle.getY());
+  }
 }

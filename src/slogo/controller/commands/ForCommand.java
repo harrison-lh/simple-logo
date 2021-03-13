@@ -4,6 +4,7 @@ import slogo.controller.Command;
 import slogo.controller.ListCommandHead;
 import slogo.controller.VariableCommand;
 import slogo.model.Turtle;
+import slogo.model.Variables;
 
 /**
  * ForCommand more or less implements for-loops in SLogo.
@@ -31,17 +32,18 @@ public class ForCommand extends Command {
   @Override
   protected double executeCommand(Turtle turtle) {
 
-    VariableCommand var = ( (VariableCommand) ( (ListCommandHead) getChildren().get(0)).getInnerChildren().get(VAR_INDEX));
+    VariableCommand varCommand = ( (VariableCommand) ( (ListCommandHead) getChildren().get(0)).getInnerChildren().get(VAR_INDEX));
     double start = ( (ListCommandHead) getChildren().get(0)).getInnerChildren().get(START_INDEX).execute(turtle);
     double end = ( (ListCommandHead) getChildren().get(0)).getInnerChildren().get(END_INDEX).execute(turtle);
     double increment = ( (ListCommandHead) getChildren().get(0)).getInnerChildren().get(INCREMENT_INDEX).execute(turtle);
 
     double lastVal = 0;
-    var.setValue(start);
+    varCommand.setValue(start);
+    turtle.getVars().setValue(varCommand.getName(), varCommand.getValue());
 
     for(double i = start; i < end; i += increment){
+      turtle.getVars().setValue(varCommand.getName(), i);
       lastVal = getChildren().get(1).execute(turtle);
-      var.setValue(i);
     }
 
     return lastVal;

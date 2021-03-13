@@ -13,11 +13,22 @@ public class ToCommand extends Command {
   private static final int VAR_INDEX = 1;
   private static final int COMMANDS_INDEX = 2;
 
+
+  public ToCommand(){
+    setNumParams(NUM_PARAMS);
+  }
+
   @Override
   protected double executeCommand(Turtle turtle) {
 
-    VariableCommand commandName = ( (VariableCommand) getChildren().get(0));
-
+    VariableCommand commandName = ( (VariableCommand) getChildren().get(NAME_INDEX));
+    ListCommandHead variables = ( (ListCommandHead) getChildren().get(VAR_INDEX));
+    for(Command command : variables.getInnerChildren()){
+      VariableCommand varCom = (VariableCommand) command;
+      turtle.getVars().setValue(varCom.getName(), varCom.getValue());
+    }
+    ListCommandHead commands = ( (ListCommandHead) getChildren().get(COMMANDS_INDEX));
+    turtle.getVars().setValue(commandName.getName(), commands);
 
     return 0;
   }
