@@ -33,17 +33,6 @@ unit_testing:
   stage: test
   needs:
     - checkstyle_analysis
-  before_script:
-    - yum install -y fontconfig dejavu-sans-fonts dejavu-serif-fonts
-    - curl -L -O https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.tar.gz
-    - tar -xzvf Hack-v3.003-ttf.tar.gz
-    - mkdir ~/.fonts
-    - mv ttf/Hack-Regular.ttf ~/.fonts/Hack-Regular.ttf
-    - mv ttf/Hack-Italic.ttf ~/.fonts/Hack-Italic.ttf
-    - mv ttf/Hack-Bold.ttf ~/.fonts/Hack-Bold.ttf
-    - mv ttf/Hack-BoldItalic.ttf ~/.fonts/Hack-BoldItalic.ttf
-    - fc-cache -f -v
-    - yum install -y pango
   script:
     - |
       mvn clean install site \
