@@ -10,7 +10,8 @@ stages:
 checkstyle_analysis:
   stage: validate
   needs: [ ]
-  script: mvn validate
+  script:
+    - mvn validate
 
 sonar_analysis:
   stage: analyze
@@ -30,7 +31,8 @@ sonar_analysis:
 
 unit_testing:
   stage: test
-  needs: [ ]
+  needs:
+    - checkstyle_analysis
   before_script:
     - yum install -y fontconfig dejavu-sans-fonts dejavu-serif-fonts
     - curl -L -O https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.tar.gz
@@ -44,7 +46,7 @@ unit_testing:
     - yum install -y pango
   script:
     - |
-      mvn clean install \
+      mvn clean install site \
         -Djava.awt.headless=true \
         -Dtestfx.robot=glass \
         -Dtestfx.headless=true \
@@ -56,7 +58,7 @@ unit_testing:
     - cat target/site/jacoco/index.html
   artifacts:
     paths:
-      - target/site/jacoco/*
+      - target/site/*
       - "**/target/surefire-reports/TEST-*.xml"
 
 coverage_report:
@@ -67,11 +69,11 @@ coverage_report:
   dependencies:
     - unit_testing
   script:
-    - 'python /opt/cover2cover.py target/site/jacoco/jacoco.xml src > target/site/cobertura.xml'
-    - 'python /opt/source2filename.py target/site/cobertura.xml'
+    - 'python /opt/cover2cover.py target/site/jacoco/jacoco.xml src > cobertura.xml'
+    - 'python /opt/source2filename.py cobertura.xml'
   artifacts:
     reports:
-      cobertura: target/site/cobertura.xml
+      cobertura: cobertura.xml
       junit:
         - "**/target/surefire-reports/TEST-*.xml"
 
@@ -83,10 +85,8 @@ pages:
     - unit_testing
   script:
     - mkdir .public
-    - cp -r target/site/jacoco .public
+    - cp -r target/site .public
     - mv .public public
   artifacts:
     paths:
       - public
-  only:
-    - master
