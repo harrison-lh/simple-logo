@@ -14,6 +14,8 @@
 
 .info-tab {
   -fx-padding: 0px 6px 0px 6px;
+
+  -fx-background-insets: 0 1 1 0, 1 2 0 1, 2 3 0 2;
 }
 
 .info-tab .tab-label {
@@ -36,11 +38,9 @@
 }
 
 #MenuBar {
-  -fx-border-width: 0 0 2px 0;
-  -fx-border-color: black;
-  -fx-background-color: #ffebcc;
   -fx-padding: 6px 12px 6px 12px;
   -fx-spacing: 12px;
+  -fx-background-color: linear-gradient(to bottom, #fff5e6, #ffe0b3);
 }
 
 #MenuBar .selector {
@@ -48,14 +48,12 @@
 }
 
 #GraphicalController {
-  -fx-border-width: 0px 2px 1px 0px;
-  -fx-border-color: #666666;
   -fx-padding: 4px 4px 4px 4px;
+  -fx-background-color: rgb(230, 230, 230);
 }
 
 #CanvasHolder {
-  -fx-border-width: 0px 0px 1px 0px;
-  -fx-border-color: #666666;
+  -fx-background-color: white;
 }
 
 #TurtleCanvas {
@@ -64,12 +62,14 @@
 }
 
 #InfoDisplay {
-  -fx-border-width: 0px 0px 1px 2px;
-  -fx-border-color: #666666;
 }
 
-#InfoDisplay:top *.tab-header-area {
-  -fx-padding: 0px 0px 0px 2px;
+#InfoDisplay .tab-header-area {
+  -fx-padding: 4px 0px 0px 2px;
+}
+
+#InfoDisplay .tab-header-background {
+  -fx-background-color: #ffc2b3;
 }
 
 #InfoDisplay .info-box {
@@ -78,14 +78,7 @@
 }
 
 #CommandHistoryBox {
-  -fx-border-width: 1px 0px 0px 1px;
-  -fx-border-color: #666666;
   -fx-background: #e6f0ff;
-}
-
-#InputBox {
-  /*-fx-max-width: 360px;*/
-  /*-fx-max-height: 10px;*/
 }
 
 #InputButton {
