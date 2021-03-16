@@ -4,6 +4,8 @@ import javafx.scene.control.TabPane;
 
 public class InfoDisplay extends TabPane {
 
+  private static final double WIDTH = 280;
+
   private final TurtlesTab myTurtlesTab;
   private final VariablesTab myVariablesTab;
   private final CommandsTab myCommandsTab;
@@ -11,6 +13,9 @@ public class InfoDisplay extends TabPane {
 
   public InfoDisplay() {
     this.setId("InfoDisplay");
+
+    this.setPrefWidth(WIDTH);
+
     myTurtlesTab = new TurtlesTab();
     myVariablesTab = new VariablesTab();
     myCommandsTab = new CommandsTab();

@@ -16,6 +16,10 @@
   -fx-padding: 0px 6px 0px 6px;
 }
 
+.info-tab .tab-label {
+  -fx-font-size: 10pt;
+}
+
 .box-title {
   -fx-underline: true;
   -fx-font-size: 12pt;
@@ -41,6 +45,12 @@
 
 #MenuBar .selector {
   -fx-spacing: 3px;
+}
+
+#GraphicalController {
+  -fx-border-width: 0px 2px 1px 0px;
+  -fx-border-color: #666666;
+  -fx-padding: 4px 4px 4px 4px;
 }
 
 #CanvasHolder {

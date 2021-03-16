@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import slogo.view.canvas.CanvasHolder;
 import slogo.view.canvas.TurtleCanvas;
 import slogo.view.canvas.TurtleView;
+import slogo.view.controller.GraphicalController;
 import slogo.view.info.InfoDisplay;
 import slogo.view.info.CommandsBox;
 import slogo.view.info.VariablesBox;
@@ -23,9 +24,8 @@ import slogo.view.menubar.MenuBar;
  */
 public class MainView extends VBox {
 
-  private static final double INFO_WIDTH = 320;
-
   private MenuBar myMenuBar;
+  private GraphicalController myGraphicalController;
   private CanvasHolder myCanvasHolder;
   private TurtleCanvas myTurtleCanvas;
   private InfoDisplay myInfoDisplay;
@@ -131,19 +131,19 @@ public class MainView extends VBox {
   private HBox createBody() {
     HBox body = new HBox();
 
+    myGraphicalController = new GraphicalController();
+
     myCanvasHolder = new CanvasHolder();
     myTurtleCanvas = myCanvasHolder.getTurtleCanvas();
     myTurtleView = myCanvasHolder.getTurtleView();
-    body.getChildren().add(myCanvasHolder);
 
     myInfoDisplay = new InfoDisplay();
-    myInfoDisplay.setPrefWidth(INFO_WIDTH);
     myVariablesBox = myInfoDisplay.getVariablesBox();
     myCommandsBox = myInfoDisplay.getCommandsBox();
 
-    body.getChildren().add(myInfoDisplay);
-
     HBox.setHgrow(myCanvasHolder, Priority.ALWAYS);
+
+    body.getChildren().addAll(myGraphicalController, myCanvasHolder, myInfoDisplay);
 
     return body;
   }
