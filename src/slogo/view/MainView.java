@@ -17,6 +17,7 @@ import slogo.model.Variables;
 import slogo.view.canvas.CanvasHolder;
 import slogo.view.canvas.TurtleCanvas;
 import slogo.view.canvas.TurtleView;
+import slogo.view.info.InfoDisplay;
 import slogo.view.menubar.MenuBar;
 
 /**
@@ -31,6 +32,7 @@ public class MainView extends VBox {
   private MenuBar myMenuBar;
   private CanvasHolder myCanvasHolder;
   private TurtleCanvas myTurtleCanvas;
+  private InfoDisplay myInfoDisplay;
   private VariablesBox myVariablesBox;
   private UDCommandsBox myUDCommandsBox;
   private InputBox myInputBox;
@@ -138,8 +140,12 @@ public class MainView extends VBox {
     myTurtleView = myCanvasHolder.getTurtleView();
     body.getChildren().add(myCanvasHolder);
 
+    myInfoDisplay = new InfoDisplay();
+    myInfoDisplay.setPrefWidth(INFO_WIDTH);
+
     GridPane infoBoxes = createInfoBoxes();
-    body.getChildren().add(infoBoxes);
+//    body.getChildren().add(infoBoxes);
+    body.getChildren().add(myInfoDisplay);
 
     HBox.setHgrow(myCanvasHolder, Priority.ALWAYS);
 

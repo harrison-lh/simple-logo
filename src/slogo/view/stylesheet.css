@@ -12,6 +12,18 @@
   -fx-font-size: 10pt;
 }
 
+.info-tab {
+  -fx-padding: 0px 6px 0px 6px;
+}
+
+.info-tab .tab-label {
+  -fx-font-size: 8pt;
+}
+
+.tab-pane:top *.tab-header-area {
+  -fx-padding: 0px 0px 0px 4px;
+}
+
 .box-title {
   -fx-underline: true;
   -fx-font-size: 12pt;
@@ -47,6 +59,11 @@
 #TurtleCanvas {
   -fx-border-color: black;
   -fx-border-radius: 1px;
+}
+
+#InfoDisplay {
+  -fx-border-width: 0px 0px 1px 2px;
+  -fx-border-color: #666666;
 }
 
 #VariablesBox {

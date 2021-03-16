@@ -10,10 +10,13 @@ public class InfoDisplay extends TabPane {
   private final PalettesTab myPalettesTab;
 
   public InfoDisplay() {
+    this.setId("InfoDisplay");
     myTurtlesTab = new TurtlesTab();
     myVariablesTab = new VariablesTab();
     myCommandsTab = new CommandsTab();
     myPalettesTab = new PalettesTab();
+
+    this.getTabs().addAll(myTurtlesTab, myVariablesTab, myCommandsTab, myPalettesTab);
   }
 
 }
