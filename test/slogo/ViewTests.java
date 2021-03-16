@@ -58,7 +58,7 @@ class ViewTests extends DukeApplicationTest {
     assertExists("#TurtleView");
     assertExists("#CommandHistoryBox");
     assertExists("#InputBox");
-    assertExists("#UDCommandsBox");
+    assertExists("#CommandsBox");
     assertExists("#VariablesBox");
   }
 

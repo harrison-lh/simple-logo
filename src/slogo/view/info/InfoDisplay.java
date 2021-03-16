@@ -22,4 +22,8 @@ public class InfoDisplay extends TabPane {
   public VariablesBox getVariablesBox() {
     return myVariablesTab.getVariablesBox();
   }
+
+  public CommandsBox getCommandsBox() {
+    return myCommandsTab.getCommandsBox();
+  }
 }

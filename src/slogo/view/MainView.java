@@ -4,18 +4,15 @@ import java.beans.PropertyChangeListener;
 import java.util.function.Consumer;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import slogo.view.canvas.CanvasHolder;
 import slogo.view.canvas.TurtleCanvas;
 import slogo.view.canvas.TurtleView;
 import slogo.view.info.InfoDisplay;
-import slogo.view.info.UDCommandsBox;
+import slogo.view.info.CommandsBox;
 import slogo.view.info.VariablesBox;
 import slogo.view.menubar.MenuBar;
 
@@ -33,7 +30,7 @@ public class MainView extends VBox {
   private TurtleCanvas myTurtleCanvas;
   private InfoDisplay myInfoDisplay;
   private VariablesBox myVariablesBox;
-  private UDCommandsBox myUDCommandsBox;
+  private CommandsBox myCommandsBox;
   private InputBox myInputBox;
   private CommandHistoryBox myCommandHistoryBox;
   private TurtleView myTurtleView;
@@ -76,7 +73,7 @@ public class MainView extends VBox {
    * @return The elements that listens for user-defined commands updates in the model
    */
   public PropertyChangeListener getCommandsListener() {
-    return myUDCommandsBox;
+    return myCommandsBox;
   }
 
   /**
@@ -142,6 +139,7 @@ public class MainView extends VBox {
     myInfoDisplay = new InfoDisplay();
     myInfoDisplay.setPrefWidth(INFO_WIDTH);
     myVariablesBox = myInfoDisplay.getVariablesBox();
+    myCommandsBox = myInfoDisplay.getCommandsBox();
 
     body.getChildren().add(myInfoDisplay);
 
