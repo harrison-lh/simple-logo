@@ -19,4 +19,7 @@ public class InfoDisplay extends TabPane {
     this.getTabs().addAll(myTurtlesTab, myVariablesTab, myCommandsTab, myPalettesTab);
   }
 
+  public VariablesBox getVariablesBox() {
+    return myVariablesTab.getVariablesBox();
+  }
 }

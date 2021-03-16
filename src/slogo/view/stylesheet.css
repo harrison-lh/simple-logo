@@ -16,14 +16,6 @@
   -fx-padding: 0px 6px 0px 6px;
 }
 
-.info-tab .tab-label {
-  -fx-font-size: 8pt;
-}
-
-.tab-pane:top *.tab-header-area {
-  -fx-padding: 0px 0px 0px 4px;
-}
-
 .box-title {
   -fx-underline: true;
   -fx-font-size: 12pt;
@@ -66,17 +58,26 @@
   -fx-border-color: #666666;
 }
 
-#VariablesBox {
-  -fx-border-width: 0px 0px 1px 2px;
-  -fx-border-color: #666666;
-  -fx-background: #ffebe6;
+#InfoDisplay:top *.tab-header-area {
+  -fx-padding: 0px 0px 0px 2px;
 }
 
-#UDCommandsBox {
-  -fx-border-width: 1px 0px 1px 2px;
-  -fx-border-color: #666666;
+#InfoDisplay .info-box {
   -fx-background: #ffebe6;
+  -fx-padding: 8px 8px 8px 8px;
 }
+
+/*#VariablesBox {*/
+/*  -fx-border-width: 0px 0px 1px 2px;*/
+/*  -fx-border-color: #666666;*/
+/*  -fx-background: #ffebe6;*/
+/*}*/
+
+/*#UDCommandsBox {*/
+/*  -fx-border-width: 1px 0px 1px 2px;*/
+/*  -fx-border-color: #666666;*/
+/*  -fx-background: #ffebe6;*/
+/*}*/
 
 #CommandHistoryBox {
   -fx-border-width: 1px 0px 0px 1px;

@@ -1,11 +1,16 @@
 package slogo.view.info;
 
-import javafx.scene.control.Tab;
-
 public class VariablesTab extends InfoTab {
+
+  private final VariablesBox myVariablesBox;
 
   public VariablesTab() {
     super("Variables");
+    myVariablesBox = new VariablesBox();
+    this.setContent(myVariablesBox);
   }
 
+  public VariablesBox getVariablesBox() {
+    return myVariablesBox;
+  }
 }

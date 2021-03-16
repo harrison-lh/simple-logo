@@ -4,7 +4,6 @@ import java.beans.PropertyChangeListener;
 import java.util.function.Consumer;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -12,12 +11,12 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import slogo.controller.Command;
-import slogo.model.Variables;
 import slogo.view.canvas.CanvasHolder;
 import slogo.view.canvas.TurtleCanvas;
 import slogo.view.canvas.TurtleView;
 import slogo.view.info.InfoDisplay;
+import slogo.view.info.UDCommandsBox;
+import slogo.view.info.VariablesBox;
 import slogo.view.menubar.MenuBar;
 
 /**
@@ -27,7 +26,7 @@ import slogo.view.menubar.MenuBar;
  */
 public class MainView extends VBox {
 
-  private static final double INFO_WIDTH = 240;
+  private static final double INFO_WIDTH = 320;
 
   private MenuBar myMenuBar;
   private CanvasHolder myCanvasHolder;
@@ -142,39 +141,12 @@ public class MainView extends VBox {
 
     myInfoDisplay = new InfoDisplay();
     myInfoDisplay.setPrefWidth(INFO_WIDTH);
+    myVariablesBox = myInfoDisplay.getVariablesBox();
 
-    GridPane infoBoxes = createInfoBoxes();
-//    body.getChildren().add(infoBoxes);
     body.getChildren().add(myInfoDisplay);
 
     HBox.setHgrow(myCanvasHolder, Priority.ALWAYS);
 
     return body;
   }
-
-  private GridPane createInfoBoxes() {
-    GridPane infoBoxes = new GridPane();
-    infoBoxes.setId("InfoBoxes");
-    infoBoxes.setPrefWidth(INFO_WIDTH);
-
-    myVariablesBox = new VariablesBox();
-    infoBoxes.add(myVariablesBox, 0, 0);
-
-    myUDCommandsBox = new UDCommandsBox();
-    infoBoxes.add(myUDCommandsBox, 0, 1);
-
-    for (int i = 0 ; i < 2 ; i++) {
-      RowConstraints rc = new RowConstraints();
-      rc.setPercentHeight(100.0/2.0);
-      rc.setVgrow(Priority.ALWAYS);
-      infoBoxes.getRowConstraints().add(rc);
-    }
-
-    ColumnConstraints cc = new ColumnConstraints();
-    cc.setHgrow(Priority.ALWAYS);
-    infoBoxes.getColumnConstraints().add(cc);
-
-    return infoBoxes;
-  }
-
 }
