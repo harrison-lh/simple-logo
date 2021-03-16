@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
 /**
@@ -27,6 +29,7 @@ public class InputBox extends BorderPane {
     myInputBoxArea = new TextArea();
     myInputBoxArea.setId("InputBoxArea");
     myInputBoxArea.setPrefHeight(BOTTOM_HEIGHT);
+    myInputBoxArea.setOnKeyPressed(this::setInputShortcut);
 
     myInputButton = new Button("Go");
     myInputButton.setId("InputButton");
@@ -37,6 +40,7 @@ public class InputBox extends BorderPane {
 
   /**
    * Sets the event that occurs when the input button is clicked
+   *
    * @param event
    */
   public void setInputAction(EventHandler<ActionEvent> event) {
@@ -55,5 +59,11 @@ public class InputBox extends BorderPane {
    */
   public void clear() {
     myInputBoxArea.clear();
+  }
+
+  private void setInputShortcut(KeyEvent keyEvent) {
+    if (keyEvent.isShortcutDown() && keyEvent.getCode() == KeyCode.ENTER) {
+      myInputButton.fire();
+    }
   }
 }

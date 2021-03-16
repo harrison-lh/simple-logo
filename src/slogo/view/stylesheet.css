@@ -1,5 +1,5 @@
 .root {
-  -fx-font-size: 12pt;
+  -fx-font-size: 11pt;
   -fx-font-family: "Helvetica Neue";
 }
 
@@ -8,13 +8,13 @@
 }
 
 .monospace-font {
-  -fx-font-family: Menlo;
+  -fx-font-family: Menlo Monospaced;
   -fx-font-size: 10pt;
 }
 
 .box-title {
   -fx-underline: true;
-  -fx-font-size: 14pt;
+  -fx-font-size: 12pt;
 }
 
 .command-title {
