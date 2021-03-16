@@ -1,4 +1,4 @@
-package slogo.view;
+package slogo.view.info;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -24,11 +24,9 @@ public class VariablesBox extends ScrollPane implements PropertyChangeListener {
    */
   public VariablesBox() {
     this.setId("VariablesBox");
+    this.getStyleClass().add("info-box");
     myContents = new VBox();
     this.setContent(myContents);
-    Label title = new Label("Variables");
-    title.getStyleClass().add("box-title");
-    myContents.getChildren().add(title);
     myVariableNamesList = new ArrayList<>();
     myVariableTextList = new ArrayList<>();
   }

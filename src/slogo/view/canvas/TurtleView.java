@@ -15,7 +15,7 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
   public static final String IMAGES_DIRECTORY = "resources/images/";
   public static final String DEFAULT_TURTLE = "turtle-default.png";
   public static final String REALISTIC_TURTLE = "turtle-realistic.png";
-  private static final double HEIGHT = 50;
+  private static final double HEIGHT = 40;
 
   private Image myTurtleImage;
   private double xCoordinate;

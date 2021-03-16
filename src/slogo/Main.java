@@ -15,8 +15,8 @@ import slogo.view.MainView;
  */
 public class Main extends Application {
 
-  public static final int MIN_WIDTH = 960;
-  public static final int MIN_HEIGHT = 720;
+  public static final int MIN_WIDTH = 1200;
+  public static final int MIN_HEIGHT = 800;
 
   /**
    * Start of the program.
@@ -37,8 +37,6 @@ public class Main extends Application {
     stage.setScene(scene);
     stage.setMinWidth(MIN_WIDTH);
     stage.setMinHeight(MIN_HEIGHT);
-    stage.widthProperty().addListener((obs, oldVal, newVal) -> mainView.resizeElements());
-    stage.heightProperty().addListener((obs, oldVal, newVal) -> mainView.resizeElements());
     stage.show();
   }
 }

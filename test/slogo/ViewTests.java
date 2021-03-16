@@ -27,22 +27,15 @@ import util.DukeApplicationTest;
 
 class ViewTests extends DukeApplicationTest {
 
-  public static final int WIDTH = 960;
-  public static final int HEIGHT = 720;
-  public static final int MIN_WIDTH = 960;
-  public static final int MIN_HEIGHT = 720;
-
   @Override
   public void start(Stage stage) {
     Controller controller = new Controller();
     MainView mainView = controller.getMainView();
-    Scene scene = new Scene(mainView, WIDTH, HEIGHT);
+    Scene scene = new Scene(mainView, Main.MIN_WIDTH, Main.MIN_HEIGHT);
     scene.getStylesheets().add("slogo/view/stylesheet.css");
     stage.setScene(scene);
-    stage.setMinWidth(MIN_WIDTH);
-    stage.setMinHeight(MIN_HEIGHT);
-    stage.widthProperty().addListener((obs, oldVal, newVal) -> mainView.resizeElements());
-    stage.heightProperty().addListener((obs, oldVal, newVal) -> mainView.resizeElements());
+    stage.setMinWidth(Main.MIN_WIDTH);
+    stage.setMinHeight(Main.MIN_HEIGHT);
     stage.show();
   }
 
@@ -60,7 +53,7 @@ class ViewTests extends DukeApplicationTest {
     assertExists("#TurtleView");
     assertExists("#CommandHistoryBox");
     assertExists("#InputBox");
-    assertExists("#UDCommandsBox");
+    assertExists("#CommandsBox");
     assertExists("#VariablesBox");
   }
 

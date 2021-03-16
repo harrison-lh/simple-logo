@@ -1,4 +1,4 @@
-package slogo.view;
+package slogo.view.info;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
  *
  * @author David Li
  */
-public class UDCommandsBox extends ScrollPane implements PropertyChangeListener {
+public class CommandsBox extends ScrollPane implements PropertyChangeListener {
 
   private final VBox myContents;
   private final List<String> myUDCommandsNamesList;
@@ -22,13 +22,11 @@ public class UDCommandsBox extends ScrollPane implements PropertyChangeListener 
   /**
    * Main constructor
    */
-  public UDCommandsBox() {
-    this.setId("UDCommandsBox");
+  public CommandsBox() {
+    this.setId("CommandsBox");
     myContents = new VBox();
     this.setContent(myContents);
-    Label title = new Label("User-Defined Commands");
-    title.getStyleClass().add("box-title");
-    myContents.getChildren().add(title);
+    this.getStyleClass().add("info-box");
     myUDCommandsNamesList = new ArrayList<>();
     myUDCommandsTextList = new ArrayList<>();
   }

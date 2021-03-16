@@ -3,7 +3,6 @@ package slogo.view.canvas;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.function.Consumer;
-import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
@@ -19,9 +18,8 @@ import slogo.view.SelectorTarget;
 public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     PropertyChangeListener {
 
-  private static final double DEFAULT_GRID_WIDTH = 600;
-  private static final double DEFAULT_GRID_HEIGHT = 450;
-  public static final double ASPECT_RATIO = DEFAULT_GRID_WIDTH / DEFAULT_GRID_HEIGHT;
+  public static final double DEFAULT_CANVAS_WIDTH = 800;
+  public static final double DEFAULT_CANVAS_HEIGHT = 480;
 
   private final GridLines myGridLines;
   private final TurtleView myTurtleView;
@@ -30,6 +28,8 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
 
   public TurtleCanvas() {
     this.setId("TurtleCanvas");
+
+    this.setMaxSize(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
 
     myGridLines = new GridLines();
     myGridLines.changeGridType("None");
@@ -76,26 +76,6 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     }
   }
 
-  /**
-   * Resize contents of canvas based on canvas size
-   */
-  public void resizeElements() {
-    myGridLines.resize();
-    myPenLines.setPrefSize(this.getWidth(), this.getHeight());
-    myTurtleView.setTranslateX(convertXCoordinate(myTurtleView.getXCoordinate()));
-    myTurtleView.setTranslateY(convertYCoordinate(myTurtleView.getYCoordinate()));
-    for (Node penLine : myPenLines.getChildren()) {
-      resizePenLine((PenLine) penLine);
-    }
-  }
-
-  private void resizePenLine(PenLine penLine) {
-    penLine.setStartX(convertXCoordinate(penLine.getStartXCoordinate()) + this.getWidth() / 2);
-    penLine.setStartY(convertYCoordinate(penLine.getStartYCoordinate()) + this.getHeight() / 2);
-    penLine.setEndX(convertXCoordinate(penLine.getEndXCoordinate()) + this.getWidth() / 2);
-    penLine.setEndY(convertYCoordinate(penLine.getEndYCoordinate()) + this.getHeight() / 2);
-  }
-
   private void setTurtleHeading(double heading) {
     myTurtleView.setHeading(heading);
     myTurtleView.setRotate(convertHeading(heading));
@@ -131,8 +111,11 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
 
   private void drawLine(double startX, double startY, double endX, double endY, Paint penColor) {
     PenLine penLine = new PenLine(startX, startY, endX, endY, penColor);
+    penLine.setStartX(convertXCoordinate(penLine.getStartXCoordinate()) + this.getWidth() / 2);
+    penLine.setStartY(convertYCoordinate(penLine.getStartYCoordinate()) + this.getHeight() / 2);
+    penLine.setEndX(convertXCoordinate(penLine.getEndXCoordinate()) + this.getWidth() / 2);
+    penLine.setEndY(convertYCoordinate(penLine.getEndYCoordinate()) + this.getHeight() / 2);
     myPenLines.getChildren().add(penLine);
-    resizePenLine(penLine);
   }
 
   private double convertHeading(double heading) {
@@ -140,11 +123,11 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
   }
 
   private double convertXCoordinate(double x) {
-    return x * this.getWidth() / DEFAULT_GRID_WIDTH;
+    return x;
   }
 
   private double convertYCoordinate(double y) {
-    return -1 * y * this.getHeight() / DEFAULT_GRID_HEIGHT;
+    return -1 * y;
   }
 
   private void clearScreen() {

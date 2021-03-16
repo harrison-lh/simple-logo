@@ -26,11 +26,17 @@ public class GridLines extends Pane {
     yAxis = new Line();
     yAxis.getStyleClass().add("axis");
 
-    changeGridType("None");
+    xAxis.setStartX(0);
+    xAxis.setStartY(TurtleCanvas.DEFAULT_CANVAS_HEIGHT / 2);
+    xAxis.setEndX(TurtleCanvas.DEFAULT_CANVAS_WIDTH);
+    xAxis.setEndY(TurtleCanvas.DEFAULT_CANVAS_HEIGHT / 2);
+
+    yAxis.setStartX(TurtleCanvas.DEFAULT_CANVAS_WIDTH / 2);
+    yAxis.setStartY(0);
+    yAxis.setEndX(TurtleCanvas.DEFAULT_CANVAS_WIDTH / 2);
+    yAxis.setEndY(TurtleCanvas.DEFAULT_CANVAS_HEIGHT);
 
     this.getChildren().addAll(xAxis, yAxis);
-
-    this.resize();
   }
 
   /**
@@ -46,25 +52,10 @@ public class GridLines extends Pane {
       yAxis.setOpacity(1);
       axesAreVisible = true;
     }
-    this.resize();
   }
 
   public boolean axesAreVisible() {
     return axesAreVisible;
   }
 
-  /**
-   * Adjusts grid lines locations and sizes to follow window size adjustments
-   */
-  public void resize() {
-    xAxis.setStartX(0);
-    xAxis.setStartY(this.getHeight() / 2);
-    xAxis.setEndX(this.getWidth());
-    xAxis.setEndY(this.getHeight() / 2);
-
-    yAxis.setStartX(this.getWidth() / 2);
-    yAxis.setStartY(0);
-    yAxis.setEndX(this.getWidth() / 2);
-    yAxis.setEndY(this.getHeight());
-  }
 }
