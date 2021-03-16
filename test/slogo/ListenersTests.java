@@ -9,9 +9,7 @@ import org.junit.jupiter.api.Test;
 import slogo.controller.Controller;
 import slogo.controller.Parser;
 import slogo.model.Turtle;
-import slogo.view.CommandHistoryBox;
 import slogo.view.MainView;
-import slogo.view.canvas.TurtleView;
 import util.DukeApplicationTest;
 
 class ListenersTests extends DukeApplicationTest {

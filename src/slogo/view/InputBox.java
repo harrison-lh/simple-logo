@@ -16,7 +16,8 @@ import javafx.scene.layout.BorderPane;
  */
 public class InputBox extends BorderPane {
 
-  public static final int BOTTOM_HEIGHT = 180;
+  private static final double WIDTH = 360;
+  public static final double BOTTOM_HEIGHT = 180;
 
   private final TextArea myInputBoxArea;
   private final Button myInputButton;
@@ -26,6 +27,9 @@ public class InputBox extends BorderPane {
    */
   public InputBox() {
     this.setId("InputBox");
+
+    this.setPrefSize(WIDTH, BOTTOM_HEIGHT);
+
     myInputBoxArea = new TextArea();
     myInputBoxArea.setId("InputBoxArea");
     myInputBoxArea.setPrefHeight(BOTTOM_HEIGHT);

@@ -26,6 +26,8 @@ import slogo.view.menubar.MenuBar;
  */
 public class MainView extends VBox {
 
+  private static final double INFO_WIDTH = 240;
+
   private MenuBar myMenuBar;
   private CanvasHolder myCanvasHolder;
   private TurtleCanvas myTurtleCanvas;
@@ -147,6 +149,7 @@ public class MainView extends VBox {
   private GridPane createInfoBoxes() {
     GridPane infoBoxes = new GridPane();
     infoBoxes.setId("InfoBoxes");
+    infoBoxes.setPrefWidth(INFO_WIDTH);
 
     myVariablesBox = new VariablesBox();
     infoBoxes.add(myVariablesBox, 0, 0);

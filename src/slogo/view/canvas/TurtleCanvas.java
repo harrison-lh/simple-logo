@@ -18,8 +18,8 @@ import slogo.view.SelectorTarget;
 public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     PropertyChangeListener {
 
-  public static final double DEFAULT_CANVAS_WIDTH = 600;
-  public static final double DEFAULT_CANVAS_HEIGHT = 400;
+  public static final double DEFAULT_CANVAS_WIDTH = 800;
+  public static final double DEFAULT_CANVAS_HEIGHT = 480;
 
   private final GridLines myGridLines;
   private final TurtleView myTurtleView;

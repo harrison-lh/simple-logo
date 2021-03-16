@@ -40,7 +40,6 @@
 }
 
 #CanvasHolder {
-  /*-fx-padding: 16px;*/
   -fx-border-width: 0px 0px 1px 0px;
   -fx-border-color: #666666;
 }
@@ -48,10 +47,6 @@
 #TurtleCanvas {
   -fx-border-color: black;
   -fx-border-radius: 1px;
-}
-
-#InfoBoxes {
-  -fx-min-width: 240px;
 }
 
 #VariablesBox {
@@ -73,8 +68,8 @@
 }
 
 #InputBox {
-  -fx-max-width: 360px;
-  -fx-max-height: 10px;
+  /*-fx-max-width: 360px;*/
+  /*-fx-max-height: 10px;*/
 }
 
 #InputButton {
