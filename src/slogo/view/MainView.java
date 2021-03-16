@@ -84,13 +84,6 @@ public class MainView extends VBox {
   }
 
   /**
-   * Adjust the size of elements when the window changes size
-   */
-  public void resizeElements() {
-    myCanvasHolder.resizeElements();
-  }
-
-  /**
    * Sets what happens when the input button is clicked and passes
    * the text from the input box to the response
    * @param response Receiver of user input

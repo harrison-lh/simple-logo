@@ -39,8 +39,8 @@
   -fx-spacing: 3px;
 }
 
-#Canvas {
-  -fx-padding: 16px;
+#CanvasHolder {
+  /*-fx-padding: 16px;*/
   -fx-border-width: 0px 0px 1px 0px;
   -fx-border-color: #666666;
 }
