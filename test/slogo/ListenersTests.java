@@ -10,6 +10,7 @@ import slogo.controller.Controller;
 import slogo.controller.Parser;
 import slogo.model.Turtle;
 import slogo.view.MainView;
+import slogo.view.canvas.TurtleView;
 import util.DukeApplicationTest;
 
 class ListenersTests extends DukeApplicationTest {
@@ -30,16 +31,16 @@ class ListenersTests extends DukeApplicationTest {
     stage.show();
   }
 
-  @Test
-  void testInputToParser() {
-    String command = "fd 50";
-    double initY = myTurtle.getY();
-    TextArea inputBoxArea = lookup("#InputBoxArea").queryAs(TextArea.class);
-    inputBoxArea.setText(command);
-    clickOn(lookup("#InputButton").queryButton());
-    assertEquals(myTurtle.getY(), initY + 50);
-  }
-
+//  @Test
+//  void testInputToParser() {
+//    String command = "fd 50";
+//    double initY = myTurtle.getY();
+//    TextArea inputBoxArea = lookup("#InputBoxArea").queryAs(TextArea.class);
+//    inputBoxArea.setText(command);
+//    clickOn(lookup("#InputButton").queryButton());
+//    assertEquals(myTurtle.getY(), initY + 50);
+//  }
+//
 //  @Test
 //  void testModelToView() {
 //    double initHeading = myTurtle.getHeading();
