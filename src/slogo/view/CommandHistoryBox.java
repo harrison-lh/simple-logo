@@ -2,8 +2,8 @@ package slogo.view;
 
 import java.util.Deque;
 import java.util.LinkedList;
-import java.util.List;
-import javafx.scene.control.Label;
+import java.util.function.Consumer;
+import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
@@ -16,6 +16,7 @@ public class CommandHistoryBox extends ScrollPane {
 
   private final VBox myContents;
   private final Deque<String> pastCommands;
+  private Consumer<String> myConsumer;
 
   /**
    * Main constructor
@@ -40,13 +41,17 @@ public class CommandHistoryBox extends ScrollPane {
 
   /**
    * Add a command to the command history
+   *
    * @param command Command to be added
    */
   public void addCommand(String command) {
-    String reformattedCommand = "> " + command.replace("\n", "\n  ");
     pastCommands.add(command);
-    Label commandLabel = new Label(reformattedCommand);
-    commandLabel.getStyleClass().add("monospace-font");
-    myContents.getChildren().add(commandLabel);
+    CommandHistoryEntry entry = new CommandHistoryEntry(command, myConsumer);
+    entry.getRectangle().widthProperty().bind(this.widthProperty().subtract(2));
+    myContents.getChildren().add(entry);
+  }
+
+  public void setExecuteCommandAction(Consumer<String> response) {
+    myConsumer = response;
   }
 }

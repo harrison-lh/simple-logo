@@ -12,8 +12,8 @@ import slogo.view.canvas.CanvasHolder;
 import slogo.view.canvas.TurtleCanvas;
 import slogo.view.canvas.TurtleView;
 import slogo.view.controller.GraphicalController;
-import slogo.view.info.InfoDisplay;
 import slogo.view.info.CommandsBox;
+import slogo.view.info.InfoDisplay;
 import slogo.view.info.VariablesBox;
 import slogo.view.menubar.MenuBar;
 
@@ -84,22 +84,28 @@ public class MainView extends VBox {
   }
 
   /**
-   * Sets what happens when the input button is clicked and passes
-   * the text from the input box to the response
+   * Sets what happens when the input button is clicked and passes the text from the input box to
+   * the response
+   *
    * @param response Receiver of user input
    */
   public void setInputAction(Consumer<String> response) {
     myInputBox.setInputAction(e -> {
       String command = myInputBox.getText();
-      try {
-        response.accept(command);
-        myInputBox.clear();
-        myCommandHistoryBox.addCommand(command);
-      }
-      catch (IllegalArgumentException | NullPointerException exception) {
-        openErrorWindow(exception);
-      }
+      executeCommand(command, response);
+      myInputBox.clear();
     });
+
+    myCommandHistoryBox.setExecuteCommandAction(command -> executeCommand(command, response));
+  }
+
+  private void executeCommand(String command, Consumer<String> consumer) {
+    try {
+      consumer.accept(command);
+      myCommandHistoryBox.addCommand(command);
+    } catch (IllegalArgumentException | NullPointerException exception) {
+      openErrorWindow(exception);
+    }
   }
 
   private void openErrorWindow(Exception exception) {
