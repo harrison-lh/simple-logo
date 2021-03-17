@@ -3,9 +3,12 @@ package slogo.view;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.function.Consumer;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  * Display box for the commands inputted by the user
@@ -24,6 +27,7 @@ public class CommandHistoryBox extends ScrollPane {
   public CommandHistoryBox() {
     this.setId("CommandHistoryBox");
     myContents = new VBox();
+    myContents.heightProperty().addListener((obs, oldV, newV) -> this.setVvalue(1));
     this.setPrefHeight(InputBox.BOTTOM_HEIGHT);
     this.setFitToWidth(true);
     this.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
