@@ -56,7 +56,6 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     createTurtle();
     // TODO: Get rid of myTurtleView instance variable
     myTurtleView = myTurtlesContainer.get(1);
-    createTurtle();
   }
 
   public TurtleView getTurtleView() {
