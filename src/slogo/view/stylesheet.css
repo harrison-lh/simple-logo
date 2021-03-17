@@ -14,7 +14,6 @@
 
 .info-tab {
   -fx-padding: 0px 6px 0px 6px;
-
   -fx-background-insets: 0 1 1 0, 1 2 0 1, 2 3 0 2;
 }
 
@@ -69,7 +68,7 @@
 }
 
 #InfoDisplay .tab-header-background {
-  -fx-background-color: #ffc2b3;
+  -fx-background-color: #ff9999;
 }
 
 #InfoDisplay .info-box {

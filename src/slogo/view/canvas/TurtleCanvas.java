@@ -2,6 +2,8 @@ package slogo.view.canvas;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -22,6 +24,7 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
   public static final double DEFAULT_CANVAS_HEIGHT = 480;
 
   private final GridLines myGridLines;
+  private final TurtlesContainer myTurtlesContainer;
   private final TurtleView myTurtleView;
   private final ViewPen myPen;
   private final Pane myPenLines;
@@ -34,10 +37,9 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     myGridLines = new GridLines();
     myGridLines.changeGridType("None");
 
-    myTurtleView = new TurtleView();
-    myTurtleView.setXCoordinate(convertXCoordinate(0));
-    myTurtleView.setYCoordinate(convertYCoordinate(0));
-    myTurtleView.setHeading(convertHeading(0));
+    myTurtlesContainer = new TurtlesContainer();
+    createTurtle();
+    myTurtleView = myTurtlesContainer.get(1);
 
     myPen = new ViewPen();
     myPenLines = new Pane();
@@ -74,6 +76,13 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     } else if (evt.getPropertyName().equals("CLEAR")) {
       clearScreen();
     }
+  }
+
+  private void createTurtle() {
+    TurtleView newTurtle = myTurtlesContainer.createTurtle();
+    newTurtle.setXCoordinate(convertXCoordinate(0));
+    newTurtle.setYCoordinate(convertYCoordinate(0));
+    newTurtle.setHeading(convertHeading(0));
   }
 
   private void setTurtleHeading(double heading) {
