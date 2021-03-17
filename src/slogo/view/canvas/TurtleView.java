@@ -50,16 +50,16 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
     return this::changeTurtleImage;
   }
 
-  public void setXCoordinate(double x) {
+  public void setPosition(double x, double y) {
     this.xCoordinate = x;
-  }
-
-  public void setYCoordinate(double y) {
     this.yCoordinate = y;
+    this.setTranslateX(TurtleCanvas.convertXCoordinate(x));
+    this.setTranslateY(TurtleCanvas.convertYCoordinate(y));
   }
 
   public void setHeading(double heading) {
     this.heading = heading;
+    this.setRotate(TurtleCanvas.convertHeading(heading));
   }
 
   public double getXCoordinate() {
