@@ -22,9 +22,22 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
   public static final double DEFAULT_CANVAS_HEIGHT = 480;
 
   private final GridLines myGridLines;
+  private final TurtlesContainer myTurtlesContainer;
   private final TurtleView myTurtleView;
   private final ViewPen myPen;
   private final Pane myPenLines;
+
+  public static double convertXCoordinate(double x) {
+    return x;
+  }
+
+  public static double convertYCoordinate(double y) {
+    return -1 * y;
+  }
+
+  public static double convertHeading(double heading) {
+    return (90 - heading);
+  }
 
   public TurtleCanvas() {
     this.setId("TurtleCanvas");
@@ -34,15 +47,15 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     myGridLines = new GridLines();
     myGridLines.changeGridType("None");
 
-    myTurtleView = new TurtleView();
-    myTurtleView.setXCoordinate(convertXCoordinate(0));
-    myTurtleView.setYCoordinate(convertYCoordinate(0));
-    myTurtleView.setHeading(convertHeading(0));
-
     myPen = new ViewPen();
     myPenLines = new Pane();
 
-    this.getChildren().addAll(myGridLines, myPenLines, myTurtleView);
+    this.getChildren().addAll(myGridLines, myPenLines);
+
+    myTurtlesContainer = new TurtlesContainer();
+    createTurtle();
+    // TODO: Get rid of myTurtleView instance variable
+    myTurtleView = myTurtlesContainer.get(1);
   }
 
   public TurtleView getTurtleView() {
@@ -76,9 +89,13 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     }
   }
 
+  private void createTurtle() {
+    TurtleView newTurtle = myTurtlesContainer.createTurtle();
+    this.getChildren().add(newTurtle);
+  }
+
   private void setTurtleHeading(double heading) {
     myTurtleView.setHeading(heading);
-    myTurtleView.setRotate(convertHeading(heading));
   }
 
   private void setTurtleLocation(Coordinates newCoordinates) {
@@ -86,11 +103,7 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
       drawLine(myTurtleView.getXCoordinate(), myTurtleView.getYCoordinate(), newCoordinates.getX(),
           newCoordinates.getY(), myPen.getColor());
     }
-
-    myTurtleView.setXCoordinate(newCoordinates.getX());
-    myTurtleView.setTranslateX(convertXCoordinate(newCoordinates.getX()));
-    myTurtleView.setYCoordinate(newCoordinates.getY());
-    myTurtleView.setTranslateY(convertYCoordinate(newCoordinates.getY()));
+    myTurtleView.setPosition(newCoordinates.getX(), newCoordinates.getY());
   }
 
   private void setTurtleVisibility(boolean visible) {
@@ -111,23 +124,7 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
 
   private void drawLine(double startX, double startY, double endX, double endY, Paint penColor) {
     PenLine penLine = new PenLine(startX, startY, endX, endY, penColor);
-    penLine.setStartX(convertXCoordinate(penLine.getStartXCoordinate()) + this.getWidth() / 2);
-    penLine.setStartY(convertYCoordinate(penLine.getStartYCoordinate()) + this.getHeight() / 2);
-    penLine.setEndX(convertXCoordinate(penLine.getEndXCoordinate()) + this.getWidth() / 2);
-    penLine.setEndY(convertYCoordinate(penLine.getEndYCoordinate()) + this.getHeight() / 2);
     myPenLines.getChildren().add(penLine);
-  }
-
-  private double convertHeading(double heading) {
-    return (90 - heading);
-  }
-
-  private double convertXCoordinate(double x) {
-    return x;
-  }
-
-  private double convertYCoordinate(double y) {
-    return -1 * y;
   }
 
   private void clearScreen() {
