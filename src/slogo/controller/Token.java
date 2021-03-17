@@ -12,5 +12,6 @@ public enum Token {
   VARIABLE,
   COMMAND,
   LIST_START,
-  LIST_END
+  GROUP_START,
+  COLLECTION_END
 }

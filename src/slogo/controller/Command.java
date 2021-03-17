@@ -18,7 +18,7 @@ public abstract class Command {
 
   private List<Command> children = new ArrayList<>();
   private int numParams = 0;
-  private boolean isListEnd = false;
+  private boolean isCollectionEnd = false;
 
 
   /**
@@ -30,12 +30,12 @@ public abstract class Command {
     children.add(child);
   }
 
-  public void setIsListEnd(boolean isListEnd){
-    this.isListEnd = isListEnd;
+  public void setIsCollectionEnd(boolean isListEnd){
+    this.isCollectionEnd = isListEnd;
   }
 
-  public boolean getIsListEnd(){
-    return isListEnd;
+  public boolean getIsCollectionEnd(){
+    return isCollectionEnd;
   }
 
   /**

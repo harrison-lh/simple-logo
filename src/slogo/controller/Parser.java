@@ -115,11 +115,14 @@ public class Parser implements SelectorTarget<String> {
         fillList(listStartCommand, innerChild);
         return listStartCommand;
       }
-      case LIST_END -> {
+      case GROUP_START -> {
+
+      }
+      case COLLECTION_END -> {
         // this case is never called in new implementation
         //System.out.println("IN LIST END: SHOULD NEVER APPEAR");
 
-        return new ListCommandTail();
+        return new CollectionCommandTail();
       }
     }
     throw new IllegalArgumentException(
@@ -129,7 +132,7 @@ public class Parser implements SelectorTarget<String> {
   private void fillList(ListCommandHead listHead, Command innerCommand)
       throws IllegalArgumentException {
     //Start Base Case
-    if (innerCommand.getIsListEnd()) {
+    if (innerCommand.getIsCollectionEnd()) {
       return;
     }
 

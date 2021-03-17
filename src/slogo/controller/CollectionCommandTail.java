@@ -2,10 +2,10 @@ package slogo.controller;
 
 import slogo.model.Turtle;
 
-public class ListCommandTail extends Command {
+public class CollectionCommandTail extends Command {
 
-  public ListCommandTail() {
-    setIsListEnd(true);
+  public CollectionCommandTail() {
+    setIsCollectionEnd(true);
   }
 
   @Override

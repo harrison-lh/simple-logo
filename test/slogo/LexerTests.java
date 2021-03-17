@@ -48,7 +48,8 @@ public class LexerTests {
     assertEquals(Token.CONSTANT, lexer.tokenize("50"));
     assertEquals(Token.VARIABLE, lexer.tokenize(":RipEmUpTearEmUpGiveEmHellDuke"));
     assertEquals(Token.LIST_START, lexer.tokenize("["));
-    assertEquals(Token.LIST_END, lexer.tokenize("]"));
+    assertEquals(Token.COLLECTION_END, lexer.tokenize("]"));
+    assertEquals(Token.COLLECTION_END, lexer.tokenize(")"));
     assertThrows(IllegalArgumentException.class, () -> {
           lexer.tokenize("fd 50");
         }
