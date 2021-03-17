@@ -179,8 +179,11 @@ public class Lexer {
           case "ListStart" -> {
             return Token.LIST_START;
           }
-          case "ListEnd" -> {
-            return Token.LIST_END;
+          case "GroupStart" -> {
+            return Token.GROUP_START;
+          }
+          case "End" -> {
+            return Token.COLLECTION_END;
           }
         }
       }

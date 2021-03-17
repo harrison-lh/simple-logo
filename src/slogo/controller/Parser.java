@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.Queue;
 import java.util.Stack;
 import java.util.function.Consumer;
+import slogo.controller.commands.GroupCommandHead;
 import slogo.controller.commands.MakeUserInstructionCommand;
 import slogo.controller.commands.UserCommand;
 import slogo.view.SelectorTarget;
@@ -116,7 +117,8 @@ public class Parser implements SelectorTarget<String> {
         return listStartCommand;
       }
       case GROUP_START -> {
-
+        GroupCommandHead groupCommandHead = new GroupCommandHead();
+        groupCommandHead.setNumParams(0);
       }
       case COLLECTION_END -> {
         // this case is never called in new implementation
@@ -127,6 +129,10 @@ public class Parser implements SelectorTarget<String> {
     }
     throw new IllegalArgumentException(
         "ILLEGAL ARGUMENT EXCEPTION: UNABLE TO TOKENIZE ARGUMENT! PLEASE VERIFY SYNTAX!");
+  }
+
+  private void fillGroup(GroupCommandHead groupHead, Command innerCommand){
+
   }
 
   private void fillList(ListCommandHead listHead, Command innerCommand)
@@ -145,8 +151,10 @@ public class Parser implements SelectorTarget<String> {
     if (tokenizedText.isEmpty()) {
       return;
     }
-
+    System.out.println("Adding Child");
     Command nextChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
+    System.out.println("Finished Adding Child");
+
 
     fillList(listHead, nextChild);
 

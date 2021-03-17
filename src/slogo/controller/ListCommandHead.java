@@ -2,22 +2,13 @@ package slogo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import slogo.controller.commands.CollectionCommandHead;
 import slogo.model.Turtle;
 
-public class ListCommandHead extends Command {
-  private List<Command> innerChildren;
+public class ListCommandHead extends CollectionCommandHead {
 
   public ListCommandHead(){
     innerChildren = new ArrayList<>();
-
-  }
-
-  public List<Command> getInnerChildren(){
-    return innerChildren;
-  }
-
-  public void addInnerChild(Command innerChild){
-    this.innerChildren.add(innerChild);
   }
 
   @Override
@@ -27,6 +18,7 @@ public class ListCommandHead extends Command {
       lastVal = child.execute(turtle);
     }
     return lastVal;
+
 
   }
 
