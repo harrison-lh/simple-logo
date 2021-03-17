@@ -26,6 +26,7 @@ public class CommandHistoryBox extends ScrollPane {
     myContents = new VBox();
     this.setPrefHeight(InputBox.BOTTOM_HEIGHT);
     this.setFitToWidth(true);
+    this.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
     pastCommands = new LinkedList<>();
 
@@ -47,7 +48,7 @@ public class CommandHistoryBox extends ScrollPane {
   public void addCommand(String command) {
     pastCommands.add(command);
     CommandHistoryEntry entry = new CommandHistoryEntry(command, myConsumer);
-    entry.getRectangle().widthProperty().bind(this.widthProperty().subtract(2));
+    entry.getRectangle().widthProperty().bind(this.widthProperty());
     myContents.getChildren().add(entry);
   }
 
