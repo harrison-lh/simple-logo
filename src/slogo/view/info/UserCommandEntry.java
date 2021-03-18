@@ -1,4 +1,4 @@
-package slogo.view;
+package slogo.view.info;
 
 import java.util.function.Consumer;
 import javafx.geometry.Pos;
@@ -6,17 +6,15 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 
-public class CommandHistoryEntry extends StackPane {
+public class UserCommandEntry extends StackPane {
 
   private final String myCommand;
   private final Label myCommandLabel;
   private final Rectangle myRectangle;
 
-  public CommandHistoryEntry(String command, Consumer<String> consumer) {
+  public UserCommandEntry(String command, Consumer<String> consumer) {
     myCommand = command;
-    String reformattedCommand = "> " + command.replace("\n", "\n  ");
-    myCommandLabel = new Label(reformattedCommand);
-    myCommandLabel.getStyleClass().add("monospace-font");
+    myCommandLabel = new Label(command);
     myRectangle = new Rectangle();
     initializeRectangle(consumer);
     this.getChildren().addAll(myCommandLabel, myRectangle);
@@ -32,6 +30,7 @@ public class CommandHistoryEntry extends StackPane {
     myRectangle.setOpacity(0);
     myRectangle.setOnMouseEntered(event -> myRectangle.setOpacity(0.2));
     myRectangle.setOnMouseExited(event -> myRectangle.setOpacity(0));
+    // TODO: figure out way to input parameters
     myRectangle.setOnMouseClicked(event -> consumer.accept(myCommand));
   }
 
