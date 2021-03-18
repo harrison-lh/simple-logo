@@ -18,8 +18,6 @@ import slogo.view.SelectorTarget;
  */
 public class CanvasHolder extends StackPane implements SelectorTarget<Color> {
 
-  private static final double CANVAS_MARGIN = 6;
-
   private final TurtleCanvas myTurtleCanvas;
 
   /**

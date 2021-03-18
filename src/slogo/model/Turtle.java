@@ -20,7 +20,14 @@ public class Turtle {
   private boolean isVisible = true;
 
   /**
-   * Default constructor for Turtle.
+   * Primary constructor for Turtle, which takes initial coordinates, a pen, and a pair of listeners
+   * and constructs a Turtle.
+   *
+   * @param coordinates The coordinate system that this Turtle will operate in
+   * @param pen The initial type of Pen that this Turtle will have
+   * @param turtleListener A listener that will report changes in this Turtle's location and other
+   *                       properties to the View TODO: CHANGE THIS!
+   * @param variablesListener A listener that will report changes in Variables TODO: CHANGE THIS TOO!
    */
   public Turtle(Coordinates coordinates, Pen pen, PropertyChangeListener turtleListener,
       PropertyChangeListener variablesListener) {
@@ -50,18 +57,6 @@ public class Turtle {
     });
   }
 
-  public Variables getVars() {
-    return vars;
-  }
-
-  public Pen getPen() {
-    return pen;
-  }
-
-  public boolean isPenActive() {
-    return pen.isPenActive();
-  }
-
   /**
    * Creates a new Turtle object given parameters of a starting position and heading.
    *
@@ -75,6 +70,18 @@ public class Turtle {
     coordinates.setX(x);
     coordinates.setY(y);
     coordinates.setHeading(heading);
+  }
+
+  public Variables getVars() {
+    return vars;
+  }
+
+  public Pen getPen() {
+    return pen;
+  }
+
+  public boolean isPenActive() {
+    return pen.isPenActive();
   }
 
   /**
@@ -107,22 +114,6 @@ public class Turtle {
         .propertyChange(new PropertyChangeEvent(this, "HEADING", heading, heading - degrees));
 
     setHeading(heading - degrees);
-  }
-
-  /**
-   * Turns the turtle to the left for a certain number of degrees. Notifies turtle listener of
-   * heading change
-   *
-   * @param degrees number of degrees the turtle will move counter-clockwise
-   */
-  public void left(double degrees) {
-
-    double heading = coordinates.getHeading();
-
-    turtleListener
-        .propertyChange(new PropertyChangeEvent(this, "HEADING", heading, heading - degrees));
-
-    setHeading(heading + degrees);
   }
 
   /**

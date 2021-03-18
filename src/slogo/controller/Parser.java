@@ -39,8 +39,8 @@ public class Parser implements SelectorTarget<String> {
    * Constructor for the Parser. Takes in a TurtleController to execute Commands on, and an initial
    * syntaxLang to be constructed with.
    *
-   * @param controller The TurtleController upon which this Parser acts
-   * @param syntaxLang The initial language for which this Parser is configured.
+   * @param controller       The TurtleController upon which this Parser acts
+   * @param syntaxLang       The initial language for which this Parser is configured.
    * @param commandsListener
    */
   public Parser(TurtleController controller, String syntaxLang,
@@ -123,7 +123,7 @@ public class Parser implements SelectorTarget<String> {
       return new MakeUserInstructionCommand(splitText.poll(), lexer);
     } else {
       try {
-        if(lexer.containsUserCommand(text)){
+        if (lexer.containsUserCommand(text)) {
           return new UserCommand(lexer.getUserCommand(text));
         }
         Class<?> commandClass = Class
@@ -185,17 +185,17 @@ public class Parser implements SelectorTarget<String> {
       Stack<Command> pendingFilledArgs = new Stack<>();
       Command rootCommand = parsedCommandQueue.poll();
       Command curCommand = rootCommand;
-      dfsHelper(pendingFilledArgs, curCommand);
+      commandQueueAssemblyHelper(pendingFilledArgs, curCommand);
 
       while (!pendingFilledArgs.isEmpty()) {
         curCommand = pendingFilledArgs.pop();
-        dfsHelper(pendingFilledArgs, curCommand);
+        commandQueueAssemblyHelper(pendingFilledArgs, curCommand);
       }
       assembledCommandQueue.add(rootCommand);
     }
   }
 
-  private void dfsHelper(Stack<Command> pendingFilledArgs, Command curCommand)
+  private void commandQueueAssemblyHelper(Stack<Command> pendingFilledArgs, Command curCommand)
       throws NullPointerException {
     while (curCommand.getNumParams() > curCommand.getChildren().size()) {
       Command childCommand = parsedCommandQueue.poll();
