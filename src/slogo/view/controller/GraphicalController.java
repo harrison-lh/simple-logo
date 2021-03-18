@@ -7,16 +7,20 @@ public class GraphicalController extends VBox {
 
   private static final double WIDTH = 100;
   private final MovementController myMovementController;
+  private final RotationController myRotationController;
 
   public GraphicalController() {
     this.setId("GraphicalController");
     this.setPrefWidth(WIDTH);
+    this.setSpacing(20);
     myMovementController = new MovementController();
-    this.getChildren().add(myMovementController);
+    myRotationController = new RotationController();
+    this.getChildren().addAll(myMovementController, myRotationController);
   }
 
   public void setExecuteCommandAction(Consumer<String> response) {
     myMovementController.setExecuteCommandActions(response);
+    myRotationController.setExecuteCommandActions(response);
   }
 
 }
