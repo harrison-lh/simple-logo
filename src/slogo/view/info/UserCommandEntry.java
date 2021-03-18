@@ -6,39 +6,20 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
+import slogo.view.ClickableEntry;
 
-public class UserCommandEntry extends StackPane {
+public class UserCommandEntry extends ClickableEntry<String> {
 
   private final String myCommand;
-  private final Label myCommandLabel;
-  private final Rectangle myRectangle;
 
   public UserCommandEntry(String command, Consumer<String> consumer) {
+    super(command, consumer);
     myCommand = command;
-    myCommandLabel = new Label(command);
-    myRectangle = new Rectangle();
-    initializeRectangle(consumer);
-    this.getChildren().addAll(myCommandLabel, myRectangle);
-    StackPane.setAlignment(myCommandLabel, Pos.TOP_LEFT);
   }
 
-  public Rectangle getRectangle() {
-    return myRectangle;
+  // TODO: figure out how to pass parameters
+  @Override
+  protected void onClick(Consumer<String> consumer) {
+    consumer.accept(myCommand);
   }
-
-  private void initializeRectangle(Consumer<String> consumer) {
-    myRectangle.heightProperty().bind(myCommandLabel.heightProperty());
-    myRectangle.setOpacity(0);
-    myRectangle.setOnMouseEntered(event -> {
-      myRectangle.setOpacity(0.2);
-      getScene().setCursor(Cursor.HAND);
-    });
-    myRectangle.setOnMouseExited(event -> {
-      myRectangle.setOpacity(0);
-      getScene().setCursor(Cursor.DEFAULT);
-    });
-    // TODO: figure out way to input parameters
-    myRectangle.setOnMouseClicked(event -> consumer.accept(myCommand));
-  }
-
 }

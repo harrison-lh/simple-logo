@@ -3,12 +3,8 @@ package slogo.view;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.function.Consumer;
-import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 /**
  * Display box for the commands inputted by the user

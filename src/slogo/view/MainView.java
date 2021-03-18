@@ -98,6 +98,7 @@ public class MainView extends VBox {
 
     myCommandHistoryBox.setExecuteCommandAction(command -> executeCommand(command, response));
     myCommandsBox.setExecuteCommandAction(command -> executeCommand(command, response));
+    myVariablesBox.setExecuteCommandAction(command -> executeCommand(command, response));
   }
 
   private void executeCommand(String command, Consumer<String> consumer) {
