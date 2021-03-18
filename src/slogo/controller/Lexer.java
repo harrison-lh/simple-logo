@@ -59,10 +59,20 @@ public class Lexer {
     this.commandsListener = commandsListener;
   }
 
+  /**
+   * Removes a user-defined command from the list of userCommands.
+   *
+   * @param name The name of the command to remove.
+   */
   public void deleteUserCommand(String name) {
     userCommands.removeIf(command -> command.getName().equals(name));
   }
 
+  /**
+   * Adds a user-defined command to the list of userCommands.
+   *
+   * @param command The command to add to the list
+   */
   public void addUserCommand(UserCommand command) {
     if (containsUserCommand(command.getName())) {
       commandsListener
@@ -77,10 +87,14 @@ public class Lexer {
     }
   }
 
+  /**
+   * Check the list of userCommands to see if it contains the user-command in question.
+   *
+   * @param name The name of the user-command.
+   * @return The presence of the user-command.
+   */
   public boolean containsUserCommand(String name) {
-
     for (UserCommand command : userCommands) {
-
       if (command.getName().equals(name)) {
         return true;
       }
@@ -88,6 +102,13 @@ public class Lexer {
     return false;
   }
 
+  /**
+   * Check the list of userCommands to see if it contains the user-command in question, and if so
+   * return it!
+   *
+   * @param name The name of the user-command.
+   * @return The UserCommand, if it exists.
+   */
   public UserCommand getUserCommand(String name) {
     for (UserCommand command : userCommands) {
       if (command.getName().equals(name)) {
