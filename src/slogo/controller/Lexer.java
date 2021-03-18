@@ -23,10 +23,10 @@ public class Lexer {
 
   private static final String RESOURCES_PACKAGE = "resources.languages.";
   private static final String SYNTAX = "Syntax";
-  private List<Entry<String, Pattern>> syntaxSymbols;
+  private final List<Entry<String, Pattern>> syntaxSymbols;
   private List<Entry<String, Pattern>> langSymbols;
-  private List<UserCommand> userCommands;
-  private PropertyChangeListener commandsListener;
+  private final List<UserCommand> userCommands;
+  private final PropertyChangeListener commandsListener;
 
   /**
    * Default constructor for Lexer. Takes no language, but has syntaxSymbols
@@ -182,6 +182,12 @@ public class Lexer {
           case "ListEnd" -> {
             return Token.LIST_END;
           }
+          case "GroupStart" -> {
+            return Token.GROUP_START;
+          }
+          case "GroupEnd" -> {
+            return Token.GROUP_END;
+          }
         }
       }
     }
@@ -205,7 +211,7 @@ public class Lexer {
     for (Entry<String, Pattern> e : langSymbols) {
       if (match(text, e.getValue())) {
         return e.getKey();
-      }  //System.out.println("Unable to find user command");
+      }
     }
     throw new IllegalArgumentException(ERROR);
   }

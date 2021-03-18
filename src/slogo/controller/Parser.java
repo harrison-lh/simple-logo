@@ -74,46 +74,16 @@ public class Parser implements SelectorTarget<String> {
   private Command patternMatchToken(Token token, String text) throws IllegalArgumentException {
     switch (token) {
       case COMMAND -> {
-        String commandType = lexer.lexLangDefinedCommands(text);
-        System.out.println(commandType);
-        if (commandType.equals("MakeUserInstruction") && tokenizedText.peek() == Token.COMMAND) {
-          tokenizedText.poll();
-          return new MakeUserInstructionCommand(splitText.poll(), lexer);
-        } else {
-          try {
-            if(lexer.containsUserCommand(text)){
-              return new UserCommand(lexer.getUserCommand(text));
-            }
-            Class<?> commandClass = Class
-                .forName("slogo.controller.commands." + commandType + "Command");
-            return (Command) commandClass.getConstructor().newInstance();
-          } catch (Exception e) {
-
-            System.err.println("LOOKUP FAILED!!!");
-            // TODO: Might be a user-defined command, so we must check those!
-            throw new IllegalArgumentException("ILLEGAL ARGUMENT EXCEPTION: COMMAND UNDEFINED!");
-          }
-        }
+        return patternMatchCommand(text);
       }
       case CONSTANT -> {
         return new ConstantCommand(Double.parseDouble(text));
       }
       case VARIABLE -> {
-        if (!controller.getTurtle().getVars().containsKey(text)) {
-          controller.getTurtle().getVars().setValue(text, 0);
-        }
-        return new VariableCommand(text);
+        return patternMatchVariable(text);
       }
       case LIST_START -> {
-        ListCommandHead listStartCommand = new ListCommandHead();
-        listStartCommand.setNumParams(0);
-        if (tokenizedText.isEmpty() || splitText.isEmpty()) {
-          throw new IllegalArgumentException(
-              "ILLEGAL ARGUMENT EXCEPTION: OPEN LIST WITHOUT CLOSURE!");
-        }
-        Command innerChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
-        fillList(listStartCommand, innerChild);
-        return listStartCommand;
+        return patternMatchListStart();
       }
       case LIST_END -> {
         // this case is never called in new implementation
@@ -124,6 +94,48 @@ public class Parser implements SelectorTarget<String> {
     }
     throw new IllegalArgumentException(
         "ILLEGAL ARGUMENT EXCEPTION: UNABLE TO TOKENIZE ARGUMENT! PLEASE VERIFY SYNTAX!");
+  }
+
+  private ListCommandHead patternMatchListStart() {
+    ListCommandHead listStartCommand = new ListCommandHead();
+    listStartCommand.setNumParams(0);
+    if (tokenizedText.isEmpty() || splitText.isEmpty()) {
+      throw new IllegalArgumentException(
+          "ILLEGAL ARGUMENT EXCEPTION: OPEN LIST WITHOUT CLOSURE!");
+    }
+    Command innerChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
+    fillList(listStartCommand, innerChild);
+    return listStartCommand;
+  }
+
+  private VariableCommand patternMatchVariable(String text) {
+    if (!controller.getTurtle().getVars().containsKey(text)) {
+      controller.getTurtle().getVars().setValue(text, 0);
+    }
+    return new VariableCommand(text);
+  }
+
+  private Command patternMatchCommand(String text) {
+    String commandType = lexer.lexLangDefinedCommands(text);
+    System.out.println(commandType);
+    if (commandType.equals("MakeUserInstruction") && tokenizedText.peek() == Token.COMMAND) {
+      tokenizedText.poll();
+      return new MakeUserInstructionCommand(splitText.poll(), lexer);
+    } else {
+      try {
+        if(lexer.containsUserCommand(text)){
+          return new UserCommand(lexer.getUserCommand(text));
+        }
+        Class<?> commandClass = Class
+            .forName("slogo.controller.commands." + commandType + "Command");
+        return (Command) commandClass.getConstructor().newInstance();
+      } catch (Exception e) {
+
+        System.err.println("LOOKUP FAILED!!!");
+        // TODO: Might be a user-defined command, so we must check those!
+        throw new IllegalArgumentException("ILLEGAL ARGUMENT EXCEPTION: COMMAND UNDEFINED!");
+      }
+    }
   }
 
   private void fillList(ListCommandHead listHead, Command innerCommand)
