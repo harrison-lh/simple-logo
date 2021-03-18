@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
@@ -16,8 +17,8 @@ import javafx.scene.layout.VBox;
 public class CommandsBox extends ScrollPane implements PropertyChangeListener {
 
   private final VBox myContents;
-  private final List<String> myUDCommandsNamesList;
-  private final List<Label> myUDCommandsTextList;
+  private final List<UserCommandEntry> myUserCommandEntries;
+  private Consumer<String> myConsumer;
 
   /**
    * Main constructor
@@ -27,8 +28,9 @@ public class CommandsBox extends ScrollPane implements PropertyChangeListener {
     myContents = new VBox();
     this.setContent(myContents);
     this.getStyleClass().add("info-box");
-    myUDCommandsNamesList = new ArrayList<>();
-    myUDCommandsTextList = new ArrayList<>();
+    this.setFitToWidth(true);
+    this.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    myUserCommandEntries = new ArrayList<>();
   }
 
   @Override
@@ -41,14 +43,18 @@ public class CommandsBox extends ScrollPane implements PropertyChangeListener {
     }
   }
 
+  public void setExecuteCommandAction(Consumer<String> response) {
+    myConsumer = response;
+  }
+
   private void updateCommand(String command) {
-    myUDCommandsTextList.get(myUDCommandsNamesList.indexOf(command)).setText(command);
+
   }
 
   private void addCommand(String command) {
-    myUDCommandsNamesList.add(command);
-    Label commandText = new Label(command);
-    myUDCommandsTextList.add(commandText);
-    myContents.getChildren().add(commandText);
+    UserCommandEntry userCommandEntry = new UserCommandEntry(command, myConsumer);
+    userCommandEntry.getRectangle().widthProperty().bind(this.widthProperty());
+    myUserCommandEntries.add(userCommandEntry);
+    myContents.getChildren().add(userCommandEntry);
   }
 }
