@@ -10,6 +10,7 @@ public class CommandHistoryEntry extends ClickableEntry<String> {
     super(consumer);
     myCommand = command;
     this.setText(reformatCommand(command));
+    this.getLabel().getStyleClass().add("monospace-font");
   }
 
   @Override

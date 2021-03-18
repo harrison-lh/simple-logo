@@ -4,6 +4,7 @@ import java.beans.PropertyChangeListener;
 import java.util.function.Consumer;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -22,7 +23,7 @@ import slogo.view.menubar.MenuBar;
  *
  * @author David Li
  */
-public class MainView extends VBox {
+public class MainView extends BorderPane {
 
   private MenuBar myMenuBar;
   private GraphicalController myGraphicalController;
@@ -39,15 +40,12 @@ public class MainView extends VBox {
    * Main constructor
    */
   public MainView() {
+    createBody();
     myMenuBar = new MenuBar();
-    this.getChildren().add(myMenuBar);
-
-    HBox body = createBody();
-    VBox.setVgrow(body, Priority.ALWAYS);
-    this.getChildren().add(body);
+    this.setTop(myMenuBar);
 
     HBox bottom = createBottom();
-    this.getChildren().add(bottom);
+    this.setBottom(bottom);
 
     connectColorSelector(myCanvasHolder, myMenuBar.getBackgroundSelector());
     connectStringSelector(myTurtleCanvas, myMenuBar.getGridSelector());
@@ -136,9 +134,7 @@ public class MainView extends VBox {
     return bottom;
   }
 
-  private HBox createBody() {
-    HBox body = new HBox();
-
+  private void createBody() {
     myGraphicalController = new GraphicalController();
 
     myCanvasHolder = new CanvasHolder();
@@ -149,10 +145,8 @@ public class MainView extends VBox {
     myVariablesBox = myInfoDisplay.getVariablesBox();
     myCommandsBox = myInfoDisplay.getCommandsBox();
 
-    HBox.setHgrow(myCanvasHolder, Priority.ALWAYS);
-
-    body.getChildren().addAll(myGraphicalController, myCanvasHolder, myInfoDisplay);
-
-    return body;
+    this.setCenter(myCanvasHolder);
+    this.setLeft(myGraphicalController);
+    this.setRight(myInfoDisplay);
   }
 }

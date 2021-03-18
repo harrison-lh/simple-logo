@@ -4,13 +4,12 @@ import java.util.function.Consumer;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 
 public abstract class ClickableEntry<T> extends StackPane {
 
-  private Label myLabel;
+  private final Label myLabel;
   private final Rectangle myRectangle;
 
   public ClickableEntry(Consumer<T> consumer) {
@@ -20,6 +19,7 @@ public abstract class ClickableEntry<T> extends StackPane {
     StackPane.setAlignment(myLabel, Pos.TOP_LEFT);
     this.getChildren().addAll(myLabel, myRectangle);
   }
+
   public ClickableEntry(String text, Consumer<T> consumer) {
     this(consumer);
     this.setText(text);
@@ -30,6 +30,10 @@ public abstract class ClickableEntry<T> extends StackPane {
   }
 
   protected abstract void onClick(Consumer<T> consumer);
+
+  protected Label getLabel() {
+    return myLabel;
+  }
 
   protected void setText(String text) {
     myLabel.setText(text);
