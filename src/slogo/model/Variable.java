@@ -19,8 +19,7 @@ public final class Variable {
     return name;
   }
 
-  @Override
-  public String toString() {
-    return name.substring(1) + " = " + value; // Remove colon
+  public double getValue() {
+    return value;
   }
 }
