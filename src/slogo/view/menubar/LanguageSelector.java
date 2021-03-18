@@ -11,19 +11,16 @@ import slogo.view.Selector;
  *
  * @author David Li
  */
-public class LanguageSelector extends VBox implements Selector<String> {
-
-  private final ComboBox<String> myComboBox;
+public class LanguageSelector extends MenuBarSelector<String> {
 
   /**
    * Main constructor
    */
   public LanguageSelector() {
-    this.setId("LanguageSelector");
-    this.getStyleClass().add("selector");
-    Label label = new Label("Language");
-    myComboBox = new ComboBox<>();
-    myComboBox.getItems()
+    super("Language", "LanguageSelector", "LanguageComboBox", new ComboBox<>());
+
+    ComboBox<String> comboBox = (ComboBox<String>) getComboBoxBase();
+    comboBox.getItems()
         .addAll("English",
             "Chinese",
             "French",
@@ -33,16 +30,6 @@ public class LanguageSelector extends VBox implements Selector<String> {
             "Russian",
             "Spanish",
             "Urdu");
-    myComboBox.getSelectionModel().selectFirst();
-
-    this.getChildren().addAll(label, myComboBox);
-  }
-
-  /**
-   * Passes the selected language to the consumer
-   */
-  @Override
-  public void setUpdateAction(Consumer<String> response) {
-    myComboBox.setOnAction(e -> response.accept(myComboBox.getValue()));
+    comboBox.getSelectionModel().selectFirst();
   }
 }
