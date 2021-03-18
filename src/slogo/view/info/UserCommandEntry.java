@@ -2,6 +2,7 @@ package slogo.view.info;
 
 import java.util.function.Consumer;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
@@ -28,8 +29,14 @@ public class UserCommandEntry extends StackPane {
   private void initializeRectangle(Consumer<String> consumer) {
     myRectangle.heightProperty().bind(myCommandLabel.heightProperty());
     myRectangle.setOpacity(0);
-    myRectangle.setOnMouseEntered(event -> myRectangle.setOpacity(0.2));
-    myRectangle.setOnMouseExited(event -> myRectangle.setOpacity(0));
+    myRectangle.setOnMouseEntered(event -> {
+      myRectangle.setOpacity(0.2);
+      getScene().setCursor(Cursor.HAND);
+    });
+    myRectangle.setOnMouseExited(event -> {
+      myRectangle.setOpacity(0);
+      getScene().setCursor(Cursor.DEFAULT);
+    });
     // TODO: figure out way to input parameters
     myRectangle.setOnMouseClicked(event -> consumer.accept(myCommand));
   }
