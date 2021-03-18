@@ -40,6 +40,7 @@ public class VariableEntry extends ClickableEntry<String> {
   }
 
   private String setVariableCommand(double newValue) {
+    // TODO: account for current language
     return "make " + myName + " " + newValue;
   }
 

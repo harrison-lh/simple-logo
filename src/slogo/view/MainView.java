@@ -95,10 +95,10 @@ public class MainView extends VBox {
       executeCommand(command, response);
       myInputBox.clear();
     });
-
     myCommandHistoryBox.setExecuteCommandAction(command -> executeCommand(command, response));
     myCommandsBox.setExecuteCommandAction(command -> executeCommand(command, response));
     myVariablesBox.setExecuteCommandAction(command -> executeCommand(command, response));
+    myGraphicalController.setExecuteCommandAction(command -> executeCommand(command, response));
   }
 
   private void executeCommand(String command, Consumer<String> consumer) {
