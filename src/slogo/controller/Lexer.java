@@ -24,9 +24,9 @@ public class Lexer {
   private static final String RESOURCES_PACKAGE = "resources.languages.";
   private static final String SYNTAX = "Syntax";
   private final List<Entry<String, Pattern>> syntaxSymbols;
-  private List<Entry<String, Pattern>> langSymbols;
   private final List<UserCommand> userCommands;
   private final PropertyChangeListener commandsListener;
+  private List<Entry<String, Pattern>> langSymbols;
 
   /**
    * Default constructor for Lexer. Takes no language, but has syntaxSymbols
@@ -59,7 +59,7 @@ public class Lexer {
     this.commandsListener = commandsListener;
   }
 
-  public void deleteUserCommand(String name){
+  public void deleteUserCommand(String name) {
     userCommands.removeIf(command -> command.getName().equals(name));
   }
 
