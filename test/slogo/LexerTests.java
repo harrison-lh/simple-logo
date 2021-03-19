@@ -17,7 +17,7 @@ public class LexerTests {
   @Test
   public void testEmptyLexer() {
     Lexer lexer = new Lexer();
-    assertEquals(8, lexer.getSyntaxSymbols().size());
+    assertEquals(7, lexer.getSyntaxSymbols().size());
     assertEquals(0, lexer.getLangSymbols().size());
   }
 
@@ -25,7 +25,7 @@ public class LexerTests {
   public void testEnglishSymbolsLoad() {
     Lexer lexer = new Lexer("English");
     // Make sure we've loaded all of the expected symbols
-    assertEquals(8, lexer.getSyntaxSymbols().size());
+    assertEquals(7, lexer.getSyntaxSymbols().size());
     assertEquals(60, lexer.getLangSymbols().size());
   }
 
@@ -33,10 +33,10 @@ public class LexerTests {
   public void testAltSymbolsReload() {
     Lexer lexer = new Lexer("English");
     // Make sure we've loaded all of the expected symbols
-    assertEquals(8, lexer.getSyntaxSymbols().size());
+    assertEquals(7, lexer.getSyntaxSymbols().size());
     assertEquals(60, lexer.getLangSymbols().size());
     lexer.setLangSymbols("Spanish");
-    assertEquals(8, lexer.getSyntaxSymbols().size());
+    assertEquals(7, lexer.getSyntaxSymbols().size());
     assertEquals(60, lexer.getLangSymbols().size());
   }
 
