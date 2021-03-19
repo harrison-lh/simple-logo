@@ -1,8 +1,8 @@
 package slogo.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import slogo.model.Palette;
+import slogo.model.Turtle;
 
 /**
  * TurtleGeneral is a delightfully named marshalling class for controlling n-Turtles by way of their
@@ -15,10 +15,15 @@ public class TurtleGeneral {
   List<TurtleController> turtleArmy;
   // TODO: Move control of Variables and UserCommands here
   Palette palette;
-  int curTurtleIndex;
+  int curTurtleId;
 
-  public TurtleGeneral() {
-    turtleArmy = new ArrayList<>();
+  public TurtleGeneral(List<TurtleController> turtleArmy) {
+    this.turtleArmy = turtleArmy;
+    palette = new Palette();
+    curTurtleId = 0;
   }
 
+  public void conscriptTurtleController(TurtleController recruitController) {
+    turtleArmy.add(recruitController.getTurtle().getId(), recruitController);
+  }
 }

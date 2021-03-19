@@ -18,19 +18,22 @@ public class Turtle {
   private Variables vars;
   private PropertyChangeListener turtleListener;
   private boolean isVisible = true;
+  private int id;
 
   /**
    * Primary constructor for Turtle, which takes initial coordinates, a pen, and a pair of listeners
    * and constructs a Turtle.
    *
+   * @param id          The id of this Turtle
    * @param coordinates The coordinate system that this Turtle will operate in
    * @param pen The initial type of Pen that this Turtle will have
    * @param turtleListener A listener that will report changes in this Turtle's location and other
    *                       properties to the View TODO: CHANGE THIS!
    * @param variablesListener A listener that will report changes in Variables TODO: CHANGE THIS TOO!
    */
-  public Turtle(Coordinates coordinates, Pen pen, PropertyChangeListener turtleListener,
+  public Turtle(int id, Coordinates coordinates, Pen pen, PropertyChangeListener turtleListener,
       PropertyChangeListener variablesListener) {
+    this.id = id;
     this.coordinates = coordinates;
     this.pen = pen;
     this.vars = new Variables(variablesListener);
@@ -51,8 +54,8 @@ public class Turtle {
   /**
    * Constructor with no listeners attached
    */
-  public Turtle(Coordinates coordinates, Pen pen) {
-    this(coordinates, pen, evt -> {
+  public Turtle(int id, Coordinates coordinates, Pen pen) {
+    this(id, coordinates, pen, evt -> {
     }, evt -> {
     });
   }
@@ -60,16 +63,22 @@ public class Turtle {
   /**
    * Creates a new Turtle object given parameters of a starting position and heading.
    *
+   * @param id      id number
    * @param x       X coordinate
    * @param y       Y coordinate
    * @param heading direction turtle is facing relative to positive x-axis
    */
 
-  public Turtle(Coordinates coordinates, double x, double y, double heading) {
+  public Turtle(int id, Coordinates coordinates, double x, double y, double heading) {
+    this.id = id;
     this.coordinates = coordinates;
     coordinates.setX(x);
     coordinates.setY(y);
     coordinates.setHeading(heading);
+  }
+
+  public int getId() {
+    return id;
   }
 
   public Variables getVars() {
