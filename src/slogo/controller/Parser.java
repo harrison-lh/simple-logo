@@ -191,6 +191,7 @@ public class Parser implements SelectorTarget<String> {
       throw new IllegalArgumentException(
           "ILLEGAL ARGUMENT EXCEPTION: OPEN LIST WITHOUT CLOSURE!");
     }
+
     Command nextChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
 
 
@@ -206,6 +207,13 @@ public class Parser implements SelectorTarget<String> {
 
       Command grandChild = patternMatchToken(Objects.requireNonNull(tokenizedText.poll()),
           splitText.poll());
+
+      //System.out.println(grandChild);
+
+      if(grandChild.getIsCollectionEnd()){
+        throw new IllegalArgumentException(
+            "ILLEGAL ARGUMENT EXCEPTION: CHECK YOUR ARGUMENT COUNT!!!");
+      }
       innerCommand.addChild(grandChild);
       if (grandChild.getNumParams() > 0) {
         grandChildHandler(grandChild);

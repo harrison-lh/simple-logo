@@ -700,4 +700,13 @@ public class ParserTests {
     assertEquals(turtle.getY(), initY + 100);
   }
 
+  @Test
+  public void testGroupIncompleteArgsError(){
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+          parser.parseCommandString("( set :x 100 :y 200 :z )");
+        }
+    );
+    System.out.println(exception.getMessage());
+  }
+
 }

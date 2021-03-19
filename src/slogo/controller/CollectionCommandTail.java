@@ -12,4 +12,10 @@ public class CollectionCommandTail extends Command {
   protected double executeCommand(Turtle turtle) {
     return 0;
   }
+
+
+  @Override
+  public String toString(){
+    return "CollectionCommandTail";
+  }
 }
