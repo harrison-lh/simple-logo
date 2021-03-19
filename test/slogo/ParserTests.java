@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import slogo.controller.Parser;
 import slogo.controller.TurtleController;
+import slogo.controller.TurtleGeneral;
 import slogo.model.GridCoordinates;
 import slogo.model.ModelPen;
 import slogo.model.Turtle;
@@ -21,13 +22,15 @@ import slogo.model.Turtle;
 public class ParserTests {
   private Turtle turtle;
   private TurtleController controller;
+  private TurtleGeneral turtleGeneral;
   private Parser parser;
 
   @BeforeEach
   public void setup() {
     turtle = new Turtle(0, new GridCoordinates(), new ModelPen());
     controller = new TurtleController(turtle);
-    parser = new Parser(controller, "English");
+    turtleGeneral = new TurtleGeneral(controller);
+    parser = new Parser(turtleGeneral, "English");
   }
 
   @Test

@@ -21,7 +21,7 @@ public class TurtleGeneral {
   private final List<TurtleController> turtleArmy;
   // TODO: Move control of Variables and UserCommands here
   public static Palette palette;
-  private List<Integer> activeTurtleIds;
+  private final List<Integer> activeTurtleIds;
 
   public TurtleGeneral(List<TurtleController> turtleArmy) {
     this.turtleArmy = turtleArmy;
@@ -60,5 +60,9 @@ public class TurtleGeneral {
   public void setActiveTurtles(List<Integer> activeTurtleIds) {
     this.activeTurtleIds.clear();
     this.activeTurtleIds.addAll(activeTurtleIds);
+  }
+
+  public List<TurtleController> getTurtleArmy() {
+    return turtleArmy;
   }
 }
