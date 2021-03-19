@@ -13,7 +13,7 @@ import slogo.view.MainView;
 
 public class Controller {
 
-  public static final String DEFAULT_LANGUAGE = "French";
+  public static final String DEFAULT_LANGUAGE = "English";
 
   private final MainView myMainView;
   private final Parser myParser;
