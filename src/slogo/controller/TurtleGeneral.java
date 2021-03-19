@@ -1,6 +1,12 @@
 package slogo.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import slogo.model.GridCoordinates;
+import slogo.model.ModelPen;
 import slogo.model.Palette;
 import slogo.model.Turtle;
 
@@ -15,12 +21,24 @@ public class TurtleGeneral {
   private final List<TurtleController> turtleArmy;
   // TODO: Move control of Variables and UserCommands here
   public static Palette palette;
-  private int activeTurtleId;
+  private List<Integer> activeTurtleIds;
 
   public TurtleGeneral(List<TurtleController> turtleArmy) {
     this.turtleArmy = turtleArmy;
     palette = new Palette();
-    activeTurtleId = 0;
+    activeTurtleIds = new ArrayList<>();
+    for(TurtleController curController : turtleArmy) {
+      activeTurtleIds.add(curController.getTurtle().getId());
+    }
+  }
+
+  public TurtleGeneral(TurtleController turtleConscript) {
+    this.turtleArmy = List.of(turtleConscript);
+    palette = new Palette();
+    activeTurtleIds = new ArrayList<>();
+    for(TurtleController curController : turtleArmy) {
+      activeTurtleIds.add(curController.getTurtle().getId());
+    }
   }
 
   public void conscriptTurtle(Turtle recruitTurtle) {
@@ -35,11 +53,12 @@ public class TurtleGeneral {
     return palette;
   }
 
-  public int getActiveTurtleId() {
-    return activeTurtleId;
+  public List<Integer> getActiveTurtleIds() {
+    return activeTurtleIds;
   }
 
-  public void setActiveTurtleId(int activeTurtleId) {
-    this.activeTurtleId = activeTurtleId;
+  public void setActiveTurtles(List<Integer> activeTurtleIds) {
+    this.activeTurtleIds.clear();
+    this.activeTurtleIds.addAll(activeTurtleIds);
   }
 }
