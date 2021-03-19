@@ -23,7 +23,11 @@ public class TurtleGeneral {
     curTurtleId = 0;
   }
 
-  public void conscriptTurtleController(TurtleController recruitController) {
-    turtleArmy.add(recruitController.getTurtle().getId(), recruitController);
+  public void conscriptTurtle(Turtle recruitTurtle) {
+    if(turtleArmy.size() < recruitTurtle.getId()) {
+      for(int i = turtleArmy.size(); i <= recruitTurtle.getId(); i++) {
+        // TODO: Implement turtle conscription behavior (REQUIRES FIXED LISTENERS)
+      }
+    }
   }
 }
