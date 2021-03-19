@@ -683,9 +683,18 @@ public class ParserTests {
   }
 
   @Test
-  public void testBasicGroup(){
+  public void testBasicFdGroup(){
     double initY = turtle.getY();
     parser.parseCommandString("( fd 10 20 30 40 )");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 100);
+  }
+
+  @Test
+  public void testBasicSumGroup(){
+    double initY = turtle.getY();
+    parser.parseCommandString("fd ( sum 10 20 30 40 )");
     controller.setIsAllowedToExecute(true);
     controller.runCommands();
     assertEquals(turtle.getY(), initY + 100);

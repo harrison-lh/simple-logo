@@ -42,7 +42,7 @@ public class GroupCommandHead extends Command {
       for(Command command : commandList){
         groupHeader.addChild(command);
       }
-      retVal = groupHeader.execute(turtle);
+      retVal += groupHeader.execute(turtle);
 
     }
     return retVal;
