@@ -70,7 +70,7 @@ public class MenuBar extends HBox {
     return myPenSelector;
   }
 
-  public Selector<String> getLanguageSelector() {
+  public LanguageSelector getLanguageSelector() {
     return myLanguageSelector;
   }
 

@@ -1,7 +1,10 @@
 package slogo.view.controller;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.function.Consumer;
 import javafx.scene.layout.VBox;
+import slogo.view.LanguageConsumer;
 
 public class GraphicalController extends VBox {
 
@@ -21,6 +24,10 @@ public class GraphicalController extends VBox {
   public void setExecuteCommandAction(Consumer<String> response) {
     myMovementController.setExecuteCommandActions(response);
     myRotationController.setExecuteCommandActions(response);
+  }
+
+  public LanguageConsumer[] getLanguageConsumers() {
+    return new LanguageConsumer[]{myMovementController};
   }
 
 }

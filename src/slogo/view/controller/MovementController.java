@@ -1,5 +1,6 @@
 package slogo.view.controller;
 
+import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -8,12 +9,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import slogo.controller.Controller;
+import slogo.controller.Lexer;
+import slogo.view.LanguageConsumer;
 
-public class MovementController extends VBox {
+public class MovementController extends VBox implements LanguageConsumer {
 
   private final TextField myInputArea;
   private final Button myForwardButton;
   private final Button myBackButton;
+  private String language = Controller.DEFAULT_LANGUAGE;
 
   public MovementController() {
     this.setSpacing(4);
@@ -34,8 +39,19 @@ public class MovementController extends VBox {
 
   public void setExecuteCommandActions(Consumer<String> response) {
     // TODO: retrieve commands in current language
-    myForwardButton.setOnAction(e -> executeCommand(response, "fd"));
-    myBackButton.setOnAction(e -> executeCommand(response, "bk"));
+    myForwardButton.setOnAction(e -> executeCommand(response, translateCommand("Forward")));
+    myBackButton.setOnAction(e -> executeCommand(response, translateCommand("Backward")));
+  }
+
+  @Override
+  public Consumer<String> languageConsumer() {
+    return newLanguage -> language = newLanguage;
+  }
+
+  private String translateCommand(String command) {
+    ResourceBundle langResources = ResourceBundle.getBundle(Lexer.RESOURCES_PACKAGE + language);
+    String translatedCommand = langResources.getString(command);
+    return translatedCommand.substring(0, translatedCommand.indexOf('|'));
   }
 
   private void executeCommand(Consumer<String> response, String command) {
