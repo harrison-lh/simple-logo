@@ -150,20 +150,20 @@ public class Parser implements SelectorTarget<String> {
 
     Command innerCommand = patternMatchToken(tokenizedText.poll(), splitText.poll());
 
-    while(!innerCommand.getIsCollectionEnd()){
+    while(!innerCommand.getIsCollectionEnd() && !tokenizedText.isEmpty()){
 
       groupHead.addNewHeaderChildrenList();
 
       for(int i = 0; i < groupHead.getGroupHeader().getNumParams(); i ++){
 
         grandChildHandler(innerCommand);
+        groupHead.addNewHeaderChild(innerCommand);
 
         if (tokenizedText.isEmpty()) {
           throw new IllegalArgumentException(
               "ILLEGAL ARGUMENT EXCEPTION: OPEN GROUP WITHOUT CLOSURE!");
         }
 
-        groupHead.addNewHeaderChild(innerCommand);
         innerCommand = patternMatchToken(tokenizedText.poll(), splitText.poll());
       }
     }

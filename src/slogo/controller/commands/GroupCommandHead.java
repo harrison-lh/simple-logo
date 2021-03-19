@@ -35,6 +35,14 @@ public class GroupCommandHead extends Command {
 
   @Override
   protected double executeCommand(Turtle turtle) {
-    return 0;
+    double retVal = 0;
+    for(List<Command> commandList : headerChildren){
+      groupHeader.clearChildren();
+      for(Command command : commandList){
+        groupHeader.addChild(command);
+      }
+      retVal = groupHeader.execute(turtle);
+    }
+    return retVal;
   }
 }
