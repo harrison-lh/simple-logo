@@ -5,10 +5,24 @@ import java.util.List;
 import slogo.controller.commands.CollectionCommandHead;
 import slogo.model.Turtle;
 
-public class ListCommandHead extends CollectionCommandHead {
+public class ListCommandHead extends Command {
 
   public ListCommandHead(){
     innerChildren = new ArrayList<>();
+  }
+
+  protected List<Command> innerChildren;
+
+
+
+
+
+  public List<Command> getInnerChildren(){
+    return innerChildren;
+  }
+
+  public void addInnerChild(Command innerChild){
+    this.innerChildren.add(innerChild);
   }
 
   @Override

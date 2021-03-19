@@ -34,6 +34,10 @@ public abstract class Command {
     this.isCollectionEnd = isListEnd;
   }
 
+  public void clearChildren(){
+    children.clear();
+  }
+
   public boolean getIsCollectionEnd(){
     return isCollectionEnd;
   }

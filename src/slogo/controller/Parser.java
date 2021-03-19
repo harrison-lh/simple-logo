@@ -119,6 +119,16 @@ public class Parser implements SelectorTarget<String> {
       case GROUP_START -> {
         GroupCommandHead groupCommandHead = new GroupCommandHead();
         groupCommandHead.setNumParams(0);
+        if (tokenizedText.isEmpty() || splitText.isEmpty()) {
+          throw new IllegalArgumentException(
+              "ILLEGAL ARGUMENT EXCEPTION: OPEN GROUP WITHOUT CLOSURE!");
+        }
+        Command groupHeader = patternMatchToken(tokenizedText.poll(), splitText.poll());
+        groupCommandHead.setGroupHeader(groupHeader);
+
+        fillGroup(groupCommandHead);
+
+
       }
       case COLLECTION_END -> {
         // this case is never called in new implementation
@@ -131,7 +141,38 @@ public class Parser implements SelectorTarget<String> {
         "ILLEGAL ARGUMENT EXCEPTION: UNABLE TO TOKENIZE ARGUMENT! PLEASE VERIFY SYNTAX!");
   }
 
-  private void fillGroup(GroupCommandHead groupHead, Command innerCommand){
+  private void fillGroup(GroupCommandHead groupHead){
+
+    if (tokenizedText.isEmpty()) {
+      throw new IllegalArgumentException(
+          "ILLEGAL ARGUMENT EXCEPTION: OPEN GROUP WITHOUT CLOSURE!");
+    }
+
+    Command innerCommand = patternMatchToken(tokenizedText.poll(), splitText.poll());
+
+    while(!innerCommand.getIsCollectionEnd()){
+
+      groupHead.addNewHeaderChildrenList();
+
+      for(int i = 0; i < groupHead.getGroupHeader().getNumParams(); i ++){
+
+        grandChildHandler(innerCommand);
+
+        if (tokenizedText.isEmpty()) {
+          throw new IllegalArgumentException(
+              "ILLEGAL ARGUMENT EXCEPTION: OPEN GROUP WITHOUT CLOSURE!");
+        }
+
+        groupHead.addNewHeaderChild(innerCommand);
+        innerCommand = patternMatchToken(tokenizedText.poll(), splitText.poll());
+      }
+    }
+
+
+
+
+
+
 
   }
 
@@ -149,11 +190,10 @@ public class Parser implements SelectorTarget<String> {
     grandChildHandler(innerCommand);
 
     if (tokenizedText.isEmpty()) {
-      return;
+      throw new IllegalArgumentException(
+          "ILLEGAL ARGUMENT EXCEPTION: OPEN LIST WITHOUT CLOSURE!");
     }
-    System.out.println("Adding Child");
     Command nextChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
-    System.out.println("Finished Adding Child");
 
 
     fillList(listHead, nextChild);

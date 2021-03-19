@@ -1,14 +1,37 @@
 package slogo.controller.commands;
 
 import java.util.ArrayList;
+import java.util.List;
 import slogo.controller.Command;
 import slogo.model.Turtle;
 
-public class GroupCommandHead extends CollectionCommandHead {
+public class GroupCommandHead extends Command {
+
+  private Command groupHeader;
+  private List<List<Command>> headerChildren;
 
   public GroupCommandHead(){
-    innerChildren = new ArrayList<>();
+    headerChildren = new ArrayList<>();
   }
+
+  public void addNewHeaderChildrenList(){
+    headerChildren.add(new ArrayList<>());
+  }
+
+  public void addNewHeaderChild(Command command){
+    headerChildren.get(headerChildren.size() - 1).add(command);
+  }
+
+
+  public void setGroupHeader(Command groupHeader){
+    this.groupHeader = groupHeader;
+  }
+
+  public Command getGroupHeader(){
+    return groupHeader;
+  }
+
+
 
   @Override
   protected double executeCommand(Turtle turtle) {
