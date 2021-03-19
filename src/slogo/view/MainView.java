@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import slogo.model.Coordinates;
 import slogo.view.canvas.CanvasHolder;
 import slogo.view.canvas.TurtleCanvas;
 import slogo.view.canvas.TurtleView;
@@ -49,7 +50,6 @@ public class MainView extends BorderPane {
 
     connectColorSelector(myCanvasHolder, myMenuBar.getBackgroundSelector());
     connectStringSelector(myTurtleCanvas, myMenuBar.getGridSelector());
-    connectStringSelector(myTurtleView, myMenuBar.getTurtleSelector());
     connectColorSelector(myTurtleCanvas.getPen(), myMenuBar.getPenSelector());
   }
 
@@ -139,7 +139,7 @@ public class MainView extends BorderPane {
 
     myCanvasHolder = new CanvasHolder();
     myTurtleCanvas = myCanvasHolder.getTurtleCanvas();
-    myTurtleView = myCanvasHolder.getTurtleView();
+    //myTurtleView = myCanvasHolder.getTurtleView();
 
     myInfoDisplay = new InfoDisplay();
     myVariablesBox = myInfoDisplay.getVariablesBox();
@@ -148,5 +148,15 @@ public class MainView extends BorderPane {
     this.setCenter(myCanvasHolder);
     this.setLeft(myGraphicalController);
     this.setRight(myInfoDisplay);
+  }
+
+  /**
+   *
+   * @param coordinates
+   */
+  public void createTurtle(Coordinates coordinates) {
+    myTurtleCanvas.createTurtle(coordinates);
+    myTurtleView = myCanvasHolder.getTurtleView();
+    connectStringSelector(myTurtleView, myMenuBar.getTurtleSelector());
   }
 }

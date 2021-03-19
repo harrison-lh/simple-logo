@@ -36,25 +36,23 @@ public class Turtle {
     this.vars = new Variables(variablesListener);
     this.turtleListener = turtleListener;
 
-    turtleListener
-        .propertyChange(
-            new PropertyChangeEvent(this, "LOCATION", this.coordinates, this.coordinates));
-    turtleListener
-        .propertyChange(
-            new PropertyChangeEvent(this, "HEADING", this.coordinates.getHeading(),
-                this.coordinates.getHeading()));
-    turtleListener
-        .propertyChange(
-            new PropertyChangeEvent(this, "VISIBILITY", this.isVisible, this.isVisible));
+//    turtleListener
+//        .propertyChange(
+//            new PropertyChangeEvent(this, "LOCATION", this.coordinates, this.coordinates));
+//    turtleListener
+//        .propertyChange(
+//            new PropertyChangeEvent(this, "HEADING", this.coordinates.getHeading(),
+//                this.coordinates.getHeading()));
+//    turtleListener
+//        .propertyChange(
+//            new PropertyChangeEvent(this, "VISIBILITY", this.isVisible, this.isVisible));
   }
 
   /**
    * Constructor with no listeners attached
    */
   public Turtle(Coordinates coordinates, Pen pen) {
-    this(coordinates, pen, evt -> {
-    }, evt -> {
-    });
+    this(coordinates, pen, evt -> {}, evt -> {});
   }
 
   /**
@@ -215,5 +213,14 @@ public class Turtle {
    */
   public void clearScreen() {
     turtleListener.propertyChange(new PropertyChangeEvent(this, "CLEAR", null, null));
+  }
+
+  /**
+   * Getter method for the coordinates object of the turtle.
+   *
+   * @return The coordinates object
+   */
+  public Coordinates getCoordinates() {
+    return coordinates;
   }
 }

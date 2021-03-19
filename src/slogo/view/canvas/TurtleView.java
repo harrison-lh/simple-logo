@@ -1,8 +1,11 @@
 package slogo.view.canvas;
 
 import java.util.function.Consumer;
+import javafx.beans.property.DoubleProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import slogo.model.Coordinates;
+import slogo.model.GridCoordinates;
 import slogo.view.SelectorTarget;
 
 /**
@@ -18,9 +21,10 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
   private static final double HEIGHT = 40;
 
   private Image myTurtleImage;
-  private double xCoordinate;
-  private double yCoordinate;
+//  private double xCoordinate;
+//  private double yCoordinate;
   private double heading;
+  private Coordinates coordinates;
 
   /**
    * Main constructor
@@ -32,6 +36,16 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
     this.setPreserveRatio(true);
     this.setSmooth(true);
     this.setCache(true);
+    coordinates = new GridCoordinates();
+  }
+
+  /**
+   * Constructor with Coordinates object.
+   */
+  public TurtleView(Coordinates coordinates) {
+    super();
+    setPosition(coordinates.getX(), coordinates.getY());
+    this.coordinates = coordinates;
   }
 
   /**
@@ -51,27 +65,35 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
   }
 
   public void setPosition(double x, double y) {
-    this.xCoordinate = x;
-    this.yCoordinate = y;
+    coordinates.setX(x);
+    coordinates.setY(y);
     this.setTranslateX(TurtleCanvas.convertXCoordinate(x));
     this.setTranslateY(TurtleCanvas.convertYCoordinate(y));
   }
 
   public void setHeading(double heading) {
-    this.heading = heading;
+    coordinates.setHeading(heading);
     this.setRotate(TurtleCanvas.convertHeading(heading));
   }
 
   public double getXCoordinate() {
-    return xCoordinate;
+    return coordinates.getX();
   }
 
   public double getYCoordinate() {
-    return yCoordinate;
+    return coordinates.getY();
   }
 
   public double getHeading() {
-    return heading;
+    return coordinates.getHeading();
+  }
+
+  public DoubleProperty headingProperty() {
+    return coordinates.headValProperty();
+  }
+
+  public Coordinates getCoordinates() {
+    return coordinates;
   }
 
   private void changeTurtleImage(String turtleImage) {

@@ -1,5 +1,8 @@
 package slogo.model;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
+
 /**
  * An interface that defines the properties of an object that has Coordinates.
  * <p>
@@ -9,7 +12,7 @@ package slogo.model;
  * @author Marc Chmielewski
  * @author Cole Spector
  */
-public abstract class Coordinates {
+public abstract class Coordinates extends SimpleObjectProperty<Coordinates> {
 
   protected static final double MAX_DEGREES = 360;
   protected static final double DEFAULT_X = 0;
@@ -70,4 +73,11 @@ public abstract class Coordinates {
    * @param heading The new heading of the object in degrees.
    */
   public abstract void setHeading(double heading);
+
+  /**
+   *
+   * @return
+   */
+  public abstract DoubleProperty headValProperty();
+
 }

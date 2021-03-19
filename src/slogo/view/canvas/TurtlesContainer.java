@@ -2,6 +2,7 @@ package slogo.view.canvas;
 
 import java.util.ArrayList;
 import java.util.List;
+import slogo.model.Coordinates;
 
 public class TurtlesContainer {
 
@@ -11,7 +12,7 @@ public class TurtlesContainer {
     myTurtleViews = new ArrayList<>();
   }
 
-  public TurtleView createTurtle() {
+  public TurtleView createTurtle(Coordinates coordinates) {
     TurtleView newTurtle = new TurtleView();
     myTurtleViews.add(newTurtle);
     return newTurtle;

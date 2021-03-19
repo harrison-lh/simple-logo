@@ -1,13 +1,23 @@
 package slogo.model;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+
 public class GridCoordinates extends Coordinates {
+
+  private DoubleProperty xVal;
+  private DoubleProperty yVal;
+  private DoubleProperty headVal;
 
   public GridCoordinates(double x, double y, double heading) {
     super(x, y, heading);
+    xVal = new SimpleDoubleProperty(x);
+    yVal = new SimpleDoubleProperty(y);
+    headVal = new SimpleDoubleProperty(heading);
   }
 
   public GridCoordinates() {
-    super();
+    this(DEFAULT_X, DEFAULT_Y, DEFAULT_HEADING);
   }
 
   public GridCoordinates(Coordinates coordinates) {
@@ -16,43 +26,48 @@ public class GridCoordinates extends Coordinates {
 
   @Override
   public double getX() {
-    return xPos;
+    return xVal.get();
   }
 
   @Override
   public void setX(double x) {
-    xPos = x;
+    xVal.set(x);
+  }
+
+  public DoubleProperty xValProperty() {
+    return xVal;
   }
 
   @Override
   public double getY() {
-    return yPos;
+    return yVal.get();
   }
 
   @Override
   public void setY(double y) {
-    yPos = y;
+    yVal.set(y);
+  }
+
+  public DoubleProperty yValProperty() {
+    return yVal;
   }
 
   @Override
   public double getHeading() {
-    return heading;
+    return headVal.get();
   }
 
   @Override
   public void setHeading(double heading) {
-
-    if (heading > MAX_DEGREES) {
+    if (heading > MAX_DEGREES || heading < 0) {
       heading = heading % MAX_DEGREES;
+      if (heading < 0) heading += MAX_DEGREES;
     }
+    headVal.set(heading);
+  }
 
-    if (heading < 0) {
-      while (heading < 0) {
-        heading += MAX_DEGREES;
-      }
-    }
-
-    this.heading = heading;
-
+  @Override
+  public DoubleProperty headValProperty() {
+    return headVal;
   }
 }

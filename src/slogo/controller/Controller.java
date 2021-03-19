@@ -27,7 +27,9 @@ public class Controller {
     myMainView = new MainView();
     myTurtle = new Turtle(new GridCoordinates(), new ModelPen(),
         myMainView.getTurtleListener(), myMainView.getVariablesListener());
+    myMainView.createTurtle(myTurtle.getCoordinates());
     myTurtleController = new TurtleController(myTurtle);
+
     myParser = new Parser(myTurtleController, DEFAULT_LANGUAGE, myMainView.getCommandsListener());
 
     // Input button action

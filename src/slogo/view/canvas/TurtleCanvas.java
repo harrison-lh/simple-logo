@@ -3,6 +3,8 @@ package slogo.view.canvas;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.function.Consumer;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
@@ -23,7 +25,7 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
 
   private final GridLines myGridLines;
   private final TurtlesContainer myTurtlesContainer;
-  private final TurtleView myTurtleView;
+  private TurtleView myTurtleView;
   private final ViewPen myPen;
   private final Pane myPenLines;
 
@@ -53,9 +55,9 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     this.getChildren().addAll(myGridLines, myPenLines);
 
     myTurtlesContainer = new TurtlesContainer();
-    createTurtle();
+    //createTurtle();
     // TODO: Get rid of myTurtleView instance variable
-    myTurtleView = myTurtlesContainer.get(1);
+    //myTurtleView = myTurtlesContainer.get(1);
   }
 
   public TurtleView getTurtleView() {
@@ -89,9 +91,24 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     }
   }
 
-  private void createTurtle() {
-    TurtleView newTurtle = myTurtlesContainer.createTurtle();
+  /**
+   *
+   * @param coordinates
+   */
+  public void createTurtle(Coordinates coordinates) {
+    TurtleView newTurtle = myTurtlesContainer.createTurtle(coordinates);
+
+    newTurtle.headingProperty().addListener((observable, oldValue, newValue) -> {
+      setTurtleHeading((Double) newValue);
+    });
+    newTurtle.getCoordinates().addListener(((observable, oldValue, newValue) -> {
+      setTurtleLocation(newValue);
+    }));
+
+
     this.getChildren().add(newTurtle);
+    myTurtleView = newTurtle;
+
   }
 
   private void setTurtleHeading(double heading) {
