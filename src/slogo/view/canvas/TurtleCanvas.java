@@ -78,11 +78,7 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
 
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
-    if (evt.getPropertyName().equals("LOCATION")) {
-      setTurtleLocation((Coordinates) evt.getNewValue());
-    } else if (evt.getPropertyName().equals("HEADING")) {
-      setTurtleHeading((Double) evt.getNewValue());
-    } else if (evt.getPropertyName().equals("VISIBILITY")) {
+    if (evt.getPropertyName().equals("VISIBILITY")) {
       setTurtleVisibility((Boolean) evt.getNewValue());
     } else if (evt.getPropertyName().equals("PEN")) {
       setPenActive((Boolean) evt.getNewValue());

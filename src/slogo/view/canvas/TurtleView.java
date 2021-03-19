@@ -21,9 +21,6 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
   private static final double HEIGHT = 40;
 
   private Image myTurtleImage;
-//  private double xCoordinate;
-//  private double yCoordinate;
-  private double heading;
   private Coordinates coordinates;
 
   /**
