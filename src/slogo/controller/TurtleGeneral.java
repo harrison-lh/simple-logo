@@ -12,15 +12,15 @@ import slogo.model.Turtle;
  * @author Marc Chmielewski
  */
 public class TurtleGeneral {
-  List<TurtleController> turtleArmy;
+  private final List<TurtleController> turtleArmy;
   // TODO: Move control of Variables and UserCommands here
-  Palette palette;
-  int curTurtleId;
+  public static Palette palette;
+  private int activeTurtleId;
 
   public TurtleGeneral(List<TurtleController> turtleArmy) {
     this.turtleArmy = turtleArmy;
     palette = new Palette();
-    curTurtleId = 0;
+    activeTurtleId = 0;
   }
 
   public void conscriptTurtle(Turtle recruitTurtle) {
@@ -29,5 +29,17 @@ public class TurtleGeneral {
         // TODO: Implement turtle conscription behavior (REQUIRES FIXED LISTENERS)
       }
     }
+  }
+
+  public Palette getPalette() {
+    return palette;
+  }
+
+  public int getActiveTurtleId() {
+    return activeTurtleId;
+  }
+
+  public void setActiveTurtleId(int activeTurtleId) {
+    this.activeTurtleId = activeTurtleId;
   }
 }
