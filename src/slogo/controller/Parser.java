@@ -128,18 +128,19 @@ public class Parser implements SelectorTarget<String> {
 
         fillGroup(groupCommandHead);
 
+        return groupCommandHead;
+
 
       }
       case COLLECTION_END -> {
-        // this case is never called in new implementation
-        //System.out.println("IN LIST END: SHOULD NEVER APPEAR");
-
         return new CollectionCommandTail();
       }
     }
     throw new IllegalArgumentException(
         "ILLEGAL ARGUMENT EXCEPTION: UNABLE TO TOKENIZE ARGUMENT! PLEASE VERIFY SYNTAX!");
   }
+
+
 
   private void fillGroup(GroupCommandHead groupHead){
 
@@ -152,11 +153,14 @@ public class Parser implements SelectorTarget<String> {
 
     while(!innerCommand.getIsCollectionEnd() && !tokenizedText.isEmpty()){
 
+      //System.out.println("Adding Children List");
       groupHead.addNewHeaderChildrenList();
 
       for(int i = 0; i < groupHead.getGroupHeader().getNumParams(); i ++){
 
+        //System.out.println("Handling GrandChildren");
         grandChildHandler(innerCommand);
+        //System.out.println("Done Handling GrandChildren");
         groupHead.addNewHeaderChild(innerCommand);
 
         if (tokenizedText.isEmpty()) {
@@ -167,12 +171,6 @@ public class Parser implements SelectorTarget<String> {
         innerCommand = patternMatchToken(tokenizedText.poll(), splitText.poll());
       }
     }
-
-
-
-
-
-
 
   }
 

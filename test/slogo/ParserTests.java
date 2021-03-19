@@ -682,4 +682,13 @@ public class ParserTests {
     assertEquals(initY, turtle.getY());
   }
 
+  @Test
+  public void testBasicGroup(){
+    double initY = turtle.getY();
+    parser.parseCommandString("( fd 10 20 30 40 )");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 100);
+  }
+
 }
