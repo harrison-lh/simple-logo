@@ -1,18 +1,26 @@
 package slogo.view.controller;
 
-import javafx.scene.control.Label;
+import java.util.function.Consumer;
 import javafx.scene.layout.VBox;
 
 public class GraphicalController extends VBox {
 
   private static final double WIDTH = 100;
+  private final MovementController myMovementController;
+  private final RotationController myRotationController;
 
   public GraphicalController() {
     this.setId("GraphicalController");
     this.setPrefWidth(WIDTH);
+    this.setSpacing(20);
+    myMovementController = new MovementController();
+    myRotationController = new RotationController();
+    this.getChildren().addAll(myMovementController, myRotationController);
+  }
 
-    this.getChildren().add(new Label("Graphical"));
-    this.getChildren().add(new Label("Controller"));
+  public void setExecuteCommandAction(Consumer<String> response) {
+    myMovementController.setExecuteCommandActions(response);
+    myRotationController.setExecuteCommandActions(response);
   }
 
 }

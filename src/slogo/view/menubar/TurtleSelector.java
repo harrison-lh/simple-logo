@@ -11,30 +11,16 @@ import slogo.view.Selector;
  *
  * @author David Li
  */
-public class TurtleSelector extends VBox implements Selector<String> {
-
-  private final ComboBox<String> myComboBox;
+public class TurtleSelector extends MenuBarSelector<String> {
 
   /**
    * Main constructor
    */
   public TurtleSelector() {
-    this.setId("TurtleSelector");
-    this.getStyleClass().add("selector");
-    Label label = new Label("Turtle Image");
-    myComboBox = new ComboBox<>();
-    myComboBox.setId("TurtleSelectorComboBox");
-    myComboBox.getItems().addAll("Default", "Realistic");
-    myComboBox.getSelectionModel().selectFirst();
+    super("Turtle Image", "TurtleSelector", "TurtleSelectorComboBox", new ComboBox<>());
 
-    this.getChildren().addAll(label, myComboBox);
-  }
-
-  /**
-   * Passes the selected turtle image to the consumer
-   */
-  @Override
-  public void setUpdateAction(Consumer<String> response) {
-    myComboBox.setOnAction(e -> response.accept(myComboBox.getValue()));
+    ComboBox<String> comboBox = (ComboBox<String>) getComboBoxBase();
+    comboBox.getItems().addAll("None", "Axis");
+    comboBox.getSelectionModel().selectFirst();
   }
 }

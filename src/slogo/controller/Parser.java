@@ -40,8 +40,8 @@ public class Parser implements SelectorTarget<String> {
    * Constructor for the Parser. Takes in a TurtleController to execute Commands on, and an initial
    * syntaxLang to be constructed with.
    *
-   * @param controller The TurtleController upon which this Parser acts
-   * @param syntaxLang The initial language for which this Parser is configured.
+   * @param controller       The TurtleController upon which this Parser acts
+   * @param syntaxLang       The initial language for which this Parser is configured.
    * @param commandsListener
    */
   public Parser(TurtleController controller, String syntaxLang,
@@ -75,46 +75,16 @@ public class Parser implements SelectorTarget<String> {
   private Command patternMatchToken(Token token, String text) throws IllegalArgumentException {
     switch (token) {
       case COMMAND -> {
-        String commandType = lexer.lexLangDefinedCommands(text);
-        System.out.println(commandType);
-        if (commandType.equals("MakeUserInstruction") && tokenizedText.peek() == Token.COMMAND) {
-          tokenizedText.poll();
-          return new MakeUserInstructionCommand(splitText.poll(), lexer);
-        } else {
-          try {
-            if(lexer.containsUserCommand(text)){
-              return new UserCommand(lexer.getUserCommand(text));
-            }
-            Class<?> commandClass = Class
-                .forName("slogo.controller.commands." + commandType + "Command");
-            return (Command) commandClass.getConstructor().newInstance();
-          } catch (Exception e) {
-
-            System.err.println("LOOKUP FAILED!!!");
-            // TODO: Might be a user-defined command, so we must check those!
-            throw new IllegalArgumentException("ILLEGAL ARGUMENT EXCEPTION: COMMAND UNDEFINED!");
-          }
-        }
+        return patternMatchCommand(text);
       }
       case CONSTANT -> {
         return new ConstantCommand(Double.parseDouble(text));
       }
       case VARIABLE -> {
-        if (!controller.getTurtle().getVars().containsKey(text)) {
-          controller.getTurtle().getVars().setValue(text, 0);
-        }
-        return new VariableCommand(text);
+        return patternMatchVariable(text);
       }
       case LIST_START -> {
-        ListCommandHead listStartCommand = new ListCommandHead();
-        listStartCommand.setNumParams(0);
-        if (tokenizedText.isEmpty() || splitText.isEmpty()) {
-          throw new IllegalArgumentException(
-              "ILLEGAL ARGUMENT EXCEPTION: OPEN LIST WITHOUT CLOSURE!");
-        }
-        Command innerChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
-        fillList(listStartCommand, innerChild);
-        return listStartCommand;
+        return patternMatchListStart();
       }
       case GROUP_START -> {
         GroupCommandHead groupCommandHead = new GroupCommandHead();
@@ -142,7 +112,7 @@ public class Parser implements SelectorTarget<String> {
 
 
 
-  private void fillGroup(GroupCommandHead groupHead){
+  private void fillGroup(GroupCommandHead groupHead) {
 
     if (tokenizedText.isEmpty()) {
       throw new IllegalArgumentException(
@@ -151,12 +121,12 @@ public class Parser implements SelectorTarget<String> {
 
     Command innerCommand = patternMatchToken(tokenizedText.poll(), splitText.poll());
 
-    while(!innerCommand.getIsCollectionEnd() && !tokenizedText.isEmpty()){
+    while (!innerCommand.getIsCollectionEnd() && !tokenizedText.isEmpty()) {
 
       //System.out.println("Adding Children List");
       groupHead.addNewHeaderChildrenList();
 
-      for(int i = 0; i < groupHead.getGroupHeader().getNumParams(); i ++){
+      for (int i = 0; i < groupHead.getGroupHeader().getNumParams(); i++) {
 
         //System.out.println("Handling GrandChildren");
         grandChildHandler(innerCommand);
@@ -171,7 +141,48 @@ public class Parser implements SelectorTarget<String> {
         innerCommand = patternMatchToken(tokenizedText.poll(), splitText.poll());
       }
     }
+  }
 
+  private ListCommandHead patternMatchListStart() {
+    ListCommandHead listStartCommand = new ListCommandHead();
+    listStartCommand.setNumParams(0);
+    if (tokenizedText.isEmpty() || splitText.isEmpty()) {
+      throw new IllegalArgumentException(
+          "ILLEGAL ARGUMENT EXCEPTION: OPEN LIST WITHOUT CLOSURE!");
+    }
+    Command innerChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
+    fillList(listStartCommand, innerChild);
+    return listStartCommand;
+  }
+
+  private VariableCommand patternMatchVariable(String text) {
+    if (!controller.getTurtle().getVars().containsKey(text)) {
+      controller.getTurtle().getVars().setValue(text, 0);
+    }
+    return new VariableCommand(text);
+  }
+
+  private Command patternMatchCommand(String text) {
+    String commandType = lexer.lexLangDefinedCommands(text);
+    System.out.println(commandType);
+    if (commandType.equals("MakeUserInstruction") && tokenizedText.peek() == Token.COMMAND) {
+      tokenizedText.poll();
+      return new MakeUserInstructionCommand(splitText.poll(), lexer);
+    } else {
+      try {
+        if (lexer.containsUserCommand(text)) {
+          return new UserCommand(lexer.getUserCommand(text));
+        }
+        Class<?> commandClass = Class
+            .forName("slogo.controller.commands." + commandType + "Command");
+        return (Command) commandClass.getConstructor().newInstance();
+      } catch (Exception e) {
+
+        System.err.println("LOOKUP FAILED!!!");
+        // TODO: Might be a user-defined command, so we must check those!
+        throw new IllegalArgumentException("ILLEGAL ARGUMENT EXCEPTION: COMMAND UNDEFINED!");
+      }
+    }
   }
 
   private void fillList(ListCommandHead listHead, Command innerCommand)
@@ -230,17 +241,17 @@ public class Parser implements SelectorTarget<String> {
       Stack<Command> pendingFilledArgs = new Stack<>();
       Command rootCommand = parsedCommandQueue.poll();
       Command curCommand = rootCommand;
-      dfsHelper(pendingFilledArgs, curCommand);
+      commandQueueAssemblyHelper(pendingFilledArgs, curCommand);
 
       while (!pendingFilledArgs.isEmpty()) {
         curCommand = pendingFilledArgs.pop();
-        dfsHelper(pendingFilledArgs, curCommand);
+        commandQueueAssemblyHelper(pendingFilledArgs, curCommand);
       }
       assembledCommandQueue.add(rootCommand);
     }
   }
 
-  private void dfsHelper(Stack<Command> pendingFilledArgs, Command curCommand)
+  private void commandQueueAssemblyHelper(Stack<Command> pendingFilledArgs, Command curCommand)
       throws NullPointerException {
     while (curCommand.getNumParams() > curCommand.getChildren().size()) {
       Command childCommand = parsedCommandQueue.poll();
