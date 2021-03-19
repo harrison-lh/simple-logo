@@ -10,6 +10,7 @@ import slogo.model.Turtle;
  * index.
  *
  * @author Harrison Huang
+ * @author Marc Chmielewski
  */
 
 public class SetBackgroundCommand extends Command {
