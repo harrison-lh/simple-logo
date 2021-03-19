@@ -1,25 +1,34 @@
 package slogo.view.info;
 
+import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextInputDialog;
+import slogo.controller.Controller;
+import slogo.controller.Lexer;
 import slogo.view.ClickableEntry;
 
 public class VariableEntry extends ClickableEntry<String> {
 
   private final String myName;
   private double myValue;
+  private String language;
 
-  public VariableEntry(String name, double value, Consumer<String> consumer) {
+  public VariableEntry(String name, double value, Consumer<String> consumer, String language) {
     super(consumer);
     myName = name;
     myValue = value;
+    this.language = language;
   }
 
   public void updateVariable(double value) {
     myValue = value;
     setText(displayText());
+  }
+
+  public void setLanguage(String language) {
+    this.language = language;
   }
 
   @Override
@@ -40,11 +49,17 @@ public class VariableEntry extends ClickableEntry<String> {
   }
 
   private String setVariableCommand(double newValue) {
-    // TODO: account for current language
-    return "make " + myName + " " + newValue;
+    return translateCommand("MakeVariable") + " " + myName + " " + newValue;
   }
 
   private String displayText() {
     return myName.substring(1) + " = " + myValue; // Remove colon
   }
+
+  private String translateCommand(String command) {
+    ResourceBundle langResources = ResourceBundle.getBundle(Lexer.RESOURCES_PACKAGE + language);
+    String translatedCommand = langResources.getString(command);
+    return translatedCommand.substring(0, translatedCommand.indexOf('|'));
+  }
+
 }

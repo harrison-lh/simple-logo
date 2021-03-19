@@ -27,7 +27,7 @@ public class GraphicalController extends VBox {
   }
 
   public LanguageConsumer[] getLanguageConsumers() {
-    return new LanguageConsumer[]{myMovementController};
+    return new LanguageConsumer[]{myMovementController, myRotationController};
   }
 
 }

@@ -1,5 +1,6 @@
 package slogo.view.controller;
 
+import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -8,12 +9,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import slogo.controller.Controller;
+import slogo.controller.Lexer;
+import slogo.view.LanguageConsumer;
 
-public class RotationController extends VBox {
+public class RotationController extends VBox implements LanguageConsumer {
 
   private final TextField myInputArea;
   private final Button myLeftButton;
   private final Button myRightButton;
+  private String language = Controller.DEFAULT_LANGUAGE;
 
   public RotationController() {
     this.setSpacing(4);
@@ -33,9 +38,13 @@ public class RotationController extends VBox {
   }
 
   public void setExecuteCommandActions(Consumer<String> response) {
-    // TODO: retrieve commands in current language
-    myLeftButton.setOnAction(e -> executeCommand(response, "lt"));
-    myRightButton.setOnAction(e -> executeCommand(response, "rt"));
+    myLeftButton.setOnAction(e -> executeCommand(response, translateCommand("Left")));
+    myRightButton.setOnAction(e -> executeCommand(response, translateCommand("Right")));
+  }
+
+  @Override
+  public Consumer<String> languageConsumer() {
+    return newLanguage -> language = newLanguage;
   }
 
   private void executeCommand(Consumer<String> response, String command) {
@@ -47,4 +56,11 @@ public class RotationController extends VBox {
       alert.showAndWait();
     }
   }
+
+  private String translateCommand(String command) {
+    ResourceBundle langResources = ResourceBundle.getBundle(Lexer.RESOURCES_PACKAGE + language);
+    String translatedCommand = langResources.getString(command);
+    return translatedCommand.substring(0, translatedCommand.indexOf('|'));
+  }
+
 }

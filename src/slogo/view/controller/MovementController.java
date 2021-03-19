@@ -38,7 +38,6 @@ public class MovementController extends VBox implements LanguageConsumer {
   }
 
   public void setExecuteCommandActions(Consumer<String> response) {
-    // TODO: retrieve commands in current language
     myForwardButton.setOnAction(e -> executeCommand(response, translateCommand("Forward")));
     myBackButton.setOnAction(e -> executeCommand(response, translateCommand("Backward")));
   }

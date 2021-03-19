@@ -53,6 +53,7 @@ public class MainView extends BorderPane {
     connectColorSelector(myTurtleCanvas.getPen(), myMenuBar.getPenSelector());
 
     myMenuBar.getLanguageSelector().addLanguageConsumers(myGraphicalController.getLanguageConsumers());
+    myMenuBar.getLanguageSelector().addLanguageConsumers(myVariablesBox);
   }
 
   /**
