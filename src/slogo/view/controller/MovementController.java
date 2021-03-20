@@ -7,6 +7,9 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import slogo.view.LanguageConsumer;
 
+/**
+ * Forward and backward controls
+ */
 public class MovementController extends ControllerElement implements LanguageConsumer {
 
   private final Button myForwardButton;

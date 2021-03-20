@@ -47,7 +47,7 @@
 }
 
 #GraphicalController {
-  -fx-padding: 4px 4px 4px 4px;
+  -fx-padding: 6px 6px 6px 6px;
   -fx-background-color: rgb(230, 230, 230);
 }
 

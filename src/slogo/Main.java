@@ -37,6 +37,7 @@ public class Main extends Application {
     stage.setScene(scene);
     stage.setMinWidth(MIN_WIDTH);
     stage.setMinHeight(MIN_HEIGHT);
+    stage.setTitle("SLogo");
     stage.show();
   }
 }

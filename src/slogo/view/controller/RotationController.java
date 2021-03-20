@@ -7,6 +7,9 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import slogo.view.LanguageConsumer;
 
+/**
+ * Rotate left and right controls
+ */
 public class RotationController extends ControllerElement implements LanguageConsumer {
 
   private final Button myLeftButton;

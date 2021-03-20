@@ -7,6 +7,9 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import slogo.view.LanguageConsumer;
 
+/**
+ * Clear screen control
+ */
 public class ClearController extends ControllerElement implements LanguageConsumer {
 
   private final Button myClearButton;

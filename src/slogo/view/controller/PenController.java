@@ -8,6 +8,9 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import slogo.view.LanguageConsumer;
 
+/**
+ * Pen up, pen down, and pen size controls
+ */
 public class PenController extends ControllerElement implements LanguageConsumer {
 
   private final Button myPenUpButton;
