@@ -92,7 +92,7 @@ public class Parser implements SelectorTarget<String> {
         groupCommandHead.setNumParams(0);
         if (tokenizedText.isEmpty() || splitText.isEmpty()) {
           throw new IllegalArgumentException(
-              "ILLEGAL ARGUMENT EXCEPTION: OPEN GROUP WITHOUT CLOSURE!");
+              "ILLEGAL ARGUMENT EXCEPTION:\nOPEN GROUP WITHOUT CLOSURE!");
         }
         Command groupHeader = patternMatchToken(tokenizedText.poll(), splitText.poll());
         groupCommandHead.setGroupHeader(groupHeader);
@@ -108,7 +108,7 @@ public class Parser implements SelectorTarget<String> {
       }
     }
     throw new IllegalArgumentException(
-        "ILLEGAL ARGUMENT EXCEPTION: UNABLE TO TOKENIZE ARGUMENT! PLEASE VERIFY SYNTAX!");
+        "ILLEGAL ARGUMENT EXCEPTION:\nUNABLE TO TOKENIZE ARGUMENT! PLEASE VERIFY SYNTAX!");
   }
 
 
@@ -117,7 +117,7 @@ public class Parser implements SelectorTarget<String> {
 
     if (tokenizedText.isEmpty()) {
       throw new IllegalArgumentException(
-          "ILLEGAL ARGUMENT EXCEPTION: OPEN GROUP WITHOUT CLOSURE!");
+          "ILLEGAL ARGUMENT EXCEPTION:\nOPEN GROUP WITHOUT CLOSURE!");
     }
 
     Command innerCommand = patternMatchToken(tokenizedText.poll(), splitText.poll());
@@ -136,7 +136,7 @@ public class Parser implements SelectorTarget<String> {
 
         if (tokenizedText.isEmpty()) {
           throw new IllegalArgumentException(
-              "ILLEGAL ARGUMENT EXCEPTION: OPEN GROUP WITHOUT CLOSURE!");
+              "ILLEGAL ARGUMENT EXCEPTION:\nOPEN GROUP WITHOUT CLOSURE!");
         }
 
         innerCommand = patternMatchToken(tokenizedText.poll(), splitText.poll());
@@ -149,7 +149,7 @@ public class Parser implements SelectorTarget<String> {
     listStartCommand.setNumParams(0);
     if (tokenizedText.isEmpty() || splitText.isEmpty()) {
       throw new IllegalArgumentException(
-          "ILLEGAL ARGUMENT EXCEPTION: OPEN LIST WITHOUT CLOSURE!");
+          "ILLEGAL ARGUMENT EXCEPTION:\nOPEN LIST WITHOUT CLOSURE!");
     }
     Command innerChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
     fillList(listStartCommand, innerChild);
@@ -184,7 +184,7 @@ public class Parser implements SelectorTarget<String> {
 
         System.err.println("LOOKUP FAILED!!!");
         // TODO: Might be a user-defined command, so we must check those!
-        throw new IllegalArgumentException("ILLEGAL ARGUMENT EXCEPTION: COMMAND UNDEFINED!");
+        throw new IllegalArgumentException("ILLEGAL ARGUMENT EXCEPTION:\nCOMMAND UNDEFINED!");
       }
     }
   }
@@ -204,7 +204,7 @@ public class Parser implements SelectorTarget<String> {
 
     if (tokenizedText.isEmpty()) {
       throw new IllegalArgumentException(
-          "ILLEGAL ARGUMENT EXCEPTION: OPEN LIST WITHOUT CLOSURE!");
+          "ILLEGAL ARGUMENT EXCEPTION:\n OPEN LIST WITHOUT CLOSURE!");
     }
 
     Command nextChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
@@ -227,7 +227,7 @@ public class Parser implements SelectorTarget<String> {
 
       if(grandChild.getIsCollectionEnd()){
         throw new IllegalArgumentException(
-            "ILLEGAL ARGUMENT EXCEPTION: CHECK YOUR ARGUMENT COUNT!!!");
+            "ILLEGAL ARGUMENT EXCEPTION:\nCHECK YOUR ARGUMENT COUNT!!!");
       }
       innerCommand.addChild(grandChild);
       if (grandChild.getNumParams() > 0) {
@@ -269,7 +269,7 @@ public class Parser implements SelectorTarget<String> {
           curCommand = childCommand;
         }
       } else {
-        throw new NullPointerException("NULL POINTER EXCEPTION: CHECK YOUR ARGUMENT COUNT!!!");
+        throw new NullPointerException("NULL POINTER EXCEPTION:\nCHECK YOUR ARGUMENT COUNT!!!");
       }
     }
   }
