@@ -24,33 +24,41 @@ public class LibraryManager {
    * saveVariables saves the contents of varMap to a JSON file, which can then be loaded back in
    * at a later time.
    *
-   * @param filename The filename of the JSON file.
+   * @param filepath The filepath of the JSON file.
    * @param varMap The map of Strings and Doubles that represents the variables.
    * @throws IOException On invalid filenames and paths
    */
-  public static void saveVariables(String filename, Map<String, Double> varMap)
+  public static void saveVariables(String filepath, Map<String, Double> varMap)
       throws IOException {
-    mapper.writeValue(new File("resources/libraries/variables/" + filename), varMap);
+    mapper.writeValue(new File(filepath), varMap);
   }
 
   /**
    * saveUserCommands saves the contents of userCommandMap to a JSON file, which can then be
    * loaded back in at a later time.
    *
-   * @param filename The filename of the JSON file.
+   * @param filepath The filepath of the JSON file.
    * @param userCommandMap The map of Strings and Strings that represents the commands.
    * @throws IOException On invalid filenames and paths
    */
-  public static void saveUserCommands(String filename, Map<String, String> userCommandMap)
+  public static void saveUserCommands(String filepath, Map<String, String> userCommandMap)
       throws IOException {
-    mapper.writeValue(new File("resources/libraries/user-commands/" + filename),
+    mapper.writeValue(new File(filepath),
         userCommandMap);
   }
 
-
-  public static String loadVariables(String filename) throws IOException {
+  /**
+   * loadVariables converts the contents of the provided JSON into a command String that can be
+   * passed to the Parser to populate the environment with the variable contents thereof.
+   *
+   * @param filepath The filepath of the JSON to load
+   * @return A properly formatted command String that will load the variables from the JSON into
+   * the environment.
+   * @throws IOException If file is unable to be located.
+   */
+  public static String loadVariables(String filepath) throws IOException {
     Map<String, Double> varMap
-        = mapper.readValue(new File("resources/libraries/variables/" + filename),
+        = mapper.readValue(new File(filepath),
         new TypeReference<>() {});
     StringBuilder loadVarCommand = new StringBuilder();
     for(String curVar : varMap.keySet()) {
@@ -60,8 +68,14 @@ public class LibraryManager {
     return loadVarCommand.toString().trim();
   }
 
-  public static String loadUserCommands() {
-    // TODO: Implement this!
-    return null;
+  public static String loadUserCommands(String filepath) throws IOException{
+    Map<String, String> userCommandMap
+        = mapper.readValue(new File(filepath),
+        new TypeReference<>() {});
+    StringBuilder loadUserCommand = new StringBuilder();
+    for(String curCommand : userCommandMap.keySet()) {
+      loadUserCommand.append(userCommandMap.get(curCommand)).append("\n");
+    }
+    return loadUserCommand.toString().trim();
   }
 }

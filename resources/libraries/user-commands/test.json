@@ -1,1 +1,1 @@
-{"square":"TO square [ ] [ repeat 4 [ fd 50 rt 90 ] ]"}
+{"square":"TO square [ ] [ repeat 4 [ fd 50 rt 90 ] ]","equilateral_triangle":"TO equilateral_triangle [ ] [ repeat 3 [ rt 120 fd 50 ] ]"}
