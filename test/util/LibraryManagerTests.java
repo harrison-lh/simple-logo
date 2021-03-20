@@ -1,6 +1,7 @@
 package util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -81,5 +82,15 @@ public class LibraryManagerTests {
     assertEquals(loadUserCommands, "TO square [ ] [ repeat 4 [ fd 50 rt 90 ] ]\n"
         + "TO equilateral_triangle [ ] [ repeat 3 [ rt 120 fd 50 ] ]");
     System.out.println(loadUserCommands);
+  }
+
+  @Test
+  public void testErrorHandling() {
+    assertThrows(IOException.class, () -> {
+      LibraryManager.loadUserCommands("BAD PATH!");
+    });
+    assertThrows(IOException.class, () -> {
+      LibraryManager.loadVariables("BAD PATH!");
+    });
   }
 }
