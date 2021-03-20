@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Variables {
 
@@ -30,6 +31,10 @@ public class Variables {
           .propertyChange(new PropertyChangeEvent(this, "ADD", newVariable, newVariable));
     }
     varMap.put(key, value);
+  }
+
+  public void removeValue(String key){
+    varMap.remove(key);
   }
 
   public boolean containsKey(String key) {
