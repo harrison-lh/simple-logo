@@ -1,5 +1,7 @@
 package slogo.model;
 
+import javafx.beans.property.StringProperty;
+
 /**
  * An interface that defines the properties of an object that has Coordinates.
  * <p>
@@ -37,13 +39,6 @@ public abstract class Coordinates {
   public abstract double getX();
 
   /**
-   * Sets the x-coordinate of the object.
-   *
-   * @param x The new x-coordinate of the object.
-   */
-  public abstract void setX(double x);
-
-  /**
    * Gets the y-coordinate of the object.
    *
    * @return The current y-coordinate of the object
@@ -51,11 +46,12 @@ public abstract class Coordinates {
   public abstract double getY();
 
   /**
-   * Sets the y-coordinate of the object.
+   * Sets the x- and y-coordinates of the object.
    *
+   * @param x The new x-coordinate of the object
    * @param y The new y-coordinate of the object
    */
-  public abstract void setY(double y);
+  public abstract void setXY(double x, double y);
 
   /**
    * Gets the current heading of the object in degrees.
@@ -70,4 +66,31 @@ public abstract class Coordinates {
    * @param heading The new heading of the object in degrees.
    */
   public abstract void setHeading(double heading);
+
+  public abstract StringProperty stringProperty();
+
+  @Override
+  public boolean equals(Object o) {
+    if (o instanceof Coordinates) {
+      Coordinates other = (Coordinates) o;
+      return (getX() == other.getX()) && (getY() == other.getY()) && (getHeading() == other
+          .getHeading());
+    }
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    int prime = 43;
+    int ret = 1;
+    ret += prime * prime * ((Double)(getX())).hashCode();
+    ret += prime * ((Double)(getY())).hashCode();
+    return ret;
+  }
+
+  @Override
+  public String toString() {
+    return "(" + getX() + ", " + getY() + "), " + getHeading() + " degrees";
+  }
+
 }

@@ -3,17 +3,24 @@ package slogo.view.canvas;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.function.Consumer;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import slogo.model.Coordinates;
+import slogo.model.GridCoordinates;
 import slogo.view.SelectorTarget;
 
 /**
  * Contains the gridlines, turtle view, and pen lines. Listens for updates from the model and
- * updates turtle and pen lines accordingly
+ * updates turtle and pen lines accordingly.
  *
  * @author David Li
+ * @author Harrison Huang
  */
 public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     PropertyChangeListener {
@@ -23,7 +30,7 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
 
   private final GridLines myGridLines;
   private final TurtlesContainer myTurtlesContainer;
-  private final TurtleView myTurtleView;
+  private TurtleView myTurtleView;
   private final ViewPen myPen;
   private final Pane myPenLines;
 
@@ -53,9 +60,9 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     this.getChildren().addAll(myGridLines, myPenLines);
 
     myTurtlesContainer = new TurtlesContainer();
-    createTurtle();
+    //createTurtle();
     // TODO: Get rid of myTurtleView instance variable
-    myTurtleView = myTurtlesContainer.get(1);
+    //myTurtleView = myTurtlesContainer.get(1);
   }
 
   public TurtleView getTurtleView() {
@@ -76,34 +83,48 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
 
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
-    if (evt.getPropertyName().equals("LOCATION")) {
-      setTurtleLocation((Coordinates) evt.getNewValue());
-    } else if (evt.getPropertyName().equals("HEADING")) {
-      setTurtleHeading((Double) evt.getNewValue());
-    } else if (evt.getPropertyName().equals("VISIBILITY")) {
-      setTurtleVisibility((Boolean) evt.getNewValue());
-    } else if (evt.getPropertyName().equals("PEN")) {
-      setPenActive((Boolean) evt.getNewValue());
-    } else if (evt.getPropertyName().equals("CLEAR")) {
+    if (evt.getPropertyName().equals("CLEAR")) {
       clearScreen();
     }
   }
 
-  private void createTurtle() {
-    TurtleView newTurtle = myTurtlesContainer.createTurtle();
+  /**
+   * Creates a new turtle in the view that syncs with the respective model turtle. Contains three
+   * properties to listen for: position of the turtle (includes x,y and heading), whether the turtle
+   * is visible or not, and whether the pen is active or not.
+   *
+   * @param coordinates         The coordinates object of the turtle
+   * @param isVisibleProperty   The property of the turtle being visible
+   * @param isPenActiveProperty The property of the turtle being active
+   */
+  public void createTurtle(Coordinates coordinates, BooleanProperty isVisibleProperty,
+      BooleanProperty isPenActiveProperty) {
+    TurtleView newTurtle = myTurtlesContainer.createTurtle(coordinates);
+
+    newTurtle.coordinatesStringProperty().addListener((observable, oldValue, newValue) -> {
+      setTurtleHeading();
+      setTurtleLocation();
+    });
+    isVisibleProperty
+        .addListener((observable, oldValue, newValue) -> setTurtleVisibility(newValue));
+    isPenActiveProperty.addListener((observable, oldValue, newValue) -> setPenActive(newValue));
+
     this.getChildren().add(newTurtle);
+    myTurtleView = newTurtle;
+
   }
 
-  private void setTurtleHeading(double heading) {
-    myTurtleView.setHeading(heading);
+  private void setTurtleHeading() {
+    myTurtleView.setHeading();
   }
 
-  private void setTurtleLocation(Coordinates newCoordinates) {
+  private void setTurtleLocation() {
     if (myPen.isPenActive()) {
-      drawLine(myTurtleView.getXCoordinate(), myTurtleView.getYCoordinate(), newCoordinates.getX(),
-          newCoordinates.getY(), myPen.getColor());
+      drawLine(myTurtleView.getPrevXCoordinate(), myTurtleView.getPrevYCoordinate(),
+          myTurtleView.getXCoordinate(), myTurtleView.getYCoordinate(), myPen.getColor());
     }
-    myTurtleView.setPosition(newCoordinates.getX(), newCoordinates.getY());
+    myTurtleView.setPosition();
+    myTurtleView.updatePrevCoordinates();
   }
 
   private void setTurtleVisibility(boolean visible) {

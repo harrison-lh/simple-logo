@@ -2,6 +2,7 @@ package slogo.view.canvas;
 
 import java.util.ArrayList;
 import java.util.List;
+import slogo.model.Coordinates;
 
 /**
  * Container for all TurtleViews in the TurtleCanvas
@@ -23,8 +24,8 @@ public class TurtlesContainer {
    * Creates a new TurtleView
    * @return The new TurtleView created
    */
-  public TurtleView createTurtle() {
-    TurtleView newTurtle = new TurtleView();
+  public TurtleView createTurtle(Coordinates coordinates) {
+    TurtleView newTurtle = new TurtleView(coordinates);
     myTurtleViews.add(newTurtle);
     return newTurtle;
   }

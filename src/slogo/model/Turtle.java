@@ -2,6 +2,8 @@ package slogo.model;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 /**
  * The Turtle is the object that commands of forward and right are put upon, and it contains the
@@ -17,14 +19,13 @@ public class Turtle {
   private Pen pen;
   private Variables vars;
   private PropertyChangeListener turtleListener;
-  private boolean isVisible = true;
+  private BooleanProperty isVisible;
   private int id;
 
   /**
    * Primary constructor for Turtle, which takes initial coordinates, a pen, and a pair of listeners
    * and constructs a Turtle.
    *
-   * @param id          The id of this Turtle
    * @param coordinates The coordinate system that this Turtle will operate in
    * @param pen The initial type of Pen that this Turtle will have
    * @param turtleListener A listener that will report changes in this Turtle's location and other
@@ -38,17 +39,7 @@ public class Turtle {
     this.pen = pen;
     this.vars = new Variables(variablesListener);
     this.turtleListener = turtleListener;
-
-    turtleListener
-        .propertyChange(
-            new PropertyChangeEvent(this, "LOCATION", this.coordinates, this.coordinates));
-    turtleListener
-        .propertyChange(
-            new PropertyChangeEvent(this, "HEADING", this.coordinates.getHeading(),
-                this.coordinates.getHeading()));
-    turtleListener
-        .propertyChange(
-            new PropertyChangeEvent(this, "VISIBILITY", this.isVisible, this.isVisible));
+    isVisible = new SimpleBooleanProperty(true);
   }
 
   /**
@@ -72,8 +63,7 @@ public class Turtle {
   public Turtle(int id, Coordinates coordinates, double x, double y, double heading) {
     this.id = id;
     this.coordinates = coordinates;
-    coordinates.setX(x);
-    coordinates.setY(y);
+    coordinates.setXY(x, y);
     coordinates.setHeading(heading);
   }
 
@@ -99,30 +89,22 @@ public class Turtle {
    * @param pixels number of pixels the turtle will move forward
    */
   public void forward(double pixels) {
-    double xPos = coordinates.getX();
-    double yPos = coordinates.getY();
-    double heading = coordinates.getHeading();
+    double xPos = getX();
+    double yPos = getY();
 
-    xPos += pixels * Math.cos(Math.toRadians(heading));
-    yPos += pixels * Math.sin(Math.toRadians(heading));
+    xPos += pixels * Math.cos(Math.toRadians(getHeading()));
+    yPos += pixels * Math.sin(Math.toRadians(getHeading()));
 
     setPosition(xPos, yPos);
   }
 
   /**
-   * Turns the turtle to the right for a certain number of degrees. Notifies turtle listener of
-   * heading change
+   * Turns the turtle to the right for a certain number of degrees.
    *
    * @param degrees number of degrees the turtle will move clockwise
    */
   public void right(double degrees) {
-
-    double heading = coordinates.getHeading();
-
-    turtleListener
-        .propertyChange(new PropertyChangeEvent(this, "HEADING", heading, heading - degrees));
-
-    setHeading(heading - degrees);
+    setHeading(getHeading() - degrees);
   }
 
   /**
@@ -130,7 +112,6 @@ public class Turtle {
    *
    * @return double of turtle's x-coordinate
    */
-
   public double getX() {
     return coordinates.getX();
   }
@@ -140,23 +121,18 @@ public class Turtle {
    *
    * @return double of turtle's y-coordinate
    */
-
   public double getY() {
     return coordinates.getY();
   }
 
   /**
-   * Sets x and y coordinates of the turtle Notifies turtle listener of position change
+   * Sets x and y coordinates of the turtle.
    *
    * @param x New x-coordinate
    * @param y New y-coordinate
    */
   public void setPosition(double x, double y) {
-    Coordinates prevCoordinates = new GridCoordinates(coordinates);
-    coordinates.setX(x);
-    coordinates.setY(y);
-    turtleListener
-        .propertyChange(new PropertyChangeEvent(this, "LOCATION", prevCoordinates, coordinates));
+    coordinates.setXY(x, y);
   }
 
   /**
@@ -178,8 +154,6 @@ public class Turtle {
    */
 
   public void setHeading(double heading) {
-    turtleListener
-        .propertyChange(new PropertyChangeEvent(this, "HEADING", coordinates, heading));
     coordinates.setHeading(heading);
   }
 
@@ -189,7 +163,7 @@ public class Turtle {
    * @return boolean whether the turtle is visible
    */
   public boolean isVisible() {
-    return isVisible;
+    return isVisible.get();
   }
 
   /**
@@ -198,25 +172,39 @@ public class Turtle {
    * @param isVisible boolean whether the turtle is visible
    */
   public void setVisible(boolean isVisible) {
-    turtleListener
-        .propertyChange(new PropertyChangeEvent(this, "VISIBILITY", this.isVisible, isVisible));
-    this.isVisible = isVisible;
+    this.isVisible.set(isVisible);
   }
 
   /**
-   * Makes the pen inactive Notifies turtle listener of pen change
+   * Returns the property of the visibility of the Turtle. Able to be listened to.
+   *
+   * @return The BooleanProperty for show/hide turtle
+   */
+  public BooleanProperty visibleProperty() {
+    return isVisible;
+  }
+
+  /**
+   * Makes the pen inactive.
    */
   public void liftPen() {
-    turtleListener.propertyChange(new PropertyChangeEvent(this, "PEN", isPenActive(), false));
     pen.liftPen();
   }
 
   /**
-   * Makes the pen active Notifies turtle listener of pen change
+   * Makes the pen active.
    */
   public void placePen() {
-    turtleListener.propertyChange(new PropertyChangeEvent(this, "PEN", isPenActive(), true));
     pen.placePen();
+  }
+
+  /**
+   * Returns the property of the pen being active or not. Able to be listened to.
+   *
+   * @return The BooleanProperty for pen up/down
+   */
+  public BooleanProperty penActiveProperty() {
+    return pen.penActiveProperty();
   }
 
   /**
@@ -224,5 +212,14 @@ public class Turtle {
    */
   public void clearScreen() {
     turtleListener.propertyChange(new PropertyChangeEvent(this, "CLEAR", null, null));
+  }
+
+  /**
+   * Getter method for the coordinates object of the turtle.
+   *
+   * @return The coordinates object
+   */
+  public Coordinates getCoordinates() {
+    return coordinates;
   }
 }

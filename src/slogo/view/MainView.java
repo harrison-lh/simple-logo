@@ -2,6 +2,7 @@ package slogo.view;
 
 import java.beans.PropertyChangeListener;
 import java.util.function.Consumer;
+import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
@@ -9,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import slogo.model.Coordinates;
 import slogo.view.canvas.CanvasHolder;
 import slogo.view.canvas.TurtleCanvas;
 import slogo.view.canvas.TurtleView;
@@ -49,7 +51,6 @@ public class MainView extends BorderPane {
 
     connectColorSelector(myCanvasHolder, myMenuBar.getBackgroundSelector());
     connectStringSelector(myTurtleCanvas, myMenuBar.getGridSelector());
-    connectStringSelector(myTurtleView, myMenuBar.getTurtleSelector());
     connectColorSelector(myTurtleCanvas.getPen(), myMenuBar.getPenSelector());
 
     myMenuBar.getLanguageSelector().addLanguageConsumers(myGraphicalController.getLanguageConsumers());
@@ -142,7 +143,7 @@ public class MainView extends BorderPane {
 
     myCanvasHolder = new CanvasHolder();
     myTurtleCanvas = myCanvasHolder.getTurtleCanvas();
-    myTurtleView = myCanvasHolder.getTurtleView();
+    //myTurtleView = myCanvasHolder.getTurtleView();
 
     myInfoDisplay = new InfoDisplay();
     myVariablesBox = myInfoDisplay.getVariablesBox();
@@ -151,5 +152,20 @@ public class MainView extends BorderPane {
     this.setCenter(myCanvasHolder);
     this.setLeft(myGraphicalController);
     this.setRight(myInfoDisplay);
+  }
+
+  /**
+   * Creates a new turtle in the canvas according to the parameters passed by the Controller.
+   * Requires coordinates and properties for the state of turtle visibility and pen being enabled.
+   *
+   * @param coordinates The coordinates object of the new turtle
+   * @param isVisibleProperty The property of whether the turtle is visible
+   * @param isPenActiveProperty The property of whether the pen is active
+   */
+  public void createTurtle(Coordinates coordinates,
+      BooleanProperty isVisibleProperty, BooleanProperty isPenActiveProperty) {
+    myTurtleCanvas.createTurtle(coordinates, isVisibleProperty, isPenActiveProperty);
+    myTurtleView = myCanvasHolder.getTurtleView();
+    connectStringSelector(myTurtleView, myMenuBar.getTurtleSelector());
   }
 }
