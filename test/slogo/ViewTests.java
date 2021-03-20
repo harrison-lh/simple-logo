@@ -1,6 +1,7 @@
 package slogo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -13,7 +14,9 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -21,14 +24,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
-import slogo.controller.Parser;
 import slogo.view.CommandHistoryBox;
 import slogo.view.Workspaces;
 import slogo.view.canvas.GridLines;
 import slogo.view.canvas.TurtleCanvas;
 import slogo.view.canvas.TurtleView;
-import slogo.view.controller.ClearController;
-import slogo.view.controller.ControllerElement;
 import slogo.view.info.VariablesBox;
 import slogo.view.menubar.MenuBar;
 import util.DukeApplicationTest;
@@ -127,6 +127,52 @@ class ViewTests extends DukeApplicationTest {
     assertEquals(testLanguage,
         getPrivateField(lookup("#VariablesBox").queryAs(VariablesBox.class),
             "language"));
+  }
+
+  @Test
+  void testNewTab() {
+    clickOn(lookup("#NewTab").queryButton());
+    assertEquals(2, lookup("#WorkspaceTabPane").queryAs(TabPane.class).getTabs().size());
+  }
+
+  @Test
+  void testMovementController() {
+    double movementDistance = 50;
+    lookup("#MovementInput").queryAs(TextField.class).setText(String.valueOf(movementDistance));
+    clickOn(lookup("#ControllerForwardButton").queryButton());
+    assertEquals(movementDistance,
+        lookup("#TurtleView").queryAs(TurtleView.class).getYCoordinate());
+    clickOn(lookup("#ControllerBackwardButton").queryButton());
+    assertEquals(0, lookup("#TurtleView").queryAs(TurtleView.class).getYCoordinate());
+  }
+
+  @Test
+  void testRotationController() {
+    double rotationAngle = 90;
+    double initialHeading = lookup("#TurtleView").queryAs(TurtleView.class).getHeading();
+    lookup("#RotationInput").queryAs(TextField.class).setText(String.valueOf(rotationAngle));
+    clickOn(lookup("#ControllerLeftButton").queryButton());
+    assertEquals(initialHeading + rotationAngle,
+        lookup("#TurtleView").queryAs(TurtleView.class).getHeading());
+    clickOn(lookup("#ControllerRightButton").queryButton());
+    assertEquals(initialHeading, lookup("#TurtleView").queryAs(TurtleView.class).getHeading());
+  }
+
+  @Test
+  void testPenController() {
+    clickOn(lookup("#ControllerPenUpButton").queryButton());
+    assertFalse(lookup("#TurtleCanvas").queryAs(TurtleCanvas.class).getPen().isPenActive());
+    clickOn(lookup("#ControllerPenDownButton").queryButton());
+    assertTrue(lookup("#TurtleCanvas").queryAs(TurtleCanvas.class).getPen().isPenActive());
+  }
+
+  @Test
+  void testClearController() {
+    lookup("#MovementInput").queryAs(TextField.class).setText("50");
+    clickOn(lookup("#ControllerForwardButton").queryButton());
+
+    clickOn(lookup("#ControllerClearButton").queryButton());
+    assertEquals(0, lookup("#TurtleView").queryAs(TurtleView.class).getYCoordinate());
   }
 
   @Test

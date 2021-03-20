@@ -20,6 +20,7 @@ public class ClearController extends ControllerElement implements LanguageConsum
     super();
     this.setId("ClearController");
     myClearButton = new Button("Clear");
+    myClearButton.setId("ControllerClearButton");
     this.getChildren().addAll(myClearButton);
   }
 

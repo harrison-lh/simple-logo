@@ -27,6 +27,10 @@ public class PenController extends ControllerElement implements LanguageConsumer
     myPenUpButton = new Button("PU");
     myPenDownButton = new Button("PD");
     myPenSizeButton = new Button("Pen Size");
+    inputArea.setId("PenInput");
+    myPenUpButton.setId("ControllerPenUpButton");
+    myPenDownButton.setId("ControllerPenDownButton");
+    myPenSizeButton.setId("ControllerPenSizeButton");
     GridPane buttons = new GridPane();
     buttons.add(myPenUpButton, 0, 0);
     buttons.add(myPenDownButton, 1, 0);

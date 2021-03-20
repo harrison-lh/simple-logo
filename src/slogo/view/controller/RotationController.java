@@ -24,6 +24,9 @@ public class RotationController extends ControllerElement implements LanguageCon
     this.setInputArea(inputArea);
     myLeftButton = new Button("LT");
     myRightButton = new Button("RT");
+    inputArea.setId("RotationInput");
+    myLeftButton.setId("ControllerLeftButton");
+    myRightButton.setId("ControllerRightButton");
     GridPane buttons = new GridPane();
     buttons.add(myLeftButton, 0, 0);
     buttons.add(myRightButton, 1, 0);
