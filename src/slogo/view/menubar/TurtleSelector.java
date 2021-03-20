@@ -20,7 +20,7 @@ public class TurtleSelector extends MenuBarSelector<String> {
     super("Turtle Image", "TurtleSelector", "TurtleSelectorComboBox", new ComboBox<>());
 
     ComboBox<String> comboBox = (ComboBox<String>) getComboBoxBase();
-    comboBox.getItems().addAll("None", "Axis");
+    comboBox.getItems().addAll("Default", "Realistic");
     comboBox.getSelectionModel().selectFirst();
   }
 }

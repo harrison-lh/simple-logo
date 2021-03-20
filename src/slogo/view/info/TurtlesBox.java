@@ -15,7 +15,7 @@ public class TurtlesBox extends ScrollPane {
    * Main constructor
    */
   public TurtlesBox() {
-    this.setId("VariablesBox");
+    this.setId("TurtlesBox");
     this.getStyleClass().add("info-box");
     myContents = new VBox();
     this.setContent(myContents);
