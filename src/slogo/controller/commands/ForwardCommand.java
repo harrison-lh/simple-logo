@@ -28,8 +28,9 @@ public class ForwardCommand extends Command {
    */
   @Override
   protected double executeCommand(Turtle turtle) {
-    //System.out.println("Moving Forward");
+
     double distance = getChildren().get(0).execute(turtle);
+    //System.out.printf("Moving Forward %f\n", distance);
     turtle.forward(distance);
     return distance;
   }

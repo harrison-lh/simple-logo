@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.Queue;
 import java.util.Stack;
 import java.util.function.Consumer;
+import slogo.controller.commands.GroupCommandHead;
 import slogo.controller.commands.MakeUserInstructionCommand;
 import slogo.controller.commands.UserCommand;
 import slogo.view.SelectorTarget;
@@ -85,15 +86,61 @@ public class Parser implements SelectorTarget<String> {
       case LIST_START -> {
         return patternMatchListStart();
       }
-      case LIST_END -> {
-        // this case is never called in new implementation
-        //System.out.println("IN LIST END: SHOULD NEVER APPEAR");
+      case GROUP_START -> {
+        GroupCommandHead groupCommandHead = new GroupCommandHead();
+        groupCommandHead.setNumParams(0);
+        if (tokenizedText.isEmpty() || splitText.isEmpty()) {
+          throw new IllegalArgumentException(
+              "ILLEGAL ARGUMENT EXCEPTION: OPEN GROUP WITHOUT CLOSURE!");
+        }
+        Command groupHeader = patternMatchToken(tokenizedText.poll(), splitText.poll());
+        groupCommandHead.setGroupHeader(groupHeader);
 
-        return new ListCommandTail();
+        fillGroup(groupCommandHead);
+
+        return groupCommandHead;
+
+
+      }
+      case COLLECTION_END -> {
+        return new CollectionCommandTail();
       }
     }
     throw new IllegalArgumentException(
         "ILLEGAL ARGUMENT EXCEPTION: UNABLE TO TOKENIZE ARGUMENT! PLEASE VERIFY SYNTAX!");
+  }
+
+
+
+  private void fillGroup(GroupCommandHead groupHead) {
+
+    if (tokenizedText.isEmpty()) {
+      throw new IllegalArgumentException(
+          "ILLEGAL ARGUMENT EXCEPTION: OPEN GROUP WITHOUT CLOSURE!");
+    }
+
+    Command innerCommand = patternMatchToken(tokenizedText.poll(), splitText.poll());
+
+    while (!innerCommand.getIsCollectionEnd() && !tokenizedText.isEmpty()) {
+
+      //System.out.println("Adding Children List");
+      groupHead.addNewHeaderChildrenList();
+
+      for (int i = 0; i < groupHead.getGroupHeader().getNumParams(); i++) {
+
+        //System.out.println("Handling GrandChildren");
+        grandChildHandler(innerCommand);
+        //System.out.println("Done Handling GrandChildren");
+        groupHead.addNewHeaderChild(innerCommand);
+
+        if (tokenizedText.isEmpty()) {
+          throw new IllegalArgumentException(
+              "ILLEGAL ARGUMENT EXCEPTION: OPEN GROUP WITHOUT CLOSURE!");
+        }
+
+        innerCommand = patternMatchToken(tokenizedText.poll(), splitText.poll());
+      }
+    }
   }
 
   private ListCommandHead patternMatchListStart() {
@@ -141,7 +188,7 @@ public class Parser implements SelectorTarget<String> {
   private void fillList(ListCommandHead listHead, Command innerCommand)
       throws IllegalArgumentException {
     //Start Base Case
-    if (innerCommand.getIsListEnd()) {
+    if (innerCommand.getIsCollectionEnd()) {
       return;
     }
 
@@ -152,10 +199,12 @@ public class Parser implements SelectorTarget<String> {
     grandChildHandler(innerCommand);
 
     if (tokenizedText.isEmpty()) {
-      return;
+      throw new IllegalArgumentException(
+          "ILLEGAL ARGUMENT EXCEPTION: OPEN LIST WITHOUT CLOSURE!");
     }
 
     Command nextChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
+
 
     fillList(listHead, nextChild);
 
@@ -169,6 +218,13 @@ public class Parser implements SelectorTarget<String> {
 
       Command grandChild = patternMatchToken(Objects.requireNonNull(tokenizedText.poll()),
           splitText.poll());
+
+      //System.out.println(grandChild);
+
+      if(grandChild.getIsCollectionEnd()){
+        throw new IllegalArgumentException(
+            "ILLEGAL ARGUMENT EXCEPTION: CHECK YOUR ARGUMENT COUNT!!!");
+      }
       innerCommand.addChild(grandChild);
       if (grandChild.getNumParams() > 0) {
         grandChildHandler(grandChild);

@@ -682,4 +682,31 @@ public class ParserTests {
     assertEquals(initY, turtle.getY());
   }
 
+  @Test
+  public void testBasicFdGroup(){
+    double initY = turtle.getY();
+    parser.parseCommandString("( fd 10 20 30 40 )");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 100);
+  }
+
+  @Test
+  public void testBasicSumGroup(){
+    double initY = turtle.getY();
+    parser.parseCommandString("fd ( sum 10 20 30 40 )");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 100);
+  }
+
+  @Test
+  public void testGroupIncompleteArgsError(){
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+          parser.parseCommandString("( set :x 100 :y 200 :z )");
+        }
+    );
+    System.out.println(exception.getMessage());
+  }
+
 }
