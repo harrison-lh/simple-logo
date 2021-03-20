@@ -1,7 +1,6 @@
 package slogo.model;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  * An interface that defines the properties of an object that has Coordinates.
@@ -12,7 +11,7 @@ import javafx.beans.property.SimpleObjectProperty;
  * @author Marc Chmielewski
  * @author Cole Spector
  */
-public abstract class Coordinates extends SimpleObjectProperty<Coordinates> {
+public abstract class Coordinates {
 
   protected static final double MAX_DEGREES = 360;
   protected static final double DEFAULT_X = 0;
@@ -25,13 +24,11 @@ public abstract class Coordinates extends SimpleObjectProperty<Coordinates> {
     this.xPos = DEFAULT_X;
     this.yPos = DEFAULT_Y;
     this.heading = DEFAULT_HEADING;
-    setValue(this);
   }
   protected Coordinates(double x, double y, double heading){
     this.xPos = x;
     this.yPos = y;
     this.heading = heading;
-    setValue(this);
   }
 
   /**
@@ -42,13 +39,6 @@ public abstract class Coordinates extends SimpleObjectProperty<Coordinates> {
   public abstract double getX();
 
   /**
-   * Sets the x-coordinate of the object.
-   *
-   * @param x The new x-coordinate of the object.
-   */
-  public abstract void setX(double x);
-
-  /**
    * Gets the y-coordinate of the object.
    *
    * @return The current y-coordinate of the object
@@ -56,11 +46,12 @@ public abstract class Coordinates extends SimpleObjectProperty<Coordinates> {
   public abstract double getY();
 
   /**
-   * Sets the y-coordinate of the object.
+   * Sets the x- and y-coordinates of the object.
    *
+   * @param x The new x-coordinate of the object
    * @param y The new y-coordinate of the object
    */
-  public abstract void setY(double y);
+  public abstract void setXY(double x, double y);
 
   /**
    * Gets the current heading of the object in degrees.
@@ -76,17 +67,14 @@ public abstract class Coordinates extends SimpleObjectProperty<Coordinates> {
    */
   public abstract void setHeading(double heading);
 
-  /**
-   *
-   * @return
-   */
-  public abstract DoubleProperty headValProperty();
+  public abstract StringProperty stringProperty();
 
   @Override
   public boolean equals(Object o) {
     if (o instanceof Coordinates) {
       Coordinates other = (Coordinates) o;
-      return (getX() == other.getX()) && (getY() == other.getY());
+      return (getX() == other.getX()) && (getY() == other.getY()) && (getHeading() == other
+          .getHeading());
     }
     return false;
   }
@@ -102,7 +90,7 @@ public abstract class Coordinates extends SimpleObjectProperty<Coordinates> {
 
   @Override
   public String toString() {
-    return "(" + getX() + ", " + getY() + ")";
+    return "(" + getX() + ", " + getY() + "), " + getHeading() + " degrees";
   }
 
 }

@@ -3,6 +3,8 @@ package slogo.view.canvas;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.function.Consumer;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.Pane;
@@ -95,33 +97,27 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
   public void createTurtle(Coordinates coordinates) {
     TurtleView newTurtle = myTurtlesContainer.createTurtle(coordinates);
 
-    newTurtle.headingProperty().addListener((observable, oldValue, newValue) -> {
-      setTurtleHeading((Double) newValue);
-      System.out.println(newTurtle.getCoordinates().getValue());
-      System.out.println(newTurtle.getCoordinates().getValue().equals(new GridCoordinates()));
-      newTurtle.setPosition(new GridCoordinates());
+    newTurtle.coordinatesStringProperty().addListener((observable, oldValue, newValue) -> {
+      setTurtleHeading();
+      setTurtleLocation();
     });
-    newTurtle.getCoordinates().addListener((observable, oldValue, newValue) -> {
-      System.out.println("moved");
-      setTurtleLocation(newValue);
-    });
-    newTurtle.getCoordinates().setY(100);
 
     this.getChildren().add(newTurtle);
     myTurtleView = newTurtle;
 
   }
 
-  private void setTurtleHeading(double heading) {
-    myTurtleView.setHeading(heading);
+  private void setTurtleHeading() {
+    myTurtleView.setHeading();
   }
 
-  private void setTurtleLocation(Coordinates newCoordinates) {
+  private void setTurtleLocation() {
     if (myPen.isPenActive()) {
-      drawLine(myTurtleView.getXCoordinate(), myTurtleView.getYCoordinate(), newCoordinates.getX(),
-          newCoordinates.getY(), myPen.getColor());
+      drawLine(myTurtleView.getPrevXCoordinate(), myTurtleView.getPrevYCoordinate(),
+          myTurtleView.getXCoordinate(), myTurtleView.getYCoordinate(), myPen.getColor());
     }
-    myTurtleView.setPosition(newCoordinates.getX(), newCoordinates.getY());
+    myTurtleView.setPosition();
+    myTurtleView.updatePrevCoordinates();
   }
 
   private void setTurtleVisibility(boolean visible) {

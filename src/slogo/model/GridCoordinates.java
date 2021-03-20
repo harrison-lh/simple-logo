@@ -1,19 +1,15 @@
 package slogo.model;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class GridCoordinates extends Coordinates {
 
-  private DoubleProperty xVal;
-  private DoubleProperty yVal;
-  private DoubleProperty headVal;
+  private final StringProperty positionString;
 
   public GridCoordinates(double x, double y, double heading) {
     super(x, y, heading);
-    xVal = new SimpleDoubleProperty(x);
-    yVal = new SimpleDoubleProperty(y);
-    headVal = new SimpleDoubleProperty(heading);
+    positionString = new SimpleStringProperty(toString());
   }
 
   public GridCoordinates() {
@@ -26,37 +22,24 @@ public class GridCoordinates extends Coordinates {
 
   @Override
   public double getX() {
-    return xVal.get();
+    return xPos;
   }
 
   @Override
-  public void setX(double x) {
-    xVal.set(x);
-    setValue(this);
-  }
-
-  public DoubleProperty xValProperty() {
-    return xVal;
+  public void setXY(double x, double y) {
+    xPos = x;
+    yPos = y;
+    updateStringProperty();
   }
 
   @Override
   public double getY() {
-    return yVal.get();
-  }
-
-  @Override
-  public void setY(double y) {
-    yVal.set(y);
-    setValue(this);
-  }
-
-  public DoubleProperty yValProperty() {
-    return yVal;
+    return yPos;
   }
 
   @Override
   public double getHeading() {
-    return headVal.get();
+    return heading;
   }
 
   @Override
@@ -65,12 +48,17 @@ public class GridCoordinates extends Coordinates {
       heading = heading % MAX_DEGREES;
       if (heading < 0) heading += MAX_DEGREES;
     }
-    headVal.set(heading);
+    this.heading = heading;
+    updateStringProperty();
   }
 
   @Override
-  public DoubleProperty headValProperty() {
-    return headVal;
+  public StringProperty stringProperty() {
+    return positionString;
+  }
+
+  private void updateStringProperty() {
+    positionString.set(toString());
   }
 
 }

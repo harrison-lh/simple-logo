@@ -2,6 +2,7 @@ package slogo.view.canvas;
 
 import java.util.function.Consumer;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import slogo.model.Coordinates;
@@ -22,6 +23,7 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
 
   private Image myTurtleImage;
   private Coordinates coordinates;
+  private Coordinates prevCoordinates;
 
   /**
    * Main constructor
@@ -47,7 +49,8 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
     this.setSmooth(true);
     this.setCache(true);
     this.coordinates = coordinates;
-    setPosition(coordinates.getX(), coordinates.getY());
+    setPosition();
+    prevCoordinates = new GridCoordinates(coordinates);
   }
 
   /**
@@ -66,20 +69,13 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
     return this::changeTurtleImage;
   }
 
-  public void setPosition(double x, double y) {
-    coordinates.setX(x);
-    coordinates.setY(y);
-    this.setTranslateX(TurtleCanvas.convertXCoordinate(x));
-    this.setTranslateY(TurtleCanvas.convertYCoordinate(y));
+  public void setPosition() {
+    this.setTranslateX(TurtleCanvas.convertXCoordinate(getXCoordinate()));
+    this.setTranslateY(TurtleCanvas.convertYCoordinate(getYCoordinate()));
   }
 
-  public void setPosition(Coordinates coordinates) {
-    this.coordinates = coordinates;
-  }
-
-  public void setHeading(double heading) {
-    coordinates.setHeading(heading);
-    this.setRotate(TurtleCanvas.convertHeading(heading));
+  public void setHeading() {
+    this.setRotate(TurtleCanvas.convertHeading(getHeading()));
   }
 
   public double getXCoordinate() {
@@ -94,12 +90,20 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
     return coordinates.getHeading();
   }
 
-  public DoubleProperty headingProperty() {
-    return coordinates.headValProperty();
+  public StringProperty coordinatesStringProperty() {
+    return coordinates.stringProperty();
   }
 
-  public Coordinates getCoordinates() {
-    return coordinates;
+  public double getPrevXCoordinate() {
+    return prevCoordinates.getX();
+  }
+
+  public double getPrevYCoordinate() {
+    return prevCoordinates.getY();
+  }
+
+  public void updatePrevCoordinates() {
+    prevCoordinates = new GridCoordinates(coordinates);
   }
 
   private void changeTurtleImage(String turtleImage) {

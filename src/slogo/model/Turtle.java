@@ -65,8 +65,7 @@ public class Turtle {
 
   public Turtle(Coordinates coordinates, double x, double y, double heading) {
     this.coordinates = coordinates;
-    coordinates.setX(x);
-    coordinates.setY(y);
+    coordinates.setXY(x, y);
     coordinates.setHeading(heading);
   }
 
@@ -88,30 +87,22 @@ public class Turtle {
    * @param pixels number of pixels the turtle will move forward
    */
   public void forward(double pixels) {
-    double xPos = coordinates.getX();
-    double yPos = coordinates.getY();
-    double heading = coordinates.getHeading();
+    double xPos = getX();
+    double yPos = getY();
 
-    xPos += pixels * Math.cos(Math.toRadians(heading));
-    yPos += pixels * Math.sin(Math.toRadians(heading));
+    xPos += pixels * Math.cos(Math.toRadians(getHeading()));
+    yPos += pixels * Math.sin(Math.toRadians(getHeading()));
 
     setPosition(xPos, yPos);
   }
 
   /**
-   * Turns the turtle to the right for a certain number of degrees. Notifies turtle listener of
-   * heading change
+   * Turns the turtle to the right for a certain number of degrees.
    *
    * @param degrees number of degrees the turtle will move clockwise
    */
   public void right(double degrees) {
-
-    double heading = coordinates.getHeading();
-
-//    turtleListener
-//        .propertyChange(new PropertyChangeEvent(this, "HEADING", heading, heading - degrees));
-
-    setHeading(heading - degrees);
+    setHeading(getHeading() - degrees);
   }
 
   /**
@@ -141,11 +132,7 @@ public class Turtle {
    * @param y New y-coordinate
    */
   public void setPosition(double x, double y) {
-    Coordinates prevCoordinates = new GridCoordinates(coordinates);
-    coordinates.setX(x);
-    coordinates.setY(y);
-//    turtleListener
-//        .propertyChange(new PropertyChangeEvent(this, "LOCATION", prevCoordinates, coordinates));
+    coordinates.setXY(x, y);
   }
 
   /**
@@ -167,8 +154,6 @@ public class Turtle {
    */
 
   public void setHeading(double heading) {
-//    turtleListener
-//        .propertyChange(new PropertyChangeEvent(this, "HEADING", coordinates, heading));
     coordinates.setHeading(heading);
   }
 
