@@ -15,6 +15,11 @@ public class Variables {
     this.variablesListener = variablesListener;
   }
 
+  public Variables(Map<String, Double> varMap) {
+    this.varMap = varMap;
+    this.variablesListener = null;
+  }
+
   public double getValue(String key) {
     return varMap.get(key);
   }
@@ -36,4 +41,11 @@ public class Variables {
     return varMap.containsKey(key);
   }
 
+  public Map<String, Double> getVarMap() {
+    return varMap;
+  }
+
+  public void setVarMap(Map<String, Double> varMap) {
+    this.varMap = varMap;
+  }
 }

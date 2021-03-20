@@ -38,6 +38,12 @@
         <version>jdk-12.0.1+2</version>
         <scope>test</scope>
     </dependency>
+    <!-- allows for easy JSON parsing and serialization -->
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.12.0-rc2</version>
+    </dependency>
 </dependencies>
 
 <build>
