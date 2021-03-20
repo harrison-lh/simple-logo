@@ -1,7 +1,5 @@
 package slogo.view.controller;
 
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.function.Consumer;
 import javafx.scene.layout.VBox;
 import slogo.view.LanguageConsumer;
