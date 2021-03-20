@@ -3,6 +3,7 @@ package slogo.view.canvas;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.function.Consumer;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -81,26 +82,26 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
 
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
-    if (evt.getPropertyName().equals("VISIBILITY")) {
-      setTurtleVisibility((Boolean) evt.getNewValue());
-    } else if (evt.getPropertyName().equals("PEN")) {
-      setPenActive((Boolean) evt.getNewValue());
-    } else if (evt.getPropertyName().equals("CLEAR")) {
+    if (evt.getPropertyName().equals("CLEAR")) {
       clearScreen();
     }
   }
 
   /**
-   *
-   * @param coordinates
+   *  @param coordinates
+   * @param isVisible
+   * @param isPenActive
    */
-  public void createTurtle(Coordinates coordinates) {
+  public void createTurtle(Coordinates coordinates, BooleanProperty isVisible,
+      BooleanProperty isPenActive) {
     TurtleView newTurtle = myTurtlesContainer.createTurtle(coordinates);
 
     newTurtle.coordinatesStringProperty().addListener((observable, oldValue, newValue) -> {
       setTurtleHeading();
       setTurtleLocation();
     });
+    isVisible.addListener((observable, oldValue, newValue) -> setTurtleVisibility(newValue));
+    isPenActive.addListener((observable, oldValue, newValue) -> setPenActive(newValue));
 
     this.getChildren().add(newTurtle);
     myTurtleView = newTurtle;

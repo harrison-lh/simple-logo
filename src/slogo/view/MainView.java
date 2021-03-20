@@ -2,6 +2,7 @@ package slogo.view;
 
 import java.beans.PropertyChangeListener;
 import java.util.function.Consumer;
+import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
@@ -151,11 +152,13 @@ public class MainView extends BorderPane {
   }
 
   /**
-   *
-   * @param coordinates
+   *  @param coordinates
+   * @param isVisible
+   * @param isVisible
    */
-  public void createTurtle(Coordinates coordinates) {
-    myTurtleCanvas.createTurtle(coordinates);
+  public void createTurtle(Coordinates coordinates,
+      BooleanProperty isVisible, BooleanProperty isPenActive) {
+    myTurtleCanvas.createTurtle(coordinates, isVisible, isPenActive);
     myTurtleView = myCanvasHolder.getTurtleView();
     connectStringSelector(myTurtleView, myMenuBar.getTurtleSelector());
   }

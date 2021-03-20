@@ -2,6 +2,8 @@ package slogo.model;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 /**
  * The Turtle is the object that commands of forward and right are put upon, and it contains the
@@ -17,7 +19,7 @@ public class Turtle {
   private Pen pen;
   private Variables vars;
   private PropertyChangeListener turtleListener;
-  private boolean isVisible = true;
+  private BooleanProperty isVisible;
 
   /**
    * Primary constructor for Turtle, which takes initial coordinates, a pen, and a pair of listeners
@@ -35,17 +37,7 @@ public class Turtle {
     this.pen = pen;
     this.vars = new Variables(variablesListener);
     this.turtleListener = turtleListener;
-
-//    turtleListener
-//        .propertyChange(
-//            new PropertyChangeEvent(this, "LOCATION", this.coordinates, this.coordinates));
-//    turtleListener
-//        .propertyChange(
-//            new PropertyChangeEvent(this, "HEADING", this.coordinates.getHeading(),
-//                this.coordinates.getHeading()));
-//    turtleListener
-//        .propertyChange(
-//            new PropertyChangeEvent(this, "VISIBILITY", this.isVisible, this.isVisible));
+    isVisible = new SimpleBooleanProperty(true);
   }
 
   /**
@@ -126,7 +118,7 @@ public class Turtle {
   }
 
   /**
-   * Sets x and y coordinates of the turtle Notifies turtle listener of position change
+   * Sets x and y coordinates of the turtle.
    *
    * @param x New x-coordinate
    * @param y New y-coordinate
@@ -163,7 +155,7 @@ public class Turtle {
    * @return boolean whether the turtle is visible
    */
   public boolean isVisible() {
-    return isVisible;
+    return isVisible.get();
   }
 
   /**
@@ -172,16 +164,17 @@ public class Turtle {
    * @param isVisible boolean whether the turtle is visible
    */
   public void setVisible(boolean isVisible) {
-    turtleListener
-        .propertyChange(new PropertyChangeEvent(this, "VISIBILITY", this.isVisible, isVisible));
-    this.isVisible = isVisible;
+    this.isVisible.set(isVisible);
+  }
+
+  public BooleanProperty visibleProperty() {
+    return isVisible;
   }
 
   /**
    * Makes the pen inactive Notifies turtle listener of pen change
    */
   public void liftPen() {
-    turtleListener.propertyChange(new PropertyChangeEvent(this, "PEN", isPenActive(), false));
     pen.liftPen();
   }
 
@@ -189,8 +182,11 @@ public class Turtle {
    * Makes the pen active Notifies turtle listener of pen change
    */
   public void placePen() {
-    turtleListener.propertyChange(new PropertyChangeEvent(this, "PEN", isPenActive(), true));
     pen.placePen();
+  }
+
+  public BooleanProperty penActiveProperty() {
+    return pen.penActiveProperty();
   }
 
   /**
