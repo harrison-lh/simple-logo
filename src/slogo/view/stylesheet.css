@@ -12,12 +12,12 @@
   -fx-font-size: 10pt;
 }
 
-.info-tab {
+.tab {
   -fx-padding: 0px 6px 0px 6px;
   -fx-background-insets: 0 1 1 0, 1 2 0 1, 2 3 0 2;
 }
 
-.info-tab .tab-label {
+.tab .tab-label {
   -fx-font-size: 10pt;
 }
 
@@ -34,6 +34,14 @@
 
 .command-info {
   -fx-wrap-text: true;
+}
+
+#WorkspaceTabPane .tab-header-background {
+  -fx-background-color: #ffcc80;
+}
+
+#NewTab {
+  -fx-padding: 5px 8px 5px 8px;
 }
 
 #MenuBar {
