@@ -16,7 +16,7 @@ import slogo.view.LanguageConsumer;
 import slogo.view.Selector;
 
 /**
- * Selector for color of the canvas background
+ * Selector for the language
  *
  * @author David Li
  */

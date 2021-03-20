@@ -7,7 +7,7 @@ import javafx.scene.layout.VBox;
 import slogo.view.Selector;
 
 /**
- * Selector for color of the canvas background
+ * Selector for turtle image
  *
  * @author David Li
  */

@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import slogo.model.Pen;
 
 /**
- * Selector for color of the canvas background
+ * Selector for pen color
  *
  * @author David Li
  */

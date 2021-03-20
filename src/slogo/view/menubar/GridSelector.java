@@ -3,7 +3,7 @@ package slogo.view.menubar;
 import javafx.scene.control.ComboBox;
 
 /**
- * Selector for color of the canvas background
+ * Selector for type of grid (axis or no axis)
  *
  * @author David Li
  */

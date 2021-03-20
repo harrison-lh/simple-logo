@@ -2,10 +2,20 @@ package slogo.view;
 
 import java.util.function.Consumer;
 
+/**
+ * Entry in command history box
+ *
+ * @author David Li
+ */
 public class CommandHistoryEntry extends ClickableEntry<String> {
 
   private final String myCommand;
 
+  /**
+   * Main constructor
+   * @param command Command to be displayed/executed when clicked
+   * @param consumer Consumer of the re-executed command
+   */
   public CommandHistoryEntry(String command, Consumer<String> consumer) {
     super(consumer);
     myCommand = command;
