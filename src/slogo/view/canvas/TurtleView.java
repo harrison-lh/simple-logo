@@ -25,23 +25,10 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
   private Coordinates coordinates;
   private Coordinates prevCoordinates;
 
-/*
-  /**
-   * Main constructor
-   * /
-  public TurtleView() {
-    this.setId("TurtleView");
-    changeTurtleImage("Default");
-    this.setFitHeight(HEIGHT);
-    this.setPreserveRatio(true);
-    this.setSmooth(true);
-    this.setCache(true);
-    coordinates = new GridCoordinates();
-  }
-*/
-
   /**
    * Constructor with Coordinates object.
+   *
+   * @param coordinates The coordinates of the turtle
    */
   public TurtleView(Coordinates coordinates) {
     this.setId("TurtleView");

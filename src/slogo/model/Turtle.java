@@ -25,11 +25,12 @@ public class Turtle {
    * Primary constructor for Turtle, which takes initial coordinates, a pen, and a pair of listeners
    * and constructs a Turtle.
    *
-   * @param coordinates The coordinate system that this Turtle will operate in
-   * @param pen The initial type of Pen that this Turtle will have
-   * @param turtleListener A listener that will report changes in this Turtle's location and other
-   *                       properties to the View TODO: CHANGE THIS!
-   * @param variablesListener A listener that will report changes in Variables TODO: CHANGE THIS TOO!
+   * @param coordinates       The coordinate system that this Turtle will operate in
+   * @param pen               The initial type of Pen that this Turtle will have
+   * @param turtleListener    A listener that will report changes in this Turtle's location and
+   *                          other properties to the View TODO: CHANGE THIS!
+   * @param variablesListener A listener that will report changes in Variables TODO: CHANGE THIS
+   *                          TOO!
    */
   public Turtle(Coordinates coordinates, Pen pen, PropertyChangeListener turtleListener,
       PropertyChangeListener variablesListener) {
@@ -54,7 +55,6 @@ public class Turtle {
    * @param y       Y coordinate
    * @param heading direction turtle is facing relative to positive x-axis
    */
-
   public Turtle(Coordinates coordinates, double x, double y, double heading) {
     this.coordinates = coordinates;
     coordinates.setXY(x, y);
@@ -102,7 +102,6 @@ public class Turtle {
    *
    * @return double of turtle's x-coordinate
    */
-
   public double getX() {
     return coordinates.getX();
   }
@@ -112,7 +111,6 @@ public class Turtle {
    *
    * @return double of turtle's y-coordinate
    */
-
   public double getY() {
     return coordinates.getY();
   }
@@ -167,24 +165,34 @@ public class Turtle {
     this.isVisible.set(isVisible);
   }
 
+  /**
+   * Returns the property of the visibility of the Turtle. Able to be listened to.
+   *
+   * @return The BooleanProperty for show/hide turtle
+   */
   public BooleanProperty visibleProperty() {
     return isVisible;
   }
 
   /**
-   * Makes the pen inactive Notifies turtle listener of pen change
+   * Makes the pen inactive.
    */
   public void liftPen() {
     pen.liftPen();
   }
 
   /**
-   * Makes the pen active Notifies turtle listener of pen change
+   * Makes the pen active.
    */
   public void placePen() {
     pen.placePen();
   }
 
+  /**
+   * Returns the property of the pen being active or not. Able to be listened to.
+   *
+   * @return The BooleanProperty for pen up/down
+   */
   public BooleanProperty penActiveProperty() {
     return pen.penActiveProperty();
   }

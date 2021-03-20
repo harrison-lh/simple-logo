@@ -152,13 +152,16 @@ public class MainView extends BorderPane {
   }
 
   /**
-   *  @param coordinates
-   * @param isVisible
-   * @param isVisible
+   * Creates a new turtle in the canvas according to the parameters passed by the Controller.
+   * Requires coordinates and properties for the state of turtle visibility and pen being enabled.
+   *
+   * @param coordinates The coordinates object of the new turtle
+   * @param isVisibleProperty The property of whether the turtle is visible
+   * @param isPenActiveProperty The property of whether the pen is active
    */
   public void createTurtle(Coordinates coordinates,
-      BooleanProperty isVisible, BooleanProperty isPenActive) {
-    myTurtleCanvas.createTurtle(coordinates, isVisible, isPenActive);
+      BooleanProperty isVisibleProperty, BooleanProperty isPenActiveProperty) {
+    myTurtleCanvas.createTurtle(coordinates, isVisibleProperty, isPenActiveProperty);
     myTurtleView = myCanvasHolder.getTurtleView();
     connectStringSelector(myTurtleView, myMenuBar.getTurtleSelector());
   }

@@ -17,9 +17,10 @@ import slogo.view.SelectorTarget;
 
 /**
  * Contains the gridlines, turtle view, and pen lines. Listens for updates from the model and
- * updates turtle and pen lines accordingly
+ * updates turtle and pen lines accordingly.
  *
  * @author David Li
+ * @author Harrison Huang
  */
 public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     PropertyChangeListener {
@@ -88,20 +89,25 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
   }
 
   /**
-   *  @param coordinates
-   * @param isVisible
-   * @param isPenActive
+   * Creates a new turtle in the view that syncs with the respective model turtle. Contains three
+   * properties to listen for: position of the turtle (includes x,y and heading), whether the turtle
+   * is visible or not, and whether the pen is active or not.
+   *
+   * @param coordinates         The coordinates object of the turtle
+   * @param isVisibleProperty   The property of the turtle being visible
+   * @param isPenActiveProperty The property of the turtle being active
    */
-  public void createTurtle(Coordinates coordinates, BooleanProperty isVisible,
-      BooleanProperty isPenActive) {
+  public void createTurtle(Coordinates coordinates, BooleanProperty isVisibleProperty,
+      BooleanProperty isPenActiveProperty) {
     TurtleView newTurtle = myTurtlesContainer.createTurtle(coordinates);
 
     newTurtle.coordinatesStringProperty().addListener((observable, oldValue, newValue) -> {
       setTurtleHeading();
       setTurtleLocation();
     });
-    isVisible.addListener((observable, oldValue, newValue) -> setTurtleVisibility(newValue));
-    isPenActive.addListener((observable, oldValue, newValue) -> setPenActive(newValue));
+    isVisibleProperty
+        .addListener((observable, oldValue, newValue) -> setTurtleVisibility(newValue));
+    isPenActiveProperty.addListener((observable, oldValue, newValue) -> setPenActive(newValue));
 
     this.getChildren().add(newTurtle);
     myTurtleView = newTurtle;
