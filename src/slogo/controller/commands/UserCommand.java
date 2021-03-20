@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.function.DoubleBinaryOperator;
 import slogo.controller.Command;
 import slogo.controller.ListCommandHead;
 import slogo.controller.VariableCommand;
@@ -11,9 +13,14 @@ import slogo.model.Turtle;
 import slogo.model.Variables;
 
 public class UserCommand extends Command {
+  private static final double NEW_VAR_NUM = Double.NEGATIVE_INFINITY;
+
+
   private static String defaultName = "";
   private static List<String> defaultParams = new ArrayList<>();
   private static ListCommandHead defaultCommands = new ListCommandHead();
+
+  private Map<String, Double> oldVarValues = new HashMap<>();
 
 
 
@@ -52,11 +59,25 @@ public class UserCommand extends Command {
 
     for(int i = 0; i < getNumParams(); i++){
       double value = getChildren().get(i).execute(turtle);
-      System.out.println(value);
-      System.out.println(parameters.get(i));
+      //System.out.println(value);
+      //System.out.println(parameters.get(i));
+      if(turtle.getVars().containsKey(parameters.get(i))){
+        oldVarValues.put(parameters.get(i), turtle.getVars().getValue(parameters.get(i)));
+      } else {
+        oldVarValues.put(parameters.get(i), NEW_VAR_NUM);
+      }
+
       turtle.getVars().setValue(parameters.get(i), value);
     }
     double retVal = commands.execute(turtle);
+
+    for(int i = 0; i < getNumParams(); i++){
+      if(oldVarValues.get(parameters.get(i)) == NEW_VAR_NUM){
+        turtle.getVars().removeValue(parameters.get(i));
+      } else {
+        turtle.getVars().setValue(parameters.get(i), oldVarValues.get(parameters.get(i)));
+      }
+    }
 
     return retVal;
   }
