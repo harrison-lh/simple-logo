@@ -108,8 +108,8 @@ public class Turtle {
 
     double heading = coordinates.getHeading();
 
-    turtleListener
-        .propertyChange(new PropertyChangeEvent(this, "HEADING", heading, heading - degrees));
+//    turtleListener
+//        .propertyChange(new PropertyChangeEvent(this, "HEADING", heading, heading - degrees));
 
     setHeading(heading - degrees);
   }
@@ -144,8 +144,8 @@ public class Turtle {
     Coordinates prevCoordinates = new GridCoordinates(coordinates);
     coordinates.setX(x);
     coordinates.setY(y);
-    turtleListener
-        .propertyChange(new PropertyChangeEvent(this, "LOCATION", prevCoordinates, coordinates));
+//    turtleListener
+//        .propertyChange(new PropertyChangeEvent(this, "LOCATION", prevCoordinates, coordinates));
   }
 
   /**
@@ -167,8 +167,8 @@ public class Turtle {
    */
 
   public void setHeading(double heading) {
-    turtleListener
-        .propertyChange(new PropertyChangeEvent(this, "HEADING", coordinates, heading));
+//    turtleListener
+//        .propertyChange(new PropertyChangeEvent(this, "HEADING", coordinates, heading));
     coordinates.setHeading(heading);
   }
 

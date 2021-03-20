@@ -9,6 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import slogo.model.Coordinates;
+import slogo.model.GridCoordinates;
 import slogo.view.SelectorTarget;
 
 /**
@@ -96,11 +97,15 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
 
     newTurtle.headingProperty().addListener((observable, oldValue, newValue) -> {
       setTurtleHeading((Double) newValue);
+      System.out.println(newTurtle.getCoordinates().getValue());
+      System.out.println(newTurtle.getCoordinates().getValue().equals(new GridCoordinates()));
+      newTurtle.setPosition(new GridCoordinates());
     });
-    newTurtle.getCoordinates().addListener(((observable, oldValue, newValue) -> {
+    newTurtle.getCoordinates().addListener((observable, oldValue, newValue) -> {
+      System.out.println("moved");
       setTurtleLocation(newValue);
-    }));
-
+    });
+    newTurtle.getCoordinates().setY(100);
 
     this.getChildren().add(newTurtle);
     myTurtleView = newTurtle;

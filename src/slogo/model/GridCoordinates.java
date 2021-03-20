@@ -32,6 +32,7 @@ public class GridCoordinates extends Coordinates {
   @Override
   public void setX(double x) {
     xVal.set(x);
+    setValue(this);
   }
 
   public DoubleProperty xValProperty() {
@@ -46,6 +47,7 @@ public class GridCoordinates extends Coordinates {
   @Override
   public void setY(double y) {
     yVal.set(y);
+    setValue(this);
   }
 
   public DoubleProperty yValProperty() {
@@ -71,12 +73,4 @@ public class GridCoordinates extends Coordinates {
     return headVal;
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (o instanceof GridCoordinates) {
-      GridCoordinates other = (GridCoordinates) o;
-      return (getX() == other.getX()) && (getY() == other.getY());
-    }
-    return false;
-  }
 }

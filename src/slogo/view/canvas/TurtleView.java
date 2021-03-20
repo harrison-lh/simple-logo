@@ -73,6 +73,10 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
     this.setTranslateY(TurtleCanvas.convertYCoordinate(y));
   }
 
+  public void setPosition(Coordinates coordinates) {
+    this.coordinates = coordinates;
+  }
+
   public void setHeading(double heading) {
     coordinates.setHeading(heading);
     this.setRotate(TurtleCanvas.convertHeading(heading));

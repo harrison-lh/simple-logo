@@ -25,11 +25,13 @@ public abstract class Coordinates extends SimpleObjectProperty<Coordinates> {
     this.xPos = DEFAULT_X;
     this.yPos = DEFAULT_Y;
     this.heading = DEFAULT_HEADING;
+    setValue(this);
   }
   protected Coordinates(double x, double y, double heading){
     this.xPos = x;
     this.yPos = y;
     this.heading = heading;
+    setValue(this);
   }
 
   /**
@@ -79,5 +81,28 @@ public abstract class Coordinates extends SimpleObjectProperty<Coordinates> {
    * @return
    */
   public abstract DoubleProperty headValProperty();
+
+  @Override
+  public boolean equals(Object o) {
+    if (o instanceof Coordinates) {
+      Coordinates other = (Coordinates) o;
+      return (getX() == other.getX()) && (getY() == other.getY());
+    }
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    int prime = 43;
+    int ret = 1;
+    ret += prime * prime * ((Double)(getX())).hashCode();
+    ret += prime * ((Double)(getY())).hashCode();
+    return ret;
+  }
+
+  @Override
+  public String toString() {
+    return "(" + getX() + ", " + getY() + ")";
+  }
 
 }
