@@ -3,7 +3,12 @@ package slogo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Deque;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
@@ -16,9 +21,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
-import slogo.controller.Controller;
 import slogo.view.CommandHistoryBox;
-import slogo.view.MainView;
+import slogo.view.Workspaces;
 import slogo.view.canvas.GridLines;
 import slogo.view.canvas.TurtleCanvas;
 import slogo.view.canvas.TurtleView;
@@ -29,18 +33,18 @@ class ViewTests extends DukeApplicationTest {
 
   @Override
   public void start(Stage stage) {
-    Controller controller = new Controller();
-    MainView mainView = controller.getMainView();
-    Scene scene = new Scene(mainView, Main.MIN_WIDTH, Main.MIN_HEIGHT);
+    Scene scene = new Scene(new Workspaces(), Main.MIN_WIDTH, Main.MIN_HEIGHT);
     scene.getStylesheets().add("slogo/view/stylesheet.css");
     stage.setScene(scene);
     stage.setMinWidth(Main.MIN_WIDTH);
     stage.setMinHeight(Main.MIN_HEIGHT);
+    stage.setTitle("SLogo");
     stage.show();
   }
 
   @Test
   void testElementsGenerated() {
+    assertExists("#NewTab");
     assertExists("#MenuBar");
     assertExists("#BackgroundSelector");
     assertExists("#GridSelector");
@@ -48,13 +52,16 @@ class ViewTests extends DukeApplicationTest {
     assertExists("#PenSelector");
     assertExists("#TurtleSelector");
     assertExists("#InfoButton");
+    assertExists("#GraphicalController");
     assertExists("#TurtleCanvas");
     assertExists("#GridLines");
     assertExists("#TurtleView");
     assertExists("#CommandHistoryBox");
     assertExists("#InputBox");
+    assertExists("#TurtlesBox");
     assertExists("#CommandsBox");
     assertExists("#VariablesBox");
+    assertExists("#PalettesBox");
   }
 
   @Test
@@ -76,7 +83,9 @@ class ViewTests extends DukeApplicationTest {
     // Select axis grid type
     select(gridSelectorComboBox, testGridSetting);
     // Check if axes are visible
-    assertTrue(lookup("#GridLines").queryAs(GridLines.class).axesAreVisible());
+    Boolean axesAreVisible = (Boolean) getPrivateField(
+        lookup("#GridLines").queryAs(GridLines.class), "axesAreVisible");
+    assertTrue(axesAreVisible);
   }
 
   @Test
@@ -88,7 +97,8 @@ class ViewTests extends DukeApplicationTest {
     select(turtleSelectorComboBox, testTurtle);
     // Check if turtle image filename is correct
     assertEquals("turtle-realistic.png",
-        lookup("#TurtleView").queryAs(TurtleView.class).getTurtleImageFilename());
+        invokePrivateMethod(lookup("#TurtleView").queryAs(TurtleView.class),
+            "getTurtleImageFilename"));
   }
 
   @Test
@@ -115,11 +125,35 @@ class ViewTests extends DukeApplicationTest {
     inputBoxArea.setText(command);
     clickOn(lookup("#InputButton").queryButton());
     assertEquals(command,
-        lookup("#CommandHistoryBox").queryAs(CommandHistoryBox.class).getPastCommands().poll());
+        ((Deque<String>) getPrivateField(
+            lookup("#CommandHistoryBox").queryAs(CommandHistoryBox.class),
+            "pastCommands")).poll());
     assertEquals("", inputBoxArea.getText());
   }
 
   private void assertExists(String query) {
     assertNotEquals(lookup(query).query(), null);
+  }
+
+  private Object getPrivateField(Object object, String field) {
+    try {
+      Field f = object.getClass().getDeclaredField(field);
+      f.setAccessible(true);
+      return f.get(object);
+    } catch (IllegalAccessException | NoSuchFieldException e) {
+      fail("Can't access field");
+      return null;
+    }
+  }
+
+  private Object invokePrivateMethod(Object object, String methodName) {
+    try {
+      Method method = object.getClass().getDeclaredMethod(methodName);
+      method.setAccessible(true);
+      return method.invoke(object);
+    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+      fail("Can't access method");
+      return null;
+    }
   }
 }

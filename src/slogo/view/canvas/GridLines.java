@@ -54,8 +54,4 @@ public class GridLines extends Pane {
     }
   }
 
-  public boolean axesAreVisible() {
-    return axesAreVisible;
-  }
-
 }
