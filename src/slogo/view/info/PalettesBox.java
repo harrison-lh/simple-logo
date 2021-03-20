@@ -4,7 +4,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Display box for variables
+ * Display box for palettes
+ *
+ * @author David Li
  */
 public class PalettesBox extends ScrollPane {
 

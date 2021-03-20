@@ -21,7 +21,7 @@ import slogo.controller.commands.UserCommand;
  */
 public class Lexer {
 
-  private static final String RESOURCES_PACKAGE = "resources.languages.";
+  public static final String RESOURCES_PACKAGE = "resources.languages.";
   private static final String SYNTAX = "Syntax";
   private final List<Entry<String, Pattern>> syntaxSymbols;
   private final List<UserCommand> userCommands;
