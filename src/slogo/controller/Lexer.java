@@ -200,14 +200,11 @@ public class Lexer {
           case "ListStart" -> {
             return Token.LIST_START;
           }
-          case "ListEnd" -> {
-            return Token.LIST_END;
-          }
           case "GroupStart" -> {
             return Token.GROUP_START;
           }
-          case "GroupEnd" -> {
-            return Token.GROUP_END;
+          case "End" -> {
+            return Token.COLLECTION_END;
           }
         }
       }
