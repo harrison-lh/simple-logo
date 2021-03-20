@@ -28,6 +28,7 @@ public class Parser implements SelectorTarget<String> {
   private final Queue<Command> assembledCommandQueue;
   private Queue<String> splitText;
   private Queue<Token> tokenizedText;
+  private String currentCommandString;
 
   /**
    * Calls main constructor, passing in an empty command listener
@@ -171,7 +172,7 @@ public class Parser implements SelectorTarget<String> {
     System.out.println(commandType);
     if (commandType.equals("MakeUserInstruction") && tokenizedText.peek() == Token.COMMAND) {
       tokenizedText.poll();
-      return new MakeUserInstructionCommand(splitText.poll(), lexer);
+      return new MakeUserInstructionCommand(splitText.poll(), lexer, currentCommandString);
     } else {
       try {
         if (lexer.containsUserCommand(text)) {
@@ -297,6 +298,7 @@ public class Parser implements SelectorTarget<String> {
    */
   public void parseCommandString(String text)
       throws IllegalArgumentException, NullPointerException {
+    currentCommandString = text;
     splitText(text);
     tokenizeText();
     if (handleCommentsAndBlankLines()) {
