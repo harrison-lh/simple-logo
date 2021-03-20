@@ -34,13 +34,6 @@ public class CommandHistoryBox extends ScrollPane {
   }
 
   /**
-   * @return Deque of all the past commands inputted
-   */
-  public Deque<String> getPastCommands() {
-    return pastCommands;
-  }
-
-  /**
    * Add a command to the command history
    *
    * @param command Command to be added

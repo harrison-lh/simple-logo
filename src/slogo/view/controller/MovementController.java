@@ -15,16 +15,21 @@ import slogo.view.LanguageConsumer;
 public class MovementController extends ControllerElement implements LanguageConsumer {
 
   private final Button myForwardButton;
-  private final Button myBackButton;
+  private final Button myBackwardButton;
 
   public MovementController() {
+    super();
+    this.setId("MovementController");
     TextField inputArea = new TextField();
     this.setInputArea(inputArea);
     myForwardButton = new Button("FD");
-    myBackButton = new Button("BK");
+    myBackwardButton = new Button("BK");
+    inputArea.setId("MovementInput");
+    myForwardButton.setId("ControllerForwardButton");
+    myBackwardButton.setId("ControllerBackwardButton");
     GridPane buttons = new GridPane();
     buttons.add(myForwardButton, 0, 0);
-    buttons.add(myBackButton, 1, 0);
+    buttons.add(myBackwardButton, 1, 0);
     ColumnConstraints column1 = new ColumnConstraints();
     column1.setPercentWidth(50);
     ColumnConstraints column2 = new ColumnConstraints();
@@ -35,6 +40,6 @@ public class MovementController extends ControllerElement implements LanguageCon
 
   public void setExecuteCommandActions(Consumer<String> response) {
     myForwardButton.setOnAction(e -> executeCommandWithInput(response, "Forward"));
-    myBackButton.setOnAction(e -> executeCommandWithInput(response, "Backward"));
+    myBackwardButton.setOnAction(e -> executeCommandWithInput(response, "Backward"));
   }
 }
