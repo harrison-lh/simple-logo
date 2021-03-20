@@ -3,6 +3,7 @@ package slogo.controller;
 import java.beans.PropertyChangeListener;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Queue;
 import java.util.Stack;
@@ -21,7 +22,7 @@ import slogo.view.SelectorTarget;
  */
 public class Parser implements SelectorTarget<String> {
 
-  private final TurtleController controller;
+  private final TurtleGeneral turtleGeneral;
   private final Lexer lexer;
   private final Queue<Command> parsedCommandQueue;
   private final Queue<Command> assembledCommandQueue;
@@ -31,8 +32,8 @@ public class Parser implements SelectorTarget<String> {
   /**
    * Calls main constructor, passing in an empty command listener
    */
-  public Parser(TurtleController controller, String syntaxLang) {
-    this(controller, syntaxLang, evt -> {
+  public Parser(TurtleGeneral turtleGeneral, String syntaxLang) {
+    this(turtleGeneral, syntaxLang, evt -> {
     });
   }
 
@@ -40,13 +41,13 @@ public class Parser implements SelectorTarget<String> {
    * Constructor for the Parser. Takes in a TurtleController to execute Commands on, and an initial
    * syntaxLang to be constructed with.
    *
-   * @param controller       The TurtleController upon which this Parser acts
+   * @param turtleGeneral       The TurtleController upon which this Parser acts
    * @param syntaxLang       The initial language for which this Parser is configured.
    * @param commandsListener
    */
-  public Parser(TurtleController controller, String syntaxLang,
+  public Parser(TurtleGeneral turtleGeneral, String syntaxLang,
       PropertyChangeListener commandsListener) {
-    this.controller = controller;
+    this.turtleGeneral = turtleGeneral;
     this.lexer = new Lexer(syntaxLang, commandsListener);
     this.splitText = new LinkedList<>();
     this.tokenizedText = new LinkedList<>();
@@ -156,10 +157,13 @@ public class Parser implements SelectorTarget<String> {
   }
 
   private VariableCommand patternMatchVariable(String text) {
-    if (!controller.getTurtle().getVars().containsKey(text)) {
-      controller.getTurtle().getVars().setValue(text, 0);
+    for(TurtleController curController : turtleGeneral.getTurtleArmy()) {
+      if (!curController.getTurtle().getVars().containsKey(text)) {
+        curController.getTurtle().getVars().setValue(text, 0);
+      }
+      return new VariableCommand(text);
     }
-    return new VariableCommand(text);
+    return null;
   }
 
   private Command patternMatchCommand(String text) {
@@ -303,7 +307,11 @@ public class Parser implements SelectorTarget<String> {
     for (Command command : assembledCommandQueue) {
       System.out.println(command);
     }
-    controller.pushCommands(assembledCommandQueue);
+    List<Integer> curActiveTurtleIds = turtleGeneral.getActiveTurtleIds();
+    for(TurtleController controller : turtleGeneral.getTurtleArmy()) {
+      if(curActiveTurtleIds.contains(controller.getTurtle().getId()))
+        controller.pushCommands(assembledCommandQueue);
+    }
     assembledCommandQueue.clear();
     // Clean up after we're done
   }
@@ -323,8 +331,13 @@ public class Parser implements SelectorTarget<String> {
       throws IllegalArgumentException, NullPointerException {
     return command -> {
       parseCommandString(command);
-      controller.setIsAllowedToExecute(true);
-      controller.runCommands();
+      List<Integer> curActiveTurtleIds = turtleGeneral.getActiveTurtleIds();
+      for(TurtleController controller : turtleGeneral.getTurtleArmy()) {
+        if(curActiveTurtleIds.contains(controller.getTurtle().getId())) {
+          controller.setIsAllowedToExecute(true);
+          controller.runCommands();
+        }
+      }
     };
   }
 
