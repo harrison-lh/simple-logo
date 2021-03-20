@@ -9,7 +9,9 @@ import javafx.scene.layout.GridPane;
 import slogo.view.LanguageConsumer;
 
 /**
- * Pen up, pen down, and pen size controls
+ * Pen up, pen down, and pen size controls.
+ *
+ * @authod David Li
  */
 public class PenController extends ControllerElement implements LanguageConsumer {
 

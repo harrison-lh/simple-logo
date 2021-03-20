@@ -14,6 +14,8 @@ import slogo.view.LanguageConsumer;
 
 /**
  * Display box for variables
+ *
+ * @author David Li
  */
 public class VariablesBox extends ScrollPane implements PropertyChangeListener, LanguageConsumer {
 
@@ -47,10 +49,16 @@ public class VariablesBox extends ScrollPane implements PropertyChangeListener, 
     }
   }
 
+  /**
+   * Sets the consumer of command actions
+   */
   public void setExecuteCommandAction(Consumer<String> response) {
     myConsumer = response;
   }
 
+  /**
+   * Changes this language and the language of each variable entry
+   */
   @Override
   public Consumer<String> languageConsumer() {
     return newLanguage -> {

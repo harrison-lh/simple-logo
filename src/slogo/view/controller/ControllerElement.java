@@ -15,6 +15,8 @@ import slogo.view.LanguageConsumer;
  * Provides methods that translate commands to the current language.
  * Also has option to take input from an input box and execute commands
  * using the user input
+ *
+ * @author David Li
  */
 public abstract class ControllerElement extends VBox implements LanguageConsumer {
 

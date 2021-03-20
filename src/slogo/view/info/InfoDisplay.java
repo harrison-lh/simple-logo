@@ -3,6 +3,12 @@ package slogo.view.info;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
+/**
+ * Display panel for information about the turtles, variables, commands,
+ * and palettes.
+ *
+ * @author David Li
+ */
 public class InfoDisplay extends TabPane {
 
   private static final double WIDTH = 280;
@@ -12,6 +18,9 @@ public class InfoDisplay extends TabPane {
   private final CommandsBox myCommandsBox;
   private final PalettesBox myPalettesBox;
 
+  /**
+   * Main constructor
+   */
   public InfoDisplay() {
     this.setId("InfoDisplay");
 

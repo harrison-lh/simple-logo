@@ -8,7 +8,9 @@ import javafx.scene.layout.GridPane;
 import slogo.view.LanguageConsumer;
 
 /**
- * Clear screen control
+ * Clear screen control.
+ *
+ * @author David Li
  */
 public class ClearController extends ControllerElement implements LanguageConsumer {
 

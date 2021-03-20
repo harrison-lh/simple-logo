@@ -8,7 +8,9 @@ import javafx.scene.layout.GridPane;
 import slogo.view.LanguageConsumer;
 
 /**
- * Forward and backward controls
+ * Forward and backward controls.
+ *
+ * @author David Li
  */
 public class MovementController extends ControllerElement implements LanguageConsumer {
 

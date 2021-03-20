@@ -9,12 +9,22 @@ import slogo.controller.Controller;
 import slogo.controller.Lexer;
 import slogo.view.ClickableEntry;
 
+/**
+ * Entry in the variables box of the info display
+ */
 public class VariableEntry extends ClickableEntry<String> {
 
   private final String myName;
   private double myValue;
   private String language;
 
+  /**
+   * Main constructor
+   * @param name Variable name
+   * @param value Variable value
+   * @param consumer Consumer of change variable command
+   * @param language Current language
+   */
   public VariableEntry(String name, double value, Consumer<String> consumer, String language) {
     super(consumer);
     myName = name;
