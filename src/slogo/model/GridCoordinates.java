@@ -70,4 +70,13 @@ public class GridCoordinates extends Coordinates {
   public DoubleProperty headValProperty() {
     return headVal;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (o instanceof GridCoordinates) {
+      GridCoordinates other = (GridCoordinates) o;
+      return (getX() == other.getX()) && (getY() == other.getY());
+    }
+    return false;
+  }
 }

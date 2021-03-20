@@ -26,23 +26,28 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
   /**
    * Main constructor
    */
-  public TurtleView() {
+//  public TurtleView() {
+//    this.setId("TurtleView");
+//    changeTurtleImage("Default");
+//    this.setFitHeight(HEIGHT);
+//    this.setPreserveRatio(true);
+//    this.setSmooth(true);
+//    this.setCache(true);
+//    coordinates = new GridCoordinates();
+//  }
+
+  /**
+   * Constructor with Coordinates object.
+   */
+  public TurtleView(Coordinates coordinates) {
     this.setId("TurtleView");
     changeTurtleImage("Default");
     this.setFitHeight(HEIGHT);
     this.setPreserveRatio(true);
     this.setSmooth(true);
     this.setCache(true);
-    coordinates = new GridCoordinates();
-  }
-
-  /**
-   * Constructor with Coordinates object.
-   */
-  public TurtleView(Coordinates coordinates) {
-    super();
-    setPosition(coordinates.getX(), coordinates.getY());
     this.coordinates = coordinates;
+    setPosition(coordinates.getX(), coordinates.getY());
   }
 
   /**

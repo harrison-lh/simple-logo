@@ -13,7 +13,7 @@ public class TurtlesContainer {
   }
 
   public TurtleView createTurtle(Coordinates coordinates) {
-    TurtleView newTurtle = new TurtleView();
+    TurtleView newTurtle = new TurtleView(coordinates);
     myTurtleViews.add(newTurtle);
     return newTurtle;
   }
