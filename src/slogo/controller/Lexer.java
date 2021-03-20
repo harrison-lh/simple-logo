@@ -21,7 +21,7 @@ import slogo.controller.commands.UserCommand;
  */
 public class Lexer {
 
-  private static final String RESOURCES_PACKAGE = "resources.languages.";
+  public static final String RESOURCES_PACKAGE = "resources.languages.";
   private static final String SYNTAX = "Syntax";
   private final List<Entry<String, Pattern>> syntaxSymbols;
   private final List<UserCommand> userCommands;
@@ -181,7 +181,7 @@ public class Lexer {
    * @throws IllegalArgumentException If the text is unable to be tokenized.
    */
   public Token tokenize(String text) throws IllegalArgumentException {
-    final String ERROR = "ILLEGAL ARGUMENT EXCEPTION: NO MATCH! UNRECOGNIZED TOKEN!";
+    final String ERROR = "ILLEGAL ARGUMENT EXCEPTION:\nNO MATCH! UNRECOGNIZED TOKEN!";
     for (Entry<String, Pattern> e : syntaxSymbols) {
       if (match(text, e.getValue())) {
         switch (e.getKey()) {
@@ -200,14 +200,11 @@ public class Lexer {
           case "ListStart" -> {
             return Token.LIST_START;
           }
-          case "ListEnd" -> {
-            return Token.LIST_END;
-          }
           case "GroupStart" -> {
             return Token.GROUP_START;
           }
-          case "GroupEnd" -> {
-            return Token.GROUP_END;
+          case "End" -> {
+            return Token.COLLECTION_END;
           }
         }
       }
@@ -225,7 +222,7 @@ public class Lexer {
    * @throws IllegalArgumentException If the text is unable to be lexed.
    */
   public String lexLangDefinedCommands(String text) throws IllegalArgumentException {
-    final String ERROR = "ILLEGAL ARGUMENT EXCEPTION: NO MATCH! UNRECOGNIZED SYNTAX!";
+    final String ERROR = "ILLEGAL ARGUMENT EXCEPTION:\nNO MATCH! UNRECOGNIZED SYNTAX!";
     if (containsUserCommand(text)) {
       return "User";
     }

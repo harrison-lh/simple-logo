@@ -3,10 +3,12 @@ package slogo.controller;
 import java.beans.PropertyChangeListener;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Queue;
 import java.util.Stack;
 import java.util.function.Consumer;
+import slogo.controller.commands.GroupCommandHead;
 import slogo.controller.commands.MakeUserInstructionCommand;
 import slogo.controller.commands.UserCommand;
 import slogo.view.SelectorTarget;
@@ -20,18 +22,19 @@ import slogo.view.SelectorTarget;
  */
 public class Parser implements SelectorTarget<String> {
 
-  private final TurtleController controller;
+  private final TurtleGeneral turtleGeneral;
   private final Lexer lexer;
   private final Queue<Command> parsedCommandQueue;
   private final Queue<Command> assembledCommandQueue;
   private Queue<String> splitText;
   private Queue<Token> tokenizedText;
+  private String currentCommandString;
 
   /**
    * Calls main constructor, passing in an empty command listener
    */
-  public Parser(TurtleController controller, String syntaxLang) {
-    this(controller, syntaxLang, evt -> {
+  public Parser(TurtleGeneral turtleGeneral, String syntaxLang) {
+    this(turtleGeneral, syntaxLang, evt -> {
     });
   }
 
@@ -39,13 +42,13 @@ public class Parser implements SelectorTarget<String> {
    * Constructor for the Parser. Takes in a TurtleController to execute Commands on, and an initial
    * syntaxLang to be constructed with.
    *
-   * @param controller       The TurtleController upon which this Parser acts
+   * @param turtleGeneral       The TurtleController upon which this Parser acts
    * @param syntaxLang       The initial language for which this Parser is configured.
    * @param commandsListener
    */
-  public Parser(TurtleController controller, String syntaxLang,
+  public Parser(TurtleGeneral turtleGeneral, String syntaxLang,
       PropertyChangeListener commandsListener) {
-    this.controller = controller;
+    this.turtleGeneral = turtleGeneral;
     this.lexer = new Lexer(syntaxLang, commandsListener);
     this.splitText = new LinkedList<>();
     this.tokenizedText = new LinkedList<>();
@@ -85,15 +88,61 @@ public class Parser implements SelectorTarget<String> {
       case LIST_START -> {
         return patternMatchListStart();
       }
-      case LIST_END -> {
-        // this case is never called in new implementation
-        //System.out.println("IN LIST END: SHOULD NEVER APPEAR");
+      case GROUP_START -> {
+        GroupCommandHead groupCommandHead = new GroupCommandHead();
+        groupCommandHead.setNumParams(0);
+        if (tokenizedText.isEmpty() || splitText.isEmpty()) {
+          throw new IllegalArgumentException(
+              "ILLEGAL ARGUMENT EXCEPTION:\nOPEN GROUP WITHOUT CLOSURE!");
+        }
+        Command groupHeader = patternMatchToken(tokenizedText.poll(), splitText.poll());
+        groupCommandHead.setGroupHeader(groupHeader);
 
-        return new ListCommandTail();
+        fillGroup(groupCommandHead);
+
+        return groupCommandHead;
+
+
+      }
+      case COLLECTION_END -> {
+        return new CollectionCommandTail();
       }
     }
     throw new IllegalArgumentException(
-        "ILLEGAL ARGUMENT EXCEPTION: UNABLE TO TOKENIZE ARGUMENT! PLEASE VERIFY SYNTAX!");
+        "ILLEGAL ARGUMENT EXCEPTION:\nUNABLE TO TOKENIZE ARGUMENT! PLEASE VERIFY SYNTAX!");
+  }
+
+
+
+  private void fillGroup(GroupCommandHead groupHead) {
+
+    if (tokenizedText.isEmpty()) {
+      throw new IllegalArgumentException(
+          "ILLEGAL ARGUMENT EXCEPTION:\nOPEN GROUP WITHOUT CLOSURE!");
+    }
+
+    Command innerCommand = patternMatchToken(tokenizedText.poll(), splitText.poll());
+
+    while (!innerCommand.getIsCollectionEnd() && !tokenizedText.isEmpty()) {
+
+      //System.out.println("Adding Children List");
+      groupHead.addNewHeaderChildrenList();
+
+      for (int i = 0; i < groupHead.getGroupHeader().getNumParams(); i++) {
+
+        //System.out.println("Handling GrandChildren");
+        grandChildHandler(innerCommand);
+        //System.out.println("Done Handling GrandChildren");
+        groupHead.addNewHeaderChild(innerCommand);
+
+        if (tokenizedText.isEmpty()) {
+          throw new IllegalArgumentException(
+              "ILLEGAL ARGUMENT EXCEPTION:\nOPEN GROUP WITHOUT CLOSURE!");
+        }
+
+        innerCommand = patternMatchToken(tokenizedText.poll(), splitText.poll());
+      }
+    }
   }
 
   private ListCommandHead patternMatchListStart() {
@@ -101,7 +150,7 @@ public class Parser implements SelectorTarget<String> {
     listStartCommand.setNumParams(0);
     if (tokenizedText.isEmpty() || splitText.isEmpty()) {
       throw new IllegalArgumentException(
-          "ILLEGAL ARGUMENT EXCEPTION: OPEN LIST WITHOUT CLOSURE!");
+          "ILLEGAL ARGUMENT EXCEPTION:\nOPEN LIST WITHOUT CLOSURE!");
     }
     Command innerChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
     fillList(listStartCommand, innerChild);
@@ -109,10 +158,13 @@ public class Parser implements SelectorTarget<String> {
   }
 
   private VariableCommand patternMatchVariable(String text) {
-    if (!controller.getTurtle().getVars().containsKey(text)) {
-      controller.getTurtle().getVars().setValue(text, 0);
+    for(TurtleController curController : turtleGeneral.getTurtleArmy()) {
+      if (!curController.getTurtle().getVars().containsKey(text)) {
+        curController.getTurtle().getVars().setValue(text, 0);
+      }
+      return new VariableCommand(text);
     }
-    return new VariableCommand(text);
+    return null;
   }
 
   private Command patternMatchCommand(String text) {
@@ -120,7 +172,7 @@ public class Parser implements SelectorTarget<String> {
     System.out.println(commandType);
     if (commandType.equals("MakeUserInstruction") && tokenizedText.peek() == Token.COMMAND) {
       tokenizedText.poll();
-      return new MakeUserInstructionCommand(splitText.poll(), lexer);
+      return new MakeUserInstructionCommand(splitText.poll(), lexer, currentCommandString);
     } else {
       try {
         if (lexer.containsUserCommand(text)) {
@@ -133,7 +185,7 @@ public class Parser implements SelectorTarget<String> {
 
         System.err.println("LOOKUP FAILED!!!");
         // TODO: Might be a user-defined command, so we must check those!
-        throw new IllegalArgumentException("ILLEGAL ARGUMENT EXCEPTION: COMMAND UNDEFINED!");
+        throw new IllegalArgumentException("ILLEGAL ARGUMENT EXCEPTION:\nCOMMAND UNDEFINED!");
       }
     }
   }
@@ -141,7 +193,7 @@ public class Parser implements SelectorTarget<String> {
   private void fillList(ListCommandHead listHead, Command innerCommand)
       throws IllegalArgumentException {
     //Start Base Case
-    if (innerCommand.getIsListEnd()) {
+    if (innerCommand.getIsCollectionEnd()) {
       return;
     }
 
@@ -152,10 +204,12 @@ public class Parser implements SelectorTarget<String> {
     grandChildHandler(innerCommand);
 
     if (tokenizedText.isEmpty()) {
-      return;
+      throw new IllegalArgumentException(
+          "ILLEGAL ARGUMENT EXCEPTION:\n OPEN LIST WITHOUT CLOSURE!");
     }
 
     Command nextChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
+
 
     fillList(listHead, nextChild);
 
@@ -169,6 +223,13 @@ public class Parser implements SelectorTarget<String> {
 
       Command grandChild = patternMatchToken(Objects.requireNonNull(tokenizedText.poll()),
           splitText.poll());
+
+      //System.out.println(grandChild);
+
+      if(grandChild.getIsCollectionEnd()){
+        throw new IllegalArgumentException(
+            "ILLEGAL ARGUMENT EXCEPTION:\nCHECK YOUR ARGUMENT COUNT!!!");
+      }
       innerCommand.addChild(grandChild);
       if (grandChild.getNumParams() > 0) {
         grandChildHandler(grandChild);
@@ -209,7 +270,7 @@ public class Parser implements SelectorTarget<String> {
           curCommand = childCommand;
         }
       } else {
-        throw new NullPointerException("NULL POINTER EXCEPTION: CHECK YOUR ARGUMENT COUNT!!!");
+        throw new NullPointerException("NULL POINTER EXCEPTION:\nCHECK YOUR ARGUMENT COUNT!!!");
       }
     }
   }
@@ -237,6 +298,7 @@ public class Parser implements SelectorTarget<String> {
    */
   public void parseCommandString(String text)
       throws IllegalArgumentException, NullPointerException {
+    currentCommandString = text;
     splitText(text);
     tokenizeText();
     if (handleCommentsAndBlankLines()) {
@@ -247,7 +309,11 @@ public class Parser implements SelectorTarget<String> {
     for (Command command : assembledCommandQueue) {
       System.out.println(command);
     }
-    controller.pushCommands(assembledCommandQueue);
+    List<Integer> curActiveTurtleIds = turtleGeneral.getActiveTurtleIds();
+    for(TurtleController controller : turtleGeneral.getTurtleArmy()) {
+      if(curActiveTurtleIds.contains(controller.getTurtle().getId()))
+        controller.pushCommands(assembledCommandQueue);
+    }
     assembledCommandQueue.clear();
     // Clean up after we're done
   }
@@ -267,8 +333,13 @@ public class Parser implements SelectorTarget<String> {
       throws IllegalArgumentException, NullPointerException {
     return command -> {
       parseCommandString(command);
-      controller.setIsAllowedToExecute(true);
-      controller.runCommands();
+      List<Integer> curActiveTurtleIds = turtleGeneral.getActiveTurtleIds();
+      for(TurtleController controller : turtleGeneral.getTurtleArmy()) {
+        if(curActiveTurtleIds.contains(controller.getTurtle().getId())) {
+          controller.setIsAllowedToExecute(true);
+          controller.runCommands();
+        }
+      }
     };
   }
 

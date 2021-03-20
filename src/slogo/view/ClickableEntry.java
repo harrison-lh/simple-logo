@@ -7,11 +7,21 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * Clickable item that carries out some action when clicked.
+ * @param <T> Type of variable that gets passed to the consumer
+ *
+ * @author David Li
+ */
 public abstract class ClickableEntry<T> extends StackPane {
 
   private final Label myLabel;
   private final Rectangle myRectangle;
 
+  /**
+   * Main constructor
+   * @param consumer Consumer of clickable action
+   */
   public ClickableEntry(Consumer<T> consumer) {
     myLabel = new Label();
     myRectangle = new Rectangle();
@@ -20,6 +30,10 @@ public abstract class ClickableEntry<T> extends StackPane {
     this.getChildren().addAll(myLabel, myRectangle);
   }
 
+  /**
+   * Constructor with initial text
+   * @param text Text of label of the entry
+   */
   public ClickableEntry(String text, Consumer<T> consumer) {
     this(consumer);
     this.setText(text);
@@ -52,6 +66,5 @@ public abstract class ClickableEntry<T> extends StackPane {
     });
     myRectangle.setOnMouseClicked(event -> onClick(consumer));
   }
-
 
 }

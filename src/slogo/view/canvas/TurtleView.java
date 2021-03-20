@@ -43,14 +43,6 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
   }
 
   /**
-   * @return File name of the turtle image file
-   */
-  public String getTurtleImageFilename() {
-    String fullUrl = myTurtleImage.getUrl();
-    return fullUrl.substring(fullUrl.lastIndexOf('/') + 1);
-  }
-
-  /**
    * Changes the turtle image
    */
   @Override
@@ -104,4 +96,10 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
       this.setImage(myTurtleImage);
     }
   }
+
+  private String getTurtleImageFilename() {
+    String fullUrl = myTurtleImage.getUrl();
+    return fullUrl.substring(fullUrl.lastIndexOf('/') + 1);
+  }
+
 }

@@ -9,28 +9,29 @@ import slogo.view.MainView;
  * Link between the model, view, and parser
  *
  * @author David Li
+ * @author Marc Chmielewski
  */
 
 public class Controller {
 
-  private static final String DEFAULT_LANGUAGE = "English";
+  public static final String DEFAULT_LANGUAGE = "English";
 
   private final MainView myMainView;
   private final Parser myParser;
   private final Turtle myTurtle;
-  private final TurtleController myTurtleController;
+  private final TurtleGeneral myTurtleGeneral;
 
   /**
    * Main constructor
    */
   public Controller() {
     myMainView = new MainView();
-    myTurtle = new Turtle(new GridCoordinates(), new ModelPen(),
+    myTurtle = new Turtle(0, new GridCoordinates(), new ModelPen(),
         myMainView.getTurtleListener(), myMainView.getVariablesListener());
     myMainView.createTurtle(myTurtle.getCoordinates(), myTurtle.visibleProperty(), myTurtle.penActiveProperty());
-    myTurtleController = new TurtleController(myTurtle);
-
-    myParser = new Parser(myTurtleController, DEFAULT_LANGUAGE, myMainView.getCommandsListener());
+    TurtleController initController = new TurtleController(myTurtle);
+    myTurtleGeneral = new TurtleGeneral(initController);
+    myParser = new Parser(myTurtleGeneral, DEFAULT_LANGUAGE, myMainView.getCommandsListener());
 
     // Input button action
     myMainView.setInputAction(myParser.receiveInputAction());

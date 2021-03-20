@@ -17,7 +17,7 @@ public class LexerTests {
   @Test
   public void testEmptyLexer() {
     Lexer lexer = new Lexer();
-    assertEquals(8, lexer.getSyntaxSymbols().size());
+    assertEquals(7, lexer.getSyntaxSymbols().size());
     assertEquals(0, lexer.getLangSymbols().size());
   }
 
@@ -25,7 +25,7 @@ public class LexerTests {
   public void testEnglishSymbolsLoad() {
     Lexer lexer = new Lexer("English");
     // Make sure we've loaded all of the expected symbols
-    assertEquals(8, lexer.getSyntaxSymbols().size());
+    assertEquals(7, lexer.getSyntaxSymbols().size());
     assertEquals(60, lexer.getLangSymbols().size());
   }
 
@@ -33,10 +33,10 @@ public class LexerTests {
   public void testAltSymbolsReload() {
     Lexer lexer = new Lexer("English");
     // Make sure we've loaded all of the expected symbols
-    assertEquals(8, lexer.getSyntaxSymbols().size());
+    assertEquals(7, lexer.getSyntaxSymbols().size());
     assertEquals(60, lexer.getLangSymbols().size());
     lexer.setLangSymbols("Spanish");
-    assertEquals(8, lexer.getSyntaxSymbols().size());
+    assertEquals(7, lexer.getSyntaxSymbols().size());
     assertEquals(60, lexer.getLangSymbols().size());
   }
 
@@ -48,7 +48,8 @@ public class LexerTests {
     assertEquals(Token.CONSTANT, lexer.tokenize("50"));
     assertEquals(Token.VARIABLE, lexer.tokenize(":RipEmUpTearEmUpGiveEmHellDuke"));
     assertEquals(Token.LIST_START, lexer.tokenize("["));
-    assertEquals(Token.LIST_END, lexer.tokenize("]"));
+    assertEquals(Token.COLLECTION_END, lexer.tokenize("]"));
+    assertEquals(Token.COLLECTION_END, lexer.tokenize(")"));
     assertThrows(IllegalArgumentException.class, () -> {
           lexer.tokenize("fd 50");
         }

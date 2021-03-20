@@ -14,11 +14,17 @@ public class MakeUserInstructionCommand extends Command {
   private static final int COMMANDS_INDEX = 1;
   private String name = "";
   private Lexer lexer;
+  private String fullCommand = "";
 
-  public MakeUserInstructionCommand(String name, Lexer lexer){
+  public MakeUserInstructionCommand(String name, Lexer lexer, String initialingCommandString){
     this.name = name;
     this.lexer = lexer;
+    fullCommand = initialingCommandString;
     setNumParams(NUM_PARAMS);
+  }
+
+  public String getFullCommand(){
+    return fullCommand;
   }
 
   @Override

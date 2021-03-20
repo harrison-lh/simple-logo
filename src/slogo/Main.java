@@ -4,8 +4,7 @@ package slogo;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import slogo.controller.Controller;
-import slogo.view.MainView;
+import slogo.view.Workspaces;
 
 /**
  * Starting point of the application, creates the Controller and sets up the MainView in the JavaFX
@@ -15,8 +14,8 @@ import slogo.view.MainView;
  */
 public class Main extends Application {
 
-  public static final int MIN_WIDTH = 1200;
-  public static final int MIN_HEIGHT = 800;
+  public static final int MIN_WIDTH = 1260;
+  public static final int MIN_HEIGHT = 840;
 
   /**
    * Start of the program.
@@ -30,13 +29,12 @@ public class Main extends Application {
    */
   @Override
   public void start(Stage stage) {
-    Controller controller = new Controller();
-    MainView mainView = controller.getMainView();
-    Scene scene = new Scene(mainView, MIN_WIDTH, MIN_HEIGHT);
+    Scene scene = new Scene(new Workspaces(), MIN_WIDTH, MIN_HEIGHT);
     scene.getStylesheets().add("slogo/view/stylesheet.css");
     stage.setScene(scene);
     stage.setMinWidth(MIN_WIDTH);
     stage.setMinHeight(MIN_HEIGHT);
+    stage.setTitle("SLogo");
     stage.show();
   }
 }
