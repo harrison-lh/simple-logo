@@ -18,6 +18,8 @@ public class MovementController extends ControllerElement implements LanguageCon
   private final Button myBackButton;
 
   public MovementController() {
+    super();
+    this.setId("MovementController");
     TextField inputArea = new TextField();
     this.setInputArea(inputArea);
     myForwardButton = new Button("FD");

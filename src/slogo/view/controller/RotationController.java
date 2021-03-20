@@ -18,6 +18,8 @@ public class RotationController extends ControllerElement implements LanguageCon
   private final Button myRightButton;
 
   public RotationController() {
+    super();
+    this.setId("RotationController");
     TextField inputArea = new TextField();
     this.setInputArea(inputArea);
     myLeftButton = new Button("LT");

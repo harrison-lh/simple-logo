@@ -21,11 +21,15 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
+import slogo.controller.Parser;
 import slogo.view.CommandHistoryBox;
 import slogo.view.Workspaces;
 import slogo.view.canvas.GridLines;
 import slogo.view.canvas.TurtleCanvas;
 import slogo.view.canvas.TurtleView;
+import slogo.view.controller.ClearController;
+import slogo.view.controller.ControllerElement;
+import slogo.view.info.VariablesBox;
 import slogo.view.menubar.MenuBar;
 import util.DukeApplicationTest;
 
@@ -110,6 +114,19 @@ class ViewTests extends DukeApplicationTest {
     // Check if pen color updates
     assertEquals(testColor,
         lookup("#TurtleCanvas").queryAs(TurtleCanvas.class).getPen().getColor());
+  }
+
+  @Test
+  void testLanguageSelector() {
+    ComboBox<String> languageSelectorComboBox = lookup("#LanguageComboBox")
+        .queryComboBox();
+    String testLanguage = "French";
+    // Select French language
+    select(languageSelectorComboBox, testLanguage);
+    // Check if language consumers get updated
+    assertEquals(testLanguage,
+        getPrivateField(lookup("#VariablesBox").queryAs(VariablesBox.class),
+            "language"));
   }
 
   @Test

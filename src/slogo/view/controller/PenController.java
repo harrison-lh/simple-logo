@@ -21,6 +21,7 @@ public class PenController extends ControllerElement implements LanguageConsumer
 
   public PenController() {
     super();
+    this.setId("PenController");
     TextField inputArea = new TextField();
     this.setInputArea(inputArea);
     myPenUpButton = new Button("PU");
