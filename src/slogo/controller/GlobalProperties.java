@@ -35,6 +35,7 @@ public class GlobalProperties {
   private Consumer<Integer> makeNewTurtlesConsumer;
   private final Map<Integer, String> shapeMap;
   private final Set<Integer> activeTurtleIds;
+  private int numTurtlesCreated;
 
   public GlobalProperties(ListProperty<Color> paletteProperty) {
     backgroundColorProperty = new SimpleObjectProperty<>(DEFAULT_BACKGROUND_COLOR);
@@ -47,6 +48,7 @@ public class GlobalProperties {
     shapeMap.put(1, "Realistic");
     clearScreenListeners = new HashSet<>();
     activeTurtleIds = new HashSet<>();
+    numTurtlesCreated = 0;
   }
 
   public ObjectProperty<Color> backgroundColorPropertyProperty() {
@@ -123,5 +125,13 @@ public class GlobalProperties {
 
   public void clearActiveTurtleIds() {
     activeTurtleIds.clear();
+  }
+
+  public void setNumTurtlesCreated(int numTurtlesCreated) {
+    this.numTurtlesCreated = numTurtlesCreated;
+  }
+
+  public int getNumTurtlesCreated() {
+    return numTurtlesCreated;
   }
 }

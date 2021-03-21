@@ -61,6 +61,7 @@ public class TurtleGeneral {
   public void updateTurtleArmy() {
     turtleArmy.addAll(turtleRecruits);
     turtleRecruits.clear();
+    globalProperties.setNumTurtlesCreated(turtleArmy.size());
   }
 
   public Palette getPalette() {
