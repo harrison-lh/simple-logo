@@ -25,6 +25,7 @@ import slogo.view.canvas.TurtleView;
 import slogo.view.controller.GraphicalController;
 import slogo.view.info.CommandsBox;
 import slogo.view.info.InfoDisplay;
+import slogo.view.info.TurtlesBox;
 import slogo.view.info.VariablesBox;
 import slogo.view.menubar.MenuBar;
 
@@ -40,6 +41,7 @@ public class MainView extends BorderPane {
   private CanvasHolder myCanvasHolder;
   private static TurtleCanvas myTurtleCanvas;
   private InfoDisplay myInfoDisplay;
+  private TurtlesBox myTurtlesBox;
   private VariablesBox myVariablesBox;
   private CommandsBox myCommandsBox;
   private InputBox myInputBox;
@@ -91,13 +93,6 @@ public class MainView extends BorderPane {
    */
   public Selector<String> getLanguageSelector() {
     return myMenuBar.getLanguageSelector();
-  }
-
-  public Consumer<String> turtleShapeConsumer() {
-    return shape -> {
-      // change turtle shapes
-      // select turtle image selector
-    };
   }
 
   /**
@@ -160,6 +155,7 @@ public class MainView extends BorderPane {
     myTurtleCanvas = myCanvasHolder.getTurtleCanvas();
 
     myInfoDisplay = new InfoDisplay();
+    myTurtlesBox = myInfoDisplay.getTurtlesBox();
     myVariablesBox = myInfoDisplay.getVariablesBox();
     myCommandsBox = myInfoDisplay.getCommandsBox();
 
@@ -174,7 +170,7 @@ public class MainView extends BorderPane {
    * @param turtleProperties The properties of the turtle
    */
   public void createTurtle(TurtleProperties turtleProperties) {
-    myTurtleCanvas.createTurtle(turtleProperties);
+    newTurtleConsumer().accept(turtleProperties);
   }
 
   public static void setBackgroundColor(Color newColor) {
@@ -183,7 +179,10 @@ public class MainView extends BorderPane {
   }
 
   public Consumer<TurtleProperties> newTurtleConsumer() {
-    return myTurtleCanvas.newTurtleConsumer();
+    return turtleProperties -> {
+      myTurtleCanvas.newTurtleConsumer().accept(turtleProperties);
+      myTurtlesBox.addTurtle(0 ,turtleProperties);
+    };
   }
 
   public void setGlobalProperties(GlobalProperties globalProperties) {

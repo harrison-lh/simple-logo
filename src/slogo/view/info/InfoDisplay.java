@@ -46,4 +46,8 @@ public class InfoDisplay extends TabPane {
   public CommandsBox getCommandsBox() {
     return myCommandsBox;
   }
+
+  public TurtlesBox getTurtlesBox() {
+    return myTurtlesBox;
+  }
 }
