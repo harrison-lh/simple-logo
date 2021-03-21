@@ -3,7 +3,6 @@ package slogo.controller;
 import slogo.model.GridCoordinates;
 import slogo.model.Turtle;
 import slogo.view.MainView;
-import slogo.view.Pen;
 
 /**
  * Link between the model, view, and parser
@@ -26,7 +25,7 @@ public class Controller {
    */
   public Controller() {
     myMainView = new MainView();
-    myTurtle = new Turtle(0, new GridCoordinates(), new Pen(),
+    myTurtle = new Turtle(0, new GridCoordinates(),
         myMainView.getTurtleListener(), myMainView.getVariablesListener());
     myMainView.createTurtle(new TurtleProperties(myTurtle));
     TurtleController initController = new TurtleController(myTurtle);

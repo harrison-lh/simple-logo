@@ -22,7 +22,7 @@ public class TurtleTests extends DukeApplicationTest {
 
   @BeforeEach
   public void setupTurtle() {
-    turtle = new Turtle(0, new GridCoordinates(), new Pen());
+    turtle = new Turtle(0, new GridCoordinates());
   }
 
   @Test
