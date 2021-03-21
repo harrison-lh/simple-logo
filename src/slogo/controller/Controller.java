@@ -28,7 +28,7 @@ public class Controller {
     myMainView = new MainView();
     myTurtle = new Turtle(0, new GridCoordinates(), new Pen(),
         myMainView.getTurtleListener(), myMainView.getVariablesListener());
-    myMainView.createTurtle(myTurtle.getCoordinates(), myTurtle.visibleProperty(), myTurtle.penActiveProperty());
+    myMainView.createTurtle(new TurtleProperties(myTurtle));
     TurtleController initController = new TurtleController(myTurtle);
     myTurtleGeneral = new TurtleGeneral(initController);
     myTurtleGeneral.setNewTurtleConsumer(myMainView.newTurtleConsumer());
