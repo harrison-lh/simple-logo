@@ -19,8 +19,8 @@ public class Palette {
    * Creates a Palette with Black and the ROYGBIV colors.
    */
   public Palette() {
-    colors = new ArrayList<>(List.of(Color.BLACK, Color.RED, Color.ORANGE, Color.YELLOW,
-        Color.GREEN, Color.BLUE, Color.INDIGO, Color.VIOLET));
+    colors = new ArrayList<>(List.of(Color.WHITE, Color.BLACK, Color.GRAY, Color.RED, Color.ORANGE,
+        Color.YELLOW, Color.GREEN, Color.BLUE, Color.INDIGO, Color.VIOLET));
   }
 
   /**

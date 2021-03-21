@@ -13,6 +13,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import slogo.model.Coordinates;
 import slogo.model.GridCoordinates;
+import slogo.view.Pen;
 import slogo.view.SelectorTarget;
 
 /**
@@ -31,7 +32,7 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
   private final GridLines myGridLines;
   private final TurtlesContainer myTurtlesContainer;
   private TurtleView myTurtleView;
-  private final ViewPen myPen;
+  private final Pen myPen;
   private final Pane myPenLines;
 
   public static double convertXCoordinate(double x) {
@@ -48,28 +49,27 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
 
   public TurtleCanvas() {
     this.setId("TurtleCanvas");
-
     this.setMaxSize(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
 
     myGridLines = new GridLines();
     myGridLines.changeGridType("None");
 
-    myPen = new ViewPen();
+    myPen = new Pen();
     myPenLines = new Pane();
 
     this.getChildren().addAll(myGridLines, myPenLines);
 
     myTurtlesContainer = new TurtlesContainer();
-    //createTurtle();
+
     // TODO: Get rid of myTurtleView instance variable
-    //myTurtleView = myTurtlesContainer.get(1);
+
   }
 
   public TurtleView getTurtleView() {
     return myTurtleView;
   }
 
-  public ViewPen getPen() {
+  public Pen getPen() {
     return myPen;
   }
 

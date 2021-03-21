@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import slogo.view.Pen;
 
 /**
  * The Turtle is the object that commands of forward and right are put upon, and it contains the
@@ -19,7 +20,8 @@ public class Turtle {
   private Pen pen;
   private Variables vars;
   private PropertyChangeListener turtleListener;
-  private BooleanProperty isVisible;
+  private BooleanProperty isVisibleProperty;
+  private BooleanProperty penActiveProperty;
   private int id;
 
   /**
@@ -39,7 +41,8 @@ public class Turtle {
     this.pen = pen;
     this.vars = new Variables(variablesListener);
     this.turtleListener = turtleListener;
-    isVisible = new SimpleBooleanProperty(true);
+    isVisibleProperty = new SimpleBooleanProperty(true);
+    penActiveProperty = new SimpleBooleanProperty(true);
   }
 
   /**
@@ -73,14 +76,6 @@ public class Turtle {
 
   public Variables getVars() {
     return vars;
-  }
-
-  public Pen getPen() {
-    return pen;
-  }
-
-  public boolean isPenActive() {
-    return pen.isPenActive();
   }
 
   /**
@@ -163,7 +158,7 @@ public class Turtle {
    * @return boolean whether the turtle is visible
    */
   public boolean isVisible() {
-    return isVisible.get();
+    return isVisibleProperty.get();
   }
 
   /**
@@ -172,7 +167,7 @@ public class Turtle {
    * @param isVisible boolean whether the turtle is visible
    */
   public void setVisible(boolean isVisible) {
-    this.isVisible.set(isVisible);
+    this.isVisibleProperty.set(isVisible);
   }
 
   /**
@@ -181,21 +176,30 @@ public class Turtle {
    * @return The BooleanProperty for show/hide turtle
    */
   public BooleanProperty visibleProperty() {
-    return isVisible;
+    return isVisibleProperty;
   }
 
   /**
    * Makes the pen inactive.
    */
   public void liftPen() {
-    pen.liftPen();
+    penActiveProperty.set(false);
   }
 
   /**
    * Makes the pen active.
    */
   public void placePen() {
-    pen.placePen();
+    penActiveProperty.set(true);
+  }
+
+  /**
+   * Returns boolean for if the pen is down.
+   *
+   * @return The boolean if the pen is down
+   */
+  public boolean isPenActive() {
+    return penActiveProperty.get();
   }
 
   /**
@@ -204,7 +208,7 @@ public class Turtle {
    * @return The BooleanProperty for pen up/down
    */
   public BooleanProperty penActiveProperty() {
-    return pen.penActiveProperty();
+    return penActiveProperty;
   }
 
   /**

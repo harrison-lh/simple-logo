@@ -26,6 +26,7 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
   private Coordinates prevCoordinates;
   private boolean isPenActive;
   private Consumer<PenLine> myDrawConsumer;
+  private boolean isPenActive;
 
   /**
    * Constructor with Coordinates object.
@@ -108,6 +109,14 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
 
   private void updateHeading() {
     this.setRotate(TurtleCanvas.convertHeading(getHeading()));
+  }
+
+  public boolean isPenActive() {
+    return isPenActive;
+  }
+
+  public void setPenActive(boolean isPenActive) {
+    this.isPenActive = isPenActive;
   }
 
   private void changeTurtleImage(String turtleImage) {

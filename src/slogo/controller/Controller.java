@@ -1,9 +1,9 @@
 package slogo.controller;
 
 import slogo.model.GridCoordinates;
-import slogo.model.ModelPen;
 import slogo.model.Turtle;
 import slogo.view.MainView;
+import slogo.view.Pen;
 
 /**
  * Link between the model, view, and parser
@@ -26,13 +26,12 @@ public class Controller {
    */
   public Controller() {
     myMainView = new MainView();
-    myTurtle = new Turtle(0, new GridCoordinates(), new ModelPen(),
+    myTurtle = new Turtle(0, new GridCoordinates(), new Pen(),
         myMainView.getTurtleListener(), myMainView.getVariablesListener());
     myMainView.createTurtle(myTurtle.getCoordinates(), myTurtle.visibleProperty(), myTurtle.penActiveProperty());
     TurtleController initController = new TurtleController(myTurtle);
     myTurtleGeneral = new TurtleGeneral(initController);
     myParser = new Parser(myTurtleGeneral, DEFAULT_LANGUAGE, myMainView.getCommandsListener());
-
     // Input button action
     myMainView.setInputAction(myParser.receiveInputAction());
     // Select language action
