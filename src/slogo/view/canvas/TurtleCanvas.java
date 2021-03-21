@@ -99,48 +99,14 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
    */
   public void createTurtle(Coordinates coordinates, BooleanProperty isVisibleProperty,
       BooleanProperty isPenActiveProperty) {
-    TurtleView newTurtle = myTurtlesContainer.createTurtle(coordinates);
-
-    newTurtle.coordinatesStringProperty().addListener((observable, oldValue, newValue) -> {
-      setTurtleHeading();
-      setTurtleLocation();
-    });
-    isVisibleProperty
-        .addListener((observable, oldValue, newValue) -> setTurtleVisibility(newValue));
-    isPenActiveProperty.addListener((observable, oldValue, newValue) -> setPenActive(newValue));
-
+    TurtleView newTurtle = myTurtlesContainer.createTurtle(coordinates, isVisibleProperty, isPenActiveProperty);
+    newTurtle.setDrawConsumer(this::drawLine);
     this.getChildren().add(newTurtle);
     myTurtleView = newTurtle;
-
   }
 
-  private void setTurtleHeading() {
-    myTurtleView.setHeading();
-  }
-
-  private void setTurtleLocation() {
-    if (myTurtleView.isPenActive()) {
-      drawLine(myTurtleView.getPrevXCoordinate(), myTurtleView.getPrevYCoordinate(),
-          myTurtleView.getXCoordinate(), myTurtleView.getYCoordinate(), myPen.getColor());
-    }
-    myTurtleView.setPosition();
-    myTurtleView.updatePrevCoordinates();
-  }
-
-  private void setTurtleVisibility(boolean visible) {
-    if (visible) {
-      myTurtleView.setOpacity(1);
-    } else {
-      myTurtleView.setOpacity(0);
-    }
-  }
-
-  private void setPenActive(boolean penActive) {
-    myTurtleView.setPenActive(penActive);
-  }
-
-  private void drawLine(double startX, double startY, double endX, double endY, Paint penColor) {
-    PenLine penLine = new PenLine(startX, startY, endX, endY, penColor);
+  private void drawLine(PenLine penLine) {
+    penLine.setStroke(myPen.getColor());
     myPenLines.getChildren().add(penLine);
   }
 
