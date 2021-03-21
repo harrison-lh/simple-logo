@@ -199,7 +199,10 @@ public class MainView extends BorderPane {
       myTurtleCanvas.getPen().setSize(newValue.doubleValue());
     }));
     myGlobalProperties.turtleShapePropertyProperty().addListener(((observable, oldValue, newValue) -> {
-
+      myTurtleCanvas.setTurtleShape(newValue);
     }));
+    myMenuBar.getPenSelector().setGlobalProperty(globalProperties.penColorPropertyProperty());
+    myMenuBar.getTurtleSelector().setGlobalProperty(globalProperties.turtleShapePropertyProperty());
+    myMenuBar.getBackgroundSelector().setGlobalProperty(globalProperties.backgroundColorPropertyProperty());
   }
 }

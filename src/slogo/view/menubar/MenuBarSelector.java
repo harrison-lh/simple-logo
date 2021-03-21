@@ -1,6 +1,8 @@
 package slogo.view.menubar;
 
 import java.util.function.Consumer;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.ComboBoxBase;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -15,6 +17,7 @@ import slogo.view.Selector;
 public abstract class MenuBarSelector<T> extends VBox implements Selector<T> {
 
   private final ComboBoxBase<T> myComboBoxBase;
+  private Property<T> myGlobalProperty;
 
   /**
    * Main constructor
@@ -25,8 +28,13 @@ public abstract class MenuBarSelector<T> extends VBox implements Selector<T> {
     Label label = new Label(title);
     myComboBoxBase = comboBoxBase;
     myComboBoxBase.setId(comboBoxId);
+    myGlobalProperty = new SimpleObjectProperty<>();
 
     this.getChildren().addAll(label, myComboBoxBase);
+  }
+
+  public void setGlobalProperty(Property<T> property) {
+    myGlobalProperty = property;
   }
 
   /**
@@ -34,7 +42,10 @@ public abstract class MenuBarSelector<T> extends VBox implements Selector<T> {
    */
   @Override
   public void setUpdateAction(Consumer<T> response) {
-    myComboBoxBase.setOnAction(e -> response.accept(myComboBoxBase.getValue()));
+    myComboBoxBase.setOnAction(e -> {
+      response.accept(myComboBoxBase.getValue());
+      myGlobalProperty.setValue(myComboBoxBase.getValue());
+    });
   }
 
   protected ComboBoxBase<T> getComboBoxBase() {
