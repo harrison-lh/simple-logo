@@ -20,7 +20,8 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     PropertyChangeListener {
 
   public static final double DEFAULT_CANVAS_WIDTH = 800;
-  public static final double DEFAULT_CANVAS_HEIGHT = 480;
+  public static final double DEFAULT_CANVAS_HEIGHT = 400;
+  public static final String[] TURTLE_SHAPES = new String[]{"Default", "Realistic"};
 
   private final GridLines myGridLines;
   private final TurtlesContainer myTurtlesContainer;
@@ -53,9 +54,6 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     this.getChildren().addAll(myGridLines, myPenLines);
 
     myTurtlesContainer = new TurtlesContainer();
-
-    // TODO: Get rid of myTurtleView instance variable
-
   }
 
   public TurtleView getTurtleView() {
@@ -97,6 +95,10 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
 
   public Consumer<TurtleProperties> newTurtleConsumer() {
     return this::createTurtle;
+  }
+
+  public void setTurtleShape(String shape) {
+    myTurtlesContainer.setTurtleShapes(shape);
   }
 
   private void drawLine(PenLine penLine) {

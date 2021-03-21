@@ -198,5 +198,8 @@ public class MainView extends BorderPane {
     myGlobalProperties.penSizePropertyProperty().addListener(((observable, oldValue, newValue) -> {
       myTurtleCanvas.getPen().setSize(newValue.doubleValue());
     }));
+    myGlobalProperties.turtleShapePropertyProperty().addListener(((observable, oldValue, newValue) -> {
+
+    }));
   }
 }

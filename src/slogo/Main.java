@@ -14,8 +14,8 @@ import slogo.view.Workspaces;
  */
 public class Main extends Application {
 
-  public static final int MIN_WIDTH = 1260;
-  public static final int MIN_HEIGHT = 840;
+  public static final int MIN_WIDTH = 1200;
+  public static final int MIN_HEIGHT = 800;
 
   /**
    * Start of the program.

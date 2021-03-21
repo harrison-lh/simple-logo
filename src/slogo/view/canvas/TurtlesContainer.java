@@ -32,6 +32,12 @@ public class TurtlesContainer {
     return newTurtle;
   }
 
+  public void setTurtleShapes(String shape) {
+    for (TurtleView turtleView : myTurtleViews) {
+      turtleView.changeTurtleImage(shape);
+    }
+  }
+
   /**
    * @param id Id of TurtleView being queried
    * @return TurtleView requested
