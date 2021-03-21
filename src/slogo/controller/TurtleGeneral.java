@@ -70,4 +70,8 @@ public class TurtleGeneral {
   public void setNewTurtleConsumer(Consumer<TurtleProperties> newTurtleConsumer) {
     this.newTurtleConsumer = newTurtleConsumer;
   }
+
+  public GlobalProperties getGlobalProperties() {
+    return globalProperties;
+  }
 }

@@ -36,6 +36,7 @@ public class Controller {
     myMainView.setInputAction(myParser.receiveInputAction());
     // Select language action
     myMainView.getLanguageSelector().setUpdateAction(myParser.updateAction());
+    myMainView.setGlobalProperties(myTurtleGeneral.getGlobalProperties());
   }
 
   public MainView getMainView() {

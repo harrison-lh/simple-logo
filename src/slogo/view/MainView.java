@@ -15,6 +15,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import slogo.controller.GlobalProperties;
 import slogo.controller.TurtleProperties;
 import slogo.model.Coordinates;
 import slogo.model.Turtle;
@@ -43,6 +44,7 @@ public class MainView extends BorderPane {
   private CommandsBox myCommandsBox;
   private InputBox myInputBox;
   private CommandHistoryBox myCommandHistoryBox;
+  private GlobalProperties myGlobalProperties;
 
   /**
    * Main constructor
@@ -182,5 +184,19 @@ public class MainView extends BorderPane {
 
   public Consumer<TurtleProperties> newTurtleConsumer() {
     return myTurtleCanvas.newTurtleConsumer();
+  }
+
+  public void setGlobalProperties(GlobalProperties globalProperties) {
+    myGlobalProperties = globalProperties;
+    myGlobalProperties.backgroundColorPropertyProperty().addListener(((observable, oldValue, newValue) -> {
+      myTurtleCanvas.setBackground(new Background(
+          new BackgroundFill(newValue, CornerRadii.EMPTY, Insets.EMPTY)));
+    }));
+    myGlobalProperties.penColorPropertyProperty().addListener(((observable, oldValue, newValue) -> {
+      myTurtleCanvas.getPen().setColor(newValue);
+    }));
+    myGlobalProperties.penSizePropertyProperty().addListener(((observable, oldValue, newValue) -> {
+      myTurtleCanvas.getPen().setSize(newValue.doubleValue());
+    }));
   }
 }

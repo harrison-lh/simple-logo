@@ -11,6 +11,11 @@ import javafx.scene.paint.Color;
 
 public class GlobalProperties {
 
+  public static Color DEFAULT_BACKGROUND_COLOR = Color.WHITE;
+  public static Color DEFAULT_PEN_COLOR = Color.BLACK;
+  public static Double DEFAULT_PEN_SIZE = 1.0;
+  public static String DEFAULT_TURTLE_SHAPE = "Default";
+
   private final ObjectProperty<Color> backgroundColorProperty;
   private final ObjectProperty<Color> penColorProperty;
   private final DoubleProperty penSizeProperty;
@@ -18,10 +23,10 @@ public class GlobalProperties {
   private final ListProperty<Color> paletteProperty;
 
   public GlobalProperties(ListProperty<Color> paletteProperty) {
-    backgroundColorProperty = new SimpleObjectProperty<>(Color.WHITE);
-    penColorProperty = new SimpleObjectProperty<>(Color.BLACK);
-    penSizeProperty = new SimpleDoubleProperty(1);
-    turtleShapeProperty = new SimpleStringProperty("Default");
+    backgroundColorProperty = new SimpleObjectProperty<>(DEFAULT_BACKGROUND_COLOR);
+    penColorProperty = new SimpleObjectProperty<>(DEFAULT_PEN_COLOR);
+    penSizeProperty = new SimpleDoubleProperty(DEFAULT_PEN_SIZE);
+    turtleShapeProperty = new SimpleStringProperty(DEFAULT_TURTLE_SHAPE);
     this.paletteProperty = paletteProperty;
   }
 
@@ -43,9 +48,5 @@ public class GlobalProperties {
 
   public ListProperty<Color> paletteProperty() {
     return paletteProperty;
-  }
-
-  public void setBackgroundColor(Color color) {
-    backgroundColorProperty.set(color);
   }
 }
