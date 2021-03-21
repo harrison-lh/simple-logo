@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import slogo.view.Pen;
 
 /**
  * The Turtle is the object that commands of forward and right are put upon, and it contains the
