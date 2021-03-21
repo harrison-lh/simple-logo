@@ -35,7 +35,7 @@ public class SetPaletteCommand extends Command {
     int green = (int) getChildren().get(2).execute(turtle);
     int blue = (int) getChildren().get(3).execute(turtle);
     // TODO: set the palette at the index to have the RBG color
-    TurtleGeneral.palette.setColorAtIndex(index, red, green, blue);
+    //TurtleGeneral.palette.setColorAtIndex(index, red, green, blue);
     return index;
   }
 

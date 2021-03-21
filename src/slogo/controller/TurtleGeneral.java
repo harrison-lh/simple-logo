@@ -16,7 +16,7 @@ import slogo.model.Turtle;
 public class TurtleGeneral {
   private final List<TurtleController> turtleArmy;
   // TODO: Move control of Variables and UserCommands here
-  public static Palette palette;
+  private Palette palette;
   private final List<Integer> activeTurtleIds;
   private Consumer<TurtleProperties> newTurtleConsumer;
   private final GlobalProperties globalProperties;

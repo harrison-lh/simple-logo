@@ -39,7 +39,7 @@ public class MainView extends BorderPane {
   private MenuBar myMenuBar;
   private GraphicalController myGraphicalController;
   private CanvasHolder myCanvasHolder;
-  private static TurtleCanvas myTurtleCanvas;
+  private TurtleCanvas myTurtleCanvas;
   private InfoDisplay myInfoDisplay;
   private TurtlesBox myTurtlesBox;
   private VariablesBox myVariablesBox;
@@ -173,7 +173,7 @@ public class MainView extends BorderPane {
     newTurtleConsumer().accept(turtleProperties);
   }
 
-  public static void setBackgroundColor(Color newColor) {
+  public void setBackgroundColor(Color newColor) {
     myTurtleCanvas.setBackground(new Background(
         new BackgroundFill(newColor, CornerRadii.EMPTY, Insets.EMPTY)));
   }

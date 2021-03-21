@@ -1,5 +1,6 @@
 package slogo.controller;
 
+import java.util.List;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
@@ -48,5 +49,25 @@ public class GlobalProperties {
 
   public ListProperty<Color> paletteProperty() {
     return paletteProperty;
+  }
+
+  public void setBackgroundColorProperty(Color backgroundColor) {
+    this.backgroundColorProperty.set(backgroundColor);
+  }
+
+  public void setPenColorProperty(Color penColor) {
+    this.penColorProperty.set(penColor);
+  }
+
+  public void setPenSizeProperty(double penSize) {
+    this.penSizeProperty.set(penSize);
+  }
+
+  public void setTurtleShapeProperty(String turtleShape) {
+    this.turtleShapeProperty.set(turtleShape);
+  }
+
+  public void setPaletteProperty(int index, Color newColor) {
+    this.paletteProperty().set(index, newColor);
   }
 }

@@ -35,8 +35,8 @@ public class SetBackgroundCommand extends Command {
   protected double executeCommand(Turtle turtle) {
     int index = (int) getChildren().get(0).execute(turtle);
     //TODO: set the background to that at the index
-    Color color = TurtleGeneral.palette.getColorAtIndex(index);
-    MainView.setBackgroundColor(color);
+    // Color color = TurtleGeneral.palette.getColorAtIndex(index);
+    // MainView.setBackgroundColor(color);
     return index;
   }
 
