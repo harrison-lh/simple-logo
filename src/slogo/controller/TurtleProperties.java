@@ -15,6 +15,7 @@ import slogo.model.Turtle;
 
 public class TurtleProperties {
 
+  private final int id;
   private final Coordinates coordinates;
   private final BooleanProperty isVisibleProperty;
   private final BooleanProperty penActiveProperty;
@@ -25,9 +26,19 @@ public class TurtleProperties {
    * @param turtle The turtle to extract properties
    */
   public TurtleProperties(Turtle turtle) {
+    id = turtle.getId();
     coordinates = turtle.getCoordinates();
     isVisibleProperty = turtle.visibleProperty();
     penActiveProperty = turtle.penActiveProperty();
+  }
+
+  /**
+   * Getter method for the id of the turtle.
+   *
+   * @return The id number of the turtle
+   */
+  public int getId() {
+    return id;
   }
 
   /**
