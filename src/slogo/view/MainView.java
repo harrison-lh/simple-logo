@@ -146,6 +146,7 @@ public class MainView extends BorderPane {
       myPalettesBox.setColors(newValue);
     }));
     myPalettesBox.setColors(myGlobalProperties.paletteProperty());
+    myPalettesBox.setShapes(myGlobalProperties.getShapeMap());
     myGlobalProperties.addClearScreenListener(e -> clearScreen());
   }
 
