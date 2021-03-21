@@ -32,6 +32,7 @@ public class SetShapeCommand extends Command {
   protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     int index = (int) getChildren().get(0).execute(turtle, globalProperties);
     //TODO: set the shape to that at the index
+    globalProperties.setTurtleShapeProperty(globalProperties.getShapeMap().get(index));
     //turtle.setShapeAtIndex(index);
     return index;
   }

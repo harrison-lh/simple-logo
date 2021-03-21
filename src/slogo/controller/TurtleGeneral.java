@@ -3,6 +3,7 @@ package slogo.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import slogo.model.GridCoordinates;
 import slogo.model.Palette;
 import slogo.model.Turtle;
 
@@ -29,18 +30,23 @@ public class TurtleGeneral {
       activeTurtleIds.add(curController.getTurtle().getId());
     }
     globalProperties = new GlobalProperties(palette.getColorsProperty());
+    newTurtleConsumer = (param) -> {}; // Fixes headless tests breaking by adding a dummy
   }
 
   public void conscriptTurtle(TurtleController recruitTurtle) {
-//    if(turtleArmy.size() < recruitTurtle.getTurtle().getId()) {
-//      for(int i = turtleArmy.size(); i <= recruitTurtle.getTurtle().getId(); i++) {
-//        // TODO: Implement turtle conscription behavior (REQUIRES FIXED LISTENERS)
-//        // Call myNewTurtleConsumer(turtleProperties) to create turtle in view
-//      }
-//    }
     turtleArmy.add(recruitTurtle);
     activeTurtleIds.add(recruitTurtle.getTurtle().getId());
     newTurtleConsumer.accept(new TurtleProperties(recruitTurtle.getTurtle()));
+
+    if(turtleArmy.size() < recruitTurtle.getTurtle().getId()) {
+      for(int i = turtleArmy.size(); i < recruitTurtle.getTurtle().getId(); i++) {
+        Turtle freshTurtle = new Turtle(i, new GridCoordinates());
+        TurtleController freshTurtleController = new TurtleController(freshTurtle, globalProperties);
+        turtleArmy.add(freshTurtleController);
+        activeTurtleIds.add(freshTurtleController.getTurtle().getId());
+        newTurtleConsumer.accept(new TurtleProperties(freshTurtleController.getTurtle()));
+      }
+    }
   }
 
   public Palette getPalette() {
