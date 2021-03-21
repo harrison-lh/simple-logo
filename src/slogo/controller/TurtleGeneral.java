@@ -40,6 +40,7 @@ public class TurtleGeneral {
 //    }
     turtleArmy.add(recruitTurtle);
     activeTurtleIds.add(recruitTurtle.getTurtle().getId());
+    newTurtleConsumer.accept(new TurtleProperties(recruitTurtle.getTurtle()));
   }
 
   public Palette getPalette() {
