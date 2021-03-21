@@ -1,6 +1,7 @@
 package slogo.view.menubar;
 
 import java.util.function.Consumer;
+import javafx.beans.property.Property;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -22,5 +23,13 @@ public class TurtleSelector extends MenuBarSelector<String> {
     ComboBox<String> comboBox = (ComboBox<String>) getComboBoxBase();
     comboBox.getItems().addAll("Default", "Realistic");
     comboBox.getSelectionModel().selectFirst();
+  }
+
+  @Override
+  public void setGlobalProperty(Property<String> property) {
+    super.setGlobalProperty(property);
+    getComboBoxBase().setOnAction(e -> {
+      getGlobalProperty().setValue(getComboBoxBase().getValue());
+    });
   }
 }
