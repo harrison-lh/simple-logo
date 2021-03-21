@@ -51,7 +51,7 @@ public class MenuBar extends HBox {
 
     this.getChildren()
         .addAll(myBackgroundSelector, myGridSelector, myTurtleSelector, myPenSelector,
-            myLanguageSelector, spacer, infoButton);
+            myLanguageSelector, spacer, new FileButtons(), infoButton);
   }
 
   public MenuBarSelector<Color> getBackgroundSelector() {
