@@ -33,6 +33,7 @@ public class Controller {
     myTurtleGeneral.setNewTurtleConsumer(myMainView.newTurtleConsumer());
     myTurtleGeneral.conscriptTurtle(initController);
     myTurtleGeneral.updateTurtleArmy();
+    myTurtleGeneral.getGlobalProperties().addActiveTurtleId(0);
     myParser = new Parser(myTurtleGeneral, DEFAULT_LANGUAGE, myMainView.getCommandsListener());
     // Input button action
     myMainView.setInputAction(myParser.receiveInputAction());

@@ -19,18 +19,13 @@ public class TurtleGeneral {
   private final List<TurtleController> turtleRecruits;
   // TODO: Move control of Variables and UserCommands here
   private Palette palette;
-  private final List<Integer> activeTurtleIds;
   private Consumer<TurtleProperties> newTurtleConsumer;
   private final GlobalProperties globalProperties;
 
   public TurtleGeneral() {
     this.turtleArmy = new ArrayList<>();
     palette = new Palette();
-    activeTurtleIds = new ArrayList<>();
     turtleRecruits = new ArrayList<>();
-    for(TurtleController curController : turtleArmy) {
-      activeTurtleIds.add(curController.getTurtle().getId());
-    }
     globalProperties = new GlobalProperties(palette.getColorsProperty());
     globalProperties.addClearScreenListener( e -> removeTurtles());
     globalProperties.setMakeNewTurtlesConsumer(this::conscriptTurtle);
@@ -39,7 +34,6 @@ public class TurtleGeneral {
 
   public void conscriptTurtle(TurtleController recruitTurtle) {
     turtleRecruits.add(recruitTurtle);
-    activeTurtleIds.add(recruitTurtle.getTurtle().getId());
     newTurtleConsumer.accept(new TurtleProperties(recruitTurtle.getTurtle()));
 
     if(turtleArmy.size() < recruitTurtle.getTurtle().getId()) {
@@ -47,19 +41,18 @@ public class TurtleGeneral {
         Turtle freshTurtle = new Turtle(i, new GridCoordinates());
         TurtleController freshTurtleController = new TurtleController(freshTurtle, globalProperties);
         turtleRecruits.add(freshTurtleController);
-        activeTurtleIds.add(freshTurtleController.getTurtle().getId());
         newTurtleConsumer.accept(new TurtleProperties(freshTurtleController.getTurtle()));
       }
     }
   }
 
   public void conscriptTurtle(int id) {
-    if(turtleArmy.size() < id) {
+    turtleRecruits.clear();
+    if(turtleArmy.size() <= id) {
       for(int i = turtleArmy.size(); i <= id; i++) {
         Turtle freshTurtle = new Turtle(i, new GridCoordinates());
         TurtleController freshTurtleController = new TurtleController(freshTurtle, globalProperties);
         turtleRecruits.add(freshTurtleController);
-        activeTurtleIds.add(freshTurtleController.getTurtle().getId());
         newTurtleConsumer.accept(new TurtleProperties(freshTurtleController.getTurtle()));
       }
     }
@@ -72,15 +65,6 @@ public class TurtleGeneral {
 
   public Palette getPalette() {
     return palette;
-  }
-
-  public List<Integer> getActiveTurtleIds() {
-    return activeTurtleIds;
-  }
-
-  public void setActiveTurtles(List<Integer> activeTurtleIds) {
-    this.activeTurtleIds.clear();
-    this.activeTurtleIds.addAll(activeTurtleIds);
   }
 
   public List<TurtleController> getTurtleArmy() {

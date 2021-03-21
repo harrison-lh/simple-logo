@@ -181,7 +181,7 @@ public class MainView extends BorderPane {
   public Consumer<TurtleProperties> newTurtleConsumer() {
     return turtleProperties -> {
       myTurtleCanvas.newTurtleConsumer().accept(turtleProperties);
-      myTurtlesBox.addTurtle(0 ,turtleProperties);
+      myTurtlesBox.addTurtle(turtleProperties);
     };
   }
 

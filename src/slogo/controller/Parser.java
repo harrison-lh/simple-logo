@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Queue;
+import java.util.Set;
 import java.util.Stack;
 import java.util.function.Consumer;
 import slogo.controller.commands.GroupCommandHead;
@@ -309,7 +310,7 @@ public class Parser implements SelectorTarget<String> {
     for (Command command : assembledCommandQueue) {
       System.out.println(command);
     }
-    List<Integer> curActiveTurtleIds = turtleGeneral.getActiveTurtleIds();
+    Set<Integer> curActiveTurtleIds = turtleGeneral.getGlobalProperties().getActiveTurtleIds();
     for(TurtleController controller : turtleGeneral.getTurtleArmy()) {
       if(curActiveTurtleIds.contains(controller.getTurtle().getId()))
         controller.pushCommands(assembledCommandQueue);
@@ -333,7 +334,7 @@ public class Parser implements SelectorTarget<String> {
       throws IllegalArgumentException, NullPointerException {
     return command -> {
       parseCommandString(command);
-      List<Integer> curActiveTurtleIds = turtleGeneral.getActiveTurtleIds();
+      Set<Integer> curActiveTurtleIds = turtleGeneral.getGlobalProperties().getActiveTurtleIds();
       for(TurtleController controller : turtleGeneral.getTurtleArmy()) {
         if(curActiveTurtleIds.contains(controller.getTurtle().getId())) {
           controller.setIsAllowedToExecute(true);
