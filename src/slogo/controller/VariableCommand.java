@@ -40,10 +40,11 @@ public class VariableCommand extends ConstantCommand {
    * Execution behavior of the VariableCommand. Simply returns its value.
    *
    * @param turtle The turtle to which this VariableCommand belongs
+   * @param globalProperties
    * @return The value of the VariableCommand.
    */
   @Override
-  public double executeCommand(Turtle turtle) {
+  public double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     return turtle.getVars().getValue(name);
   }
 

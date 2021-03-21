@@ -15,6 +15,7 @@ import slogo.model.Turtle;
 public class TurtleController {
 
   private Turtle turtle;
+  private GlobalProperties globalProperties;
   private Deque<Command> commandQueue;
   private Deque<Command> commandHistory;
   private boolean executeCommands;
@@ -23,8 +24,9 @@ public class TurtleController {
    * Constructs a new TurtleController with a fresh Turtle, an empty queue, and not-presently
    * running any Commands.
    */
-  public TurtleController(Turtle turtle) {
+  public TurtleController(Turtle turtle, GlobalProperties globalProperties) {
     this.turtle = turtle;
+    this.globalProperties = globalProperties;
     commandQueue = new ArrayDeque<>();
     commandHistory = new ArrayDeque<>();
   }
@@ -36,7 +38,7 @@ public class TurtleController {
     while (!commandQueue.isEmpty()) {
       if (executeCommands) {
         commandHistory.add(commandQueue.peek());
-        commandQueue.poll().executeCommand(turtle);
+        commandQueue.poll().executeCommand(turtle, globalProperties);
       }
     }
   }

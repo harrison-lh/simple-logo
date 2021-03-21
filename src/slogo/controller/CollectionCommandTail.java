@@ -9,7 +9,7 @@ public class CollectionCommandTail extends Command {
   }
 
   @Override
-  protected double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     return 0;
   }
 

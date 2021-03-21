@@ -1,6 +1,7 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
@@ -26,10 +27,11 @@ public class AskWithCommand extends Command {
    * Runs commands on all turtles that satisfy the condition.
    *
    * @param turtle The current active turtle
+   * @param globalProperties
    * @return The result of the last command run
    */
   @Override
-  protected double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     // TODO: parse input
 
     // TODO: runs commands on all turtles that satisfy the condition

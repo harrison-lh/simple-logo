@@ -1,6 +1,7 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
@@ -24,10 +25,11 @@ public class PiCommand extends Command {
    * Returns the value of pi.
    *
    * @param turtle The current turtle
+   * @param globalProperties
    * @return value of pi
    */
   @Override
-  protected double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     return Math.PI;
   }
 

@@ -1,8 +1,7 @@
 package slogo.controller.commands;
 
-import javafx.scene.paint.Color;
 import slogo.controller.Command;
-import slogo.controller.TurtleGeneral;
+import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
@@ -26,14 +25,15 @@ public class SetPaletteCommand extends Command {
    * Sets the index of the palette to have the given RBG color.
    *
    * @param turtle The current active turtle
+   * @param globalProperties
    * @return The index that was set
    */
   @Override
-  protected double executeCommand(Turtle turtle) {
-    int index = (int) getChildren().get(0).execute(turtle);
-    int red = (int) getChildren().get(1).execute(turtle);
-    int green = (int) getChildren().get(2).execute(turtle);
-    int blue = (int) getChildren().get(3).execute(turtle);
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
+    int index = (int) getChildren().get(0).execute(turtle, globalProperties);
+    int red = (int) getChildren().get(1).execute(turtle, globalProperties);
+    int green = (int) getChildren().get(2).execute(turtle, globalProperties);
+    int blue = (int) getChildren().get(3).execute(turtle, globalProperties);
     // TODO: set the palette at the index to have the RBG color
     //TurtleGeneral.palette.setColorAtIndex(index, red, green, blue);
     return index;

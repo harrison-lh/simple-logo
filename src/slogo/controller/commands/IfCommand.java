@@ -1,6 +1,7 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.controller.ListCommandHead;
 import slogo.model.Turtle;
 
@@ -15,11 +16,11 @@ public class IfCommand extends Command {
   }
 
   @Override
-  protected double executeCommand(Turtle turtle) {
-    double expr = getChildren().get(EXPR_INDEX).execute(turtle);
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
+    double expr = getChildren().get(EXPR_INDEX).execute(turtle, globalProperties);
 
     if(expr != 0){
-      return ( (ListCommandHead) getChildren().get(COMMAND_INDEX)).getInnerChildren().get(0).execute(turtle);
+      return ( (ListCommandHead) getChildren().get(COMMAND_INDEX)).getInnerChildren().get(0).execute(turtle, globalProperties);
     }
     return 0;
 

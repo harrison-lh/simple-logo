@@ -21,8 +21,8 @@ public class TurtleGeneral {
   private Consumer<TurtleProperties> newTurtleConsumer;
   private final GlobalProperties globalProperties;
 
-  public TurtleGeneral(List<TurtleController> turtleArmy) {
-    this.turtleArmy = turtleArmy;
+  public TurtleGeneral() {
+    this.turtleArmy = new ArrayList<>();
     palette = new Palette();
     activeTurtleIds = new ArrayList<>();
     for(TurtleController curController : turtleArmy) {
@@ -31,23 +31,15 @@ public class TurtleGeneral {
     globalProperties = new GlobalProperties(palette.getColorsProperty());
   }
 
-  public TurtleGeneral(TurtleController turtleConscript) {
-    this.turtleArmy = List.of(turtleConscript);
-    palette = new Palette();
-    activeTurtleIds = new ArrayList<>();
-    for(TurtleController curController : turtleArmy) {
-      activeTurtleIds.add(curController.getTurtle().getId());
-    }
-    globalProperties = new GlobalProperties(palette.getColorsProperty());
-  }
-
-  public void conscriptTurtle(Turtle recruitTurtle) {
-    if(turtleArmy.size() < recruitTurtle.getId()) {
-      for(int i = turtleArmy.size(); i <= recruitTurtle.getId(); i++) {
-        // TODO: Implement turtle conscription behavior (REQUIRES FIXED LISTENERS)
-        // Call myNewTurtleConsumer(turtleProperties) to create turtle in view
-      }
-    }
+  public void conscriptTurtle(TurtleController recruitTurtle) {
+//    if(turtleArmy.size() < recruitTurtle.getTurtle().getId()) {
+//      for(int i = turtleArmy.size(); i <= recruitTurtle.getTurtle().getId(); i++) {
+//        // TODO: Implement turtle conscription behavior (REQUIRES FIXED LISTENERS)
+//        // Call myNewTurtleConsumer(turtleProperties) to create turtle in view
+//      }
+//    }
+    turtleArmy.add(recruitTurtle);
+    activeTurtleIds.add(recruitTurtle.getTurtle().getId());
   }
 
   public Palette getPalette() {

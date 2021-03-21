@@ -1,10 +1,10 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.controller.ListCommandHead;
 import slogo.controller.VariableCommand;
 import slogo.model.Turtle;
-import slogo.model.Variables;
 
 /**
  * ForCommand more or less implements for-loops in SLogo.
@@ -27,15 +27,16 @@ public class ForCommand extends Command {
    * Implementation of the ForCommand, which is functionally equivalent to SLogo for-loops.
    *
    * @param turtle The turtle on which the Commands are acting
+   * @param globalProperties
    * @return Returns the return value of the last operation.
    */
   @Override
-  protected double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
 
     VariableCommand varCommand = ( (VariableCommand) ( (ListCommandHead) getChildren().get(0)).getInnerChildren().get(VAR_INDEX));
-    double start = ( (ListCommandHead) getChildren().get(0)).getInnerChildren().get(START_INDEX).execute(turtle);
-    double end = ( (ListCommandHead) getChildren().get(0)).getInnerChildren().get(END_INDEX).execute(turtle);
-    double increment = ( (ListCommandHead) getChildren().get(0)).getInnerChildren().get(INCREMENT_INDEX).execute(turtle);
+    double start = ( (ListCommandHead) getChildren().get(0)).getInnerChildren().get(START_INDEX).execute(turtle, globalProperties);
+    double end = ( (ListCommandHead) getChildren().get(0)).getInnerChildren().get(END_INDEX).execute(turtle, globalProperties);
+    double increment = ( (ListCommandHead) getChildren().get(0)).getInnerChildren().get(INCREMENT_INDEX).execute(turtle, globalProperties);
 
     double lastVal = 0;
     varCommand.setValue(start);
@@ -43,7 +44,7 @@ public class ForCommand extends Command {
 
     for(double i = start; i < end; i += increment){
       turtle.getVars().setValue(varCommand.getName(), i);
-      lastVal = getChildren().get(1).execute(turtle);
+      lastVal = getChildren().get(1).execute(turtle, globalProperties);
     }
 
     return lastVal;

@@ -1,6 +1,7 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
@@ -24,10 +25,11 @@ public class IsPenDownCommand extends Command {
    * Returns the current visibility of the Pen.
    *
    * @param turtle The turtle to be checked
+   * @param globalProperties
    * @return boolean of visibility of Pen
    */
   @Override
-  protected double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     return turtle.isPenActive() ? 1 : 0;
   }
 

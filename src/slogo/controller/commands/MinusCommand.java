@@ -1,6 +1,7 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 public class MinusCommand extends Command {
@@ -12,8 +13,8 @@ public class MinusCommand extends Command {
   }
 
   @Override
-  protected double executeCommand(Turtle turtle) {
-    double a = getChildren().get(0).execute(turtle);
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
+    double a = getChildren().get(0).execute(turtle, globalProperties);
 
     return a * -1;
 

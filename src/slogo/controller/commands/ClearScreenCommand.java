@@ -1,6 +1,7 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
@@ -24,12 +25,13 @@ public class ClearScreenCommand extends Command {
    * Sets the position of the turtle to be at home (0,0) and removes all lines.
    *
    * @param turtle The turtle to be set
+   * @param globalProperties
    * @return The distance the turtle moved
    */
   @Override
-  protected double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     Command goHome = new HomeCommand();
-    double distance = goHome.execute(turtle);
+    double distance = goHome.execute(turtle, globalProperties);
     turtle.clearScreen();
     return distance;
   }

@@ -1,8 +1,8 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
-import slogo.model.Variables;
 
 /**
  * RepeatCommand implements the ability to repeat an list of Commands a number of times
@@ -26,16 +26,17 @@ public class RepeatCommand extends Command {
    * repeat as many times as the value of parameter 0. Returns the value of the last operation.
    *
    * @param turtle The turtle on which the Commands are acting
+   * @param globalProperties
    * @return Returns the return value of the last operation.
    */
   @Override
-  public double executeCommand(Turtle turtle) {
+  public double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
 
-    double repititionNum = getChildren().get(0).execute(turtle);
+    double repititionNum = getChildren().get(0).execute(turtle, globalProperties);
     double lastVal = 0;
     turtle.getVars().setValue(":repcount", 1);
     for(int i = 0; i < repititionNum; i ++){
-      lastVal = getChildren().get(1).execute(turtle);
+      lastVal = getChildren().get(1).execute(turtle, globalProperties);
       turtle.getVars().setValue(":repcount", i);
     }
     return lastVal;

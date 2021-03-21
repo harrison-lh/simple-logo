@@ -1,6 +1,7 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
@@ -26,12 +27,13 @@ public class SetTowardsCommand extends Command {
    * Sets the heading of the turtle to point toward the specified coordinates.
    *
    * @param turtle The turtle to be set
+   * @param globalProperties
    * @return The number of degrees the turtle turned
    */
   @Override
-  protected double executeCommand(Turtle turtle) {
-    double toXPos = getChildren().get(0).execute(turtle);
-    double toYPos = getChildren().get(1).execute(turtle);
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
+    double toXPos = getChildren().get(0).execute(turtle, globalProperties);
+    double toYPos = getChildren().get(1).execute(turtle, globalProperties);
 
     double newHeading = getNewHeading(turtle.getX(), turtle.getY(), toXPos, toYPos);
     double oldHeading = turtle.getHeading();

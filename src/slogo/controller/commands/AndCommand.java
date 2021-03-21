@@ -1,6 +1,7 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
@@ -24,12 +25,13 @@ public class AndCommand extends Command {
    * Checks whether both values are nonzero.
    *
    * @param turtle The current turtle
+   * @param globalProperties
    * @return 1 if both values are nonzero, else 0
    */
   @Override
-  protected double executeCommand(Turtle turtle) {
-    double firstVal = getChildren().get(0).execute(turtle);
-    double secondVal = getChildren().get(1).execute(turtle);
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
+    double firstVal = getChildren().get(0).execute(turtle, globalProperties);
+    double secondVal = getChildren().get(1).execute(turtle, globalProperties);
 
     return ((firstVal != 0) && (secondVal != 0)) ? 1 : 0;
   }

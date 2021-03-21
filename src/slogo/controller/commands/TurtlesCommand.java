@@ -1,6 +1,7 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
@@ -24,10 +25,11 @@ public class TurtlesCommand extends Command {
    * Gets the current number of turtles.
    *
    * @param turtle The current active turtle
+   * @param globalProperties
    * @return The current number of turtles
    */
   @Override
-  protected double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     // TODO: get the current number of turtles
     //return turtle.getTotalNum();
     return 0;

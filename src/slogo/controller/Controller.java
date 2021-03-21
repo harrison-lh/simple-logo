@@ -28,8 +28,10 @@ public class Controller {
     myTurtle = new Turtle(0, new GridCoordinates(),
         myMainView.getTurtleListener(), myMainView.getVariablesListener());
     myMainView.createTurtle(new TurtleProperties(myTurtle));
-    TurtleController initController = new TurtleController(myTurtle);
-    myTurtleGeneral = new TurtleGeneral(initController);
+    myTurtleGeneral = new TurtleGeneral();
+    TurtleController initController = new TurtleController(myTurtle,
+        myTurtleGeneral.getGlobalProperties());
+    myTurtleGeneral.conscriptTurtle(initController);
     myTurtleGeneral.setNewTurtleConsumer(myMainView.newTurtleConsumer());
     myParser = new Parser(myTurtleGeneral, DEFAULT_LANGUAGE, myMainView.getCommandsListener());
     // Input button action

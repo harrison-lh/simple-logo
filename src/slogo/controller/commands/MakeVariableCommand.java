@@ -1,6 +1,7 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.controller.VariableCommand;
 import slogo.model.Turtle;
 
@@ -18,9 +19,9 @@ public class MakeVariableCommand extends Command {
   }
 
   @Override
-  protected double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     turtle.getVars().setValue(((VariableCommand) getChildren().get(0)).getName(),
-        getChildren().get(1).execute(turtle));
-    return getChildren().get(1).execute(turtle);
+        getChildren().get(1).execute(turtle, globalProperties));
+    return getChildren().get(1).execute(turtle, globalProperties);
   }
 }

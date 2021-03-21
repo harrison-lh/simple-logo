@@ -1,6 +1,7 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
@@ -24,10 +25,11 @@ public class GetShapeCommand extends Command {
    * Gets the current turtle shape.
    *
    * @param turtle The current active turtle
+   * @param globalProperties
    * @return The index of the current turtle shape
    */
   @Override
-  protected double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     // TODO: get the current shape of the turtle
     //return turtle.getShape();
     return 0;

@@ -4,13 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.function.DoubleBinaryOperator;
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.controller.ListCommandHead;
-import slogo.controller.VariableCommand;
 import slogo.model.Turtle;
-import slogo.model.Variables;
 
 public class UserCommand extends Command {
   private static final double NEW_VAR_NUM = Double.NEGATIVE_INFINITY;
@@ -55,10 +52,10 @@ public class UserCommand extends Command {
   }
 
   @Override
-  protected double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
 
     for(int i = 0; i < getNumParams(); i++){
-      double value = getChildren().get(i).execute(turtle);
+      double value = getChildren().get(i).execute(turtle, globalProperties);
       //System.out.println(value);
       //System.out.println(parameters.get(i));
       if(turtle.getVars().containsKey(parameters.get(i))){
@@ -69,7 +66,7 @@ public class UserCommand extends Command {
 
       turtle.getVars().setValue(parameters.get(i), value);
     }
-    double retVal = commands.execute(turtle);
+    double retVal = commands.execute(turtle, globalProperties);
 
     for(int i = 0; i < getNumParams(); i++){
       if(oldVarValues.get(parameters.get(i)) == NEW_VAR_NUM){
