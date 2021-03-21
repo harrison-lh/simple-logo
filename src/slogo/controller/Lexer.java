@@ -239,4 +239,8 @@ public class Lexer {
   private boolean match(String text, Pattern regex) {
     return regex.matcher(text).matches();
   }
+
+  public List<UserCommand> getUserCommands() {
+    return userCommands;
+  }
 }

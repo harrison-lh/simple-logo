@@ -48,7 +48,6 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
 
   public TurtleCanvas() {
     this.setId("TurtleCanvas");
-
     this.setMaxSize(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
 
     myGridLines = new GridLines();

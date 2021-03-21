@@ -32,7 +32,6 @@ public class Controller {
     TurtleController initController = new TurtleController(myTurtle);
     myTurtleGeneral = new TurtleGeneral(initController);
     myParser = new Parser(myTurtleGeneral, DEFAULT_LANGUAGE, myMainView.getCommandsListener());
-
     // Input button action
     myMainView.setInputAction(myParser.receiveInputAction());
     // Select language action

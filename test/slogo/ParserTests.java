@@ -13,6 +13,7 @@ import slogo.controller.TurtleGeneral;
 import slogo.model.GridCoordinates;
 import slogo.model.ModelPen;
 import slogo.model.Turtle;
+import slogo.view.MainView;
 
 /**
  * A testing suite for the Parser!
@@ -710,6 +711,14 @@ public class ParserTests {
         }
     );
     System.out.println(exception.getMessage());
+  }
+
+  @Test
+  public void testSetPalette() {
+    parser.parseCommandString("SETPALETTE 0 0 0 0");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(TurtleGeneral.palette.getColorAtIndex(0), Color.rgb(0, 0, 0));
   }
 
 }

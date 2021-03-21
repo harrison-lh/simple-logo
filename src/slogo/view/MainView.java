@@ -3,13 +3,18 @@ package slogo.view;
 import java.beans.PropertyChangeListener;
 import java.util.function.Consumer;
 import javafx.beans.property.BooleanProperty;
+import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import slogo.model.Coordinates;
 import slogo.view.canvas.CanvasHolder;
 import slogo.view.canvas.TurtleCanvas;
@@ -30,7 +35,7 @@ public class MainView extends BorderPane {
   private MenuBar myMenuBar;
   private GraphicalController myGraphicalController;
   private CanvasHolder myCanvasHolder;
-  private TurtleCanvas myTurtleCanvas;
+  private static TurtleCanvas myTurtleCanvas;
   private InfoDisplay myInfoDisplay;
   private VariablesBox myVariablesBox;
   private CommandsBox myCommandsBox;
@@ -167,5 +172,10 @@ public class MainView extends BorderPane {
     myTurtleCanvas.createTurtle(coordinates, isVisibleProperty, isPenActiveProperty);
     myTurtleView = myCanvasHolder.getTurtleView();
     connectStringSelector(myTurtleView, myMenuBar.getTurtleSelector());
+  }
+
+  public static void setBackgroundColor(Color newColor) {
+    myTurtleCanvas.setBackground(new Background(
+        new BackgroundFill(newColor, CornerRadii.EMPTY, Insets.EMPTY)));
   }
 }
