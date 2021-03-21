@@ -108,7 +108,6 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
   private void drawLine(PenLine penLine) {
     penLine.setStroke(myPen.getColor());
     myPenLines.getChildren().add(penLine);
-    System.out.println(myPenLines.getChildren());
   }
 
   private void clearScreen() {
