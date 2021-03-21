@@ -1,7 +1,10 @@
 package slogo.controller.commands;
 
+import java.util.HashSet;
+import java.util.Set;
 import slogo.controller.Command;
 import slogo.controller.GlobalProperties;
+import slogo.controller.ListCommandHead;
 import slogo.model.Turtle;
 
 /**
@@ -32,18 +35,33 @@ public class TellCommand extends Command {
   @Override
   protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     // TODO: parse input
-    int numTurtles = (int)getChildren().get(0).execute(turtle, globalProperties);
-    System.out.println("Number of turtles to make: " + numTurtles);
 
-    globalProperties.makeNewTurtles(numTurtles);
+    ListCommandHead tellListCommand = (ListCommandHead) getChildren().get(0);
+    Set<Integer> turtleIDsToUse = new HashSet<>();
+    int lastTurtleValue = 0;
+    int maxTurtleValue = 0;
+
+    //Get a list of all the turtles to be used in the future, and make any needed turtles
+    for(int i = 0; i < tellListCommand.getInnerChildren().size(); i ++){
+      lastTurtleValue = (int) tellListCommand.getInnerChildren().get(i).execute(turtle, globalProperties);
+      turtleIDsToUse.add(lastTurtleValue);
+      if(lastTurtleValue > maxTurtleValue){
+        maxTurtleValue = lastTurtleValue;
+      }
+    }
+
+    if(maxTurtleValue >= globalProperties.getNumTurtlesCreated()){
+      globalProperties.makeNewTurtles(maxTurtleValue);
+    }
+
 
     // TODO: set all turtles in the list to be active
     globalProperties.clearActiveTurtleIds();
-    globalProperties.addActiveTurtleId(numTurtles);
+    globalProperties.addMultipleActiveTurtleIds(turtleIDsToUse);
 
     // TODO: return value of last turtle
 
-    return numTurtles;
+    return (double) lastTurtleValue;
   }
 
 }

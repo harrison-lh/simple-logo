@@ -33,6 +33,7 @@ public class TurtleGeneral {
   }
 
   public void conscriptTurtle(TurtleController recruitTurtle) {
+    System.out.println("Conscripting turtle");
     turtleRecruits.add(recruitTurtle);
     newTurtleConsumer.accept(new TurtleProperties(recruitTurtle.getTurtle()));
 
@@ -44,9 +45,11 @@ public class TurtleGeneral {
         newTurtleConsumer.accept(new TurtleProperties(freshTurtleController.getTurtle()));
       }
     }
+
   }
 
   public void conscriptTurtle(int id) {
+    System.out.println("Conscripting turtle");
     turtleRecruits.clear();
     if(turtleArmy.size() <= id) {
       for(int i = turtleArmy.size(); i <= id; i++) {
