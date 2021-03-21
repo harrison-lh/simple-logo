@@ -48,7 +48,7 @@ public class GlobalProperties {
     shapeMap.put(0, "Default");
     shapeMap.put(1, "Realistic");
     clearScreenListeners = new HashSet<>();
-    clearScreenEvent = new ClearScreenEvent();
+    clearScreenEvent = new ClearScreenEvent(this);
     activeTurtleIds = new HashSet<>();
     numTurtlesCreated = 0;
   }
