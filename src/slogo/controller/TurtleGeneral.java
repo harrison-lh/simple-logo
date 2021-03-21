@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.function.Consumer;
 import slogo.model.Palette;
 import slogo.model.Turtle;
-import slogo.model.TurtleProperties;
 
 /**
  * TurtleGeneral is a delightfully named marshalling class for controlling n-Turtles by way of their

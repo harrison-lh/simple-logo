@@ -3,18 +3,9 @@ package slogo.view.canvas;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.function.Consumer;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Paint;
 import slogo.controller.TurtleProperties;
-import slogo.model.Coordinates;
-import slogo.model.GridCoordinates;
-import slogo.model.TurtleProperties;
 import slogo.view.Pen;
 import slogo.view.SelectorTarget;
 
@@ -106,9 +97,6 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
 
   public Consumer<TurtleProperties> newTurtleConsumer() {
     return this::createTurtle;
-  }
-
-  private void createTurtle(TurtleProperties turtleProperties) {
   }
 
   private void drawLine(PenLine penLine) {

@@ -43,7 +43,6 @@ public class MainView extends BorderPane {
   private CommandsBox myCommandsBox;
   private InputBox myInputBox;
   private CommandHistoryBox myCommandHistoryBox;
-  private TurtleView myTurtleView;
 
   /**
    * Main constructor
@@ -90,6 +89,13 @@ public class MainView extends BorderPane {
    */
   public Selector<String> getLanguageSelector() {
     return myMenuBar.getLanguageSelector();
+  }
+
+  public Consumer<String> turtleShapeConsumer() {
+    return shape -> {
+      // change turtle shapes
+      // select turtle image selector
+    };
   }
 
   /**
@@ -150,7 +156,6 @@ public class MainView extends BorderPane {
 
     myCanvasHolder = new CanvasHolder();
     myTurtleCanvas = myCanvasHolder.getTurtleCanvas();
-    //myTurtleView = myCanvasHolder.getTurtleView();
 
     myInfoDisplay = new InfoDisplay();
     myVariablesBox = myInfoDisplay.getVariablesBox();
@@ -168,8 +173,6 @@ public class MainView extends BorderPane {
    */
   public void createTurtle(TurtleProperties turtleProperties) {
     myTurtleCanvas.createTurtle(turtleProperties);
-    myTurtleView = myCanvasHolder.getTurtleView();
-    connectStringSelector(myTurtleView, myMenuBar.getTurtleSelector());
   }
 
   public static void setBackgroundColor(Color newColor) {
