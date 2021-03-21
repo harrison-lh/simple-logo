@@ -35,6 +35,9 @@ public abstract class MenuBarSelector<T> extends VBox implements Selector<T> {
 
   public void setGlobalProperty(Property<T> property) {
     myGlobalProperty = property;
+    myGlobalProperty.addListener(((observable, oldValue, newValue) -> {
+      myComboBoxBase.setValue(newValue);
+    }));
   }
 
   /**
