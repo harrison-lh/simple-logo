@@ -15,7 +15,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import slogo.controller.TurtleProperties;
 import slogo.model.Coordinates;
+import slogo.model.Turtle;
 import slogo.view.canvas.CanvasHolder;
 import slogo.view.canvas.TurtleCanvas;
 import slogo.view.canvas.TurtleView;
@@ -161,15 +163,11 @@ public class MainView extends BorderPane {
 
   /**
    * Creates a new turtle in the canvas according to the parameters passed by the Controller.
-   * Requires coordinates and properties for the state of turtle visibility and pen being enabled.
    *
-   * @param coordinates The coordinates object of the new turtle
-   * @param isVisibleProperty The property of whether the turtle is visible
-   * @param isPenActiveProperty The property of whether the pen is active
+   * @param turtleProperties The properties of the turtle
    */
-  public void createTurtle(Coordinates coordinates,
-      BooleanProperty isVisibleProperty, BooleanProperty isPenActiveProperty) {
-    myTurtleCanvas.createTurtle(coordinates, isVisibleProperty, isPenActiveProperty);
+  public void createTurtle(TurtleProperties turtleProperties) {
+    myTurtleCanvas.createTurtle(turtleProperties);
     myTurtleView = myCanvasHolder.getTurtleView();
     connectStringSelector(myTurtleView, myMenuBar.getTurtleSelector());
   }

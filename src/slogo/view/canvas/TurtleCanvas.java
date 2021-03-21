@@ -11,6 +11,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
+import slogo.controller.TurtleProperties;
 import slogo.model.Coordinates;
 import slogo.model.GridCoordinates;
 import slogo.view.Pen;
@@ -93,13 +94,10 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
    * properties to listen for: position of the turtle (includes x,y and heading), whether the turtle
    * is visible or not, and whether the pen is active or not.
    *
-   * @param coordinates         The coordinates object of the turtle
-   * @param isVisibleProperty   The property of the turtle being visible
-   * @param isPenActiveProperty The property of the turtle being active
+   * @param turtleProperties The properties of the turtle
    */
-  public void createTurtle(Coordinates coordinates, BooleanProperty isVisibleProperty,
-      BooleanProperty isPenActiveProperty) {
-    TurtleView newTurtle = myTurtlesContainer.createTurtle(coordinates, isVisibleProperty, isPenActiveProperty);
+  public void createTurtle(TurtleProperties turtleProperties) {
+    TurtleView newTurtle = myTurtlesContainer.createTurtle(turtleProperties);
     newTurtle.setDrawConsumer(this::drawLine);
     this.getChildren().add(newTurtle);
     myTurtleView = newTurtle;

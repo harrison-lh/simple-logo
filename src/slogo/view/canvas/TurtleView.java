@@ -5,6 +5,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import slogo.controller.TurtleProperties;
 import slogo.model.Coordinates;
 import slogo.model.GridCoordinates;
 import slogo.view.SelectorTarget;
@@ -22,35 +23,35 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
   private static final double HEIGHT = 40;
 
   private Image myTurtleImage;
-  private Coordinates coordinates;
+  private final Coordinates coordinates;
   private Coordinates prevCoordinates;
-  private boolean isPenActive;
+  private final BooleanProperty isPenActive;
   private Consumer<PenLine> myDrawConsumer;
 
   /**
-   * Constructor with Coordinates object.
+   * Constructor with TurtleProperties.
    *
-   * @param coordinates The coordinates of the turtle
+   * @param turtleProperties The properties of the turtle
    */
-  public TurtleView(Coordinates coordinates, BooleanProperty isVisibleProperty,
-      BooleanProperty isPenActiveProperty) {
+  public TurtleView(TurtleProperties turtleProperties) {
     this.setId("TurtleView");
     changeTurtleImage("Default");
     this.setFitHeight(HEIGHT);
     this.setPreserveRatio(true);
     this.setSmooth(true);
     this.setCache(true);
-    this.coordinates = coordinates;
+
+    myDrawConsumer = penLine -> {};
+    coordinates = turtleProperties.getCoordinates();
     prevCoordinates = new GridCoordinates(coordinates);
+    isPenActive = turtleProperties.penActiveProperty();
     updatePosition();
-    isPenActive = isPenActiveProperty.get();
     this.coordinatesStringProperty().addListener((observable, oldValue, newValue) -> {
       updatePosition();
       updateHeading();
     });
-    isVisibleProperty
+    turtleProperties.visibleProperty()
         .addListener((observable, oldValue, newValue) -> setTurtleVisibility(newValue));
-    isPenActiveProperty.addListener((observable, oldValue, newValue) -> isPenActive = newValue);
   }
 
   /**
@@ -68,7 +69,7 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
     double startY = prevCoordinates.getY();
     double endX = coordinates.getX();
     double endY = coordinates.getY();
-    if (isPenActive) {
+    if (isPenActive.get()) {
       myDrawConsumer.accept(new PenLine(startX, startY, endX, endY));
     }
     updatePrevCoordinates();
@@ -108,14 +109,6 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
 
   private void updateHeading() {
     this.setRotate(TurtleCanvas.convertHeading(getHeading()));
-  }
-
-  public boolean isPenActive() {
-    return isPenActive;
-  }
-
-  public void setPenActive(boolean isPenActive) {
-    this.isPenActive = isPenActive;
   }
 
   private void changeTurtleImage(String turtleImage) {
