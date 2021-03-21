@@ -59,8 +59,10 @@ public class TurtleGeneral {
   }
 
   public void updateTurtleArmy() {
+    System.out.println("Recruiting Class Size: " + turtleRecruits.size());
     turtleArmy.addAll(turtleRecruits);
     turtleRecruits.clear();
+    System.out.println("Army Size: " + turtleArmy.size());
     globalProperties.setNumTurtlesCreated(turtleArmy.size());
   }
 

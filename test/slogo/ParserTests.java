@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import slogo.controller.GlobalProperties;
 import slogo.controller.Parser;
 import slogo.controller.TurtleController;
 import slogo.controller.TurtleGeneral;
@@ -24,7 +23,6 @@ public class ParserTests {
   private TurtleController controller;
   private TurtleGeneral turtleGeneral;
   private Parser parser;
-  private GlobalProperties globalProperties;
 
   @BeforeEach
   public void setup() {
@@ -33,8 +31,8 @@ public class ParserTests {
     controller = new TurtleController(turtle, turtleGeneral.getGlobalProperties());
     turtleGeneral.conscriptTurtle(controller);
     turtleGeneral.updateTurtleArmy();
+    turtleGeneral.getGlobalProperties().addActiveTurtleId(0);
     parser = new Parser(turtleGeneral, "English");
-    globalProperties = turtleGeneral.getGlobalProperties();
   }
 
   @Test
@@ -724,7 +722,7 @@ public class ParserTests {
     parser.parseCommandString("SETPALETTE 1 210 210 210");
     controller.setIsAllowedToExecute(true);
     controller.runCommands();
-    assertEquals(globalProperties.paletteProperty().get(1), Color.rgb(210, 210, 210));
+    assertEquals(turtleGeneral.getGlobalProperties().paletteProperty().get(1), Color.rgb(210, 210, 210));
   }
 
   @Test
@@ -732,8 +730,8 @@ public class ParserTests {
     parser.parseCommandString("SETBG 1");
     controller.setIsAllowedToExecute(true);
     controller.runCommands();
-    assertEquals(globalProperties.backgroundColorPropertyProperty().get(),
-        globalProperties.paletteProperty().get(1));
+    assertEquals(turtleGeneral.getGlobalProperties().backgroundColorPropertyProperty().get(),
+        turtleGeneral.getGlobalProperties().paletteProperty().get(1));
   }
 
   @Test
@@ -741,8 +739,8 @@ public class ParserTests {
     parser.parseCommandString("SETPC 1");
     controller.setIsAllowedToExecute(true);
     controller.runCommands();
-    assertEquals(globalProperties.penColorPropertyProperty().get(),
-        globalProperties.paletteProperty().get(1));
+    assertEquals(turtleGeneral.getGlobalProperties().penColorPropertyProperty().get(),
+        turtleGeneral.getGlobalProperties().paletteProperty().get(1));
   }
 
   @Test
@@ -750,7 +748,7 @@ public class ParserTests {
     parser.parseCommandString("SETPENSIZE 50.0");
     controller.setIsAllowedToExecute(true);
     controller.runCommands();
-    assertEquals(globalProperties.penSizePropertyProperty().get(), 50.0);
+    assertEquals(turtleGeneral.getGlobalProperties().penSizePropertyProperty().get(), 50.0);
   }
 
   @Test
@@ -758,7 +756,7 @@ public class ParserTests {
     parser.parseCommandString("SETSHAPE 1");
     controller.setIsAllowedToExecute(true);
     controller.runCommands();
-    assertEquals(globalProperties.turtleShapePropertyProperty().get(), "Realistic");
+    assertEquals(turtleGeneral.getGlobalProperties().turtleShapePropertyProperty().get(), "Realistic");
   }
 
   @Test

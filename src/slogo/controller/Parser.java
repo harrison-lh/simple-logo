@@ -4,6 +4,7 @@ import java.beans.PropertyChangeListener;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Queue;
 import java.util.Set;
@@ -185,7 +186,6 @@ public class Parser implements SelectorTarget<String> {
       } catch (Exception e) {
 
         System.err.println("LOOKUP FAILED!!!");
-        // TODO: Might be a user-defined command, so we must check those!
         throw new IllegalArgumentException("ILLEGAL ARGUMENT EXCEPTION:\nCOMMAND UNDEFINED!");
       }
     }
@@ -299,7 +299,7 @@ public class Parser implements SelectorTarget<String> {
    */
   public void parseCommandString(String text)
       throws IllegalArgumentException, NullPointerException {
-    currentCommandString = text;
+    currentCommandString = text.toLowerCase(Locale.ROOT);
     splitText(text);
     tokenizeText();
     if (handleCommentsAndBlankLines()) {
