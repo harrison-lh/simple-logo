@@ -26,7 +26,6 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
   private Coordinates prevCoordinates;
   private boolean isPenActive;
   private Consumer<PenLine> myDrawConsumer;
-  private boolean isPenActive;
 
   /**
    * Constructor with Coordinates object.
