@@ -3,15 +3,14 @@ package slogo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import javafx.scene.paint.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import slogo.controller.GlobalProperties;
 import slogo.controller.Parser;
 import slogo.controller.TurtleController;
 import slogo.controller.TurtleGeneral;
 import slogo.model.GridCoordinates;
 import slogo.model.Turtle;
-import slogo.view.Pen;
 
 /**
  * A testing suite for the Parser!
@@ -19,10 +18,12 @@ import slogo.view.Pen;
  * @author Marc Chmielewski
  */
 public class ParserTests {
+
   private Turtle turtle;
   private TurtleController controller;
   private TurtleGeneral turtleGeneral;
   private Parser parser;
+  private GlobalProperties globalProperties;
 
   @BeforeEach
   public void setup() {
@@ -31,6 +32,7 @@ public class ParserTests {
     controller = new TurtleController(turtle, turtleGeneral.getGlobalProperties());
     turtleGeneral.conscriptTurtle(controller);
     parser = new Parser(turtleGeneral, "English");
+    globalProperties = turtleGeneral.getGlobalProperties();
   }
 
   @Test
@@ -166,7 +168,7 @@ public class ParserTests {
     controller.runCommands();
     assertEquals(turtle.getY(), initY - 50, 0.01);
     assertEquals(turtle.getX(), initX, 0.01);
-    assertEquals(turtle.getHeading(),  180, 0.01);
+    assertEquals(turtle.getHeading(), 180, 0.01);
 
     initY = turtle.getY();
     initX = turtle.getX();
@@ -266,6 +268,7 @@ public class ParserTests {
     controller.runCommands();
     assertEquals(turtle.getY(), initY);
   }
+
   public void testSetTowards() {
     turtle.setPosition(0, 0);
     turtle.setHeading(0);
@@ -582,7 +585,7 @@ public class ParserTests {
     System.out.println(exception.getMessage());
 
     exception = assertThrows(IllegalArgumentException.class, () -> {
-      parser.parseCommandString("repeat 5 [ fd 50 [");
+          parser.parseCommandString("repeat 5 [ fd 50 [");
         }
     );
     System.out.println(exception.getMessage());
@@ -613,7 +616,7 @@ public class ParserTests {
   }
 
   @Test
-  public void testForVariable(){
+  public void testForVariable() {
     double initY = turtle.getY();
     parser.parseCommandString("for [ :i 0 10 1 ] [ fd :i ]");
     controller.setIsAllowedToExecute(true);
@@ -644,6 +647,7 @@ public class ParserTests {
     controller.runCommands();
     assertEquals(initY + 50, turtle.getY());
   }
+
   @Test
   public void testMultipleToCommandWithParams() {
     double initY = turtle.getY();
@@ -655,6 +659,7 @@ public class ParserTests {
     controller.runCommands();
     assertEquals(initY + 150, turtle.getY());
   }
+
   @Test
   public void testMultipleToCommandWithParamsButInDifferentRuns() {
     double initY = turtle.getY();
@@ -686,7 +691,7 @@ public class ParserTests {
   }
 
   @Test
-  public void testBasicFdGroup(){
+  public void testBasicFdGroup() {
     double initY = turtle.getY();
     parser.parseCommandString("( fd 10 20 30 40 )");
     controller.setIsAllowedToExecute(true);
@@ -695,7 +700,7 @@ public class ParserTests {
   }
 
   @Test
-  public void testBasicSumGroup(){
+  public void testBasicSumGroup() {
     double initY = turtle.getY();
     parser.parseCommandString("fd ( sum 10 20 30 40 )");
     controller.setIsAllowedToExecute(true);
@@ -704,7 +709,7 @@ public class ParserTests {
   }
 
   @Test
-  public void testGroupIncompleteArgsError(){
+  public void testGroupIncompleteArgsError() {
     Exception exception = assertThrows(IllegalArgumentException.class, () -> {
           parser.parseCommandString("( set :x 100 :y 200 :z )");
         }
@@ -712,12 +717,47 @@ public class ParserTests {
     System.out.println(exception.getMessage());
   }
 
-//  @Test
-//  public void testSetPalette() {
-//    parser.parseCommandString("SETPALETTE 0 0 0 0");
-//    controller.setIsAllowedToExecute(true);
-//    controller.runCommands();
-//    //assertEquals(TurtleGeneral.palette.getColorAtIndex(0), Color.rgb(0, 0, 0));
-//  }
+  @Test
+  public void testSetBackground() {
+    parser.parseCommandString("SETBG 1");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(globalProperties.backgroundColorPropertyProperty().get(),
+        globalProperties.paletteProperty().get(1));
+  }
+
+  @Test
+  public void testSetPenColor() {
+    parser.parseCommandString("SETPC 1");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(globalProperties.penColorPropertyProperty().get(),
+        globalProperties.paletteProperty().get(1));
+  }
+
+  @Test
+  public void testSetPenSize() {
+    parser.parseCommandString("SETPENSIZE 50.0");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(globalProperties.penSizePropertyProperty().get(), 50.0);
+  }
+
+  @Test
+  public void testSetTurtleShape() {
+    parser.parseCommandString("SETSHAPE 1");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(globalProperties.turtleShapePropertyProperty().get(), "Realistic");
+  }
+
+  @Test
+  public void testGetPenColor() {
+    double initY = turtle.getY();
+    parser.parseCommandString("SETPC 1 fd PENCOLOR");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 1);
+  }
 
 }
