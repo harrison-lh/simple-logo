@@ -32,6 +32,7 @@ public class GlobalProperties {
   private final StringProperty turtleShapeProperty;
   private final ListProperty<Color> paletteProperty;
   private Collection<EventHandler<ClearScreenEvent>> clearScreenListeners;
+  private final ClearScreenEvent clearScreenEvent;
   private Consumer<Integer> makeNewTurtlesConsumer;
   private final Map<Integer, String> shapeMap;
   private final Set<Integer> activeTurtleIds;
@@ -47,6 +48,7 @@ public class GlobalProperties {
     shapeMap.put(0, "Default");
     shapeMap.put(1, "Realistic");
     clearScreenListeners = new HashSet<>();
+    clearScreenEvent = new ClearScreenEvent();
     activeTurtleIds = new HashSet<>();
     numTurtlesCreated = 0;
   }
@@ -76,7 +78,7 @@ public class GlobalProperties {
   }
 
   public void clearScreen() {
-    clearScreenListeners.forEach(listener -> listener.handle(new ClearScreenEvent()));
+    clearScreenListeners.forEach(listener -> listener.handle(clearScreenEvent));
   }
 
   public void setMakeNewTurtlesConsumer(Consumer<Integer> consumer) {

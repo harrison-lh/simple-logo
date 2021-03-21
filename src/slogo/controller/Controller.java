@@ -25,13 +25,13 @@ public class Controller {
    */
   public Controller() {
     myMainView = new MainView();
-    myTurtle = new Turtle(0, new GridCoordinates(), myMainView.getVariablesListener());
+//    myTurtle = new Turtle(1, new GridCoordinates(), myMainView.getVariablesListener());
     myTurtleGeneral = new TurtleGeneral();
-    TurtleController initController = new TurtleController(myTurtle,
-        myTurtleGeneral.getGlobalProperties());
+//    TurtleController initController = new TurtleController(myTurtle,
+//        myTurtleGeneral.getGlobalProperties());
     myTurtleGeneral.setNewTurtleConsumer(myMainView.newTurtleConsumer());
-    myTurtleGeneral.conscriptTurtle(initController);
-    myTurtleGeneral.updateTurtleArmy();
+    myTurtleGeneral.createFirstTurtle();
+    myTurtle = myTurtleGeneral.getTurtleArmy().get(0).getTurtle();
     myTurtleGeneral.getGlobalProperties().addActiveTurtleId(0);
     myParser = new Parser(myTurtleGeneral, DEFAULT_LANGUAGE, myMainView.getCommandsListener());
     // Input button action

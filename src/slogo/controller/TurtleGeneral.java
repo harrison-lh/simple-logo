@@ -48,8 +48,8 @@ public class TurtleGeneral {
 
   public void conscriptTurtle(int id) {
     turtleRecruits.clear();
-    if(turtleArmy.size() <= id) {
-      for(int i = turtleArmy.size(); i <= id; i++) {
+    if(turtleArmy.size() < id) {
+      for(int i = turtleArmy.size() + 1; i <= id; i++) {
         Turtle freshTurtle = new Turtle(i, new GridCoordinates());
         TurtleController freshTurtleController = new TurtleController(freshTurtle, globalProperties);
         turtleRecruits.add(freshTurtleController);
@@ -80,6 +80,12 @@ public class TurtleGeneral {
 
   public GlobalProperties getGlobalProperties() {
     return globalProperties;
+  }
+
+  public void createFirstTurtle() {
+    conscriptTurtle(1);
+    updateTurtleArmy();
+    globalProperties.addActiveTurtleId(1);
   }
 
   private void removeTurtles() {
