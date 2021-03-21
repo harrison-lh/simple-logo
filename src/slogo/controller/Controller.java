@@ -31,6 +31,7 @@ public class Controller {
     myMainView.createTurtle(myTurtle.getCoordinates(), myTurtle.visibleProperty(), myTurtle.penActiveProperty());
     TurtleController initController = new TurtleController(myTurtle);
     myTurtleGeneral = new TurtleGeneral(initController);
+    myTurtleGeneral.setNewTurtleConsumer(myMainView.newTurtleConsumer());
     myParser = new Parser(myTurtleGeneral, DEFAULT_LANGUAGE, myMainView.getCommandsListener());
     // Input button action
     myMainView.setInputAction(myParser.receiveInputAction());

@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import slogo.model.Coordinates;
+import slogo.model.TurtleProperties;
 import slogo.view.canvas.CanvasHolder;
 import slogo.view.canvas.TurtleCanvas;
 import slogo.view.canvas.TurtleView;
@@ -177,5 +178,9 @@ public class MainView extends BorderPane {
   public static void setBackgroundColor(Color newColor) {
     myTurtleCanvas.setBackground(new Background(
         new BackgroundFill(newColor, CornerRadii.EMPTY, Insets.EMPTY)));
+  }
+
+  public Consumer<TurtleProperties> newTurtleConsumer() {
+    return myTurtleCanvas.newTurtleConsumer();
   }
 }

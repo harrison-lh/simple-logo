@@ -2,8 +2,10 @@ package slogo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import slogo.model.Palette;
 import slogo.model.Turtle;
+import slogo.model.TurtleProperties;
 
 /**
  * TurtleGeneral is a delightfully named marshalling class for controlling n-Turtles by way of their
@@ -17,6 +19,7 @@ public class TurtleGeneral {
   // TODO: Move control of Variables and UserCommands here
   public static Palette palette;
   private final List<Integer> activeTurtleIds;
+  private Consumer<TurtleProperties> myNewTurtleConsumer;
 
   public TurtleGeneral(List<TurtleController> turtleArmy) {
     this.turtleArmy = turtleArmy;
@@ -40,6 +43,7 @@ public class TurtleGeneral {
     if(turtleArmy.size() < recruitTurtle.getId()) {
       for(int i = turtleArmy.size(); i <= recruitTurtle.getId(); i++) {
         // TODO: Implement turtle conscription behavior (REQUIRES FIXED LISTENERS)
+        // Call myNewTurtleConsumer(turtleProperties) to create turtle in view
       }
     }
   }
@@ -59,5 +63,9 @@ public class TurtleGeneral {
 
   public List<TurtleController> getTurtleArmy() {
     return turtleArmy;
+  }
+
+  public void setNewTurtleConsumer(Consumer<TurtleProperties> newTurtleConsumer) {
+    myNewTurtleConsumer = newTurtleConsumer;
   }
 }

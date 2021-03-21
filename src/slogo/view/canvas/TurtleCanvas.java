@@ -13,6 +13,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import slogo.model.Coordinates;
 import slogo.model.GridCoordinates;
+import slogo.model.TurtleProperties;
 import slogo.view.Pen;
 import slogo.view.SelectorTarget;
 
@@ -103,6 +104,13 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     newTurtle.setDrawConsumer(this::drawLine);
     this.getChildren().add(newTurtle);
     myTurtleView = newTurtle;
+  }
+
+  public Consumer<TurtleProperties> newTurtleConsumer() {
+    return this::createTurtle;
+  }
+
+  private void createTurtle(TurtleProperties turtleProperties) {
   }
 
   private void drawLine(PenLine penLine) {
