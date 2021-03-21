@@ -340,6 +340,7 @@ public class Parser implements SelectorTarget<String> {
           controller.runCommands();
         }
       }
+      turtleGeneral.updateTurtleArmy();
     };
   }
 

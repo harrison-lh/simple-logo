@@ -16,6 +16,7 @@ import slogo.model.Turtle;
  */
 public class TurtleGeneral {
   private final List<TurtleController> turtleArmy;
+  private final List<TurtleController> turtleRecruits;
   // TODO: Move control of Variables and UserCommands here
   private Palette palette;
   private final List<Integer> activeTurtleIds;
@@ -26,15 +27,18 @@ public class TurtleGeneral {
     this.turtleArmy = new ArrayList<>();
     palette = new Palette();
     activeTurtleIds = new ArrayList<>();
+    turtleRecruits = new ArrayList<>();
     for(TurtleController curController : turtleArmy) {
       activeTurtleIds.add(curController.getTurtle().getId());
     }
     globalProperties = new GlobalProperties(palette.getColorsProperty());
+    globalProperties.addClearScreenListener( e -> removeTurtles());
+    globalProperties.setMakeNewTurtlesConsumer(this::conscriptTurtle);
     newTurtleConsumer = (param) -> {}; // Fixes headless tests breaking by adding a dummy
   }
 
   public void conscriptTurtle(TurtleController recruitTurtle) {
-    turtleArmy.add(recruitTurtle);
+    turtleRecruits.add(recruitTurtle);
     activeTurtleIds.add(recruitTurtle.getTurtle().getId());
     newTurtleConsumer.accept(new TurtleProperties(recruitTurtle.getTurtle()));
 
@@ -42,11 +46,28 @@ public class TurtleGeneral {
       for(int i = turtleArmy.size(); i < recruitTurtle.getTurtle().getId(); i++) {
         Turtle freshTurtle = new Turtle(i, new GridCoordinates());
         TurtleController freshTurtleController = new TurtleController(freshTurtle, globalProperties);
-        turtleArmy.add(freshTurtleController);
+        turtleRecruits.add(freshTurtleController);
         activeTurtleIds.add(freshTurtleController.getTurtle().getId());
         newTurtleConsumer.accept(new TurtleProperties(freshTurtleController.getTurtle()));
       }
     }
+  }
+
+  public void conscriptTurtle(int id) {
+    if(turtleArmy.size() < id) {
+      for(int i = turtleArmy.size(); i <= id; i++) {
+        Turtle freshTurtle = new Turtle(i, new GridCoordinates());
+        TurtleController freshTurtleController = new TurtleController(freshTurtle, globalProperties);
+        turtleRecruits.add(freshTurtleController);
+        activeTurtleIds.add(freshTurtleController.getTurtle().getId());
+        newTurtleConsumer.accept(new TurtleProperties(freshTurtleController.getTurtle()));
+      }
+    }
+  }
+
+  public void updateTurtleArmy() {
+    turtleArmy.addAll(turtleRecruits);
+    turtleRecruits.clear();
   }
 
   public Palette getPalette() {
@@ -73,4 +94,9 @@ public class TurtleGeneral {
   public GlobalProperties getGlobalProperties() {
     return globalProperties;
   }
+
+  private void removeTurtles() {
+    //TODO: remove all but one turtles
+  }
+
 }

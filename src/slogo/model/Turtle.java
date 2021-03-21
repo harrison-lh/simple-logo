@@ -212,7 +212,7 @@ public class Turtle {
    * Clears the screen of the Turtle's lines.
    */
   public void clearScreen() {
-    turtleListener.propertyChange(new PropertyChangeEvent(this, "CLEAR", null, null));
+//    turtleListener.propertyChange(new PropertyChangeEvent(this, "CLEAR", null, null));
   }
 
   /**

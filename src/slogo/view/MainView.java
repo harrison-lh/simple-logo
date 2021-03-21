@@ -200,6 +200,7 @@ public class MainView extends BorderPane {
     myGlobalProperties.turtleShapePropertyProperty().addListener(((observable, oldValue, newValue) -> {
       myTurtleCanvas.setTurtleShape(newValue);
     }));
+    myGlobalProperties.addClearScreenListener(e -> System.out.println("clear screen"));
     myMenuBar.getPenSelector().setGlobalProperty(globalProperties.penColorPropertyProperty());
     myMenuBar.getTurtleSelector().setGlobalProperty(globalProperties.turtleShapePropertyProperty());
     myMenuBar.getBackgroundSelector().setGlobalProperty(globalProperties.backgroundColorPropertyProperty());

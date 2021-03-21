@@ -32,10 +32,13 @@ public class TellCommand extends Command {
   @Override
   protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     // TODO: parse input
+    int param = 5;
 
     // TODO: set all turtles in the list to be active
 
     // TODO: return value of last turtle
+
+    globalProperties.makeNewTurtles(param);
 
     return 0;
   }
