@@ -41,7 +41,11 @@ public class GlobalProperties {
     return turtleShapeProperty;
   }
 
-  public ListProperty<Color> getPaletteProperty() {
+  public ListProperty<Color> paletteProperty() {
     return paletteProperty;
+  }
+
+  public void setBackgroundColor(Color color) {
+    backgroundColorProperty.set(color);
   }
 }

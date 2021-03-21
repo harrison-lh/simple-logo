@@ -18,7 +18,8 @@ public class TurtleGeneral {
   // TODO: Move control of Variables and UserCommands here
   public static Palette palette;
   private final List<Integer> activeTurtleIds;
-  private Consumer<TurtleProperties> myNewTurtleConsumer;
+  private Consumer<TurtleProperties> newTurtleConsumer;
+  private final GlobalProperties globalProperties;
 
   public TurtleGeneral(List<TurtleController> turtleArmy) {
     this.turtleArmy = turtleArmy;
@@ -27,6 +28,7 @@ public class TurtleGeneral {
     for(TurtleController curController : turtleArmy) {
       activeTurtleIds.add(curController.getTurtle().getId());
     }
+    globalProperties = new GlobalProperties(palette.getColorsProperty());
   }
 
   public TurtleGeneral(TurtleController turtleConscript) {
@@ -36,6 +38,7 @@ public class TurtleGeneral {
     for(TurtleController curController : turtleArmy) {
       activeTurtleIds.add(curController.getTurtle().getId());
     }
+    globalProperties = new GlobalProperties(palette.getColorsProperty());
   }
 
   public void conscriptTurtle(Turtle recruitTurtle) {
@@ -65,6 +68,6 @@ public class TurtleGeneral {
   }
 
   public void setNewTurtleConsumer(Consumer<TurtleProperties> newTurtleConsumer) {
-    myNewTurtleConsumer = newTurtleConsumer;
+    this.newTurtleConsumer = newTurtleConsumer;
   }
 }
