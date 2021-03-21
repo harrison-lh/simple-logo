@@ -4,8 +4,10 @@ import java.beans.PropertyChangeListener;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Queue;
+import java.util.Set;
 import java.util.Stack;
 import java.util.function.Consumer;
 import slogo.controller.commands.GroupCommandHead;
@@ -184,7 +186,6 @@ public class Parser implements SelectorTarget<String> {
       } catch (Exception e) {
 
         System.err.println("LOOKUP FAILED!!!");
-        // TODO: Might be a user-defined command, so we must check those!
         throw new IllegalArgumentException("ILLEGAL ARGUMENT EXCEPTION:\nCOMMAND UNDEFINED!");
       }
     }
@@ -298,7 +299,7 @@ public class Parser implements SelectorTarget<String> {
    */
   public void parseCommandString(String text)
       throws IllegalArgumentException, NullPointerException {
-    currentCommandString = text;
+    currentCommandString = text.toLowerCase(Locale.ROOT);
     splitText(text);
     tokenizeText();
     if (handleCommentsAndBlankLines()) {
@@ -309,7 +310,7 @@ public class Parser implements SelectorTarget<String> {
     for (Command command : assembledCommandQueue) {
       System.out.println(command);
     }
-    List<Integer> curActiveTurtleIds = turtleGeneral.getActiveTurtleIds();
+    Set<Integer> curActiveTurtleIds = turtleGeneral.getGlobalProperties().getActiveTurtleIds();
     for(TurtleController controller : turtleGeneral.getTurtleArmy()) {
       if(curActiveTurtleIds.contains(controller.getTurtle().getId()))
         controller.pushCommands(assembledCommandQueue);
@@ -333,13 +334,14 @@ public class Parser implements SelectorTarget<String> {
       throws IllegalArgumentException, NullPointerException {
     return command -> {
       parseCommandString(command);
-      List<Integer> curActiveTurtleIds = turtleGeneral.getActiveTurtleIds();
+      Set<Integer> curActiveTurtleIds = turtleGeneral.getGlobalProperties().getActiveTurtleIds();
       for(TurtleController controller : turtleGeneral.getTurtleArmy()) {
         if(curActiveTurtleIds.contains(controller.getTurtle().getId())) {
           controller.setIsAllowedToExecute(true);
           controller.runCommands();
         }
       }
+      turtleGeneral.updateTurtleArmy();
     };
   }
 

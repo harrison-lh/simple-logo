@@ -32,12 +32,18 @@ public class TellCommand extends Command {
   @Override
   protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     // TODO: parse input
+    int numTurtles = (int)getChildren().get(0).execute(turtle, globalProperties);
+    System.out.println("Number of turtles to make: " + numTurtles);
+
+    globalProperties.makeNewTurtles(numTurtles);
 
     // TODO: set all turtles in the list to be active
+    globalProperties.clearActiveTurtleIds();
+    globalProperties.addActiveTurtleId(numTurtles);
 
     // TODO: return value of last turtle
 
-    return 0;
+    return numTurtles;
   }
 
 }

@@ -1,15 +1,22 @@
 package slogo.controller;
 
 import java.util.HashMap;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.function.Consumer;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SetProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleSetProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.event.EventHandler;
 import javafx.scene.paint.Color;
 
 public class GlobalProperties {
@@ -24,7 +31,12 @@ public class GlobalProperties {
   private final DoubleProperty penSizeProperty;
   private final StringProperty turtleShapeProperty;
   private final ListProperty<Color> paletteProperty;
+  private Collection<EventHandler<ClearScreenEvent>> clearScreenListeners;
+  private final ClearScreenEvent clearScreenEvent;
+  private Consumer<Integer> makeNewTurtlesConsumer;
   private final Map<Integer, String> shapeMap;
+  private final Set<Integer> activeTurtleIds;
+  private int numTurtlesCreated;
 
   public GlobalProperties(ListProperty<Color> paletteProperty) {
     backgroundColorProperty = new SimpleObjectProperty<>(DEFAULT_BACKGROUND_COLOR);
@@ -35,6 +47,10 @@ public class GlobalProperties {
     shapeMap = new HashMap<>();
     shapeMap.put(0, "Default");
     shapeMap.put(1, "Realistic");
+    clearScreenListeners = new HashSet<>();
+    clearScreenEvent = new ClearScreenEvent(this);
+    activeTurtleIds = new HashSet<>();
+    numTurtlesCreated = 0;
   }
 
   public ObjectProperty<Color> backgroundColorPropertyProperty() {
@@ -55,6 +71,22 @@ public class GlobalProperties {
 
   public ListProperty<Color> paletteProperty() {
     return paletteProperty;
+  }
+
+  public void addClearScreenListener(EventHandler<ClearScreenEvent> handler) {
+    clearScreenListeners.add(handler);
+  }
+
+  public void clearScreen() {
+    clearScreenListeners.forEach(listener -> listener.handle(clearScreenEvent));
+  }
+
+  public void setMakeNewTurtlesConsumer(Consumer<Integer> consumer) {
+    makeNewTurtlesConsumer = consumer;
+  }
+
+  public void makeNewTurtles(int param) {
+    makeNewTurtlesConsumer.accept(param);
   }
 
   public void setBackgroundColorProperty(Color backgroundColor) {
@@ -79,5 +111,29 @@ public class GlobalProperties {
 
   public Map<Integer, String> getShapeMap() {
     return shapeMap;
+  }
+
+  public Set<Integer> getActiveTurtleIds() {
+    return activeTurtleIds;
+  }
+
+  public void addActiveTurtleId(int idToAdd) {
+    activeTurtleIds.add(idToAdd);
+  }
+
+  public void addMultipleActiveTurtleIds(Collection<Integer> idsToAdd) {
+    activeTurtleIds.addAll(idsToAdd);
+  }
+
+  public void clearActiveTurtleIds() {
+    activeTurtleIds.clear();
+  }
+
+  public void setNumTurtlesCreated(int numTurtlesCreated) {
+    this.numTurtlesCreated = numTurtlesCreated;
+  }
+
+  public int getNumTurtlesCreated() {
+    return numTurtlesCreated;
   }
 }

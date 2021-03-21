@@ -97,6 +97,10 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     return this::createTurtle;
   }
 
+  public void clearScreen() {
+    myPenLines.getChildren().clear();
+  }
+
   public void setTurtleShape(String shape) {
     myTurtlesContainer.setTurtleShapes(shape);
   }
@@ -107,7 +111,4 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     myPenLines.getChildren().add(penLine);
   }
 
-  private void clearScreen() {
-    myPenLines.getChildren().clear();
-  }
 }

@@ -31,8 +31,7 @@ public class IDCommand extends Command {
   @Override
   protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     // TODO: get the current ID of the turtle
-    //return turtle.getID();
-    return 0;
+    return turtle.getId();
   }
 
 }
