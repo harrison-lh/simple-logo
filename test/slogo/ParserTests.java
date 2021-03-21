@@ -3,6 +3,7 @@ package slogo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import slogo.controller.GlobalProperties;
@@ -718,6 +719,14 @@ public class ParserTests {
   }
 
   @Test
+  public void testSetPalette() {
+    parser.parseCommandString("SETPALETTE 1 210 210 210");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(globalProperties.paletteProperty().get(1), Color.rgb(210, 210, 210));
+  }
+
+  @Test
   public void testSetBackground() {
     parser.parseCommandString("SETBG 1");
     controller.setIsAllowedToExecute(true);
@@ -760,4 +769,12 @@ public class ParserTests {
     assertEquals(turtle.getY(), initY + 1);
   }
 
+  @Test
+  public void testGetShape() {
+    double initY = turtle.getY();
+    parser.parseCommandString("SETSHAPE 1 fd SHAPE");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(turtle.getY(), initY + 1);
+  }
 }

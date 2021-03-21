@@ -32,7 +32,6 @@ public class GetPenColorCommand extends Command {
    */
   @Override
   protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
-    // TODO: get the current pen color of the turtle
     List<Color> colorList = globalProperties.paletteProperty().get();
     for(int i = 0; i < colorList.size(); i++) {
       if(globalProperties.penColorPropertyProperty().get().equals(colorList.get(i)))
@@ -40,5 +39,4 @@ public class GetPenColorCommand extends Command {
     }
     return 0.0;
   }
-
 }
