@@ -1,6 +1,7 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
@@ -24,10 +25,11 @@ public class ShowTurtleCommand extends Command {
    * Toggles the visibility of the turtle to be true.
    *
    * @param turtle The turtle to be shown
+   * @param globalProperties
    * @return 1
    */
   @Override
-  protected double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     turtle.setVisible(true);
     return 1;
   }

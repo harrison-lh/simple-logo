@@ -1,6 +1,7 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 public class HeadingCommand extends Command {
@@ -12,7 +13,7 @@ public class HeadingCommand extends Command {
   }
 
   @Override
-  protected double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     return turtle.getHeading();
   }
 }

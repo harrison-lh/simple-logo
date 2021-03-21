@@ -1,6 +1,7 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
@@ -24,12 +25,14 @@ public class SetShapeCommand extends Command {
    * Sets the turtle to have the shape at the given index.
    *
    * @param turtle The turtle to be set
+   * @param globalProperties
    * @return The index of the turtle shape
    */
   @Override
-  protected double executeCommand(Turtle turtle) {
-    int index = (int) getChildren().get(0).execute(turtle);
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
+    int index = (int) getChildren().get(0).execute(turtle, globalProperties);
     //TODO: set the shape to that at the index
+    globalProperties.setTurtleShapeProperty(globalProperties.getShapeMap().get(index));
     //turtle.setShapeAtIndex(index);
     return index;
   }

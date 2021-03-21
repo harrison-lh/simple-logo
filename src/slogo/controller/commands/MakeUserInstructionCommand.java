@@ -2,6 +2,7 @@ package slogo.controller.commands;
 
 import java.util.ArrayList;
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.controller.Lexer;
 import slogo.controller.ListCommandHead;
 import slogo.controller.VariableCommand;
@@ -28,7 +29,7 @@ public class MakeUserInstructionCommand extends Command {
   }
 
   @Override
-  protected double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     try{
       ArrayList<String> varNames = new ArrayList<>();
       ListCommandHead variables = ( (ListCommandHead) getChildren().get(VAR_INDEX));

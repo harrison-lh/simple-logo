@@ -1,6 +1,7 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
@@ -24,12 +25,13 @@ public class BackwardCommand extends Command {
    * Executes the back command onto the turtle.
    *
    * @param turtle The turtle to be moved backward
+   * @param globalProperties
    * @return The distance that the turtle moved backward
    */
   @Override
-  protected double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
 
-    double distance = getChildren().get(0).execute(turtle);
+    double distance = getChildren().get(0).execute(turtle, globalProperties);
     turtle.forward(-1 * distance);
     return distance;
   }

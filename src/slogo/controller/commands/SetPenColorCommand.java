@@ -1,7 +1,9 @@
 package slogo.controller.commands;
 
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
@@ -25,14 +27,14 @@ public class SetPenColorCommand extends Command {
    * Sets the pen color to be the color at the given index of the palette.
    *
    * @param turtle The current active turtle
+   * @param globalProperties
    * @return The index of the color set
    */
   @Override
-  protected double executeCommand(Turtle turtle) {
-    int index = (int) getChildren().get(0).execute(turtle);
-    // TODO: set the pen color to that at the index
-    //Paint paint = palette.getColorAtIndex(index);
-    //turtle.getPen().setColor(paint);
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
+    int index = (int) getChildren().get(0).execute(turtle, globalProperties);
+    Color color = globalProperties.paletteProperty().get(index);
+    globalProperties.setPenColorProperty(color);
     return index;
   }
 

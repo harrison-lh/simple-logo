@@ -56,11 +56,12 @@ public abstract class Command {
    * parameters in order to execute the command.
    *
    * @param turtle The turtle on which to run the command
+   * @param globalProperties
    * @return The double for the return value of each execute
    */
-  public double execute(Turtle turtle) {
+  public double execute(Turtle turtle, GlobalProperties globalProperties) {
     assert(getChildren().size() == getNumParams());
-    return executeCommand(turtle);
+    return executeCommand(turtle, globalProperties);
   }
 
   /**
@@ -68,7 +69,8 @@ public abstract class Command {
    *
    * @return The double for the return value of each execute
    */
-  protected abstract double executeCommand(Turtle turtle);
+  protected abstract double executeCommand(Turtle turtle,
+      GlobalProperties globalProperties);
 
   /**
    * Sets the number of parameters that the Command takes.

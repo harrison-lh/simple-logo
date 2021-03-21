@@ -1,6 +1,7 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
@@ -25,10 +26,11 @@ public class TellCommand extends Command {
    * Tells which turtles to run commands.
    *
    * @param turtle The current active turtle
+   * @param globalProperties
    * @return The value of the last turtle
    */
   @Override
-  protected double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     // TODO: parse input
 
     // TODO: set all turtles in the list to be active

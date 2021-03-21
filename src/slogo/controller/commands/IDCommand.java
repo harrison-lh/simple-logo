@@ -1,6 +1,7 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
@@ -24,10 +25,11 @@ public class IDCommand extends Command {
    * Gets the current turtle ID.
    *
    * @param turtle The current active turtle
+   * @param globalProperties
    * @return The current turtle ID
    */
   @Override
-  protected double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     // TODO: get the current ID of the turtle
     //return turtle.getID();
     return 0;

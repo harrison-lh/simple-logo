@@ -1,6 +1,7 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 public class RemainderCommand extends Command {
@@ -12,9 +13,9 @@ public class RemainderCommand extends Command {
   }
 
   @Override
-  protected double executeCommand(Turtle turtle) {
-    double a = getChildren().get(0).execute(turtle);
-    double b = getChildren().get(1).execute(turtle);
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
+    double a = getChildren().get(0).execute(turtle, globalProperties);
+    double b = getChildren().get(1).execute(turtle, globalProperties);
 
     return a % b;
 

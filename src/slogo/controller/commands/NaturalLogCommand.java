@@ -1,6 +1,7 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
@@ -24,11 +25,12 @@ public class NaturalLogCommand extends Command {
    * Returns the natural log of the input value.
    *
    * @param turtle The current turtle
+   * @param globalProperties
    * @return double of natural log of value
    */
   @Override
-  protected double executeCommand(Turtle turtle) {
-    double val = getChildren().get(0).execute(turtle);
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
+    double val = getChildren().get(0).execute(turtle, globalProperties);
     return Math.log(val);
   }
 }

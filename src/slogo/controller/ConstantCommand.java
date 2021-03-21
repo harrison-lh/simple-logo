@@ -35,10 +35,11 @@ public class ConstantCommand extends Command {
    * Returns the value of this ConstantCommand.
    *
    * @param turtle The turtle that owns this ConstantCommand.
+   * @param globalProperties
    * @return The value of this ConstantCommand.
    */
   @Override
-  public double executeCommand(Turtle turtle) {
+  public double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     return value;
   }
 }

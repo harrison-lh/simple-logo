@@ -1,6 +1,7 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 public class ArcTangentCommand extends Command {
@@ -12,8 +13,8 @@ public class ArcTangentCommand extends Command {
   }
 
   @Override
-  protected double executeCommand(Turtle turtle) {
-    double degrees = getChildren().get(0).execute(turtle);
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
+    double degrees = getChildren().get(0).execute(turtle, globalProperties);
 
     return Math.toDegrees(Math.atan(Math.toRadians(degrees)));
   }

@@ -1,6 +1,7 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
@@ -24,11 +25,12 @@ public class RightCommand extends Command {
    * Executes the right command onto the turtle.
    *
    * @param turtle The turtle to be rotated right
+   * @param globalProperties
    * @return The degrees that the turtle rotated
    */
   @Override
-  protected double executeCommand(Turtle turtle) {
-    double degrees = getChildren().get(0).execute(turtle);
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
+    double degrees = getChildren().get(0).execute(turtle, globalProperties);
     turtle.right(degrees);
     return degrees;
   }

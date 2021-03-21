@@ -2,6 +2,7 @@ package slogo.controller.commands;
 
 import slogo.controller.Command;
 import slogo.controller.ConstantCommand;
+import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
@@ -29,19 +30,20 @@ public class HomeCommand extends Command {
    * Sets the position of the turtle to be at home (0,0) and the heading to be the default.
    *
    * @param turtle The turtle to be set
+   * @param globalProperties
    * @return The distance the turtle moved
    */
   @Override
-  protected double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     Command setHeading = new SetHeadingCommand();
     setHeading.addChild(new ConstantCommand(DEFAULT_HEADING));
-    setHeading.execute(turtle);
+    setHeading.execute(turtle, globalProperties);
 
     Command setXY = new SetPositionCommand();
     setXY.addChild(new ConstantCommand(HOME_X_COORDINATE));
     setXY.addChild(new ConstantCommand(HOME_Y_COORDINATE));
 
-    return setXY.execute(turtle);
+    return setXY.execute(turtle, globalProperties);
   }
 
 }

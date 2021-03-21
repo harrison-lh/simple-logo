@@ -3,6 +3,7 @@ package slogo.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import slogo.model.GridCoordinates;
 import slogo.model.Palette;
 import slogo.model.Turtle;
 
@@ -16,36 +17,34 @@ import slogo.model.Turtle;
 public class TurtleGeneral {
   private final List<TurtleController> turtleArmy;
   // TODO: Move control of Variables and UserCommands here
-  public static Palette palette;
+  private Palette palette;
   private final List<Integer> activeTurtleIds;
   private Consumer<TurtleProperties> newTurtleConsumer;
   private final GlobalProperties globalProperties;
 
-  public TurtleGeneral(List<TurtleController> turtleArmy) {
-    this.turtleArmy = turtleArmy;
+  public TurtleGeneral() {
+    this.turtleArmy = new ArrayList<>();
     palette = new Palette();
     activeTurtleIds = new ArrayList<>();
     for(TurtleController curController : turtleArmy) {
       activeTurtleIds.add(curController.getTurtle().getId());
     }
     globalProperties = new GlobalProperties(palette.getColorsProperty());
+    newTurtleConsumer = (param) -> {}; // Fixes headless tests breaking by adding a dummy
   }
 
-  public TurtleGeneral(TurtleController turtleConscript) {
-    this.turtleArmy = List.of(turtleConscript);
-    palette = new Palette();
-    activeTurtleIds = new ArrayList<>();
-    for(TurtleController curController : turtleArmy) {
-      activeTurtleIds.add(curController.getTurtle().getId());
-    }
-    globalProperties = new GlobalProperties(palette.getColorsProperty());
-  }
+  public void conscriptTurtle(TurtleController recruitTurtle) {
+    turtleArmy.add(recruitTurtle);
+    activeTurtleIds.add(recruitTurtle.getTurtle().getId());
+    newTurtleConsumer.accept(new TurtleProperties(recruitTurtle.getTurtle()));
 
-  public void conscriptTurtle(Turtle recruitTurtle) {
-    if(turtleArmy.size() < recruitTurtle.getId()) {
-      for(int i = turtleArmy.size(); i <= recruitTurtle.getId(); i++) {
-        // TODO: Implement turtle conscription behavior (REQUIRES FIXED LISTENERS)
-        // Call myNewTurtleConsumer(turtleProperties) to create turtle in view
+    if(turtleArmy.size() < recruitTurtle.getTurtle().getId()) {
+      for(int i = turtleArmy.size(); i < recruitTurtle.getTurtle().getId(); i++) {
+        Turtle freshTurtle = new Turtle(i, new GridCoordinates());
+        TurtleController freshTurtleController = new TurtleController(freshTurtle, globalProperties);
+        turtleArmy.add(freshTurtleController);
+        activeTurtleIds.add(freshTurtleController.getTurtle().getId());
+        newTurtleConsumer.accept(new TurtleProperties(freshTurtleController.getTurtle()));
       }
     }
   }

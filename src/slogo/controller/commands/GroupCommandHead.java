@@ -3,6 +3,7 @@ package slogo.controller.commands;
 import java.util.ArrayList;
 import java.util.List;
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 public class GroupCommandHead extends Command {
@@ -34,7 +35,7 @@ public class GroupCommandHead extends Command {
 
 
   @Override
-  protected double executeCommand(Turtle turtle) {
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     double retVal = 0;
     for(List<Command> commandList : headerChildren){
       System.out.println(turtle.getX());
@@ -42,7 +43,7 @@ public class GroupCommandHead extends Command {
       for(Command command : commandList){
         groupHeader.addChild(command);
       }
-      retVal += groupHeader.execute(turtle);
+      retVal += groupHeader.execute(turtle, globalProperties);
 
     }
     return retVal;

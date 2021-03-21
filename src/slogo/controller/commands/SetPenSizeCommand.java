@@ -1,6 +1,7 @@
 package slogo.controller.commands;
 
 import slogo.controller.Command;
+import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
@@ -24,13 +25,13 @@ public class SetPenSizeCommand extends Command {
    * Sets the pen size to be a certain number of pixels wide.
    *
    * @param turtle The current active turtle
+   * @param globalProperties
    * @return The given pixel size
    */
   @Override
-  protected double executeCommand(Turtle turtle) {
-    int size = (int) getChildren().get(0).execute(turtle);
-    //TODO: set the pen size
-    //turtle.getPen().setSize(size);
+  protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
+    int size = (int) getChildren().get(0).execute(turtle, globalProperties);
+    globalProperties.setPenSizeProperty(size);
     return size;
   }
 

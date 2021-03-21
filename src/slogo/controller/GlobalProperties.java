@@ -1,5 +1,8 @@
 package slogo.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
@@ -21,6 +24,7 @@ public class GlobalProperties {
   private final DoubleProperty penSizeProperty;
   private final StringProperty turtleShapeProperty;
   private final ListProperty<Color> paletteProperty;
+  private final Map<Integer, String> shapeMap;
 
   public GlobalProperties(ListProperty<Color> paletteProperty) {
     backgroundColorProperty = new SimpleObjectProperty<>(DEFAULT_BACKGROUND_COLOR);
@@ -28,6 +32,9 @@ public class GlobalProperties {
     penSizeProperty = new SimpleDoubleProperty(DEFAULT_PEN_SIZE);
     turtleShapeProperty = new SimpleStringProperty(DEFAULT_TURTLE_SHAPE);
     this.paletteProperty = paletteProperty;
+    shapeMap = new HashMap<>();
+    shapeMap.put(0, "Default");
+    shapeMap.put(1, "Realistic");
   }
 
   public ObjectProperty<Color> backgroundColorPropertyProperty() {
@@ -48,5 +55,29 @@ public class GlobalProperties {
 
   public ListProperty<Color> paletteProperty() {
     return paletteProperty;
+  }
+
+  public void setBackgroundColorProperty(Color backgroundColor) {
+    this.backgroundColorProperty.set(backgroundColor);
+  }
+
+  public void setPenColorProperty(Color penColor) {
+    this.penColorProperty.set(penColor);
+  }
+
+  public void setPenSizeProperty(double penSize) {
+    this.penSizeProperty.set(penSize);
+  }
+
+  public void setTurtleShapeProperty(String turtleShape) {
+    this.turtleShapeProperty.set(turtleShape);
+  }
+
+  public void setPaletteProperty(int index, Color newColor) {
+    this.paletteProperty().set(index, newColor);
+  }
+
+  public Map<Integer, String> getShapeMap() {
+    return shapeMap;
   }
 }
