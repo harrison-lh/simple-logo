@@ -13,20 +13,8 @@ public class Pen implements SelectorTarget<Color>{
   private BooleanProperty isActive = new SimpleBooleanProperty(true);
   private Paint color = DEFAULT_COLOR;
 
-  public void liftPen(){
-    isActive.setValue(false);
-  }
-
-  public void placePen(){
-    isActive.setValue(true);
-  }
-
   public boolean isPenActive(){
     return isActive.get();
-  }
-
-  public BooleanProperty penActiveProperty() {
-    return isActive;
   }
 
   public Paint getColor() {

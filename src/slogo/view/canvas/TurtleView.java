@@ -24,6 +24,7 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
   private Image myTurtleImage;
   private Coordinates coordinates;
   private Coordinates prevCoordinates;
+  private boolean isPenActive;
 
   /**
    * Constructor with Coordinates object.
@@ -85,6 +86,14 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
 
   public void updatePrevCoordinates() {
     prevCoordinates = new GridCoordinates(coordinates);
+  }
+
+  public boolean isPenActive() {
+    return isPenActive;
+  }
+
+  public void setPenActive(boolean isPenActive) {
+    this.isPenActive = isPenActive;
   }
 
   private void changeTurtleImage(String turtleImage) {
