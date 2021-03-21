@@ -31,8 +31,7 @@ public class SetPenSizeCommand extends Command {
   @Override
   protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     int size = (int) getChildren().get(0).execute(turtle, globalProperties);
-    //TODO: set the pen size
-    //turtle.getPen().setSize(size);
+    globalProperties.setPenSizeProperty(size);
     return size;
   }
 

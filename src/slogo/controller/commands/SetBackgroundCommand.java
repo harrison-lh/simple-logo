@@ -1,5 +1,6 @@
 package slogo.controller.commands;
 
+import javafx.scene.paint.Color;
 import slogo.controller.Command;
 import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
@@ -34,8 +35,8 @@ public class SetBackgroundCommand extends Command {
   protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     int index = (int) getChildren().get(0).execute(turtle, globalProperties);
     //TODO: set the background to that at the index
-    // Color color = TurtleGeneral.palette.getColorAtIndex(index);
-    // MainView.setBackgroundColor(color);
+    Color color = globalProperties.paletteProperty().get(index);
+    globalProperties.setBackgroundColorProperty(color);
     return index;
   }
 
