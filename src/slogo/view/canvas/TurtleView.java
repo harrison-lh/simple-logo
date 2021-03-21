@@ -75,6 +75,16 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
     updatePrevCoordinates();
   }
 
+  public void changeTurtleImage(String turtleImage) {
+    if (turtleImage.equals("Default")) {
+      myTurtleImage = new Image(IMAGES_DIRECTORY + DEFAULT_TURTLE);
+      this.setImage(myTurtleImage);
+    } else if (turtleImage.equals("Realistic")) {
+      myTurtleImage = new Image(IMAGES_DIRECTORY + REALISTIC_TURTLE);
+      this.setImage(myTurtleImage);
+    }
+  }
+
   public void setDrawConsumer(Consumer<PenLine> consumer) {
     myDrawConsumer = consumer;
   }
@@ -109,16 +119,6 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
 
   private void updateHeading() {
     this.setRotate(TurtleCanvas.convertHeading(getHeading()));
-  }
-
-  private void changeTurtleImage(String turtleImage) {
-    if (turtleImage.equals("Default")) {
-      myTurtleImage = new Image(IMAGES_DIRECTORY + DEFAULT_TURTLE);
-      this.setImage(myTurtleImage);
-    } else if (turtleImage.equals("Realistic")) {
-      myTurtleImage = new Image(IMAGES_DIRECTORY + REALISTIC_TURTLE);
-      this.setImage(myTurtleImage);
-    }
   }
 
   private String getTurtleImageFilename() {

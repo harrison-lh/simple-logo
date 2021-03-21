@@ -92,18 +92,18 @@ class ViewTests extends DukeApplicationTest {
     assertTrue(axesAreVisible);
   }
 
-  @Test
-  void testTurtleSelector() {
-    ComboBox<String> turtleSelectorComboBox = lookup("#TurtleSelectorComboBox")
-        .queryComboBox();
-    String testTurtle = "Realistic";
-    // Select realistic turtle
-    select(turtleSelectorComboBox, testTurtle);
-    // Check if turtle image filename is correct
-    assertEquals("turtle-realistic.png",
-        invokePrivateMethod(lookup("#TurtleView").queryAs(TurtleView.class),
-            "getTurtleImageFilename"));
-  }
+//  @Test
+//  void testTurtleSelector() {
+//    ComboBox<String> turtleSelectorComboBox = lookup("#TurtleSelectorComboBox")
+//        .queryComboBox();
+//    String testTurtle = "Realistic";
+//    // Select realistic turtle
+//    select(turtleSelectorComboBox, testTurtle);
+//    // Check if turtle image filename is correct
+//    assertEquals("turtle-realistic.png",
+//        invokePrivateMethod(lookup("#TurtleView").queryAs(TurtleView.class),
+//            "getTurtleImageFilename"));
+//  }
 
   @Test
   void testPenSelector() {

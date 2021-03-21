@@ -2,6 +2,10 @@ package slogo.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 
 /**
@@ -12,6 +16,7 @@ import javafx.scene.paint.Color;
 public class Palette {
 
   List<Color> colors;
+  private final ListProperty<Color> colorsProperty;
 
   /**
    * Default Palette constructor.
@@ -21,6 +26,7 @@ public class Palette {
   public Palette() {
     colors = new ArrayList<>(List.of(Color.WHITE, Color.BLACK, Color.GRAY, Color.RED, Color.ORANGE,
         Color.YELLOW, Color.GREEN, Color.BLUE, Color.INDIGO, Color.VIOLET));
+    colorsProperty = new SimpleListProperty<>(FXCollections.observableArrayList(colors));
   }
 
   /**
@@ -46,5 +52,9 @@ public class Palette {
    */
   public Color getColorAtIndex(int index) {
     return colors.get(index);
+  }
+
+  public ListProperty<Color> getColorsProperty() {
+    return colorsProperty;
   }
 }

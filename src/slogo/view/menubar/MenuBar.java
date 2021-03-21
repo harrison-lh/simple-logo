@@ -51,22 +51,22 @@ public class MenuBar extends HBox {
 
     this.getChildren()
         .addAll(myBackgroundSelector, myGridSelector, myTurtleSelector, myPenSelector,
-            myLanguageSelector, spacer, infoButton);
+            myLanguageSelector, spacer, new FileButtons(), infoButton);
   }
 
-  public Selector<Color> getBackgroundSelector() {
+  public MenuBarSelector<Color> getBackgroundSelector() {
     return myBackgroundSelector;
   }
 
-  public Selector<String> getGridSelector() {
+  public MenuBarSelector<String> getGridSelector() {
     return myGridSelector;
   }
 
-  public Selector<String> getTurtleSelector() {
+  public MenuBarSelector<String> getTurtleSelector() {
     return myTurtleSelector;
   }
 
-  public Selector<Color> getPenSelector() {
+  public MenuBarSelector<Color> getPenSelector() {
     return myPenSelector;
   }
 

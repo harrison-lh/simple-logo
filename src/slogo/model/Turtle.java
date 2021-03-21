@@ -17,7 +17,6 @@ import slogo.view.Pen;
 public class Turtle {
 
   private Coordinates coordinates;
-  private Pen pen;
   private Variables vars;
   private PropertyChangeListener turtleListener;
   private BooleanProperty isVisibleProperty;
@@ -29,16 +28,14 @@ public class Turtle {
    * and constructs a Turtle.
    *
    * @param coordinates The coordinate system that this Turtle will operate in
-   * @param pen The initial type of Pen that this Turtle will have
    * @param turtleListener A listener that will report changes in this Turtle's location and other
    *                       properties to the View TODO: CHANGE THIS!
    * @param variablesListener A listener that will report changes in Variables TODO: CHANGE THIS TOO!
    */
-  public Turtle(int id, Coordinates coordinates, Pen pen, PropertyChangeListener turtleListener,
+  public Turtle(int id, Coordinates coordinates, PropertyChangeListener turtleListener,
       PropertyChangeListener variablesListener) {
     this.id = id;
     this.coordinates = coordinates;
-    this.pen = pen;
     this.vars = new Variables(variablesListener);
     this.turtleListener = turtleListener;
     isVisibleProperty = new SimpleBooleanProperty(true);
@@ -48,8 +45,8 @@ public class Turtle {
   /**
    * Constructor with no listeners attached
    */
-  public Turtle(int id, Coordinates coordinates, Pen pen) {
-    this(id, coordinates, pen, evt -> {
+  public Turtle(int id, Coordinates coordinates) {
+    this(id, coordinates, evt -> {
     }, evt -> {
     });
   }

@@ -1,5 +1,6 @@
 package slogo.view.menubar;
 
+import java.util.function.Consumer;
 import javafx.scene.control.ComboBox;
 
 /**
@@ -19,5 +20,12 @@ public class GridSelector extends MenuBarSelector<String> {
     comboBox.setId("GridSelectorComboBox");
     comboBox.getItems().addAll("None", "Axis");
     comboBox.getSelectionModel().selectFirst();
+  }
+
+  @Override
+  public void setUpdateAction(Consumer<String> response) {
+    getComboBoxBase().setOnAction(e -> {
+      response.accept(getComboBoxBase().getValue());
+    });
   }
 }

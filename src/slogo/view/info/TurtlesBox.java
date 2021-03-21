@@ -2,6 +2,7 @@ package slogo.view.info;
 
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import slogo.controller.TurtleProperties;
 
 /**
  * Display box for turtles
@@ -19,5 +20,9 @@ public class TurtlesBox extends ScrollPane {
     this.getStyleClass().add("info-box");
     myContents = new VBox();
     this.setContent(myContents);
+  }
+
+  public void addTurtle(int id, TurtleProperties turtleProperties) {
+    myContents.getChildren().add(new TurtleEntry(id, turtleProperties));
   }
 }

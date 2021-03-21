@@ -2,6 +2,7 @@ package slogo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import slogo.model.Palette;
 import slogo.model.Turtle;
 
@@ -17,6 +18,8 @@ public class TurtleGeneral {
   // TODO: Move control of Variables and UserCommands here
   public static Palette palette;
   private final List<Integer> activeTurtleIds;
+  private Consumer<TurtleProperties> newTurtleConsumer;
+  private final GlobalProperties globalProperties;
 
   public TurtleGeneral(List<TurtleController> turtleArmy) {
     this.turtleArmy = turtleArmy;
@@ -25,6 +28,7 @@ public class TurtleGeneral {
     for(TurtleController curController : turtleArmy) {
       activeTurtleIds.add(curController.getTurtle().getId());
     }
+    globalProperties = new GlobalProperties(palette.getColorsProperty());
   }
 
   public TurtleGeneral(TurtleController turtleConscript) {
@@ -34,12 +38,14 @@ public class TurtleGeneral {
     for(TurtleController curController : turtleArmy) {
       activeTurtleIds.add(curController.getTurtle().getId());
     }
+    globalProperties = new GlobalProperties(palette.getColorsProperty());
   }
 
   public void conscriptTurtle(Turtle recruitTurtle) {
     if(turtleArmy.size() < recruitTurtle.getId()) {
       for(int i = turtleArmy.size(); i <= recruitTurtle.getId(); i++) {
         // TODO: Implement turtle conscription behavior (REQUIRES FIXED LISTENERS)
+        // Call myNewTurtleConsumer(turtleProperties) to create turtle in view
       }
     }
   }
@@ -59,5 +65,13 @@ public class TurtleGeneral {
 
   public List<TurtleController> getTurtleArmy() {
     return turtleArmy;
+  }
+
+  public void setNewTurtleConsumer(Consumer<TurtleProperties> newTurtleConsumer) {
+    this.newTurtleConsumer = newTurtleConsumer;
+  }
+
+  public GlobalProperties getGlobalProperties() {
+    return globalProperties;
   }
 }

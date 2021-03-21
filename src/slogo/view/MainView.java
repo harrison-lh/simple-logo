@@ -15,6 +15,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import slogo.controller.GlobalProperties;
 import slogo.controller.TurtleProperties;
 import slogo.model.Coordinates;
 import slogo.model.Turtle;
@@ -24,6 +25,7 @@ import slogo.view.canvas.TurtleView;
 import slogo.view.controller.GraphicalController;
 import slogo.view.info.CommandsBox;
 import slogo.view.info.InfoDisplay;
+import slogo.view.info.TurtlesBox;
 import slogo.view.info.VariablesBox;
 import slogo.view.menubar.MenuBar;
 
@@ -39,11 +41,12 @@ public class MainView extends BorderPane {
   private CanvasHolder myCanvasHolder;
   private static TurtleCanvas myTurtleCanvas;
   private InfoDisplay myInfoDisplay;
+  private TurtlesBox myTurtlesBox;
   private VariablesBox myVariablesBox;
   private CommandsBox myCommandsBox;
   private InputBox myInputBox;
   private CommandHistoryBox myCommandHistoryBox;
-  private TurtleView myTurtleView;
+  private GlobalProperties myGlobalProperties;
 
   /**
    * Main constructor
@@ -150,9 +153,9 @@ public class MainView extends BorderPane {
 
     myCanvasHolder = new CanvasHolder();
     myTurtleCanvas = myCanvasHolder.getTurtleCanvas();
-    //myTurtleView = myCanvasHolder.getTurtleView();
 
     myInfoDisplay = new InfoDisplay();
+    myTurtlesBox = myInfoDisplay.getTurtlesBox();
     myVariablesBox = myInfoDisplay.getVariablesBox();
     myCommandsBox = myInfoDisplay.getCommandsBox();
 
@@ -167,13 +170,38 @@ public class MainView extends BorderPane {
    * @param turtleProperties The properties of the turtle
    */
   public void createTurtle(TurtleProperties turtleProperties) {
-    myTurtleCanvas.createTurtle(turtleProperties);
-    myTurtleView = myCanvasHolder.getTurtleView();
-    connectStringSelector(myTurtleView, myMenuBar.getTurtleSelector());
+    newTurtleConsumer().accept(turtleProperties);
   }
 
   public static void setBackgroundColor(Color newColor) {
     myTurtleCanvas.setBackground(new Background(
         new BackgroundFill(newColor, CornerRadii.EMPTY, Insets.EMPTY)));
+  }
+
+  public Consumer<TurtleProperties> newTurtleConsumer() {
+    return turtleProperties -> {
+      myTurtleCanvas.newTurtleConsumer().accept(turtleProperties);
+      myTurtlesBox.addTurtle(0 ,turtleProperties);
+    };
+  }
+
+  public void setGlobalProperties(GlobalProperties globalProperties) {
+    myGlobalProperties = globalProperties;
+    myGlobalProperties.backgroundColorPropertyProperty().addListener(((observable, oldValue, newValue) -> {
+      myTurtleCanvas.setBackground(new Background(
+          new BackgroundFill(newValue, CornerRadii.EMPTY, Insets.EMPTY)));
+    }));
+    myGlobalProperties.penColorPropertyProperty().addListener(((observable, oldValue, newValue) -> {
+      myTurtleCanvas.getPen().setColor(newValue);
+    }));
+    myGlobalProperties.penSizePropertyProperty().addListener(((observable, oldValue, newValue) -> {
+      myTurtleCanvas.getPen().setSize(newValue.doubleValue());
+    }));
+    myGlobalProperties.turtleShapePropertyProperty().addListener(((observable, oldValue, newValue) -> {
+      myTurtleCanvas.setTurtleShape(newValue);
+    }));
+    myMenuBar.getPenSelector().setGlobalProperty(globalProperties.penColorPropertyProperty());
+    myMenuBar.getTurtleSelector().setGlobalProperty(globalProperties.turtleShapePropertyProperty());
+    myMenuBar.getBackgroundSelector().setGlobalProperty(globalProperties.backgroundColorPropertyProperty());
   }
 }

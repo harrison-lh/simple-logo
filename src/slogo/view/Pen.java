@@ -5,24 +5,27 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import slogo.controller.GlobalProperties;
 
 public class Pen implements SelectorTarget<Color>{
 
-  public static final Paint DEFAULT_COLOR = Color.BLACK;
-
-  private BooleanProperty isActive = new SimpleBooleanProperty(true);
-  private Paint color = DEFAULT_COLOR;
-
-  public boolean isPenActive(){
-    return isActive.get();
-  }
+  private Color color = GlobalProperties.DEFAULT_PEN_COLOR;
+  private double size = GlobalProperties.DEFAULT_PEN_SIZE;
 
   public Paint getColor() {
     return color;
   }
 
-  public void setColor(Paint color) {
+  public void setColor(Color color) {
     this.color = color;
+  }
+
+  public double getSize() {
+    return size;
+  }
+
+  public void setSize(double size) {
+    this.size = size;
   }
 
   /**
