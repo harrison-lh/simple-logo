@@ -43,7 +43,6 @@ public abstract class MenuBarSelector<T> extends VBox implements Selector<T> {
   @Override
   public void setUpdateAction(Consumer<T> response) {
     myComboBoxBase.setOnAction(e -> {
-      response.accept(myComboBoxBase.getValue());
       myGlobalProperty.setValue(myComboBoxBase.getValue());
     });
   }
