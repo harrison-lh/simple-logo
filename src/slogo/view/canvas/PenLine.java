@@ -14,12 +14,10 @@ public class PenLine extends Line {
   /**
    * Main constructor
    */
-  public PenLine(double startX, double startY, double endX, double endY, Paint penColor) {
+  public PenLine(double startX, double startY, double endX, double endY) {
     this.setStartX(TurtleCanvas.convertXCoordinate(startX) + TurtleCanvas.DEFAULT_CANVAS_WIDTH / 2);
     this.setStartY(TurtleCanvas.convertYCoordinate(startY) + TurtleCanvas.DEFAULT_CANVAS_HEIGHT / 2);
     this.setEndX(TurtleCanvas.convertXCoordinate(endX) + TurtleCanvas.DEFAULT_CANVAS_WIDTH / 2);
     this.setEndY(TurtleCanvas.convertYCoordinate(endY) + TurtleCanvas.DEFAULT_CANVAS_HEIGHT / 2);
-
-    this.setStroke(penColor);
   }
 }
