@@ -18,7 +18,6 @@ public class Turtle {
 
   private Coordinates coordinates;
   private Variables vars;
-  private PropertyChangeListener turtleListener;
   private BooleanProperty isVisibleProperty;
   private BooleanProperty penActiveProperty;
   private int id;
@@ -28,16 +27,12 @@ public class Turtle {
    * and constructs a Turtle.
    *
    * @param coordinates The coordinate system that this Turtle will operate in
-   * @param turtleListener A listener that will report changes in this Turtle's location and other
-   *                       properties to the View TODO: CHANGE THIS!
    * @param variablesListener A listener that will report changes in Variables TODO: CHANGE THIS TOO!
    */
-  public Turtle(int id, Coordinates coordinates, PropertyChangeListener turtleListener,
-      PropertyChangeListener variablesListener) {
+  public Turtle(int id, Coordinates coordinates, PropertyChangeListener variablesListener) {
     this.id = id;
     this.coordinates = coordinates;
     this.vars = new Variables(variablesListener);
-    this.turtleListener = turtleListener;
     isVisibleProperty = new SimpleBooleanProperty(true);
     penActiveProperty = new SimpleBooleanProperty(true);
   }
@@ -46,9 +41,7 @@ public class Turtle {
    * Constructor with no listeners attached
    */
   public Turtle(int id, Coordinates coordinates) {
-    this(id, coordinates, evt -> {
-    }, evt -> {
-    });
+    this(id, coordinates, evt -> {});
   }
 
   /**
@@ -206,13 +199,6 @@ public class Turtle {
    */
   public BooleanProperty penActiveProperty() {
     return penActiveProperty;
-  }
-
-  /**
-   * Clears the screen of the Turtle's lines.
-   */
-  public void clearScreen() {
-//    turtleListener.propertyChange(new PropertyChangeEvent(this, "CLEAR", null, null));
   }
 
   /**

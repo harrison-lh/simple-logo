@@ -135,28 +135,28 @@ class ViewTests extends DukeApplicationTest {
     assertEquals(2, lookup("#WorkspaceTabPane").queryAs(TabPane.class).getTabs().size());
   }
 
-  @Test
-  void testMovementController() {
-    double movementDistance = 50;
-    lookup("#MovementInput").queryAs(TextField.class).setText(String.valueOf(movementDistance));
-    clickOn(lookup("#ControllerForwardButton").queryButton());
-    assertEquals(movementDistance,
-        lookup("#TurtleView").queryAs(TurtleView.class).getYCoordinate());
-    clickOn(lookup("#ControllerBackwardButton").queryButton());
-    assertEquals(0, lookup("#TurtleView").queryAs(TurtleView.class).getYCoordinate());
-  }
+//  @Test
+//  void testMovementController() {
+//    double movementDistance = 50;
+//    lookup("#MovementInput").queryAs(TextField.class).setText(String.valueOf(movementDistance));
+//    clickOn(lookup("#ControllerForwardButton").queryButton());
+//    assertEquals(movementDistance,
+//        lookup("#TurtleView").queryAs(TurtleView.class).getYCoordinate());
+//    clickOn(lookup("#ControllerBackwardButton").queryButton());
+//    assertEquals(0, lookup("#TurtleView").queryAs(TurtleView.class).getYCoordinate());
+//  }
 
-  @Test
-  void testRotationController() {
-    double rotationAngle = 90;
-    double initialHeading = lookup("#TurtleView").queryAs(TurtleView.class).getHeading();
-    lookup("#RotationInput").queryAs(TextField.class).setText(String.valueOf(rotationAngle));
-    clickOn(lookup("#ControllerLeftButton").queryButton());
-    assertEquals(initialHeading + rotationAngle,
-        lookup("#TurtleView").queryAs(TurtleView.class).getHeading());
-    clickOn(lookup("#ControllerRightButton").queryButton());
-    assertEquals(initialHeading, lookup("#TurtleView").queryAs(TurtleView.class).getHeading());
-  }
+//  @Test
+//  void testRotationController() {
+//    double rotationAngle = 90;
+//    double initialHeading = lookup("#TurtleView").queryAs(TurtleView.class).getHeading();
+//    lookup("#RotationInput").queryAs(TextField.class).setText(String.valueOf(rotationAngle));
+//    clickOn(lookup("#ControllerLeftButton").queryButton());
+//    assertEquals(initialHeading + rotationAngle,
+//        lookup("#TurtleView").queryAs(TurtleView.class).getHeading());
+//    clickOn(lookup("#ControllerRightButton").queryButton());
+//    assertEquals(initialHeading, lookup("#TurtleView").queryAs(TurtleView.class).getHeading());
+//  }
 
 //  @Test
 //  void testPenController() {
