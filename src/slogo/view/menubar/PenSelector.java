@@ -2,7 +2,7 @@ package slogo.view.menubar;
 
 import javafx.scene.control.ColorPicker;
 import javafx.scene.paint.Color;
-import slogo.model.Pen;
+import slogo.view.Pen;
 
 /**
  * Selector for pen color

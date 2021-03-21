@@ -1,9 +1,10 @@
 package slogo.controller.commands;
 
-import javafx.scene.paint.Paint;
+import javafx.scene.paint.Color;
 import slogo.controller.Command;
 import slogo.controller.TurtleGeneral;
 import slogo.model.Turtle;
+import slogo.view.MainView;
 
 /**
  * SetBackground is a type of Command that sets the background color to the corresponding color
@@ -34,8 +35,8 @@ public class SetBackgroundCommand extends Command {
   protected double executeCommand(Turtle turtle) {
     int index = (int) getChildren().get(0).execute(turtle);
     //TODO: set the background to that at the index
-    Paint paint = TurtleGeneral.palette.getColorAtIndex(index);
-    //background.setColor(paint);
+    Color color = TurtleGeneral.palette.getColorAtIndex(index);
+    MainView.setBackgroundColor(color);
     return index;
   }
 

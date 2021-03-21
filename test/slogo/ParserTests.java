@@ -3,7 +3,6 @@ package slogo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,8 +10,8 @@ import slogo.controller.Parser;
 import slogo.controller.TurtleController;
 import slogo.controller.TurtleGeneral;
 import slogo.model.GridCoordinates;
-import slogo.model.ModelPen;
 import slogo.model.Turtle;
+import slogo.view.Pen;
 
 /**
  * A testing suite for the Parser!
@@ -27,7 +26,7 @@ public class ParserTests {
 
   @BeforeEach
   public void setup() {
-    turtle = new Turtle(0, new GridCoordinates(), new ModelPen());
+    turtle = new Turtle(0, new GridCoordinates(), new Pen());
     controller = new TurtleController(turtle);
     turtleGeneral = new TurtleGeneral(controller);
     parser = new Parser(turtleGeneral, "English");
@@ -710,6 +709,14 @@ public class ParserTests {
         }
     );
     System.out.println(exception.getMessage());
+  }
+
+  @Test
+  public void testSetPalette() {
+    parser.parseCommandString("SETPALETTE 0 0 0 0");
+    controller.setIsAllowedToExecute(true);
+    controller.runCommands();
+    assertEquals(TurtleGeneral.palette.getColorAtIndex(0), Color.rgb(0, 0, 0));
   }
 
 }

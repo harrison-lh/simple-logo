@@ -31,8 +31,8 @@ public class PaletteTests {
 
   @Test
   public void testDefaultPaletteConstructor() {
-    assertEquals(palette.getColorAtIndex(0), Color.BLACK);
-    assertEquals(palette.getColorAtIndex(7), Color.VIOLET);
+    assertEquals(palette.getColorAtIndex(0), Color.WHITE);
+    assertEquals(palette.getColorAtIndex(7), Color.BLUE);
   }
 
   @Test

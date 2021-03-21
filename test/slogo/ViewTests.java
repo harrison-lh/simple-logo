@@ -158,13 +158,13 @@ class ViewTests extends DukeApplicationTest {
     assertEquals(initialHeading, lookup("#TurtleView").queryAs(TurtleView.class).getHeading());
   }
 
-  @Test
-  void testPenController() {
-    clickOn(lookup("#ControllerPenUpButton").queryButton());
-    assertFalse(lookup("#TurtleCanvas").queryAs(TurtleCanvas.class).getPen().isPenActive());
-    clickOn(lookup("#ControllerPenDownButton").queryButton());
-    assertTrue(lookup("#TurtleCanvas").queryAs(TurtleCanvas.class).getPen().isPenActive());
-  }
+//  @Test
+//  void testPenController() {
+//    clickOn(lookup("#ControllerPenUpButton").queryButton());
+//    assertFalse(lookup("#TurtleCanvas").queryAs(TurtleCanvas.class).getPen().isPenActive());
+//    clickOn(lookup("#ControllerPenDownButton").queryButton());
+//    assertTrue(lookup("#TurtleCanvas").queryAs(TurtleCanvas.class).getPen().isPenActive());
+//  }
 
   @Test
   void testClearController() {
