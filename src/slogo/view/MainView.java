@@ -25,6 +25,7 @@ import slogo.view.canvas.TurtleView;
 import slogo.view.controller.GraphicalController;
 import slogo.view.info.CommandsBox;
 import slogo.view.info.InfoDisplay;
+import slogo.view.info.PalettesBox;
 import slogo.view.info.TurtlesBox;
 import slogo.view.info.VariablesBox;
 import slogo.view.menubar.MenuBar;
@@ -44,6 +45,7 @@ public class MainView extends BorderPane {
   private TurtlesBox myTurtlesBox;
   private VariablesBox myVariablesBox;
   private CommandsBox myCommandsBox;
+  private PalettesBox myPalettesBox;
   private InputBox myInputBox;
   private CommandHistoryBox myCommandHistoryBox;
   private GlobalProperties myGlobalProperties;
@@ -140,6 +142,10 @@ public class MainView extends BorderPane {
     myGlobalProperties.turtleShapePropertyProperty().addListener(((observable, oldValue, newValue) -> {
       myTurtleCanvas.setTurtleShape(newValue);
     }));
+    myGlobalProperties.paletteProperty().addListener(((observable, oldValue, newValue) -> {
+      myPalettesBox.setColors(newValue);
+    }));
+    myPalettesBox.setColors(myGlobalProperties.paletteProperty());
     myGlobalProperties.addClearScreenListener(e -> clearScreen());
   }
 
@@ -192,6 +198,7 @@ public class MainView extends BorderPane {
     myTurtlesBox = myInfoDisplay.getTurtlesBox();
     myVariablesBox = myInfoDisplay.getVariablesBox();
     myCommandsBox = myInfoDisplay.getCommandsBox();
+    myPalettesBox = myInfoDisplay.getPalettesBox();
 
     this.setCenter(myCanvasHolder);
     this.setLeft(myGraphicalController);
