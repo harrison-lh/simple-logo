@@ -32,7 +32,7 @@ public class ParserTests {
     turtleGeneral = new TurtleGeneral();
     controller = new TurtleController(turtle, turtleGeneral.getGlobalProperties());
     turtleGeneral.conscriptTurtle(controller);
-    parser = new Parser(turtleGeneral, "English");
+    parser = new Parser(turtleGeneral, "English", turtleGeneral.getGlobalProperties());
     globalProperties = turtleGeneral.getGlobalProperties();
   }
 

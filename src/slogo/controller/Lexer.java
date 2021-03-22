@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 import slogo.controller.commands.UserCommand;
+import slogo.model.Palette;
 
 /**
  * Lexer implements the tokenization behavior of the Parser. That is, the Lexer is responsible for
@@ -24,9 +25,10 @@ public class Lexer {
   public static final String RESOURCES_PACKAGE = "resources.languages.";
   private static final String SYNTAX = "Syntax";
   private final List<Entry<String, Pattern>> syntaxSymbols;
-  private final List<UserCommand> userCommands;
+//  private final List<UserCommand> userCommands;
   private final PropertyChangeListener commandsListener;
   private List<Entry<String, Pattern>> langSymbols;
+  private GlobalProperties globalProperties;
 
   /**
    * Default constructor for Lexer. Takes no language, but has syntaxSymbols
@@ -34,9 +36,11 @@ public class Lexer {
   public Lexer() {
     syntaxSymbols = instantiateSymbols(SYNTAX);
     langSymbols = new ArrayList<>();
-    userCommands = new ArrayList<>();
+//    userCommands = new ArrayList<>();
     commandsListener = evt -> {
     };
+    globalProperties = new GlobalProperties(new Palette().getColorsProperty());
+    globalProperties.setCommandsListener(commandsListener);
   }
 
   /**
@@ -44,7 +48,7 @@ public class Lexer {
    */
   public Lexer(String syntaxLanguage) {
     this(syntaxLanguage, e -> {
-    });
+    }, new GlobalProperties(new Palette().getColorsProperty()));
   }
 
   /**
@@ -52,11 +56,13 @@ public class Lexer {
    *
    * @param syntaxLanguage The language with which to initialize the symbols.
    */
-  public Lexer(String syntaxLanguage, PropertyChangeListener commandsListener) {
+  public Lexer(String syntaxLanguage, PropertyChangeListener commandsListener, GlobalProperties globalProperties) {
     syntaxSymbols = instantiateSymbols(SYNTAX);
     langSymbols = instantiateSymbols(syntaxLanguage);
-    userCommands = new ArrayList<>();
+//    userCommands = new ArrayList<>();
     this.commandsListener = commandsListener;
+    this.globalProperties = globalProperties;
+    this.globalProperties.setCommandsListener(commandsListener);
   }
 
   /**
@@ -65,8 +71,9 @@ public class Lexer {
    * @param name The name of the command to remove.
    */
   public void deleteUserCommand(String name) {
-    userCommands.removeIf(command -> command.getName().equals(name));
+    globalProperties.deleteUserCommand(name);
   }
+
 
   /**
    * Adds a user-defined command to the list of userCommands.
@@ -74,17 +81,7 @@ public class Lexer {
    * @param command The command to add to the list
    */
   public void addUserCommand(UserCommand command) {
-    if (containsUserCommand(command.getName())) {
-      commandsListener
-          .propertyChange(
-              new PropertyChangeEvent(this, "UPDATE", command.getName(), command.getName()));
-      getUserCommand(command.getName()).updateCommand(command);
-    } else {
-      commandsListener
-          .propertyChange(
-              new PropertyChangeEvent(this, "ADD", command.getName(), command.getName()));
-      userCommands.add(command);
-    }
+    globalProperties.addUserCommand(command);
   }
 
   /**
@@ -94,12 +91,7 @@ public class Lexer {
    * @return The presence of the user-command.
    */
   public boolean containsUserCommand(String name) {
-    for (UserCommand command : userCommands) {
-      if (command.getName().equals(name)) {
-        return true;
-      }
-    }
-    return false;
+    return globalProperties.containsUserCommand(name);
   }
 
   /**
@@ -110,12 +102,7 @@ public class Lexer {
    * @return The UserCommand, if it exists.
    */
   public UserCommand getUserCommand(String name) {
-    for (UserCommand command : userCommands) {
-      if (command.getName().equals(name)) {
-        return command;
-      }
-    }
-    return null;
+    return globalProperties.getUserCommand(name);
   }
 
   /**
@@ -241,6 +228,6 @@ public class Lexer {
   }
 
   public List<UserCommand> getUserCommands() {
-    return userCommands;
+    return globalProperties.getUserCommands();
   }
 }
