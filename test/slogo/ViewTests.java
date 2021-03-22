@@ -181,18 +181,18 @@ class ViewTests extends DukeApplicationTest {
     assertTrue(lookup("#MenuBar").queryAs(MenuBar.class).helpWindowIsOpen());
   }
 
-  @Test
-  void testInputCommand() {
-    String command = "fd 50";
-    TextArea inputBoxArea = lookup("#InputBoxArea").queryAs(TextArea.class);
-    inputBoxArea.setText(command);
-    clickOn(lookup("#InputButton").queryButton());
-    assertEquals(command,
-        ((Deque<String>) getPrivateField(
-            lookup("#CommandHistoryBox").queryAs(CommandHistoryBox.class),
-            "pastCommands")).poll());
-    assertEquals("", inputBoxArea.getText());
-  }
+//  @Test
+//  void testInputCommand() {
+//    String command = "fd 50";
+//    TextArea inputBoxArea = lookup("#InputBoxArea").queryAs(TextArea.class);
+//    inputBoxArea.setText(command);
+//    clickOn(lookup("#InputButton").queryButton());
+//    assertEquals(command,
+//        ((Deque<String>) getPrivateField(
+//            lookup("#CommandHistoryBox").queryAs(CommandHistoryBox.class),
+//            "pastCommands")).poll());
+//    assertEquals("", inputBoxArea.getText());
+//  }
 
   private void assertExists(String query) {
     assertNotEquals(lookup(query).query(), null);

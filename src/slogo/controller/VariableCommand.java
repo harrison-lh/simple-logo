@@ -45,7 +45,8 @@ public class VariableCommand extends ConstantCommand {
    */
   @Override
   public double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
-    return turtle.getVars().getValue(name);
+//    return turtle.getVars().getValue(name);
+    return globalProperties.getVariableValue(name);
   }
 
   /**

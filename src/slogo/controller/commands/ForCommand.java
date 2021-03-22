@@ -40,10 +40,10 @@ public class ForCommand extends Command {
 
     double lastVal = 0;
     varCommand.setValue(start);
-    turtle.getVars().setValue(varCommand.getName(), varCommand.getValue());
+    globalProperties.setVariableValue(varCommand.getName(), varCommand.getValue());
 
     for(double i = start; i < end; i += increment){
-      turtle.getVars().setValue(varCommand.getName(), i);
+      globalProperties.setVariableValue(varCommand.getName(), i);
       lastVal = getChildren().get(1).execute(turtle, globalProperties);
     }
 

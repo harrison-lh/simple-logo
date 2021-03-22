@@ -58,21 +58,21 @@ public class UserCommand extends Command {
       double value = getChildren().get(i).execute(turtle, globalProperties);
       //System.out.println(value);
       //System.out.println(parameters.get(i));
-      if(turtle.getVars().containsKey(parameters.get(i))){
-        oldVarValues.put(parameters.get(i), turtle.getVars().getValue(parameters.get(i)));
+      if(globalProperties.containsVariable(parameters.get(i))){
+        oldVarValues.put(parameters.get(i), globalProperties.getVariableValue(parameters.get(i)));
       } else {
         oldVarValues.put(parameters.get(i), NEW_VAR_NUM);
       }
 
-      turtle.getVars().setValue(parameters.get(i), value);
+      globalProperties.setVariableValue(parameters.get(i), value);
     }
     double retVal = commands.execute(turtle, globalProperties);
 
     for(int i = 0; i < getNumParams(); i++){
       if(oldVarValues.get(parameters.get(i)) == NEW_VAR_NUM){
-        turtle.getVars().removeValue(parameters.get(i));
+        globalProperties.removeVariable(parameters.get(i));
       } else {
-        turtle.getVars().setValue(parameters.get(i), oldVarValues.get(parameters.get(i)));
+        globalProperties.setVariableValue(parameters.get(i), oldVarValues.get(parameters.get(i)));
       }
     }
 

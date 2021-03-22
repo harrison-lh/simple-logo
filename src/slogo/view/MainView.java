@@ -70,13 +70,6 @@ public class MainView extends BorderPane {
   }
 
   /**
-   * @return The elements that listens for variable updates in the model
-   */
-  public PropertyChangeListener getVariablesListener() {
-    return myVariablesBox;
-  }
-
-  /**
    * @return The elements that listens for user-defined commands updates in the model
    */
   public PropertyChangeListener getCommandsListener() {
@@ -144,6 +137,9 @@ public class MainView extends BorderPane {
     }));
     myGlobalProperties.paletteProperty().addListener(((observable, oldValue, newValue) -> {
       myPalettesBox.setColors(newValue);
+    }));
+    myGlobalProperties.variableMapPropertyProperty().addListener(((observable, oldValue, newValue) -> {
+      myVariablesBox.setVariables(newValue);
     }));
     myPalettesBox.setColors(myGlobalProperties.paletteProperty());
     myPalettesBox.setShapes(myGlobalProperties.getShapeMap());

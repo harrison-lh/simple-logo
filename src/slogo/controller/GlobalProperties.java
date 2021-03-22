@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ListProperty;
+import javafx.beans.property.MapProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SetProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -19,8 +20,10 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleSetProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.paint.Color;
+import slogo.model.Variables;
 import slogo.controller.commands.UserCommand;
 
 public class GlobalProperties {
@@ -43,9 +46,11 @@ public class GlobalProperties {
   private PropertyChangeListener commandsListener;
   private final Set<Integer> activeTurtleIds;
   private int numTurtlesCreated;
+  private final Variables variables;
+  private final MapProperty<String, Double> variableMapProperty;
   private List<TurtleController> turtleArmy;
 
-  public GlobalProperties(ListProperty<Color> paletteProperty, List<TurtleController> turtleArmy) {
+  public GlobalProperties(ListProperty<Color> paletteProperty, Variables variables, List<TurtleController> turtleArmy) {
     backgroundColorProperty = new SimpleObjectProperty<>(DEFAULT_BACKGROUND_COLOR);
     penColorProperty = new SimpleObjectProperty<>(DEFAULT_PEN_COLOR);
     penSizeProperty = new SimpleDoubleProperty(DEFAULT_PEN_SIZE);
@@ -58,6 +63,8 @@ public class GlobalProperties {
     clearScreenEvent = new ClearScreenEvent(this);
     activeTurtleIds = new HashSet<>();
     numTurtlesCreated = 0;
+    this.variables = variables;
+    this.variableMapProperty = variables.getMapProperty();
     this.turtleArmy = turtleArmy;
     userCommands = new ArrayList<>();
 
@@ -158,6 +165,26 @@ public class GlobalProperties {
 
   public ListProperty<Color> paletteProperty() {
     return paletteProperty;
+  }
+
+  public double getVariableValue(String name) {
+    return variables.getValue(name);
+  }
+
+  public MapProperty<String, Double> variableMapPropertyProperty() {
+    return variableMapProperty;
+  }
+
+  public boolean containsVariable(String name) {
+    return variables.containsKey(name);
+  }
+
+  public void setVariableValue(String name, double value) {
+    variables.setValue(name, value);
+  }
+
+  public void removeVariable(String name) {
+    variables.removeValue(name);
   }
 
   public void addClearScreenListener(EventHandler<ClearScreenEvent> handler) {
