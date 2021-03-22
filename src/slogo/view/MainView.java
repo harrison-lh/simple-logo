@@ -142,6 +142,7 @@ public class MainView extends BorderPane {
     myPalettesBox.setColors(myGlobalProperties.paletteProperty());
     myPalettesBox.setShapes(myGlobalProperties.getShapeMap());
     myMenuBar.getFileButtons().setVariablesMap(myGlobalProperties.getVariablesMap());
+    myMenuBar.getFileButtons().setCommands(myGlobalProperties.getCommandsMap());
     myGlobalProperties.addClearScreenListener(e -> clearScreen());
   }
 

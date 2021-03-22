@@ -40,6 +40,7 @@ public class GlobalProperties {
   private Consumer<Integer> makeNewTurtlesConsumer;
   private final Map<Integer, String> shapeMap;
   private final List<UserCommand> userCommands;
+  private final Map<String, String> userCommandsMap;
   private final ListProperty<UserCommand> userCommandsProperty;
   private final Set<Integer> activeTurtleIds;
   private int numTurtlesCreated;
@@ -64,6 +65,7 @@ public class GlobalProperties {
     this.variableMapProperty = variables.getMapProperty();
     this.turtleArmy = turtleArmy;
     userCommands = new ArrayList<>();
+    userCommandsMap = new HashMap<>();
     userCommandsProperty = new SimpleListProperty<>(FXCollections.observableArrayList(userCommands));
   }
 
@@ -74,6 +76,7 @@ public class GlobalProperties {
    */
   public void deleteUserCommand(String name) {
     userCommands.removeIf(command -> command.getName().equals(name));
+    updateCommandsMap();
     userCommandsProperty.setValue(FXCollections.observableArrayList(userCommands));
   }
 
@@ -88,6 +91,7 @@ public class GlobalProperties {
     } else {
       userCommands.add(command);
     }
+    updateCommandsMap();
     userCommandsProperty.setValue(FXCollections.observableArrayList(userCommands));
   }
 
@@ -246,5 +250,15 @@ public class GlobalProperties {
 
   public int getNumTurtlesCreated() {
     return numTurtlesCreated;
+  }
+
+  public Map<String, String> getCommandsMap() {
+    return userCommandsMap;
+  }
+
+  private void updateCommandsMap() {
+    userCommands.forEach(command -> {
+      userCommandsMap.put(command.getName(), command.getFullCommand());
+    });
   }
 }
