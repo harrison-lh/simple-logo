@@ -39,7 +39,7 @@ public class TurtleGeneral {
   }
 
   public void conscriptTurtle(TurtleController recruitTurtle) {
-    System.out.println("Conscripting turtle");
+//    System.out.println("Conscripting turtle");
     turtleRecruits.add(recruitTurtle);
     newTurtleConsumer.accept(new TurtleProperties(recruitTurtle.getTurtle()));
 
@@ -56,7 +56,7 @@ public class TurtleGeneral {
   }
 
   public void conscriptTurtle(int id) {
-    System.out.println("Conscripting turtle");
+//    System.out.println("Conscripting turtle");
     turtleRecruits.clear();
     if (turtleArmy.size() < id) {
       for (int i = turtleArmy.size() + 1; i <= id; i++) {
@@ -70,10 +70,10 @@ public class TurtleGeneral {
   }
 
   public void updateTurtleArmy() {
-    System.out.println("Recruiting Class Size: " + turtleRecruits.size());
+//    System.out.println("Recruiting Class Size: " + turtleRecruits.size());
     turtleArmy.addAll(turtleRecruits);
     turtleRecruits.clear();
-    System.out.println("Army Size: " + turtleArmy.size());
+//    System.out.println("Army Size: " + turtleArmy.size());
     globalProperties.setNumTurtlesCreated(turtleArmy.size());
   }
 

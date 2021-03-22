@@ -136,7 +136,7 @@ public class MainView extends BorderPane {
       myVariablesBox.setVariables(newValue);
     }));
     myGlobalProperties.userCommandsProperty().addListener(((observable, oldValue, newValue) -> {
-      System.out.println("new command");
+//      System.out.println("new command");
       myCommandsBox.setCommands(newValue);
     }));
     myPalettesBox.setColors(myGlobalProperties.paletteProperty());

@@ -66,7 +66,7 @@ public class LibraryManagerTests {
       fail("Failed to read file!");
     }
     assertEquals(loadVarsCommand, "MAKE :DUKE 2022.0 MAKE :A 50.0 MAKE :B 75.0");
-    System.out.println(loadVarsCommand);
+//    System.out.println(loadVarsCommand);
   }
 
   @Test
@@ -81,7 +81,7 @@ public class LibraryManagerTests {
     }
     assertEquals(loadUserCommands, "TO square [ ] [ repeat 4 [ fd 50 rt 90 ] ]\n"
         + "TO equilateral_triangle [ ] [ repeat 3 [ rt 120 fd 50 ] ]");
-    System.out.println(loadUserCommands);
+//    System.out.println(loadUserCommands);
   }
 
   @Test

@@ -162,7 +162,6 @@ public class Parser implements SelectorTarget<String> {
 
   private Command patternMatchCommand(String text) {
     String commandType = lexer.lexLangDefinedCommands(text);
-    System.out.println(commandType);
     if (commandType.equals("MakeUserInstruction") && tokenizedText.peek() == Token.COMMAND) {
       tokenizedText.poll();
       return new MakeUserInstructionCommand(splitText.poll(), lexer, currentCommandString);
@@ -298,9 +297,9 @@ public class Parser implements SelectorTarget<String> {
     }
     mapTokensToCommands();
     assembleCommandQueue();
-    for (Command command : assembledCommandQueue) {
-      System.out.println(command);
-    }
+//    for (Command command : assembledCommandQueue) {
+//      System.out.println(command);
+//    }
     Set<Integer> curActiveTurtleIds = turtleGeneral.getGlobalProperties().getActiveTurtleIds();
     for(TurtleController controller : turtleGeneral.getTurtleArmy()) {
       if(curActiveTurtleIds.contains(controller.getTurtle().getId()))

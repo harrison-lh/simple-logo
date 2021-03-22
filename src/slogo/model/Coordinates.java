@@ -71,25 +71,6 @@ public abstract class Coordinates {
   public abstract StringProperty stringProperty();
 
   @Override
-  public boolean equals(Object o) {
-    if (o instanceof Coordinates) {
-      Coordinates other = (Coordinates) o;
-      return (getX() == other.getX()) && (getY() == other.getY()) && (getHeading() == other
-          .getHeading());
-    }
-    return false;
-  }
-
-  @Override
-  public int hashCode() {
-    int prime = 43;
-    int ret = 1;
-    ret += prime * prime * ((Double)(getX())).hashCode();
-    ret += prime * ((Double)(getY())).hashCode();
-    return ret;
-  }
-
-  @Override
   public String toString() {
     return "(" + round(getX()) + ", " + round(getY()) + "), " + round(getHeading()) + " degrees";
   }
