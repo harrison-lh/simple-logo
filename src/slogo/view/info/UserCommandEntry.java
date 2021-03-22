@@ -16,7 +16,7 @@ import slogo.view.ClickableEntry;
  */
 public class UserCommandEntry extends ClickableEntry<String> {
 
-  private final String myCommand;
+  private String myCommand;
   private List<String> myParameters;
 
   /**
@@ -28,6 +28,12 @@ public class UserCommandEntry extends ClickableEntry<String> {
   public UserCommandEntry(String command, List<String> parameters,
       Consumer<String> consumer) {
     super(command, consumer);
+    myCommand = command;
+    myParameters = parameters;
+    setText(displayText());
+  }
+
+  public void updateCommand(String command, List<String> parameters) {
     myCommand = command;
     myParameters = parameters;
     setText(displayText());

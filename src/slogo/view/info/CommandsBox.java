@@ -45,13 +45,13 @@ public class CommandsBox extends ScrollPane {
         addCommand(newValue.get(i));
       }
       else {
-        updateCommand(newValue.get(i));
+        updateCommand(i, newValue.get(i));
       }
     }
   }
 
-  private void updateCommand(UserCommand command) {
-
+  private void updateCommand(int index, UserCommand command) {
+    myUserCommandEntries.get(index).updateCommand(command.getName(), command.getParameters());
   }
 
   private void addCommand(UserCommand command) {
