@@ -1,5 +1,7 @@
 package slogo.controller;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Collection;
@@ -19,6 +21,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.EventHandler;
 import javafx.scene.paint.Color;
+import slogo.controller.commands.UserCommand;
 
 public class GlobalProperties {
 
@@ -36,6 +39,8 @@ public class GlobalProperties {
   private final ClearScreenEvent clearScreenEvent;
   private Consumer<Integer> makeNewTurtlesConsumer;
   private final Map<Integer, String> shapeMap;
+  private final List<UserCommand> userCommands;
+  private PropertyChangeListener commandsListener;
   private final Set<Integer> activeTurtleIds;
   private int numTurtlesCreated;
   private List<TurtleController> turtleArmy;
@@ -54,6 +59,76 @@ public class GlobalProperties {
     activeTurtleIds = new HashSet<>();
     numTurtlesCreated = 0;
     this.turtleArmy = turtleArmy;
+    userCommands = new ArrayList<>();
+
+  }
+
+  public void setCommandsListener(PropertyChangeListener commandsListener){
+    this.commandsListener = commandsListener;
+  }
+
+  /**
+   * Removes a user-defined command from the list of userCommands.
+   *
+   * @param name The name of the command to remove.
+   */
+  public void deleteUserCommand(String name) {
+    userCommands.removeIf(command -> command.getName().equals(name));
+  }
+
+  /**
+   * Adds a user-defined command to the list of userCommands.
+   *
+   * @param command The command to add to the list
+   */
+  public void addUserCommand(UserCommand command) {
+    if (containsUserCommand(command.getName())) {
+      commandsListener
+          .propertyChange(
+              new PropertyChangeEvent(this, "UPDATE", command.getName(), command.getName()));
+      getUserCommand(command.getName()).updateCommand(command);
+    } else {
+      commandsListener
+          .propertyChange(
+              new PropertyChangeEvent(this, "ADD", command.getName(), command.getName()));
+      userCommands.add(command);
+    }
+  }
+
+  /**
+   * Check the list of userCommands to see if it contains the user-command in question, and if so
+   * return it!
+   *
+   * @param name The name of the user-command.
+   * @return The UserCommand, if it exists.
+   */
+  public UserCommand getUserCommand(String name) {
+    for (UserCommand command : userCommands) {
+      if (command.getName().equals(name)) {
+        return command;
+      }
+    }
+    return null;
+  }
+
+  public List<UserCommand> getUserCommands() {
+    return userCommands;
+  }
+
+  /**
+   * Check the list of userCommands to see if it contains the user-command in question.
+   *
+   * @param name The name of the user-command.
+   * @return The presence of the user-command.
+   */
+  public boolean containsUserCommand(String name) {
+    for (UserCommand command : userCommands) {
+      if (command.getName().equals(name)) {
+        return true;
+      }
+    }
+    return false;
+
   }
 
   public List<TurtleController> getCopyOfTurtleArmy(){
@@ -62,7 +137,7 @@ public class GlobalProperties {
       turtleArmyCopy.add(tc);
     }
 
-    return (List<TurtleController>) turtleArmy;
+    return (List<TurtleController>) turtleArmyCopy;
   }
 
   public ObjectProperty<Color> backgroundColorPropertyProperty() {
