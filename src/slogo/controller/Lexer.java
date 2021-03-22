@@ -1,7 +1,5 @@
 package slogo.controller;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,9 +24,9 @@ public class Lexer {
   public static final String RESOURCES_PACKAGE = "resources.languages.";
   private static final String SYNTAX = "Syntax";
   private final List<Entry<String, Pattern>> syntaxSymbols;
-//  private final List<UserCommand> userCommands;
+  private final GlobalProperties globalProperties;
+  //  private final List<UserCommand> userCommands;
   private List<Entry<String, Pattern>> langSymbols;
-  private GlobalProperties globalProperties;
 
   /**
    * Default constructor for Lexer. Takes no language, but has syntaxSymbols
@@ -37,14 +35,16 @@ public class Lexer {
     syntaxSymbols = instantiateSymbols(SYNTAX);
     langSymbols = new ArrayList<>();
 //    userCommands = new ArrayList<>();
-    globalProperties = new GlobalProperties(new Palette().getColorsProperty(), new Variables(), new ArrayList<>());
+    globalProperties = new GlobalProperties(new Palette().getColorsProperty(), new Variables(),
+        new ArrayList<>());
   }
 
   /**
    * Calls main constructor, passing in an empty commands listener
    */
   public Lexer(String syntaxLanguage) {
-    this(syntaxLanguage, new GlobalProperties(new Palette().getColorsProperty(), new Variables(), new ArrayList<>()));
+    this(syntaxLanguage, new GlobalProperties(new Palette().getColorsProperty(), new Variables(),
+        new ArrayList<>()));
   }
 
   /**

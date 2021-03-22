@@ -1,16 +1,12 @@
 package slogo.view.info;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import javafx.collections.ObservableMap;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import slogo.controller.Controller;
-import slogo.model.Variable;
 import slogo.view.LanguageConsumer;
 
 /**
@@ -62,8 +58,7 @@ public class VariablesBox extends ScrollPane implements LanguageConsumer {
     for (String name : newValue.keySet()) {
       if (myVariableNames.contains(name)) {
         updateVariable(name, newValue.get(name));
-      }
-      else {
+      } else {
         addVariable(name, newValue.get(name));
       }
     }

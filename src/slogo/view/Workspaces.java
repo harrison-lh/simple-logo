@@ -5,8 +5,8 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 
 /**
- * Holds all workspaces in multiple tabs and has create new tab button.
- * Has a maximum number of workspaces.
+ * Holds all workspaces in multiple tabs and has create new tab button. Has a maximum number of
+ * workspaces.
  *
  * @author David Li
  */

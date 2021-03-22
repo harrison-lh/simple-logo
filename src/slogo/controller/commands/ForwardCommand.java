@@ -24,7 +24,7 @@ public class ForwardCommand extends Command {
   /**
    * Executes the forward command onto the turtle.
    *
-   * @param turtle The turtle to be moved forward
+   * @param turtle           The turtle to be moved forward
    * @param globalProperties
    * @return The distance that the turtle moved
    */

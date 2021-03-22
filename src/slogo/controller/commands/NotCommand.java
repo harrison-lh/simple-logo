@@ -24,7 +24,7 @@ public class NotCommand extends Command {
   /**
    * Returns the opposite boolean of the input value.
    *
-   * @param turtle The current turtle
+   * @param turtle           The current turtle
    * @param globalProperties
    * @return 1 if the value is 0, and 0 if the value is nonzero
    */

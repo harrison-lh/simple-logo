@@ -19,8 +19,9 @@ public class IfCommand extends Command {
   protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     double expr = getChildren().get(EXPR_INDEX).execute(turtle, globalProperties);
 
-    if(expr != 0){
-      return ( (ListCommandHead) getChildren().get(COMMAND_INDEX)).getInnerChildren().get(0).execute(turtle, globalProperties);
+    if (expr != 0) {
+      return ((ListCommandHead) getChildren().get(COMMAND_INDEX)).getInnerChildren().get(0)
+          .execute(turtle, globalProperties);
     }
     return 0;
 

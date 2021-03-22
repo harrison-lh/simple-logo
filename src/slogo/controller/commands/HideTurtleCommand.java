@@ -24,7 +24,7 @@ public class HideTurtleCommand extends Command {
   /**
    * Toggles the visibility of the turtle to be false.
    *
-   * @param turtle The turtle to be hidden
+   * @param turtle           The turtle to be hidden
    * @param globalProperties
    * @return 0
    */

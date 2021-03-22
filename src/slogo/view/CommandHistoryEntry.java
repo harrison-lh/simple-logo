@@ -13,7 +13,8 @@ public class CommandHistoryEntry extends ClickableEntry<String> {
 
   /**
    * Main constructor
-   * @param command Command to be displayed/executed when clicked
+   *
+   * @param command  Command to be displayed/executed when clicked
    * @param consumer Consumer of the re-executed command
    */
   public CommandHistoryEntry(String command, Consumer<String> consumer) {

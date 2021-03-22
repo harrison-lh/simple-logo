@@ -1,7 +1,6 @@
 package slogo.controller;
 
 import javafx.event.Event;
-import javafx.event.EventTarget;
 import javafx.event.EventType;
 
 public class ClearScreenEvent extends Event {

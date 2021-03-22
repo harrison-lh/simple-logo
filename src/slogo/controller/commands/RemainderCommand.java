@@ -8,7 +8,7 @@ public class RemainderCommand extends Command {
 
   private static final int NUM_PARAMS = 2;
 
-  public RemainderCommand(){
+  public RemainderCommand() {
     setNumParams(NUM_PARAMS);
   }
 

@@ -24,7 +24,7 @@ public class SetShapeCommand extends Command {
   /**
    * Sets the turtle to have the shape at the given index.
    *
-   * @param turtle The turtle to be set
+   * @param turtle           The turtle to be set
    * @param globalProperties
    * @return The index of the turtle shape
    */

@@ -27,7 +27,7 @@ public class SetBackgroundCommand extends Command {
   /**
    * Sets the background to be the color at the given index of the palette.
    *
-   * @param turtle The current active turtle
+   * @param turtle           The current active turtle
    * @param globalProperties
    * @return The index of the color set
    */

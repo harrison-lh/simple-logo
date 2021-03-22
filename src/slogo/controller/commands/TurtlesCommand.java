@@ -24,7 +24,7 @@ public class TurtlesCommand extends Command {
   /**
    * Gets the current number of turtles.
    *
-   * @param turtle The current active turtle
+   * @param turtle           The current active turtle
    * @param globalProperties
    * @return The current number of turtles
    */

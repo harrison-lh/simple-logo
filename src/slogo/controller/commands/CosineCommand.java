@@ -8,7 +8,7 @@ public class CosineCommand extends Command {
 
   private static final int NUM_PARAMS = 1;
 
-  public CosineCommand(){
+  public CosineCommand() {
     setNumParams(NUM_PARAMS);
   }
 

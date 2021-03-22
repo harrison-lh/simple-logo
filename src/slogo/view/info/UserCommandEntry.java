@@ -2,11 +2,6 @@ package slogo.view.info;
 
 import java.util.List;
 import java.util.function.Consumer;
-import javafx.geometry.Pos;
-import javafx.scene.Cursor;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Rectangle;
 import slogo.view.ClickableEntry;
 
 /**
@@ -21,7 +16,8 @@ public class UserCommandEntry extends ClickableEntry<String> {
 
   /**
    * Main constructor
-   * @param command Name of the user command
+   *
+   * @param command    Name of the user command
    * @param parameters
    * @param consumer
    */
@@ -41,6 +37,7 @@ public class UserCommandEntry extends ClickableEntry<String> {
 
   /**
    * Opens up input area for parameters and executes command
+   *
    * @param consumer Consumes the command
    */
   @Override

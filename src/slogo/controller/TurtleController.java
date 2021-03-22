@@ -14,10 +14,10 @@ import slogo.model.Turtle;
  */
 public class TurtleController {
 
-  private Turtle turtle;
-  private GlobalProperties globalProperties;
-  private Deque<Command> commandQueue;
-  private Deque<Command> commandHistory;
+  private final Turtle turtle;
+  private final GlobalProperties globalProperties;
+  private final Deque<Command> commandQueue;
+  private final Deque<Command> commandHistory;
   private boolean executeCommands;
 
   /**

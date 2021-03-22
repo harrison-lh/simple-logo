@@ -46,8 +46,7 @@ public class PalettesBox extends ScrollPane {
         ColorPalatteEntry entry = new ColorPalatteEntry(i, colors.get(i));
         myColorPaletteEntries.add(entry);
         myColorPalette.getChildren().add(entry);
-      }
-      else {
+      } else {
         myColorPaletteEntries.get(i).setColor(colors.get(i));
       }
     }

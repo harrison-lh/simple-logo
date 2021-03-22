@@ -29,7 +29,7 @@ public class HomeCommand extends Command {
   /**
    * Sets the position of the turtle to be at home (0,0) and the heading to be the default.
    *
-   * @param turtle The turtle to be set
+   * @param turtle           The turtle to be set
    * @param globalProperties
    * @return The distance the turtle moved
    */

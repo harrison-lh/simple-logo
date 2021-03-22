@@ -8,7 +8,7 @@ public class ArcTangentCommand extends Command {
 
   private static final int NUM_PARAMS = 1;
 
-  public ArcTangentCommand(){
+  public ArcTangentCommand() {
     setNumParams(NUM_PARAMS);
   }
 

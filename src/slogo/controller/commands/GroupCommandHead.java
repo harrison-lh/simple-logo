@@ -8,39 +8,36 @@ import slogo.model.Turtle;
 
 public class GroupCommandHead extends Command {
 
+  private final List<List<Command>> headerChildren;
   private Command groupHeader;
-  private List<List<Command>> headerChildren;
 
-  public GroupCommandHead(){
+  public GroupCommandHead() {
     headerChildren = new ArrayList<>();
   }
 
-  public void addNewHeaderChildrenList(){
+  public void addNewHeaderChildrenList() {
     headerChildren.add(new ArrayList<>());
   }
 
-  public void addNewHeaderChild(Command command){
+  public void addNewHeaderChild(Command command) {
     headerChildren.get(headerChildren.size() - 1).add(command);
   }
 
-
-  public void setGroupHeader(Command groupHeader){
-    this.groupHeader = groupHeader;
-  }
-
-  public Command getGroupHeader(){
+  public Command getGroupHeader() {
     return groupHeader;
   }
 
-
+  public void setGroupHeader(Command groupHeader) {
+    this.groupHeader = groupHeader;
+  }
 
   @Override
   protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     double retVal = 0;
-    for(List<Command> commandList : headerChildren){
+    for (List<Command> commandList : headerChildren) {
       //System.out.println(turtle.getX());
       groupHeader.clearChildren();
-      for(Command command : commandList){
+      for (Command command : commandList) {
         groupHeader.addChild(command);
       }
       retVal += groupHeader.execute(turtle, globalProperties);

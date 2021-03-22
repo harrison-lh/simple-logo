@@ -8,7 +8,7 @@ public class TangentCommand extends Command {
 
   private static final int NUM_PARAMS = 1;
 
-  public TangentCommand(){
+  public TangentCommand() {
     setNumParams(NUM_PARAMS);
   }
 

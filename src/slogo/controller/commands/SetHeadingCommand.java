@@ -5,8 +5,8 @@ import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
- * SetHeading is a type of Command that directs the Turtle to point to a certain direction
- * specified in degrees.
+ * SetHeading is a type of Command that directs the Turtle to point to a certain direction specified
+ * in degrees.
  *
  * @author Harrison Huang
  */
@@ -25,7 +25,7 @@ public class SetHeadingCommand extends Command {
   /**
    * Sets the heading of the turtle to point in a certain direction.
    *
-   * @param turtle The turtle to be set
+   * @param turtle           The turtle to be set
    * @param globalProperties
    * @return The direction the turtle is now pointing
    */

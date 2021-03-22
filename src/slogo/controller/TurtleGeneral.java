@@ -21,9 +21,9 @@ public class TurtleGeneral {
   private final List<TurtleController> turtleRecruits;
   // TODO: Move control of Variables and UserCommands here
   private final Variables variables;
-  private Palette palette;
-  private Consumer<TurtleProperties> newTurtleConsumer;
   private final GlobalProperties globalProperties;
+  private final Palette palette;
+  private Consumer<TurtleProperties> newTurtleConsumer;
 
   public TurtleGeneral() {
     this.turtleArmy = new ArrayList<>();

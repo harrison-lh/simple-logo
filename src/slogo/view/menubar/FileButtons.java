@@ -15,10 +15,10 @@ import util.LibraryManager;
 public class FileButtons extends HBox {
 
   private final static String LIBRARIES_PATH = "resources/libraries/";
+  private final FileChooser fileChooser;
   private Consumer<String> commandConsumer;
   private Map<String, Double> variables;
   private Map<String, String> commands;
-  private FileChooser fileChooser;
 
   public FileButtons() {
     VBox variablesButtons = new VBox();

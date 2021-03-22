@@ -11,9 +11,8 @@ import slogo.controller.Lexer;
 import slogo.view.LanguageConsumer;
 
 /**
- * Abstract class for each individual controller element.
- * Provides methods that translate commands to the current language.
- * Also has option to take input from an input box and execute commands
+ * Abstract class for each individual controller element. Provides methods that translate commands
+ * to the current language. Also has option to take input from an input box and execute commands
  * using the user input
  *
  * @author David Li
@@ -32,12 +31,14 @@ public abstract class ControllerElement extends VBox implements LanguageConsumer
 
   /**
    * Sets the action events to send a command to the consumer
+   *
    * @param response the consumer receiving commands
    */
   public abstract void setExecuteCommandActions(Consumer<String> response);
 
   /**
    * Sets the current language when notified
+   *
    * @return Consumer event that updates the current language
    */
   @Override

@@ -3,10 +3,12 @@ package slogo.controller;
 import slogo.model.Turtle;
 
 public class ConstantCommand extends Command {
+
   private double value;
 
   /**
    * Common-constructor for a ConstantCommand. Simply assigns the ConstantCommand a value.
+   *
    * @param value The value of the ConstantCommand.
    */
   public ConstantCommand(double value) {
@@ -34,7 +36,7 @@ public class ConstantCommand extends Command {
   /**
    * Returns the value of this ConstantCommand.
    *
-   * @param turtle The turtle that owns this ConstantCommand.
+   * @param turtle           The turtle that owns this ConstantCommand.
    * @param globalProperties
    * @return The value of this ConstantCommand.
    */

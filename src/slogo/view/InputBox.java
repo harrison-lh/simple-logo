@@ -9,16 +9,14 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
 /**
- * Input box where the user types in commands and executes them
- * using the input button
+ * Input box where the user types in commands and executes them using the input button
  *
  * @author David Li
  */
 public class InputBox extends BorderPane {
 
-  private static final double WIDTH = 360;
   public static final double BOTTOM_HEIGHT = 180;
-
+  private static final double WIDTH = 360;
   private final TextArea myInputBoxArea;
   private final Button myInputButton;
 

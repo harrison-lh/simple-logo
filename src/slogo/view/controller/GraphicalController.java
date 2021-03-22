@@ -7,8 +7,8 @@ import javafx.scene.layout.VBox;
 import slogo.view.LanguageConsumer;
 
 /**
- * Sidebar containing controllers that allow user to graphically
- * make commands, like moving and rotating the turtle
+ * Sidebar containing controllers that allow user to graphically make commands, like moving and
+ * rotating the turtle
  *
  * @author David Li
  */
@@ -40,8 +40,9 @@ public class GraphicalController extends VBox {
 
   /**
    * Sets the execute command action for each internal controller
-   * @param response Consumer (which is the MainView) that takes a command as an input and
-   *                 passes them to the parser
+   *
+   * @param response Consumer (which is the MainView) that takes a command as an input and passes
+   *                 them to the parser
    */
   public void setExecuteCommandAction(Consumer<String> response) {
     myMovementController.setExecuteCommandActions(response);

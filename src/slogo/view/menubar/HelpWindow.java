@@ -17,8 +17,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * Help window that pops up when the user clicks the help button
- * Contains a list of all commands and descriptions of each
+ * Help window that pops up when the user clicks the help button Contains a list of all commands and
+ * descriptions of each
  *
  * @author David Li
  */
@@ -28,7 +28,7 @@ public class HelpWindow extends Stage {
   public static final int HEIGHT = 600;
   public static final String REFERENCE_PATH = "./src/resources/reference/";
 
-  private ScrollPane myContent;
+  private final ScrollPane myContent;
   private VBox commandLinks;
 
   /**

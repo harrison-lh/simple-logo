@@ -1,12 +1,9 @@
 package slogo.view.info;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import slogo.controller.commands.UserCommand;
@@ -43,8 +40,7 @@ public class CommandsBox extends ScrollPane {
     for (int i = 0; i < newValue.size(); i++) {
       if (i >= myUserCommandEntries.size()) {
         addCommand(newValue.get(i));
-      }
-      else {
+      } else {
         updateCommand(i, newValue.get(i));
       }
     }
@@ -55,7 +51,8 @@ public class CommandsBox extends ScrollPane {
   }
 
   private void addCommand(UserCommand command) {
-    UserCommandEntry userCommandEntry = new UserCommandEntry(command.getName(), command.getParameters(), myConsumer);
+    UserCommandEntry userCommandEntry = new UserCommandEntry(command.getName(),
+        command.getParameters(), myConsumer);
     userCommandEntry.getRectangle().widthProperty().bind(this.widthProperty());
     myUserCommandEntries.add(userCommandEntry);
     myContents.getChildren().add(userCommandEntry);

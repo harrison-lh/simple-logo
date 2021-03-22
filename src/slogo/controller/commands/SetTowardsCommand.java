@@ -5,7 +5,8 @@ import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
- * SetTowards is a type of Command that directs the Turtle to point toward a certain point on screen.
+ * SetTowards is a type of Command that directs the Turtle to point toward a certain point on
+ * screen.
  *
  * @author Harrison Huang
  */
@@ -26,7 +27,7 @@ public class SetTowardsCommand extends Command {
   /**
    * Sets the heading of the turtle to point toward the specified coordinates.
    *
-   * @param turtle The turtle to be set
+   * @param turtle           The turtle to be set
    * @param globalProperties
    * @return The number of degrees the turtle turned
    */
@@ -48,9 +49,13 @@ public class SetTowardsCommand extends Command {
     double delY = newY - currY;
 
     double newHeading = Math.toDegrees(Math.atan(delY / delX));
-    if (delX < 0) newHeading += HALF_CIRCLE;
+    if (delX < 0) {
+      newHeading += HALF_CIRCLE;
+    }
 
-    if (newHeading < 0) newHeading += FULL_CIRCLE;
+    if (newHeading < 0) {
+      newHeading += FULL_CIRCLE;
+    }
     return newHeading;
   }
 

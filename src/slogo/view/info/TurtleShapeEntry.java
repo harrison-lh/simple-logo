@@ -2,9 +2,6 @@ package slogo.view.info;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 public class TurtleShapeEntry extends HBox {
 

@@ -35,20 +35,21 @@ public class GlobalProperties {
   private final DoubleProperty penSizeProperty;
   private final StringProperty turtleShapeProperty;
   private final ListProperty<Color> paletteProperty;
-  private Collection<EventHandler<ClearScreenEvent>> clearScreenListeners;
   private final ClearScreenEvent clearScreenEvent;
-  private Consumer<Integer> makeNewTurtlesConsumer;
   private final Map<Integer, String> shapeMap;
   private final List<UserCommand> userCommands;
   private final Map<String, String> userCommandsMap;
   private final ListProperty<UserCommand> userCommandsProperty;
   private final Set<Integer> activeTurtleIds;
-  private int numTurtlesCreated;
   private final Variables variables;
   private final MapProperty<String, Double> variableMapProperty;
-  private List<TurtleController> turtleArmy;
+  private final Collection<EventHandler<ClearScreenEvent>> clearScreenListeners;
+  private Consumer<Integer> makeNewTurtlesConsumer;
+  private int numTurtlesCreated;
+  private final List<TurtleController> turtleArmy;
 
-  public GlobalProperties(ListProperty<Color> paletteProperty, Variables variables, List<TurtleController> turtleArmy) {
+  public GlobalProperties(ListProperty<Color> paletteProperty, Variables variables,
+      List<TurtleController> turtleArmy) {
     backgroundColorProperty = new SimpleObjectProperty<>(DEFAULT_BACKGROUND_COLOR);
     penColorProperty = new SimpleObjectProperty<>(DEFAULT_PEN_COLOR);
     penSizeProperty = new SimpleDoubleProperty(DEFAULT_PEN_SIZE);
@@ -66,7 +67,8 @@ public class GlobalProperties {
     this.turtleArmy = turtleArmy;
     userCommands = new ArrayList<>();
     userCommandsMap = new HashMap<>();
-    userCommandsProperty = new SimpleListProperty<>(FXCollections.observableArrayList(userCommands));
+    userCommandsProperty = new SimpleListProperty<>(
+        FXCollections.observableArrayList(userCommands));
   }
 
   /**
@@ -131,13 +133,13 @@ public class GlobalProperties {
 
   }
 
-  public List<TurtleController> getCopyOfTurtleArmy(){
+  public List<TurtleController> getCopyOfTurtleArmy() {
     List<TurtleController> turtleArmyCopy = new ArrayList<>();
-    for(TurtleController tc : turtleArmy){
+    for (TurtleController tc : turtleArmy) {
       turtleArmyCopy.add(tc);
     }
 
-    return (List<TurtleController>) turtleArmyCopy;
+    return turtleArmyCopy;
   }
 
   public ObjectProperty<Color> backgroundColorPropertyProperty() {
@@ -244,12 +246,12 @@ public class GlobalProperties {
     activeTurtleIds.clear();
   }
 
-  public void setNumTurtlesCreated(int numTurtlesCreated) {
-    this.numTurtlesCreated = numTurtlesCreated;
-  }
-
   public int getNumTurtlesCreated() {
     return numTurtlesCreated;
+  }
+
+  public void setNumTurtlesCreated(int numTurtlesCreated) {
+    this.numTurtlesCreated = numTurtlesCreated;
   }
 
   public Map<String, String> getCommandsMap() {

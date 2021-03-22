@@ -32,30 +32,31 @@ public class AskWithCommand extends Command {
   /**
    * Runs commands on all turtles that satisfy the condition.
    *
-   * @param turtle The current active turtle
+   * @param turtle           The current active turtle
    * @param globalProperties
    * @return The result of the last command run
    */
   @Override
   protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
 
-    ListCommandHead ConditionalCommand = (ListCommandHead) getChildren().get(TURTLE_CONDITION_INDEX);
+    ListCommandHead ConditionalCommand = (ListCommandHead) getChildren()
+        .get(TURTLE_CONDITION_INDEX);
 
-    if(ConditionalCommand.getInnerChildren().size() != 1){
-      throw new IllegalArgumentException("ILLEGAL ARGUMENT EXCEPTION:\nASK WITH COMMAND CALLED WITH MULTIPLE CONDITIONS!");
+    if (ConditionalCommand.getInnerChildren().size() != 1) {
+      throw new IllegalArgumentException(
+          "ILLEGAL ARGUMENT EXCEPTION:\nASK WITH COMMAND CALLED WITH MULTIPLE CONDITIONS!");
     }
 
     List<TurtleController> turtleArmy = globalProperties.getCopyOfTurtleArmy();
     double lastCommandValue = 0;
 
-    for(TurtleController tc : turtleArmy){
+    for (TurtleController tc : turtleArmy) {
       Turtle tcTurtle = tc.getTurtle();
       double fullConditional = ConditionalCommand.execute(tcTurtle, globalProperties);
-      if(fullConditional == 1){
+      if (fullConditional == 1) {
         lastCommandValue = getChildren().get(COMMANDS_INDEX).execute(tcTurtle, globalProperties);
       }
     }
-
 
     return lastCommandValue;
   }

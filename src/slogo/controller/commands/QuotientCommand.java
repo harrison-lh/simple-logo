@@ -8,7 +8,7 @@ public class QuotientCommand extends Command {
 
   private static final int NUM_PARAMS = 2;
 
-  public QuotientCommand(){
+  public QuotientCommand() {
     setNumParams(NUM_PARAMS);
   }
 

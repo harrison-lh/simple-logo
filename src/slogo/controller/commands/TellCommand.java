@@ -28,7 +28,7 @@ public class TellCommand extends Command {
   /**
    * Tells which turtles to run commands.
    *
-   * @param turtle The current active turtle
+   * @param turtle           The current active turtle
    * @param globalProperties
    * @return The value of the last turtle
    */
@@ -42,18 +42,18 @@ public class TellCommand extends Command {
     int maxTurtleValue = 0;
 
     //Get a list of all the turtles to be used in the future, and make any needed turtles
-    for(int i = 0; i < tellListCommand.getInnerChildren().size(); i ++){
-      lastTurtleValue = (int) tellListCommand.getInnerChildren().get(i).execute(turtle, globalProperties);
+    for (int i = 0; i < tellListCommand.getInnerChildren().size(); i++) {
+      lastTurtleValue = (int) tellListCommand.getInnerChildren().get(i)
+          .execute(turtle, globalProperties);
       turtleIDsToUse.add(lastTurtleValue);
-      if(lastTurtleValue > maxTurtleValue){
+      if (lastTurtleValue > maxTurtleValue) {
         maxTurtleValue = lastTurtleValue;
       }
     }
 
-    if(maxTurtleValue >= globalProperties.getNumTurtlesCreated()){
+    if (maxTurtleValue >= globalProperties.getNumTurtlesCreated()) {
       globalProperties.makeNewTurtles(maxTurtleValue);
     }
-
 
     // TODO: set all turtles in the list to be active
     globalProperties.clearActiveTurtleIds();
@@ -61,7 +61,7 @@ public class TellCommand extends Command {
 
     // TODO: return value of last turtle
 
-    return (double) lastTurtleValue;
+    return lastTurtleValue;
   }
 
 }

@@ -1,8 +1,6 @@
 package slogo.view;
 
-import java.beans.PropertyChangeListener;
 import java.util.function.Consumer;
-import javafx.beans.property.BooleanProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -12,16 +10,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import slogo.controller.GlobalProperties;
 import slogo.controller.TurtleProperties;
-import slogo.model.Coordinates;
-import slogo.model.Turtle;
 import slogo.view.canvas.CanvasHolder;
 import slogo.view.canvas.TurtleCanvas;
-import slogo.view.canvas.TurtleView;
 import slogo.view.controller.GraphicalController;
 import slogo.view.info.CommandsBox;
 import slogo.view.info.InfoDisplay;
@@ -37,7 +30,7 @@ import slogo.view.menubar.MenuBar;
  */
 public class MainView extends BorderPane {
 
-  private MenuBar myMenuBar;
+  private final MenuBar myMenuBar;
   private GraphicalController myGraphicalController;
   private CanvasHolder myCanvasHolder;
   private TurtleCanvas myTurtleCanvas;
@@ -65,7 +58,8 @@ public class MainView extends BorderPane {
     connectStringSelector(myTurtleCanvas, myMenuBar.getGridSelector());
     connectColorSelector(myTurtleCanvas.getPen(), myMenuBar.getPenSelector());
 
-    myMenuBar.getLanguageSelector().addLanguageConsumers(myGraphicalController.getLanguageConsumers());
+    myMenuBar.getLanguageSelector()
+        .addLanguageConsumers(myGraphicalController.getLanguageConsumers());
     myMenuBar.getLanguageSelector().addLanguageConsumers(myVariablesBox);
   }
 
@@ -111,30 +105,35 @@ public class MainView extends BorderPane {
 
   private void bindSelectorsToGlobalProperties() {
     myMenuBar.getPenSelector().setGlobalProperty(myGlobalProperties.penColorPropertyProperty());
-    myMenuBar.getTurtleSelector().setGlobalProperty(myGlobalProperties.turtleShapePropertyProperty());
-    myMenuBar.getBackgroundSelector().setGlobalProperty(myGlobalProperties.backgroundColorPropertyProperty());
+    myMenuBar.getTurtleSelector()
+        .setGlobalProperty(myGlobalProperties.turtleShapePropertyProperty());
+    myMenuBar.getBackgroundSelector()
+        .setGlobalProperty(myGlobalProperties.backgroundColorPropertyProperty());
   }
 
   private void bindGlobalProperties() {
-    myGlobalProperties.backgroundColorPropertyProperty().addListener(((observable, oldValue, newValue) -> {
-      myTurtleCanvas.setBackground(new Background(
-          new BackgroundFill(newValue, CornerRadii.EMPTY, Insets.EMPTY)));
-    }));
+    myGlobalProperties.backgroundColorPropertyProperty()
+        .addListener(((observable, oldValue, newValue) -> {
+          myTurtleCanvas.setBackground(new Background(
+              new BackgroundFill(newValue, CornerRadii.EMPTY, Insets.EMPTY)));
+        }));
     myGlobalProperties.penColorPropertyProperty().addListener(((observable, oldValue, newValue) -> {
       myTurtleCanvas.getPen().setColor(newValue);
     }));
     myGlobalProperties.penSizePropertyProperty().addListener(((observable, oldValue, newValue) -> {
       myTurtleCanvas.getPen().setSize(newValue.doubleValue());
     }));
-    myGlobalProperties.turtleShapePropertyProperty().addListener(((observable, oldValue, newValue) -> {
-      myTurtleCanvas.setTurtleShape(newValue);
-    }));
+    myGlobalProperties.turtleShapePropertyProperty()
+        .addListener(((observable, oldValue, newValue) -> {
+          myTurtleCanvas.setTurtleShape(newValue);
+        }));
     myGlobalProperties.paletteProperty().addListener(((observable, oldValue, newValue) -> {
       myPalettesBox.setColors(newValue);
     }));
-    myGlobalProperties.variableMapPropertyProperty().addListener(((observable, oldValue, newValue) -> {
-      myVariablesBox.setVariables(newValue);
-    }));
+    myGlobalProperties.variableMapPropertyProperty()
+        .addListener(((observable, oldValue, newValue) -> {
+          myVariablesBox.setVariables(newValue);
+        }));
     myGlobalProperties.userCommandsProperty().addListener(((observable, oldValue, newValue) -> {
 //      System.out.println("new command");
       myCommandsBox.setCommands(newValue);
