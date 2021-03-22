@@ -30,10 +30,11 @@ public class Controller {
 //    TurtleController initController = new TurtleController(myTurtle,
 //        myTurtleGeneral.getGlobalProperties());
     myTurtleGeneral.setNewTurtleConsumer(myMainView.newTurtleConsumer());
+    myParser = new Parser(myTurtleGeneral, DEFAULT_LANGUAGE, myMainView.getCommandsListener(),
+        myTurtleGeneral.getGlobalProperties());
     myTurtleGeneral.createFirstTurtle();
     myTurtle = myTurtleGeneral.getTurtleArmy().get(0).getTurtle();
-    myTurtleGeneral.getGlobalProperties().addActiveTurtleId(0);
-    myParser = new Parser(myTurtleGeneral, DEFAULT_LANGUAGE, myMainView.getCommandsListener());
+    myTurtleGeneral.getGlobalProperties().addActiveTurtleId(1);
     // Input button action
     myMainView.setInputAction(myParser.receiveInputAction());
     // Select language action

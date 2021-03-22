@@ -38,7 +38,7 @@ public class GroupCommandHead extends Command {
   protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     double retVal = 0;
     for(List<Command> commandList : headerChildren){
-      System.out.println(turtle.getX());
+      //System.out.println(turtle.getX());
       groupHeader.clearChildren();
       for(Command command : commandList){
         groupHeader.addChild(command);
