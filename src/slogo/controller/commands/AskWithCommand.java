@@ -1,7 +1,10 @@
 package slogo.controller.commands;
 
+import java.util.List;
 import slogo.controller.Command;
 import slogo.controller.GlobalProperties;
+import slogo.controller.ListCommandHead;
+import slogo.controller.TurtleController;
 import slogo.model.Turtle;
 
 /**
@@ -14,6 +17,9 @@ import slogo.model.Turtle;
 public class AskWithCommand extends Command {
 
   private static final int NUM_PARAMS = 2;
+  private static final int TURTLE_CONDITION_INDEX = 0;
+  private static final int COMMANDS_INDEX = 1;
+  private static final int DEPENDANT_CONDITION_INDEX = 1;
 
   /**
    * Constructor for AskWithCommand.
@@ -32,13 +38,26 @@ public class AskWithCommand extends Command {
    */
   @Override
   protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
-    // TODO: parse input
 
-    // TODO: runs commands on all turtles that satisfy the condition
+    ListCommandHead ConditionalCommand = (ListCommandHead) getChildren().get(TURTLE_CONDITION_INDEX);
 
-    // TODO: return value of last command run
+    if(ConditionalCommand.getInnerChildren().size() != 1){
+      throw new IllegalArgumentException("ILLEGAL ARGUMENT EXCEPTION:\nASK WITH COMMAND CALLED WITH MULTIPLE CONDITIONS!");
+    }
 
-    return 0;
+    List<TurtleController> turtleArmy = globalProperties.getCopyOfTurtleArmy();
+    double lastCommandValue = 0;
+
+    for(TurtleController tc : turtleArmy){
+      Turtle tcTurtle = tc.getTurtle();
+      double fullConditional = ConditionalCommand.execute(tcTurtle, globalProperties);
+      if(fullConditional == 1){
+        lastCommandValue = getChildren().get(COMMANDS_INDEX).execute(tcTurtle, globalProperties);
+      }
+    }
+
+
+    return lastCommandValue;
   }
 
 }
