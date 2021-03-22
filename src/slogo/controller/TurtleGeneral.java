@@ -26,7 +26,7 @@ public class TurtleGeneral {
     this.turtleArmy = new ArrayList<>();
     palette = new Palette();
     turtleRecruits = new ArrayList<>();
-    globalProperties = new GlobalProperties(palette.getColorsProperty());
+    globalProperties = new GlobalProperties(palette.getColorsProperty(), turtleArmy);
     globalProperties.addClearScreenListener( e -> removeTurtles());
     globalProperties.setMakeNewTurtlesConsumer(this::conscriptTurtle);
     newTurtleConsumer = (param) -> {}; // Fixes headless tests breaking by adding a dummy
