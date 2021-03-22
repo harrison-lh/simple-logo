@@ -57,7 +57,7 @@ public class FileButtons extends HBox {
   private void loadCommands() {
     File file = fileChooser.showOpenDialog(null);
     try {
-      String command = LibraryManager.loadVariables(file);
+      String command = LibraryManager.loadUserCommands(file);
       commandConsumer.accept(command);
     } catch (IOException exception) {
       Alert alert = new Alert(AlertType.ERROR, "Invalid file");
