@@ -10,8 +10,8 @@ public class TurtleEntry extends Label {
   private boolean visible;
   private boolean penActive;
 
-  public TurtleEntry(int id, TurtleProperties turtleProperties) {
-    myId = id;
+  public TurtleEntry(TurtleProperties turtleProperties) {
+    myId = turtleProperties.getId();
     coordinates = turtleProperties.getCoordinates().toString();
     visible = turtleProperties.visibleProperty().getValue();
     turtleProperties.getCoordinates().stringProperty().addListener(((observable, oldValue, newValue) -> {

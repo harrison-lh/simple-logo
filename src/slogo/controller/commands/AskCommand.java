@@ -1,7 +1,12 @@
 package slogo.controller.commands;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import slogo.controller.Command;
 import slogo.controller.GlobalProperties;
+import slogo.controller.ListCommandHead;
+import slogo.controller.TurtleController;
 import slogo.model.Turtle;
 
 /**
@@ -13,6 +18,9 @@ import slogo.model.Turtle;
 public class AskCommand extends Command {
 
   private static final int NUM_PARAMS = 2;
+  private static final int TURTLE_IDS_INDEX = 0;
+  private static final int COMMANDS_INDEX = 1;
+
 
   /**
    * Constructor for AskCommand.
@@ -31,13 +39,25 @@ public class AskCommand extends Command {
    */
   @Override
   protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
-    // TODO: parse input
 
-    // TODO: runs commands on all turtles in the given list
+    ListCommandHead askListCommand = (ListCommandHead) getChildren().get(TURTLE_IDS_INDEX);
 
-    // TODO: return value of last command run
+    List<TurtleController> turtleArmy = globalProperties.getCopyOfTurtleArmy();
+    double lastCommandValue = 0;
 
-    return 0;
+    for(int i = 0; i < askListCommand.getInnerChildren().size(); i ++){
+      int turtleID = (int) askListCommand.getInnerChildren().get(i).execute(turtle, globalProperties);
+      if(turtleID <= globalProperties.getNumTurtlesCreated()){
+        for(TurtleController tc : turtleArmy){
+          if(tc.getTurtle().getId() == turtleID){
+            lastCommandValue = getChildren().get(COMMANDS_INDEX).execute(tc.getTurtle(), globalProperties);
+            continue;
+          }
+        }
+      }
+    }
+
+    return lastCommandValue;
   }
 
 }

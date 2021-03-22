@@ -25,17 +25,17 @@ public class RepeatCommand extends Command {
    * Implementation of the RepeatCommand execute method. Forces the children of the listNode to
    * repeat as many times as the value of parameter 0. Returns the value of the last operation.
    *
-   * @param turtle The turtle on which the Commands are acting
+   * @param turtle           The turtle on which the Commands are acting
    * @param globalProperties
    * @return Returns the return value of the last operation.
    */
   @Override
   public double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
 
-    double repititionNum = getChildren().get(0).execute(turtle, globalProperties);
+    double repetitionNum = getChildren().get(0).execute(turtle, globalProperties);
     double lastVal = 0;
     turtle.getVars().setValue(":repcount", 1);
-    for(int i = 0; i < repititionNum; i ++){
+    for (int i = 0; i < repetitionNum; i++) {
       lastVal = getChildren().get(1).execute(turtle, globalProperties);
       turtle.getVars().setValue(":repcount", i);
     }

@@ -50,4 +50,8 @@ public class InfoDisplay extends TabPane {
   public TurtlesBox getTurtlesBox() {
     return myTurtlesBox;
   }
+
+  public PalettesBox getPalettesBox() {
+    return myPalettesBox;
+  }
 }

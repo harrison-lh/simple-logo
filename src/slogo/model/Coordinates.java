@@ -1,5 +1,6 @@
 package slogo.model;
 
+import java.text.DecimalFormat;
 import javafx.beans.property.StringProperty;
 
 /**
@@ -90,7 +91,12 @@ public abstract class Coordinates {
 
   @Override
   public String toString() {
-    return "(" + getX() + ", " + getY() + "), " + getHeading() + " degrees";
+    return "(" + round(getX()) + ", " + round(getY()) + "), " + round(getHeading()) + " degrees";
+  }
+
+  private String round(double x) {
+    DecimalFormat df = new DecimalFormat("####.##");
+    return df.format(x);
   }
 
 }

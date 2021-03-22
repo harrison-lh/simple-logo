@@ -32,7 +32,7 @@ public class ClearScreenCommand extends Command {
   protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     Command goHome = new HomeCommand();
     double distance = goHome.execute(turtle, globalProperties);
-    turtle.clearScreen();
+    globalProperties.clearScreen();
     return distance;
   }
 

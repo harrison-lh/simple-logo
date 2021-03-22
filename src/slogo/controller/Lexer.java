@@ -39,7 +39,7 @@ public class Lexer {
 //    userCommands = new ArrayList<>();
     commandsListener = evt -> {
     };
-    globalProperties = new GlobalProperties(new Palette().getColorsProperty());
+    globalProperties = new GlobalProperties(new Palette().getColorsProperty(), new ArrayList<>());
     globalProperties.setCommandsListener(commandsListener);
   }
 
@@ -48,7 +48,7 @@ public class Lexer {
    */
   public Lexer(String syntaxLanguage) {
     this(syntaxLanguage, e -> {
-    }, new GlobalProperties(new Palette().getColorsProperty()));
+    }, new GlobalProperties(new Palette().getColorsProperty(), new ArrayList<>()));
   }
 
   /**

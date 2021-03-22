@@ -25,6 +25,7 @@ import slogo.view.canvas.TurtleView;
 import slogo.view.controller.GraphicalController;
 import slogo.view.info.CommandsBox;
 import slogo.view.info.InfoDisplay;
+import slogo.view.info.PalettesBox;
 import slogo.view.info.TurtlesBox;
 import slogo.view.info.VariablesBox;
 import slogo.view.menubar.MenuBar;
@@ -44,6 +45,7 @@ public class MainView extends BorderPane {
   private TurtlesBox myTurtlesBox;
   private VariablesBox myVariablesBox;
   private CommandsBox myCommandsBox;
+  private PalettesBox myPalettesBox;
   private InputBox myInputBox;
   private CommandHistoryBox myCommandHistoryBox;
   private GlobalProperties myGlobalProperties;
@@ -65,13 +67,6 @@ public class MainView extends BorderPane {
 
     myMenuBar.getLanguageSelector().addLanguageConsumers(myGraphicalController.getLanguageConsumers());
     myMenuBar.getLanguageSelector().addLanguageConsumers(myVariablesBox);
-  }
-
-  /**
-   * @return The elements that listens for turtle updates in the model
-   */
-  public PropertyChangeListener getTurtleListener() {
-    return myTurtleCanvas;
   }
 
   /**
@@ -111,6 +106,52 @@ public class MainView extends BorderPane {
     myCommandsBox.setExecuteCommandAction(command -> executeCommand(command, response));
     myVariablesBox.setExecuteCommandAction(command -> executeCommand(command, response));
     myGraphicalController.setExecuteCommandAction(command -> executeCommand(command, response));
+  }
+
+
+  public Consumer<TurtleProperties> newTurtleConsumer() {
+    return turtleProperties -> {
+      myTurtleCanvas.newTurtleConsumer().accept(turtleProperties);
+      myTurtlesBox.addTurtle(turtleProperties);
+    };
+  }
+
+  public void setGlobalProperties(GlobalProperties globalProperties) {
+    myGlobalProperties = globalProperties;
+    bindGlobalProperties();
+    bindSelectorsToGlobalProperties();
+  }
+
+  private void bindSelectorsToGlobalProperties() {
+    myMenuBar.getPenSelector().setGlobalProperty(myGlobalProperties.penColorPropertyProperty());
+    myMenuBar.getTurtleSelector().setGlobalProperty(myGlobalProperties.turtleShapePropertyProperty());
+    myMenuBar.getBackgroundSelector().setGlobalProperty(myGlobalProperties.backgroundColorPropertyProperty());
+  }
+
+  private void bindGlobalProperties() {
+    myGlobalProperties.backgroundColorPropertyProperty().addListener(((observable, oldValue, newValue) -> {
+      myTurtleCanvas.setBackground(new Background(
+          new BackgroundFill(newValue, CornerRadii.EMPTY, Insets.EMPTY)));
+    }));
+    myGlobalProperties.penColorPropertyProperty().addListener(((observable, oldValue, newValue) -> {
+      myTurtleCanvas.getPen().setColor(newValue);
+    }));
+    myGlobalProperties.penSizePropertyProperty().addListener(((observable, oldValue, newValue) -> {
+      myTurtleCanvas.getPen().setSize(newValue.doubleValue());
+    }));
+    myGlobalProperties.turtleShapePropertyProperty().addListener(((observable, oldValue, newValue) -> {
+      myTurtleCanvas.setTurtleShape(newValue);
+    }));
+    myGlobalProperties.paletteProperty().addListener(((observable, oldValue, newValue) -> {
+      myPalettesBox.setColors(newValue);
+    }));
+    myPalettesBox.setColors(myGlobalProperties.paletteProperty());
+    myPalettesBox.setShapes(myGlobalProperties.getShapeMap());
+    myGlobalProperties.addClearScreenListener(e -> clearScreen());
+  }
+
+  private void clearScreen() {
+    myTurtleCanvas.clearScreen();
   }
 
   private void executeCommand(String command, Consumer<String> consumer) {
@@ -158,50 +199,10 @@ public class MainView extends BorderPane {
     myTurtlesBox = myInfoDisplay.getTurtlesBox();
     myVariablesBox = myInfoDisplay.getVariablesBox();
     myCommandsBox = myInfoDisplay.getCommandsBox();
+    myPalettesBox = myInfoDisplay.getPalettesBox();
 
     this.setCenter(myCanvasHolder);
     this.setLeft(myGraphicalController);
     this.setRight(myInfoDisplay);
-  }
-
-  /**
-   * Creates a new turtle in the canvas according to the parameters passed by the Controller.
-   *
-   * @param turtleProperties The properties of the turtle
-   */
-  public void createTurtle(TurtleProperties turtleProperties) {
-    newTurtleConsumer().accept(turtleProperties);
-  }
-
-  public void setBackgroundColor(Color newColor) {
-    myTurtleCanvas.setBackground(new Background(
-        new BackgroundFill(newColor, CornerRadii.EMPTY, Insets.EMPTY)));
-  }
-
-  public Consumer<TurtleProperties> newTurtleConsumer() {
-    return turtleProperties -> {
-      myTurtleCanvas.newTurtleConsumer().accept(turtleProperties);
-      myTurtlesBox.addTurtle(0 ,turtleProperties);
-    };
-  }
-
-  public void setGlobalProperties(GlobalProperties globalProperties) {
-    myGlobalProperties = globalProperties;
-    myGlobalProperties.backgroundColorPropertyProperty().addListener(((observable, oldValue, newValue) -> {
-      myTurtleCanvas.setBackground(new Background(
-          new BackgroundFill(newValue, CornerRadii.EMPTY, Insets.EMPTY)));
-    }));
-    myGlobalProperties.penColorPropertyProperty().addListener(((observable, oldValue, newValue) -> {
-      myTurtleCanvas.getPen().setColor(newValue);
-    }));
-    myGlobalProperties.penSizePropertyProperty().addListener(((observable, oldValue, newValue) -> {
-      myTurtleCanvas.getPen().setSize(newValue.doubleValue());
-    }));
-    myGlobalProperties.turtleShapePropertyProperty().addListener(((observable, oldValue, newValue) -> {
-      myTurtleCanvas.setTurtleShape(newValue);
-    }));
-    myMenuBar.getPenSelector().setGlobalProperty(globalProperties.penColorPropertyProperty());
-    myMenuBar.getTurtleSelector().setGlobalProperty(globalProperties.turtleShapePropertyProperty());
-    myMenuBar.getBackgroundSelector().setGlobalProperty(globalProperties.backgroundColorPropertyProperty());
   }
 }

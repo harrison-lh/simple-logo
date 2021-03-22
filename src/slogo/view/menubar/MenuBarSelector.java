@@ -53,4 +53,8 @@ public abstract class MenuBarSelector<T> extends VBox implements Selector<T> {
   protected ComboBoxBase<T> getComboBoxBase() {
     return myComboBoxBase;
   }
+
+  protected Property<T> getGlobalProperty() {
+    return myGlobalProperty;
+  }
 }

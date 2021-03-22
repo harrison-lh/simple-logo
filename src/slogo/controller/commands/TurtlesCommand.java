@@ -32,7 +32,7 @@ public class TurtlesCommand extends Command {
   protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     // TODO: get the current number of turtles
     //return turtle.getTotalNum();
-    return 0;
+    return globalProperties.getNumTurtlesCreated();
   }
 
 }
