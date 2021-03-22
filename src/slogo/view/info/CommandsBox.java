@@ -5,16 +5,18 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import slogo.controller.commands.UserCommand;
 
 /**
  * Display box of user defined commands For now, only displays the command name
  *
  * @author David Li
  */
-public class CommandsBox extends ScrollPane implements PropertyChangeListener {
+public class CommandsBox extends ScrollPane {
 
   private final VBox myContents;
   private final List<UserCommandEntry> myUserCommandEntries;
@@ -33,18 +35,19 @@ public class CommandsBox extends ScrollPane implements PropertyChangeListener {
     myUserCommandEntries = new ArrayList<>();
   }
 
-  @Override
-  public void propertyChange(PropertyChangeEvent evt) {
-    String command = (String) evt.getNewValue();
-    if (evt.getPropertyName().equals("ADD")) {
-      addCommand(command);
-    } else if (evt.getPropertyName().equals("UPDATE")) {
-      updateCommand(command);
-    }
-  }
-
   public void setExecuteCommandAction(Consumer<String> response) {
     myConsumer = response;
+  }
+
+  public void setCommands(ObservableList<UserCommand> newValue) {
+    for (int i = 0; i < newValue.size(); i++) {
+      if (i >= myUserCommandEntries.size()) {
+        addCommand(newValue.get(i).getName());
+      }
+      else {
+        updateCommand(newValue.get(i).getName());
+      }
+    }
   }
 
   private void updateCommand(String command) {
