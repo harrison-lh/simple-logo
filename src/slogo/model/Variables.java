@@ -22,7 +22,10 @@ public class Variables {
   }
 
   public double getValue(String key) {
-    return varMap.get(key);
+    if (varMap.containsKey(key)) {
+      return varMap.get(key);
+    }
+    return 0;
   }
 
   public void setValue(String key, double value) {

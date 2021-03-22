@@ -100,8 +100,16 @@ public class GlobalProperties {
     return variableMapProperty;
   }
 
+  public boolean containsVariable(String name) {
+    return variables.containsKey(name);
+  }
+
   public void setVariableValue(String name, double value) {
     variables.setValue(name, value);
+  }
+
+  public void removeVariable(String name) {
+    variables.removeValue(name);
   }
 
   public void addClearScreenListener(EventHandler<ClearScreenEvent> handler) {

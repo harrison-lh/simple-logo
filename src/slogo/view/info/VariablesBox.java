@@ -5,6 +5,7 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import javafx.collections.ObservableMap;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
@@ -57,13 +58,24 @@ public class VariablesBox extends ScrollPane implements LanguageConsumer {
     };
   }
 
-  private void updateVariable(Variable variable) {
-    myVariableEntries.get(myVariableNames.indexOf(variable.getName())).updateVariable(variable.getValue());
+  public void setVariables(ObservableMap<String, Double> newValue) {
+    for (String name : newValue.keySet()) {
+      if (myVariableNames.contains(name)) {
+        updateVariable(name, newValue.get(name));
+      }
+      else {
+        addVariable(name, newValue.get(name));
+      }
+    }
   }
 
-  private void addVariable(Variable variable) {
-    myVariableNames.add(variable.getName());
-    VariableEntry variableEntry = new VariableEntry(variable.getName(), variable.getValue(), myConsumer, language);
+  private void updateVariable(String name, double value) {
+    myVariableEntries.get(myVariableNames.indexOf(name)).updateVariable(value);
+  }
+
+  private void addVariable(String name, double value) {
+    myVariableNames.add(name);
+    VariableEntry variableEntry = new VariableEntry(name, value, myConsumer, language);
     variableEntry.getRectangle().widthProperty().bind(this.widthProperty());
     myVariableEntries.add(variableEntry);
     myContents.getChildren().add(variableEntry);
