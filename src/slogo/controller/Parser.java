@@ -33,14 +33,6 @@ public class Parser implements SelectorTarget<String> {
   private String currentCommandString;
 
   /**
-   * Calls main constructor, passing in an empty command listener
-   */
-  public Parser(TurtleGeneral turtleGeneral, String syntaxLang, GlobalProperties globalProperties) {
-    this(turtleGeneral, syntaxLang, evt -> {
-    }, globalProperties);
-  }
-
-  /**
    * Constructor for the Parser. Takes in a TurtleController to execute Commands on, and an initial
    * syntaxLang to be constructed with.
    *
@@ -48,10 +40,9 @@ public class Parser implements SelectorTarget<String> {
    * @param syntaxLang       The initial language for which this Parser is configured.
    * @param commandsListener
    */
-  public Parser(TurtleGeneral turtleGeneral, String syntaxLang,
-      PropertyChangeListener commandsListener, GlobalProperties globalProperties) {
+  public Parser(TurtleGeneral turtleGeneral, String syntaxLang, GlobalProperties globalProperties) {
     this.turtleGeneral = turtleGeneral;
-    this.lexer = new Lexer(syntaxLang, commandsListener, globalProperties);
+    this.lexer = new Lexer(syntaxLang, globalProperties);
     this.splitText = new LinkedList<>();
     this.tokenizedText = new LinkedList<>();
     this.parsedCommandQueue = new LinkedList<>();

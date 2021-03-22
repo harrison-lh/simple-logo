@@ -27,7 +27,6 @@ public class Lexer {
   private static final String SYNTAX = "Syntax";
   private final List<Entry<String, Pattern>> syntaxSymbols;
 //  private final List<UserCommand> userCommands;
-  private final PropertyChangeListener commandsListener;
   private List<Entry<String, Pattern>> langSymbols;
   private GlobalProperties globalProperties;
 
@@ -38,18 +37,14 @@ public class Lexer {
     syntaxSymbols = instantiateSymbols(SYNTAX);
     langSymbols = new ArrayList<>();
 //    userCommands = new ArrayList<>();
-    commandsListener = evt -> {
-    };
     globalProperties = new GlobalProperties(new Palette().getColorsProperty(), new Variables(), new ArrayList<>());
-    globalProperties.setCommandsListener(commandsListener);
   }
 
   /**
    * Calls main constructor, passing in an empty commands listener
    */
   public Lexer(String syntaxLanguage) {
-    this(syntaxLanguage, e -> {
-    }, new GlobalProperties(new Palette().getColorsProperty(), new Variables(), new ArrayList<>()));
+    this(syntaxLanguage, new GlobalProperties(new Palette().getColorsProperty(), new Variables(), new ArrayList<>()));
   }
 
   /**
@@ -57,13 +52,11 @@ public class Lexer {
    *
    * @param syntaxLanguage The language with which to initialize the symbols.
    */
-  public Lexer(String syntaxLanguage, PropertyChangeListener commandsListener, GlobalProperties globalProperties) {
+  public Lexer(String syntaxLanguage, GlobalProperties globalProperties) {
     syntaxSymbols = instantiateSymbols(SYNTAX);
     langSymbols = instantiateSymbols(syntaxLanguage);
 //    userCommands = new ArrayList<>();
-    this.commandsListener = commandsListener;
     this.globalProperties = globalProperties;
-    this.globalProperties.setCommandsListener(commandsListener);
   }
 
   /**
