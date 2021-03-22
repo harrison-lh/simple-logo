@@ -168,6 +168,10 @@ public class GlobalProperties {
     return userCommandsProperty;
   }
 
+  public Map<String, Double> getVariablesMap() {
+    return variables.getVarMap();
+  }
+
   public boolean containsVariable(String name) {
     return variables.containsKey(name);
   }
