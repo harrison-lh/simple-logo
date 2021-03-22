@@ -26,13 +26,14 @@ public class TurtleGeneral {
     this.turtleArmy = new ArrayList<>();
     palette = new Palette();
     turtleRecruits = new ArrayList<>();
-    globalProperties = new GlobalProperties(palette.getColorsProperty());
+    globalProperties = new GlobalProperties(palette.getColorsProperty(), turtleArmy);
     globalProperties.addClearScreenListener( e -> removeTurtles());
     globalProperties.setMakeNewTurtlesConsumer(this::conscriptTurtle);
     newTurtleConsumer = (param) -> {}; // Fixes headless tests breaking by adding a dummy
   }
 
   public void conscriptTurtle(TurtleController recruitTurtle) {
+    System.out.println("Conscripting turtle");
     turtleRecruits.add(recruitTurtle);
     newTurtleConsumer.accept(new TurtleProperties(recruitTurtle.getTurtle()));
 
@@ -44,9 +45,11 @@ public class TurtleGeneral {
         newTurtleConsumer.accept(new TurtleProperties(freshTurtleController.getTurtle()));
       }
     }
+
   }
 
   public void conscriptTurtle(int id) {
+    System.out.println("Conscripting turtle");
     turtleRecruits.clear();
     if(turtleArmy.size() < id) {
       for(int i = turtleArmy.size() + 1; i <= id; i++) {

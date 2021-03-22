@@ -1,5 +1,6 @@
 package slogo.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Collection;
 import java.util.HashSet;
@@ -37,8 +38,9 @@ public class GlobalProperties {
   private final Map<Integer, String> shapeMap;
   private final Set<Integer> activeTurtleIds;
   private int numTurtlesCreated;
+  private List<TurtleController> turtleArmy;
 
-  public GlobalProperties(ListProperty<Color> paletteProperty) {
+  public GlobalProperties(ListProperty<Color> paletteProperty, List<TurtleController> turtleArmy) {
     backgroundColorProperty = new SimpleObjectProperty<>(DEFAULT_BACKGROUND_COLOR);
     penColorProperty = new SimpleObjectProperty<>(DEFAULT_PEN_COLOR);
     penSizeProperty = new SimpleDoubleProperty(DEFAULT_PEN_SIZE);
@@ -51,6 +53,16 @@ public class GlobalProperties {
     clearScreenEvent = new ClearScreenEvent(this);
     activeTurtleIds = new HashSet<>();
     numTurtlesCreated = 0;
+    this.turtleArmy = turtleArmy;
+  }
+
+  public List<TurtleController> getCopyOfTurtleArmy(){
+    List<TurtleController> turtleArmyCopy = new ArrayList<>();
+    for(TurtleController tc : turtleArmy){
+      turtleArmyCopy.add(tc);
+    }
+
+    return (List<TurtleController>) turtleArmy;
   }
 
   public ObjectProperty<Color> backgroundColorPropertyProperty() {
