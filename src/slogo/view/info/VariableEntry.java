@@ -30,6 +30,7 @@ public class VariableEntry extends ClickableEntry<String> {
     myName = name;
     myValue = value;
     this.language = language;
+    setText(displayText());
   }
 
   public void updateVariable(double value) {
