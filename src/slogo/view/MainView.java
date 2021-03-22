@@ -92,6 +92,7 @@ public class MainView extends BorderPane {
     myCommandsBox.setExecuteCommandAction(command -> executeCommand(command, response));
     myVariablesBox.setExecuteCommandAction(command -> executeCommand(command, response));
     myGraphicalController.setExecuteCommandAction(command -> executeCommand(command, response));
+    myMenuBar.getFileButtons().setCommandConsumer(command -> executeCommand(command, response));
   }
 
 

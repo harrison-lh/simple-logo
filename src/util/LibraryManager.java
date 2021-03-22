@@ -24,26 +24,26 @@ public class LibraryManager {
    * saveVariables saves the contents of varMap to a JSON file, which can then be loaded back in at
    * a later time.
    *
-   * @param filepath The filepath of the JSON file.
+   * @param file The filepath of the JSON file.
    * @param varMap   The map of Strings and Doubles that represents the variables.
    * @throws IOException On invalid filenames and paths
    */
-  public static void saveVariables(String filepath, Map<String, Double> varMap)
+  public static void saveVariables(File file, Map<String, Double> varMap)
       throws IOException {
-    mapper.writeValue(new File(filepath), varMap);
+    mapper.writeValue(file, varMap);
   }
 
   /**
    * saveUserCommands saves the contents of userCommandMap to a JSON file, which can then be loaded
    * back in at a later time.
    *
-   * @param filepath       The filepath of the JSON file.
+   * @param file       The filepath of the JSON file.
    * @param userCommandMap The map of Strings and Strings that represents the commands.
    * @throws IOException On invalid filenames and paths
    */
-  public static void saveUserCommands(String filepath, Map<String, String> userCommandMap)
+  public static void saveUserCommands(File file, Map<String, String> userCommandMap)
       throws IOException {
-    mapper.writeValue(new File(filepath),
+    mapper.writeValue(file,
         userCommandMap);
   }
 
@@ -51,14 +51,14 @@ public class LibraryManager {
    * loadVariables converts the contents of the provided JSON into a command String that can be
    * passed to the Parser to populate the environment with the variable contents thereof.
    *
-   * @param filepath The filepath of the JSON to load
+   * @param file The filepath of the JSON to load
    * @return A properly formatted command String that will load the variables from the JSON into the
    * environment.
    * @throws IOException If file is unable to be located or read.
    */
-  public static String loadVariables(String filepath) throws IOException {
+  public static String loadVariables(File file) throws IOException {
     Map<String, Double> varMap
-        = mapper.readValue(new File(filepath),
+        = mapper.readValue(file,
         new TypeReference<>() {
         });
     StringBuilder loadVarCommand = new StringBuilder();
@@ -73,14 +73,14 @@ public class LibraryManager {
    * loadUserCommands converts the contents of the provided JSON into a command String that can be
    * passed to the Parser to populate the environment with the user-command contents thereof.
    *
-   * @param filepath The filepath of the JSON to load
+   * @param file The filepath of the JSON to load
    * @return A properly formatted command String that will load the user-commands from the JSON into
    * the environment.
    * @throws IOException If the file is unable to be located or read.
    */
-  public static String loadUserCommands(String filepath) throws IOException {
+  public static String loadUserCommands(File file) throws IOException {
     Map<String, String> userCommandMap
-        = mapper.readValue(new File(filepath),
+        = mapper.readValue(file,
         new TypeReference<>() {
         });
     StringBuilder loadUserCommand = new StringBuilder();

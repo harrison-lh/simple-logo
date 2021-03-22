@@ -23,6 +23,7 @@ public class MenuBar extends HBox {
   private final TurtleSelector myTurtleSelector;
   private final PenSelector myPenSelector;
   private final LanguageSelector myLanguageSelector;
+  private final FileButtons myFileButtons;
   private final HelpWindow myHelpWindow;
 
   /**
@@ -39,6 +40,7 @@ public class MenuBar extends HBox {
     myPenSelector = new PenSelector();
     myLanguageSelector = new LanguageSelector();
     myHelpWindow = new HelpWindow();
+    myFileButtons = new FileButtons();
 
     Button infoButton = new Button("?");
     infoButton.setId("InfoButton");
@@ -51,7 +53,7 @@ public class MenuBar extends HBox {
 
     this.getChildren()
         .addAll(myBackgroundSelector, myGridSelector, myTurtleSelector, myPenSelector,
-            myLanguageSelector, spacer, new FileButtons(), infoButton);
+            myLanguageSelector, spacer, myFileButtons, infoButton);
   }
 
   public MenuBarSelector<Color> getBackgroundSelector() {
@@ -72,6 +74,10 @@ public class MenuBar extends HBox {
 
   public LanguageSelector getLanguageSelector() {
     return myLanguageSelector;
+  }
+
+  public FileButtons getFileButtons() {
+    return myFileButtons;
   }
 
   public boolean helpWindowIsOpen() {
