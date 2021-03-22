@@ -1,10 +1,8 @@
 package slogo.controller;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -14,17 +12,16 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.MapProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SetProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleSetProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.scene.paint.Color;
-import slogo.model.Variables;
 import slogo.controller.commands.UserCommand;
+import slogo.model.Variables;
 
 public class GlobalProperties {
 
@@ -43,7 +40,8 @@ public class GlobalProperties {
   private Consumer<Integer> makeNewTurtlesConsumer;
   private final Map<Integer, String> shapeMap;
   private final List<UserCommand> userCommands;
-  private PropertyChangeListener commandsListener;
+  private final Map<String, String> userCommandsMap;
+  private final ListProperty<UserCommand> userCommandsProperty;
   private final Set<Integer> activeTurtleIds;
   private int numTurtlesCreated;
   private final Variables variables;
@@ -67,11 +65,8 @@ public class GlobalProperties {
     this.variableMapProperty = variables.getMapProperty();
     this.turtleArmy = turtleArmy;
     userCommands = new ArrayList<>();
-
-  }
-
-  public void setCommandsListener(PropertyChangeListener commandsListener){
-    this.commandsListener = commandsListener;
+    userCommandsMap = new HashMap<>();
+    userCommandsProperty = new SimpleListProperty<>(FXCollections.observableArrayList(userCommands));
   }
 
   /**
@@ -81,6 +76,8 @@ public class GlobalProperties {
    */
   public void deleteUserCommand(String name) {
     userCommands.removeIf(command -> command.getName().equals(name));
+    updateCommandsMap();
+    userCommandsProperty.setValue(FXCollections.observableArrayList(userCommands));
   }
 
   /**
@@ -90,16 +87,12 @@ public class GlobalProperties {
    */
   public void addUserCommand(UserCommand command) {
     if (containsUserCommand(command.getName())) {
-      commandsListener
-          .propertyChange(
-              new PropertyChangeEvent(this, "UPDATE", command.getName(), command.getName()));
       getUserCommand(command.getName()).updateCommand(command);
     } else {
-      commandsListener
-          .propertyChange(
-              new PropertyChangeEvent(this, "ADD", command.getName(), command.getName()));
       userCommands.add(command);
     }
+    updateCommandsMap();
+    userCommandsProperty.setValue(FXCollections.observableArrayList(userCommands));
   }
 
   /**
@@ -173,6 +166,14 @@ public class GlobalProperties {
 
   public MapProperty<String, Double> variableMapPropertyProperty() {
     return variableMapProperty;
+  }
+
+  public ListProperty<UserCommand> userCommandsProperty() {
+    return userCommandsProperty;
+  }
+
+  public Map<String, Double> getVariablesMap() {
+    return variables.getVarMap();
   }
 
   public boolean containsVariable(String name) {
@@ -249,5 +250,15 @@ public class GlobalProperties {
 
   public int getNumTurtlesCreated() {
     return numTurtlesCreated;
+  }
+
+  public Map<String, String> getCommandsMap() {
+    return userCommandsMap;
+  }
+
+  private void updateCommandsMap() {
+    userCommands.forEach(command -> {
+      userCommandsMap.put(command.getName(), command.getFullCommand());
+    });
   }
 }

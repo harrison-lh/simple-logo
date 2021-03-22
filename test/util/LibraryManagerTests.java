@@ -26,7 +26,7 @@ public class LibraryManagerTests {
     testVars.put(":DUKE", 2022.0);
 
     try {
-      LibraryManager.saveVariables("resources/libraries/variables/test.json", testVars);
+      LibraryManager.saveVariables(new File("resources/libraries/variables/test.json"), testVars);
     } catch (IOException e) {
       System.err.println(e.getMessage());
       fail("Failed to create file!");
@@ -44,7 +44,7 @@ public class LibraryManagerTests {
         "TO equilateral_triangle [ ] [ repeat 3 [ rt 120 fd 50 ] ]");
 
     try {
-      LibraryManager.saveUserCommands("resources/libraries/user-commands/test.json",
+      LibraryManager.saveUserCommands(new File("resources/libraries/user-commands/test.json"),
           testUserCommands);
     } catch (IOException e) {
       System.err.println(e.getMessage());
@@ -60,13 +60,13 @@ public class LibraryManagerTests {
     String loadVarsCommand = "";
     try {
       loadVarsCommand =
-          LibraryManager.loadVariables("resources/libraries/variables/test.json");
+          LibraryManager.loadVariables(new File("resources/libraries/variables/test.json"));
     } catch (IOException e) {
       System.err.println(e.getMessage());
       fail("Failed to read file!");
     }
     assertEquals(loadVarsCommand, "MAKE :DUKE 2022.0 MAKE :A 50.0 MAKE :B 75.0");
-    System.out.println(loadVarsCommand);
+//    System.out.println(loadVarsCommand);
   }
 
   @Test
@@ -74,23 +74,23 @@ public class LibraryManagerTests {
     String loadUserCommands = "";
     try {
       loadUserCommands =
-          LibraryManager.loadUserCommands("resources/libraries/user-commands/test.json");
+          LibraryManager.loadUserCommands(new File("resources/libraries/user-commands/test.json"));
     } catch (IOException e) {
       System.err.println(e.getMessage());
       fail("Failed to read file!");
     }
     assertEquals(loadUserCommands, "TO square [ ] [ repeat 4 [ fd 50 rt 90 ] ]\n"
         + "TO equilateral_triangle [ ] [ repeat 3 [ rt 120 fd 50 ] ]");
-    System.out.println(loadUserCommands);
+//    System.out.println(loadUserCommands);
   }
 
   @Test
   public void testErrorHandling() {
     assertThrows(IOException.class, () -> {
-      LibraryManager.loadUserCommands("BAD PATH!");
+      LibraryManager.loadUserCommands(new File("BAD PATH!"));
     });
     assertThrows(IOException.class, () -> {
-      LibraryManager.loadVariables("BAD PATH!");
+      LibraryManager.loadVariables(new File("BAD PATH!"));
     });
   }
 }

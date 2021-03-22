@@ -26,6 +26,7 @@ public class TurtleEntry extends Label {
       penActive = newValue;
       updateString();
     }));
+    penActive = turtleProperties.penActiveProperty().getValue();
     updateString();
   }
 

@@ -1,6 +1,5 @@
 package slogo.controller;
 
-import slogo.model.GridCoordinates;
 import slogo.model.Turtle;
 import slogo.view.MainView;
 
@@ -30,8 +29,7 @@ public class Controller {
 //    TurtleController initController = new TurtleController(myTurtle,
 //        myTurtleGeneral.getGlobalProperties());
     myTurtleGeneral.setNewTurtleConsumer(myMainView.newTurtleConsumer());
-    myParser = new Parser(myTurtleGeneral, DEFAULT_LANGUAGE, myMainView.getCommandsListener(),
-        myTurtleGeneral.getGlobalProperties());
+    myParser = new Parser(myTurtleGeneral, DEFAULT_LANGUAGE, myTurtleGeneral.getGlobalProperties());
     myTurtleGeneral.createFirstTurtle();
     myTurtle = myTurtleGeneral.getTurtleArmy().get(0).getTurtle();
     myTurtleGeneral.getGlobalProperties().addActiveTurtleId(1);

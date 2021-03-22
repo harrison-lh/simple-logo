@@ -33,14 +33,6 @@ public class Parser implements SelectorTarget<String> {
   private String currentCommandString;
 
   /**
-   * Calls main constructor, passing in an empty command listener
-   */
-  public Parser(TurtleGeneral turtleGeneral, String syntaxLang, GlobalProperties globalProperties) {
-    this(turtleGeneral, syntaxLang, evt -> {
-    }, globalProperties);
-  }
-
-  /**
    * Constructor for the Parser. Takes in a TurtleController to execute Commands on, and an initial
    * syntaxLang to be constructed with.
    *
@@ -48,10 +40,9 @@ public class Parser implements SelectorTarget<String> {
    * @param syntaxLang       The initial language for which this Parser is configured.
    * @param commandsListener
    */
-  public Parser(TurtleGeneral turtleGeneral, String syntaxLang,
-      PropertyChangeListener commandsListener, GlobalProperties globalProperties) {
+  public Parser(TurtleGeneral turtleGeneral, String syntaxLang, GlobalProperties globalProperties) {
     this.turtleGeneral = turtleGeneral;
-    this.lexer = new Lexer(syntaxLang, commandsListener, globalProperties);
+    this.lexer = new Lexer(syntaxLang, globalProperties);
     this.splitText = new LinkedList<>();
     this.tokenizedText = new LinkedList<>();
     this.parsedCommandQueue = new LinkedList<>();
@@ -171,7 +162,6 @@ public class Parser implements SelectorTarget<String> {
 
   private Command patternMatchCommand(String text) {
     String commandType = lexer.lexLangDefinedCommands(text);
-    System.out.println(commandType);
     if (commandType.equals("MakeUserInstruction") && tokenizedText.peek() == Token.COMMAND) {
       tokenizedText.poll();
       return new MakeUserInstructionCommand(splitText.poll(), lexer, currentCommandString);
@@ -307,9 +297,9 @@ public class Parser implements SelectorTarget<String> {
     }
     mapTokensToCommands();
     assembleCommandQueue();
-    for (Command command : assembledCommandQueue) {
-      System.out.println(command);
-    }
+//    for (Command command : assembledCommandQueue) {
+//      System.out.println(command);
+//    }
     Set<Integer> curActiveTurtleIds = turtleGeneral.getGlobalProperties().getActiveTurtleIds();
     for(TurtleController controller : turtleGeneral.getTurtleArmy()) {
       if(curActiveTurtleIds.contains(controller.getTurtle().getId()))

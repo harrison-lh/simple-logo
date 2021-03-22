@@ -1,5 +1,6 @@
 package slogo.view.info;
 
+import java.util.List;
 import java.util.function.Consumer;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -15,16 +16,27 @@ import slogo.view.ClickableEntry;
  */
 public class UserCommandEntry extends ClickableEntry<String> {
 
-  private final String myCommand;
+  private String myCommand;
+  private List<String> myParameters;
 
   /**
    * Main constructor
    * @param command Name of the user command
+   * @param parameters
    * @param consumer
    */
-  public UserCommandEntry(String command, Consumer<String> consumer) {
+  public UserCommandEntry(String command, List<String> parameters,
+      Consumer<String> consumer) {
     super(command, consumer);
     myCommand = command;
+    myParameters = parameters;
+    setText(displayText());
+  }
+
+  public void updateCommand(String command, List<String> parameters) {
+    myCommand = command;
+    myParameters = parameters;
+    setText(displayText());
   }
 
   /**
@@ -36,4 +48,14 @@ public class UserCommandEntry extends ClickableEntry<String> {
     // TODO: figure out how to pass parameters
     consumer.accept(myCommand);
   }
+
+  private String displayText() {
+    String text = myCommand + " [ ";
+    for (String param : myParameters) {
+      text += param.substring(1) + " ";
+    }
+    text += " ]";
+    return text;
+  }
+
 }

@@ -582,37 +582,37 @@ public class ParserTests {
           parser.parseCommandString("df 50");
         }
     );
-    System.out.println(exception.getMessage());
+//    System.out.println(exception.getMessage());
 
     exception = assertThrows(IllegalArgumentException.class, () -> {
           parser.parseCommandString("repeat 5 [ fd 50 [");
         }
     );
-    System.out.println(exception.getMessage());
+//    System.out.println(exception.getMessage());
 
     exception = assertThrows(IllegalArgumentException.class, () -> {
           parser.parseCommandString("");
         }
     );
-    System.out.println(exception.getMessage());
+//    System.out.println(exception.getMessage());
 
     exception = assertThrows(IllegalArgumentException.class, () -> {
           parser.parseCommandString("RIP 'EM UP TEAR 'EM UP GIVE 'EM HELL DUKE!");
         }
     );
-    System.out.println(exception.getMessage());
+//    System.out.println(exception.getMessage());
 
     exception = assertThrows(IllegalArgumentException.class, () -> {
           parser.parseCommandString("repeat 5 [ ava 50 ]");
         }
     );
-    System.out.println(exception.getMessage());
+//    System.out.println(exception.getMessage());
 
     exception = assertThrows(NullPointerException.class, () -> {
           parser.parseCommandString("setxy 50");
         }
     );
-    System.out.println(exception.getMessage());
+//    System.out.println(exception.getMessage());
   }
 
   @Test
@@ -714,7 +714,7 @@ public class ParserTests {
           parser.parseCommandString("( set :x 100 :y 200 :z )");
         }
     );
-    System.out.println(exception.getMessage());
+//    System.out.println(exception.getMessage());
   }
 
   @Test

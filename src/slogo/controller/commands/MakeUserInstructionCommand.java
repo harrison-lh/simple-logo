@@ -42,7 +42,7 @@ public class MakeUserInstructionCommand extends Command {
       if(lexer.containsUserCommand(name)){
         lexer.deleteUserCommand(name);
       }
-      lexer.addUserCommand(new UserCommand(name, varNames, commands));
+      lexer.addUserCommand(new UserCommand(name, fullCommand, varNames, commands));
 
       return 1;
     } catch (Exception e){

@@ -86,7 +86,6 @@ public class CharacterReaderTests {
       // Catch the StringIndexOutOfBoundsException, and finish consuming the String in single char bits
       while(!reader.isEOF()) {
         // Multiple calls to consumeSingleCharacter should consume the String one character at a time
-        System.out.println("Ranging error caught!!!");
         assertEquals(reader.consumeSingleCharacter(), HELLO_SLOGO_ODD.substring(curIndex, ++curIndex));
       }
     }

@@ -24,17 +24,19 @@ public class UserCommand extends Command {
   private String name;
   private List<String> parameters;
   private ListCommandHead commands;
+  private String fullCommand;
 
   public UserCommand(){
-    this(defaultName, defaultParams, defaultCommands);
+    this(defaultName, defaultName, defaultParams, defaultCommands);
   }
 
   public UserCommand(UserCommand commandToCopy){
-    this(commandToCopy.name, commandToCopy.parameters, commandToCopy.commands);
+    this(commandToCopy.name, commandToCopy.fullCommand, commandToCopy.parameters, commandToCopy.commands);
   }
 
-  public UserCommand(String name, List<String> parameters, ListCommandHead commands){
+  public UserCommand(String name, String fullName, List<String> parameters, ListCommandHead commands){
     this.name = name;
+    this.fullCommand = fullName;
     this.parameters = parameters;
     this.commands = commands;
     setNumParams(parameters.size());
@@ -42,6 +44,14 @@ public class UserCommand extends Command {
 
   public String getName(){
     return name;
+  }
+
+  public String getFullCommand() {
+    return fullCommand;
+  }
+
+  public List<String> getParameters() {
+    return parameters;
   }
 
   public void updateCommand(UserCommand command) {

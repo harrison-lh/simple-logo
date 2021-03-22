@@ -70,13 +70,6 @@ public class MainView extends BorderPane {
   }
 
   /**
-   * @return The elements that listens for user-defined commands updates in the model
-   */
-  public PropertyChangeListener getCommandsListener() {
-    return myCommandsBox;
-  }
-
-  /**
    * @return The language selector
    */
   public Selector<String> getLanguageSelector() {
@@ -99,6 +92,7 @@ public class MainView extends BorderPane {
     myCommandsBox.setExecuteCommandAction(command -> executeCommand(command, response));
     myVariablesBox.setExecuteCommandAction(command -> executeCommand(command, response));
     myGraphicalController.setExecuteCommandAction(command -> executeCommand(command, response));
+    myMenuBar.getFileButtons().setCommandConsumer(command -> executeCommand(command, response));
   }
 
 
@@ -141,8 +135,14 @@ public class MainView extends BorderPane {
     myGlobalProperties.variableMapPropertyProperty().addListener(((observable, oldValue, newValue) -> {
       myVariablesBox.setVariables(newValue);
     }));
+    myGlobalProperties.userCommandsProperty().addListener(((observable, oldValue, newValue) -> {
+//      System.out.println("new command");
+      myCommandsBox.setCommands(newValue);
+    }));
     myPalettesBox.setColors(myGlobalProperties.paletteProperty());
     myPalettesBox.setShapes(myGlobalProperties.getShapeMap());
+    myMenuBar.getFileButtons().setVariablesMap(myGlobalProperties.getVariablesMap());
+    myMenuBar.getFileButtons().setCommands(myGlobalProperties.getCommandsMap());
     myGlobalProperties.addClearScreenListener(e -> clearScreen());
   }
 

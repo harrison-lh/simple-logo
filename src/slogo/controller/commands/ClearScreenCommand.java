@@ -1,7 +1,9 @@
 package slogo.controller.commands;
 
+import java.util.List;
 import slogo.controller.Command;
 import slogo.controller.GlobalProperties;
+import slogo.controller.TurtleController;
 import slogo.model.Turtle;
 
 /**
@@ -30,8 +32,15 @@ public class ClearScreenCommand extends Command {
    */
   @Override
   protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
-    Command goHome = new HomeCommand();
-    double distance = goHome.execute(turtle, globalProperties);
+    List<TurtleController> turtleArmy = globalProperties.getCopyOfTurtleArmy();
+
+    double distance = 0;
+    for(TurtleController tc : turtleArmy){
+      Command goHome = new HomeCommand();
+      distance = goHome.execute(tc.getTurtle(), globalProperties);
+      Command penDown = new PenDownCommand();
+      penDown.execute(tc.getTurtle(), globalProperties);
+    }
     globalProperties.clearScreen();
     return distance;
   }
