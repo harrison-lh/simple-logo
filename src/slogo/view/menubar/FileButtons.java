@@ -18,6 +18,7 @@ public class FileButtons extends HBox {
   private Consumer<String> commandConsumer;
   private Map<String, Double> variables;
   private Map<String, String> commands;
+  private FileChooser fileChooser;
 
   public FileButtons() {
     VBox variablesButtons = new VBox();
@@ -36,6 +37,9 @@ public class FileButtons extends HBox {
 
     this.setSpacing(10);
     this.getChildren().addAll(variablesButtons, commandsButtons);
+
+    fileChooser = new FileChooser();
+    fileChooser.setInitialDirectory(new File(LIBRARIES_PATH));
   }
 
   public void setVariablesMap(Map<String, Double> map) {
@@ -51,8 +55,6 @@ public class FileButtons extends HBox {
   }
 
   private void loadCommands() {
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setInitialDirectory(new File(LIBRARIES_PATH));
     File file = fileChooser.showOpenDialog(null);
     try {
       String command = LibraryManager.loadVariables(file);
@@ -64,8 +66,6 @@ public class FileButtons extends HBox {
   }
 
   private void saveCommands() {
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setInitialDirectory(new File(LIBRARIES_PATH));
     File file = fileChooser.showOpenDialog(null);
     try {
       LibraryManager.saveUserCommands(file, commands);
@@ -76,8 +76,6 @@ public class FileButtons extends HBox {
   }
 
   private void loadVariables() {
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setInitialDirectory(new File(LIBRARIES_PATH));
     File file = fileChooser.showOpenDialog(null);
     try {
       String command = LibraryManager.loadVariables(file);
@@ -89,8 +87,6 @@ public class FileButtons extends HBox {
   }
 
   private void saveVariables() {
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setInitialDirectory(new File(LIBRARIES_PATH));
     File file = fileChooser.showOpenDialog(null);
     try {
       LibraryManager.saveVariables(file, variables);
