@@ -1,0 +1,1 @@
+{"color_flower_trippy":"to color_flower_trippy [ ] [ repeat 18 [ setpencolor random 10 repeat 180 [ fd 3 rt 2 ] rt 20 setpensize random 20 ] setbg random 10 ]"}

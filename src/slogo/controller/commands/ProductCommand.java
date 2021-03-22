@@ -8,7 +8,7 @@ public class ProductCommand extends Command {
 
   private static final int NUM_PARAMS = 2;
 
-  public ProductCommand(){
+  public ProductCommand() {
     setNumParams(NUM_PARAMS);
   }
 

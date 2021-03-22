@@ -5,7 +5,6 @@ import java.util.function.Consumer;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextInputDialog;
-import slogo.controller.Controller;
 import slogo.controller.Lexer;
 import slogo.view.ClickableEntry;
 
@@ -20,8 +19,9 @@ public class VariableEntry extends ClickableEntry<String> {
 
   /**
    * Main constructor
-   * @param name Variable name
-   * @param value Variable value
+   *
+   * @param name     Variable name
+   * @param value    Variable value
    * @param consumer Consumer of change variable command
    * @param language Current language
    */
@@ -52,7 +52,7 @@ public class VariableEntry extends ClickableEntry<String> {
       try {
         double newValue = Double.parseDouble(result);
         consumer.accept(setVariableCommand(newValue));
-      } catch(NumberFormatException exception) {
+      } catch (NumberFormatException exception) {
         Alert alert = new Alert(AlertType.ERROR, "Invalid input");
         alert.showAndWait();
       }

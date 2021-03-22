@@ -5,8 +5,8 @@ import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
- * LessThan is a type of Command that compares two values and checks whether the first value is strictly
- * less than the second value.
+ * LessThan is a type of Command that compares two values and checks whether the first value is
+ * strictly less than the second value.
  *
  * @author Harrison Huang
  */
@@ -25,7 +25,7 @@ public class LessThanCommand extends Command {
   /**
    * Compares two values to see if the first is less than the second.
    *
-   * @param turtle The current turtle
+   * @param turtle           The current turtle
    * @param globalProperties
    * @return 1 if first is less than second, else 0
    */

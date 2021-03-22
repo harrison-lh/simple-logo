@@ -25,7 +25,7 @@ public class EqualCommand extends Command {
   /**
    * Compares two values to see if the first is equal to the second.
    *
-   * @param turtle The current turtle
+   * @param turtle           The current turtle
    * @param globalProperties
    * @return 1 if first is equal to second, else 0
    */

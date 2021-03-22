@@ -24,7 +24,7 @@ public class SetPositionCommand extends Command {
   /**
    * Sets the position of the turtle to be at the specified coordinates.
    *
-   * @param turtle The turtle to be set
+   * @param turtle           The turtle to be set
    * @param globalProperties
    * @return The distance the turtle moved
    */

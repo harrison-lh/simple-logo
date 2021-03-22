@@ -4,8 +4,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
 /**
- * Display panel for information about the turtles, variables, commands,
- * and palettes.
+ * Display panel for information about the turtles, variables, commands, and palettes.
  *
  * @author David Li
  */

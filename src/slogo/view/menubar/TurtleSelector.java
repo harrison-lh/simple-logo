@@ -1,11 +1,7 @@
 package slogo.view.menubar;
 
-import java.util.function.Consumer;
 import javafx.beans.property.Property;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
-import slogo.view.Selector;
 
 /**
  * Selector for turtle image

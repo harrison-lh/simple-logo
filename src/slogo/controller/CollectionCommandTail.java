@@ -15,7 +15,7 @@ public class CollectionCommandTail extends Command {
 
 
   @Override
-  public String toString(){
+  public String toString() {
     return "CollectionCommandTail";
   }
 }

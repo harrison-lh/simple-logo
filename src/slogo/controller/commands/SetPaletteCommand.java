@@ -25,7 +25,7 @@ public class SetPaletteCommand extends Command {
   /**
    * Sets the index of the palette to have the given RBG color.
    *
-   * @param turtle The current active turtle
+   * @param turtle           The current active turtle
    * @param globalProperties
    * @return The index that was set
    */

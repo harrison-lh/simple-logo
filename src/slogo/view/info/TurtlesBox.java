@@ -12,6 +12,7 @@ import slogo.controller.TurtleProperties;
 public class TurtlesBox extends ScrollPane {
 
   private final VBox myContents;
+
   /**
    * Main constructor
    */

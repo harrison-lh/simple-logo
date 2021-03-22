@@ -8,7 +8,7 @@ public class PenDownCommand extends Command {
 
   private static final int NUM_PARAMS = 0;
 
-  public PenDownCommand(){
+  public PenDownCommand() {
     setNumParams(NUM_PARAMS);
   }
 

@@ -25,21 +25,9 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
 
   private final GridLines myGridLines;
   private final TurtlesContainer myTurtlesContainer;
-  private TurtleView myTurtleView;
   private final Pen myPen;
   private final Pane myPenLines;
-
-  public static double convertXCoordinate(double x) {
-    return x;
-  }
-
-  public static double convertYCoordinate(double y) {
-    return -1 * y;
-  }
-
-  public static double convertHeading(double heading) {
-    return (90 - heading);
-  }
+  private TurtleView myTurtleView;
 
   public TurtleCanvas() {
     this.setId("TurtleCanvas");
@@ -54,6 +42,18 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     this.getChildren().addAll(myGridLines, myPenLines);
 
     myTurtlesContainer = new TurtlesContainer();
+  }
+
+  public static double convertXCoordinate(double x) {
+    return x;
+  }
+
+  public static double convertYCoordinate(double y) {
+    return -1 * y;
+  }
+
+  public static double convertHeading(double heading) {
+    return (90 - heading);
   }
 
   public TurtleView getTurtleView() {

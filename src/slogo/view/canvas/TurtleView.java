@@ -21,11 +21,10 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
   public static final String DEFAULT_TURTLE = "turtle-default.png";
   public static final String REALISTIC_TURTLE = "turtle-realistic.png";
   private static final double HEIGHT = 40;
-
-  private Image myTurtleImage;
   private final Coordinates coordinates;
-  private Coordinates prevCoordinates;
   private final BooleanProperty isPenActive;
+  private Image myTurtleImage;
+  private Coordinates prevCoordinates;
   private Consumer<PenLine> myDrawConsumer;
 
   /**
@@ -41,7 +40,8 @@ public class TurtleView extends ImageView implements SelectorTarget<String> {
     this.setSmooth(true);
     this.setCache(true);
 
-    myDrawConsumer = penLine -> {};
+    myDrawConsumer = penLine -> {
+    };
     coordinates = turtleProperties.getCoordinates();
     prevCoordinates = new GridCoordinates(coordinates);
     isPenActive = turtleProperties.penActiveProperty();

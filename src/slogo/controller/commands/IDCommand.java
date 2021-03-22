@@ -24,7 +24,7 @@ public class IDCommand extends Command {
   /**
    * Gets the current turtle ID.
    *
-   * @param turtle The current active turtle
+   * @param turtle           The current active turtle
    * @param globalProperties
    * @return The current turtle ID
    */

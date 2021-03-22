@@ -10,8 +10,8 @@ import slogo.view.Selector;
 
 /**
  * Abstract class for menu bar selectors
- * @param <T> Type of variable that gets passed to the consumer
  *
+ * @param <T> Type of variable that gets passed to the consumer
  * @author David Li
  */
 public abstract class MenuBarSelector<T> extends VBox implements Selector<T> {
@@ -33,13 +33,6 @@ public abstract class MenuBarSelector<T> extends VBox implements Selector<T> {
     this.getChildren().addAll(label, myComboBoxBase);
   }
 
-  public void setGlobalProperty(Property<T> property) {
-    myGlobalProperty = property;
-    myGlobalProperty.addListener(((observable, oldValue, newValue) -> {
-      myComboBoxBase.setValue(newValue);
-    }));
-  }
-
   /**
    * Passes the selected value to the consumer
    */
@@ -56,5 +49,12 @@ public abstract class MenuBarSelector<T> extends VBox implements Selector<T> {
 
   protected Property<T> getGlobalProperty() {
     return myGlobalProperty;
+  }
+
+  public void setGlobalProperty(Property<T> property) {
+    myGlobalProperty = property;
+    myGlobalProperty.addListener(((observable, oldValue, newValue) -> {
+      myComboBoxBase.setValue(newValue);
+    }));
   }
 }

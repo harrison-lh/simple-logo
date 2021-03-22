@@ -8,7 +8,7 @@ public class MinusCommand extends Command {
 
   private static final int NUM_PARAMS = 1;
 
-  public MinusCommand(){
+  public MinusCommand() {
     setNumParams(NUM_PARAMS);
   }
 

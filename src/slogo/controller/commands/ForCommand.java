@@ -26,23 +26,27 @@ public class ForCommand extends Command {
   /**
    * Implementation of the ForCommand, which is functionally equivalent to SLogo for-loops.
    *
-   * @param turtle The turtle on which the Commands are acting
+   * @param turtle           The turtle on which the Commands are acting
    * @param globalProperties
    * @return Returns the return value of the last operation.
    */
   @Override
   protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
 
-    VariableCommand varCommand = ( (VariableCommand) ( (ListCommandHead) getChildren().get(0)).getInnerChildren().get(VAR_INDEX));
-    double start = ( (ListCommandHead) getChildren().get(0)).getInnerChildren().get(START_INDEX).execute(turtle, globalProperties);
-    double end = ( (ListCommandHead) getChildren().get(0)).getInnerChildren().get(END_INDEX).execute(turtle, globalProperties);
-    double increment = ( (ListCommandHead) getChildren().get(0)).getInnerChildren().get(INCREMENT_INDEX).execute(turtle, globalProperties);
+    VariableCommand varCommand = ((VariableCommand) ((ListCommandHead) getChildren().get(0))
+        .getInnerChildren().get(VAR_INDEX));
+    double start = ((ListCommandHead) getChildren().get(0)).getInnerChildren().get(START_INDEX)
+        .execute(turtle, globalProperties);
+    double end = ((ListCommandHead) getChildren().get(0)).getInnerChildren().get(END_INDEX)
+        .execute(turtle, globalProperties);
+    double increment = ((ListCommandHead) getChildren().get(0)).getInnerChildren()
+        .get(INCREMENT_INDEX).execute(turtle, globalProperties);
 
     double lastVal = 0;
     varCommand.setValue(start);
     globalProperties.setVariableValue(varCommand.getName(), varCommand.getValue());
 
-    for(double i = start; i < end; i += increment){
+    for (double i = start; i < end; i += increment) {
       globalProperties.setVariableValue(varCommand.getName(), i);
       lastVal = getChildren().get(1).execute(turtle, globalProperties);
     }

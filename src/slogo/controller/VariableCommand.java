@@ -3,9 +3,9 @@ package slogo.controller;
 import slogo.model.Turtle;
 
 /**
- * VariableCommand is a subclass of Command the implements the behavior of variables within SLogo code.
- * VariableCommand has a name and a value, like normal variables, and getters and setters for each.
- * Upon calling execute, VariableCommand simply returns its current value.
+ * VariableCommand is a subclass of Command the implements the behavior of variables within SLogo
+ * code. VariableCommand has a name and a value, like normal variables, and getters and setters for
+ * each. Upon calling execute, VariableCommand simply returns its current value.
  *
  * @author Marc Chmielewski
  */
@@ -14,8 +14,8 @@ public class VariableCommand extends ConstantCommand {
   private String name;
 
   /**
-   * Common case constructor for VariableCommand. Takes in a String name, and a double value and maps
-   * them to each other.
+   * Common case constructor for VariableCommand. Takes in a String name, and a double value and
+   * maps them to each other.
    *
    * @param name  The name of the variable.
    * @param value The value of the variable.
@@ -39,7 +39,7 @@ public class VariableCommand extends ConstantCommand {
   /**
    * Execution behavior of the VariableCommand. Simply returns its value.
    *
-   * @param turtle The turtle to which this VariableCommand belongs
+   * @param turtle           The turtle to which this VariableCommand belongs
    * @param globalProperties
    * @return The value of the VariableCommand.
    */

@@ -5,12 +5,11 @@ import java.util.Map;
 import javafx.beans.property.MapProperty;
 import javafx.beans.property.SimpleMapProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableMap;
 
 public class Variables {
 
-  private Map<String, Double> varMap;
   private final MapProperty<String, Double> mapProperty;
+  private Map<String, Double> varMap;
 
   public Variables() {
     varMap = new HashMap<>();
@@ -33,7 +32,7 @@ public class Variables {
     mapProperty.setValue(FXCollections.observableMap(varMap));
   }
 
-  public void removeValue(String key){
+  public void removeValue(String key) {
     varMap.remove(key);
   }
 

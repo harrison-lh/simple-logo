@@ -1,13 +1,11 @@
 package slogo.view;
 
 import java.util.function.Consumer;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import slogo.controller.GlobalProperties;
 
-public class Pen implements SelectorTarget<Color>{
+public class Pen implements SelectorTarget<Color> {
 
   private Color color = GlobalProperties.DEFAULT_PEN_COLOR;
   private double size = GlobalProperties.DEFAULT_PEN_SIZE;

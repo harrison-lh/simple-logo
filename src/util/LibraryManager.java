@@ -24,8 +24,8 @@ public class LibraryManager {
    * saveVariables saves the contents of varMap to a JSON file, which can then be loaded back in at
    * a later time.
    *
-   * @param file The filepath of the JSON file.
-   * @param varMap   The map of Strings and Doubles that represents the variables.
+   * @param file   The filepath of the JSON file.
+   * @param varMap The map of Strings and Doubles that represents the variables.
    * @throws IOException On invalid filenames and paths
    */
   public static void saveVariables(File file, Map<String, Double> varMap)
@@ -37,7 +37,7 @@ public class LibraryManager {
    * saveUserCommands saves the contents of userCommandMap to a JSON file, which can then be loaded
    * back in at a later time.
    *
-   * @param file       The filepath of the JSON file.
+   * @param file           The filepath of the JSON file.
    * @param userCommandMap The map of Strings and Strings that represents the commands.
    * @throws IOException On invalid filenames and paths
    */

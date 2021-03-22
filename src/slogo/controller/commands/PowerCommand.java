@@ -25,7 +25,7 @@ public class PowerCommand extends Command {
   /**
    * Returns the first value to the power of the second value.
    *
-   * @param turtle The current turtle
+   * @param turtle           The current turtle
    * @param globalProperties
    * @return the first value to the power of the second value
    */

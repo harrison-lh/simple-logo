@@ -2,9 +2,6 @@ package slogo.view.controller;
 
 import java.util.function.Consumer;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
 import slogo.view.LanguageConsumer;
 
 /**

@@ -24,7 +24,7 @@ public class SetPenSizeCommand extends Command {
   /**
    * Sets the pen size to be a certain number of pixels wide.
    *
-   * @param turtle The current active turtle
+   * @param turtle           The current active turtle
    * @param globalProperties
    * @return The given pixel size
    */

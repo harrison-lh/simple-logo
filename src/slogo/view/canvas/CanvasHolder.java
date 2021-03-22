@@ -2,7 +2,6 @@ package slogo.view.canvas;
 
 import java.util.function.Consumer;
 import javafx.geometry.Insets;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;

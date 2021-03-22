@@ -9,8 +9,8 @@ import javafx.scene.shape.Rectangle;
 
 /**
  * Clickable item that carries out some action when clicked.
- * @param <T> Type of variable that gets passed to the consumer
  *
+ * @param <T> Type of variable that gets passed to the consumer
  * @author David Li
  */
 public abstract class ClickableEntry<T> extends StackPane {
@@ -20,6 +20,7 @@ public abstract class ClickableEntry<T> extends StackPane {
 
   /**
    * Main constructor
+   *
    * @param consumer Consumer of clickable action
    */
   public ClickableEntry(Consumer<T> consumer) {
@@ -32,6 +33,7 @@ public abstract class ClickableEntry<T> extends StackPane {
 
   /**
    * Constructor with initial text
+   *
    * @param text Text of label of the entry
    */
   public ClickableEntry(String text, Consumer<T> consumer) {

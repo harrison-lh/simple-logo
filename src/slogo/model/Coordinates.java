@@ -21,12 +21,13 @@ public abstract class Coordinates {
 
   protected double xPos, yPos, heading;
 
-  protected Coordinates(){
+  protected Coordinates() {
     this.xPos = DEFAULT_X;
     this.yPos = DEFAULT_Y;
     this.heading = DEFAULT_HEADING;
   }
-  protected Coordinates(double x, double y, double heading){
+
+  protected Coordinates(double x, double y, double heading) {
     this.xPos = x;
     this.yPos = y;
     this.heading = heading;

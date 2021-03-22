@@ -1,10 +1,7 @@
 package slogo.model;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import slogo.view.Pen;
 
 /**
  * The Turtle is the object that commands of forward and right are put upon, and it contains the
@@ -16,11 +13,11 @@ import slogo.view.Pen;
  */
 public class Turtle {
 
-  private Coordinates coordinates;
+  private final Coordinates coordinates;
   private Variables vars;
   private BooleanProperty isVisibleProperty;
   private BooleanProperty penActiveProperty;
-  private int id;
+  private final int id;
 
   /**
    * Primary constructor for Turtle, which takes initial coordinates, a pen, and a pair of listeners

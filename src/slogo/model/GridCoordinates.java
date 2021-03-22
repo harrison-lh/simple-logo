@@ -46,7 +46,9 @@ public class GridCoordinates extends Coordinates {
   public void setHeading(double heading) {
     if (heading > MAX_DEGREES || heading < 0) {
       heading = heading % MAX_DEGREES;
-      if (heading < 0) heading += MAX_DEGREES;
+      if (heading < 0) {
+        heading += MAX_DEGREES;
+      }
     }
     this.heading = heading;
     updateStringProperty();

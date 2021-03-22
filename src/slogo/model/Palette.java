@@ -5,7 +5,6 @@ import java.util.List;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 
 /**
@@ -15,12 +14,12 @@ import javafx.scene.paint.Color;
  */
 public class Palette {
 
-  List<Color> colors;
   private final ListProperty<Color> colorsProperty;
+  List<Color> colors;
 
   /**
    * Default Palette constructor.
-   *
+   * <p>
    * Creates a Palette with Black and the ROYGBIV colors.
    */
   public Palette() {
@@ -30,13 +29,13 @@ public class Palette {
   }
 
   /**
-   * Set the Color at the provided index of this Palette, with the RGB value provided.
-   * This function contains logic to auto-range out of range RGB values to avoid throwing errors.
+   * Set the Color at the provided index of this Palette, with the RGB value provided. This function
+   * contains logic to auto-range out of range RGB values to avoid throwing errors.
    *
    * @param index The index of the Palette to modify.
-   * @param red The R value for the new Color.
+   * @param red   The R value for the new Color.
    * @param green The G value for the new Color.
-   * @param blue The B value for the new Color.
+   * @param blue  The B value for the new Color.
    */
   public void setColorAtIndex(int index, int red, int green, int blue) {
     Color newColor = Color.rgb(Math.max(0, Math.min(red, 255)),

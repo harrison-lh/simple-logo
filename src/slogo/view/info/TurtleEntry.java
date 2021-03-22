@@ -14,10 +14,11 @@ public class TurtleEntry extends Label {
     myId = turtleProperties.getId();
     coordinates = turtleProperties.getCoordinates().toString();
     visible = turtleProperties.visibleProperty().getValue();
-    turtleProperties.getCoordinates().stringProperty().addListener(((observable, oldValue, newValue) -> {
-      this.coordinates = newValue;
-      updateString();
-    }));
+    turtleProperties.getCoordinates().stringProperty()
+        .addListener(((observable, oldValue, newValue) -> {
+          this.coordinates = newValue;
+          updateString();
+        }));
     turtleProperties.visibleProperty().addListener(((observable, oldValue, newValue) -> {
       visible = newValue;
       updateString();
@@ -31,7 +32,8 @@ public class TurtleEntry extends Label {
   }
 
   private void updateString() {
-    this.setText(myId + ": " + coordinates + "\n   visible - " + visible + "\n   pen active - " + penActive);
+    this.setText(
+        myId + ": " + coordinates + "\n   visible - " + visible + "\n   pen active - " + penActive);
   }
 
 }

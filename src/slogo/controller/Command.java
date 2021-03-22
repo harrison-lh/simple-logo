@@ -16,7 +16,7 @@ import slogo.model.Turtle;
  */
 public abstract class Command {
 
-  private List<Command> children = new ArrayList<>();
+  private final List<Command> children = new ArrayList<>();
   private int numParams = 0;
   private boolean isCollectionEnd = false;
 
@@ -30,16 +30,16 @@ public abstract class Command {
     children.add(child);
   }
 
-  public void setIsCollectionEnd(boolean isListEnd){
-    this.isCollectionEnd = isListEnd;
-  }
-
-  public void clearChildren(){
+  public void clearChildren() {
     children.clear();
   }
 
-  public boolean getIsCollectionEnd(){
+  public boolean getIsCollectionEnd() {
     return isCollectionEnd;
+  }
+
+  public void setIsCollectionEnd(boolean isListEnd) {
+    this.isCollectionEnd = isListEnd;
   }
 
   /**
@@ -55,12 +55,12 @@ public abstract class Command {
    * Executes commands. Runs an additional check that the command has the correct number of
    * parameters in order to execute the command.
    *
-   * @param turtle The turtle on which to run the command
+   * @param turtle           The turtle on which to run the command
    * @param globalProperties
    * @return The double for the return value of each execute
    */
   public double execute(Turtle turtle, GlobalProperties globalProperties) {
-    assert(getChildren().size() == getNumParams());
+    assert (getChildren().size() == getNumParams());
     return executeCommand(turtle, globalProperties);
   }
 
@@ -73,21 +73,21 @@ public abstract class Command {
       GlobalProperties globalProperties);
 
   /**
-   * Sets the number of parameters that the Command takes.
-   *
-   * @param numParams The number of parameters the Command takes
-   */
-  protected void setNumParams(int numParams) {
-    this.numParams = numParams;
-  }
-
-  /**
    * Returns the number of parameters that this Command has.
    *
    * @return The number of parameters that this Command has.
    */
   public int getNumParams() {
     return numParams;
+  }
+
+  /**
+   * Sets the number of parameters that the Command takes.
+   *
+   * @param numParams The number of parameters the Command takes
+   */
+  protected void setNumParams(int numParams) {
+    this.numParams = numParams;
   }
 
 }

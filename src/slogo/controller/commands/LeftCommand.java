@@ -5,8 +5,8 @@ import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
- * LeftCommand is a type of Command that directs the Turtle to rotate left by a specified amount
- * of degrees.
+ * LeftCommand is a type of Command that directs the Turtle to rotate left by a specified amount of
+ * degrees.
  *
  * @author Harrison Huang
  */
@@ -24,7 +24,7 @@ public class LeftCommand extends Command {
   /**
    * Executes the left command onto the turtle.
    *
-   * @param turtle The turtle to be rotated left
+   * @param turtle           The turtle to be rotated left
    * @param globalProperties
    * @return The degrees that the turtle rotated
    */

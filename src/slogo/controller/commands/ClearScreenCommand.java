@@ -26,7 +26,7 @@ public class ClearScreenCommand extends Command {
   /**
    * Sets the position of the turtle to be at home (0,0) and removes all lines.
    *
-   * @param turtle The turtle to be set
+   * @param turtle           The turtle to be set
    * @param globalProperties
    * @return The distance the turtle moved
    */
@@ -35,7 +35,7 @@ public class ClearScreenCommand extends Command {
     List<TurtleController> turtleArmy = globalProperties.getCopyOfTurtleArmy();
 
     double distance = 0;
-    for(TurtleController tc : turtleArmy){
+    for (TurtleController tc : turtleArmy) {
       Command goHome = new HomeCommand();
       distance = goHome.execute(tc.getTurtle(), globalProperties);
       Command penDown = new PenDownCommand();

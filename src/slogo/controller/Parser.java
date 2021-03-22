@@ -1,9 +1,7 @@
 package slogo.controller;
 
-import java.beans.PropertyChangeListener;
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Queue;
@@ -36,7 +34,7 @@ public class Parser implements SelectorTarget<String> {
    * Constructor for the Parser. Takes in a TurtleController to execute Commands on, and an initial
    * syntaxLang to be constructed with.
    *
-   * @param turtleGeneral       The TurtleController upon which this Parser acts
+   * @param turtleGeneral    The TurtleController upon which this Parser acts
    * @param syntaxLang       The initial language for which this Parser is configured.
    * @param commandsListener
    */
@@ -106,7 +104,6 @@ public class Parser implements SelectorTarget<String> {
   }
 
 
-
   private void fillGroup(GroupCommandHead groupHead) {
 
     if (tokenizedText.isEmpty()) {
@@ -118,14 +115,11 @@ public class Parser implements SelectorTarget<String> {
 
     while (!innerCommand.getIsCollectionEnd() && !tokenizedText.isEmpty()) {
 
-      //System.out.println("Adding Children List");
       groupHead.addNewHeaderChildrenList();
 
       for (int i = 0; i < groupHead.getGroupHeader().getNumParams(); i++) {
 
-        //System.out.println("Handling GrandChildren");
         grandChildHandler(innerCommand);
-        //System.out.println("Done Handling GrandChildren");
         groupHead.addNewHeaderChild(innerCommand);
 
         if (tokenizedText.isEmpty()) {
@@ -151,7 +145,7 @@ public class Parser implements SelectorTarget<String> {
   }
 
   private VariableCommand patternMatchVariable(String text) {
-    for(TurtleController curController : turtleGeneral.getTurtleArmy()) {
+    for (TurtleController curController : turtleGeneral.getTurtleArmy()) {
       if (!curController.getTurtle().getVars().containsKey(text)) {
         curController.getTurtle().getVars().setValue(text, 0);
       }
@@ -201,7 +195,6 @@ public class Parser implements SelectorTarget<String> {
 
     Command nextChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
 
-
     fillList(listHead, nextChild);
 
     //should never reach here
@@ -215,9 +208,7 @@ public class Parser implements SelectorTarget<String> {
       Command grandChild = patternMatchToken(Objects.requireNonNull(tokenizedText.poll()),
           splitText.poll());
 
-      //System.out.println(grandChild);
-
-      if(grandChild.getIsCollectionEnd()){
+      if (grandChild.getIsCollectionEnd()) {
         throw new IllegalArgumentException(
             "ILLEGAL ARGUMENT EXCEPTION:\nCHECK YOUR ARGUMENT COUNT!!!");
       }
@@ -297,13 +288,11 @@ public class Parser implements SelectorTarget<String> {
     }
     mapTokensToCommands();
     assembleCommandQueue();
-//    for (Command command : assembledCommandQueue) {
-//      System.out.println(command);
-//    }
     Set<Integer> curActiveTurtleIds = turtleGeneral.getGlobalProperties().getActiveTurtleIds();
-    for(TurtleController controller : turtleGeneral.getTurtleArmy()) {
-      if(curActiveTurtleIds.contains(controller.getTurtle().getId()))
+    for (TurtleController controller : turtleGeneral.getTurtleArmy()) {
+      if (curActiveTurtleIds.contains(controller.getTurtle().getId())) {
         controller.pushCommands(assembledCommandQueue);
+      }
     }
     assembledCommandQueue.clear();
     // Clean up after we're done
@@ -325,8 +314,8 @@ public class Parser implements SelectorTarget<String> {
     return command -> {
       parseCommandString(command);
       Set<Integer> curActiveTurtleIds = turtleGeneral.getGlobalProperties().getActiveTurtleIds();
-      for(TurtleController controller : turtleGeneral.getTurtleArmy()) {
-        if(curActiveTurtleIds.contains(controller.getTurtle().getId())) {
+      for (TurtleController controller : turtleGeneral.getTurtleArmy()) {
+        if (curActiveTurtleIds.contains(controller.getTurtle().getId())) {
           controller.setIsAllowedToExecute(true);
           controller.runCommands();
         }

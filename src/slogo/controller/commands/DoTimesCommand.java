@@ -18,13 +18,15 @@ public class DoTimesCommand extends Command {
 
   @Override
   protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
-    VariableCommand var = ( (VariableCommand) ( (ListCommandHead) getChildren().get(0)).getInnerChildren().get(VAR_INDEX));
-    double limit = ( (ListCommandHead) getChildren().get(0)).getInnerChildren().get(LIMIT_INDEX).execute(turtle, globalProperties);
+    VariableCommand var = ((VariableCommand) ((ListCommandHead) getChildren().get(0))
+        .getInnerChildren().get(VAR_INDEX));
+    double limit = ((ListCommandHead) getChildren().get(0)).getInnerChildren().get(LIMIT_INDEX)
+        .execute(turtle, globalProperties);
 
     double lastVal = 0;
     var.setValue(1);
 
-    for(double i = 1; i <= limit; i ++){
+    for (double i = 1; i <= limit; i++) {
       lastVal = getChildren().get(1).execute(turtle, globalProperties);
       var.setValue(i);
     }

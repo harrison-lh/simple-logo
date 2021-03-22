@@ -2,9 +2,7 @@ package slogo.view.canvas;
 
 import java.util.ArrayList;
 import java.util.List;
-import javafx.beans.property.BooleanProperty;
 import slogo.controller.TurtleProperties;
-import slogo.model.Coordinates;
 
 /**
  * Container for all TurtleViews in the TurtleCanvas
@@ -24,6 +22,7 @@ public class TurtlesContainer {
 
   /**
    * Creates a new TurtleView
+   *
    * @return The new TurtleView created
    */
   public TurtleView createTurtle(TurtleProperties turtleProperties) {

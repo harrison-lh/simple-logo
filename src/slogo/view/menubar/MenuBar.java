@@ -1,15 +1,12 @@
 package slogo.view.menubar;
 
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
-import slogo.view.Selector;
 
 /**
  * Holds all selectors and help button at the top of the window

@@ -8,7 +8,7 @@ public class HeadingCommand extends Command {
 
   private static final int NUM_PARAMS = 0;
 
-  public HeadingCommand(){
+  public HeadingCommand() {
     setNumParams(NUM_PARAMS);
   }
 
