@@ -44,6 +44,10 @@ public class UserCommand extends Command {
     return name;
   }
 
+  public List<String> getParameters() {
+    return parameters;
+  }
+
   public void updateCommand(UserCommand command) {
     this.name = command.name;
     this.parameters = command.parameters;

@@ -42,20 +42,20 @@ public class CommandsBox extends ScrollPane {
   public void setCommands(ObservableList<UserCommand> newValue) {
     for (int i = 0; i < newValue.size(); i++) {
       if (i >= myUserCommandEntries.size()) {
-        addCommand(newValue.get(i).getName());
+        addCommand(newValue.get(i));
       }
       else {
-        updateCommand(newValue.get(i).getName());
+        updateCommand(newValue.get(i));
       }
     }
   }
 
-  private void updateCommand(String command) {
+  private void updateCommand(UserCommand command) {
 
   }
 
-  private void addCommand(String command) {
-    UserCommandEntry userCommandEntry = new UserCommandEntry(command, myConsumer);
+  private void addCommand(UserCommand command) {
+    UserCommandEntry userCommandEntry = new UserCommandEntry(command.getName(), command.getParameters(), myConsumer);
     userCommandEntry.getRectangle().widthProperty().bind(this.widthProperty());
     myUserCommandEntries.add(userCommandEntry);
     myContents.getChildren().add(userCommandEntry);
