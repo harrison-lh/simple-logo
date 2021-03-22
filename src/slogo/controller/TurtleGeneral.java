@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 import slogo.model.GridCoordinates;
 import slogo.model.Palette;
 import slogo.model.Turtle;
+import slogo.model.Variables;
 
 /**
  * TurtleGeneral is a delightfully named marshalling class for controlling n-Turtles by way of their
@@ -15,9 +16,11 @@ import slogo.model.Turtle;
  * @author Marc Chmielewski
  */
 public class TurtleGeneral {
+
   private final List<TurtleController> turtleArmy;
   private final List<TurtleController> turtleRecruits;
   // TODO: Move control of Variables and UserCommands here
+  private final Variables variables;
   private Palette palette;
   private Consumer<TurtleProperties> newTurtleConsumer;
   private final GlobalProperties globalProperties;
@@ -26,10 +29,13 @@ public class TurtleGeneral {
     this.turtleArmy = new ArrayList<>();
     palette = new Palette();
     turtleRecruits = new ArrayList<>();
-    globalProperties = new GlobalProperties(palette.getColorsProperty(), turtleArmy);
-    globalProperties.addClearScreenListener( e -> removeTurtles());
+    variables = new Variables();
+    globalProperties = new GlobalProperties(palette.getColorsProperty(), variables,
+        turtleArmy);
+    globalProperties.addClearScreenListener(e -> removeTurtles());
     globalProperties.setMakeNewTurtlesConsumer(this::conscriptTurtle);
-    newTurtleConsumer = (param) -> {}; // Fixes headless tests breaking by adding a dummy
+    newTurtleConsumer = (param) -> {
+    }; // Fixes headless tests breaking by adding a dummy
   }
 
   public void conscriptTurtle(TurtleController recruitTurtle) {
@@ -37,10 +43,11 @@ public class TurtleGeneral {
     turtleRecruits.add(recruitTurtle);
     newTurtleConsumer.accept(new TurtleProperties(recruitTurtle.getTurtle()));
 
-    if(turtleArmy.size() < recruitTurtle.getTurtle().getId()) {
-      for(int i = turtleArmy.size(); i < recruitTurtle.getTurtle().getId(); i++) {
+    if (turtleArmy.size() < recruitTurtle.getTurtle().getId()) {
+      for (int i = turtleArmy.size(); i < recruitTurtle.getTurtle().getId(); i++) {
         Turtle freshTurtle = new Turtle(i, new GridCoordinates());
-        TurtleController freshTurtleController = new TurtleController(freshTurtle, globalProperties);
+        TurtleController freshTurtleController = new TurtleController(freshTurtle,
+            globalProperties);
         turtleRecruits.add(freshTurtleController);
         newTurtleConsumer.accept(new TurtleProperties(freshTurtleController.getTurtle()));
       }
@@ -51,10 +58,11 @@ public class TurtleGeneral {
   public void conscriptTurtle(int id) {
     System.out.println("Conscripting turtle");
     turtleRecruits.clear();
-    if(turtleArmy.size() < id) {
-      for(int i = turtleArmy.size() + 1; i <= id; i++) {
+    if (turtleArmy.size() < id) {
+      for (int i = turtleArmy.size() + 1; i <= id; i++) {
         Turtle freshTurtle = new Turtle(i, new GridCoordinates());
-        TurtleController freshTurtleController = new TurtleController(freshTurtle, globalProperties);
+        TurtleController freshTurtleController = new TurtleController(freshTurtle,
+            globalProperties);
         turtleRecruits.add(freshTurtleController);
         newTurtleConsumer.accept(new TurtleProperties(freshTurtleController.getTurtle()));
       }

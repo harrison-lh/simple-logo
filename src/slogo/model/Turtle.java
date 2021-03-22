@@ -27,21 +27,13 @@ public class Turtle {
    * and constructs a Turtle.
    *
    * @param coordinates The coordinate system that this Turtle will operate in
-   * @param variablesListener A listener that will report changes in Variables TODO: CHANGE THIS TOO!
-   */
-  public Turtle(int id, Coordinates coordinates, PropertyChangeListener variablesListener) {
-    this.id = id;
-    this.coordinates = coordinates;
-    this.vars = new Variables(variablesListener);
-    isVisibleProperty = new SimpleBooleanProperty(true);
-    penActiveProperty = new SimpleBooleanProperty(true);
-  }
-
-  /**
-   * Constructor with no listeners attached
    */
   public Turtle(int id, Coordinates coordinates) {
-    this(id, coordinates, evt -> {});
+    this.id = id;
+    this.coordinates = coordinates;
+    this.vars = new Variables();
+    isVisibleProperty = new SimpleBooleanProperty(true);
+    penActiveProperty = new SimpleBooleanProperty(true);
   }
 
   /**

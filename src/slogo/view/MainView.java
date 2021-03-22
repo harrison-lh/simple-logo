@@ -145,6 +145,9 @@ public class MainView extends BorderPane {
     myGlobalProperties.paletteProperty().addListener(((observable, oldValue, newValue) -> {
       myPalettesBox.setColors(newValue);
     }));
+    myGlobalProperties.variableMapPropertyProperty().addListener(((observable, oldValue, newValue) -> {
+//      System.out.println("new varaible");
+    }));
     myPalettesBox.setColors(myGlobalProperties.paletteProperty());
     myPalettesBox.setShapes(myGlobalProperties.getShapeMap());
     myGlobalProperties.addClearScreenListener(e -> clearScreen());

@@ -1,19 +1,24 @@
 package slogo.model;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
+import javafx.beans.property.MapProperty;
+import javafx.beans.property.SimpleMapProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 
 public class Variables {
 
   private Map<String, Double> varMap;
-  private PropertyChangeListener variablesListener;
+  private final MapProperty<String, Double> mapProperty;
 
-  public Variables(PropertyChangeListener variablesListener) {
+  public Variables() {
     varMap = new HashMap<>();
-    this.variablesListener = variablesListener;
+    mapProperty = new SimpleMapProperty<>(FXCollections.observableMap(varMap));
+  }
+
+  public MapProperty<String, Double> getMapProperty() {
+    return mapProperty;
   }
 
   public double getValue(String key) {
@@ -21,16 +26,8 @@ public class Variables {
   }
 
   public void setValue(String key, double value) {
-    Variable newVariable = new Variable(key, value);
-    if (varMap.containsKey(key)) {
-      Variable prevVar = new Variable(key, varMap.get(key));
-      variablesListener
-          .propertyChange(new PropertyChangeEvent(this, "UPDATE", prevVar, newVariable));
-    } else {
-      variablesListener
-          .propertyChange(new PropertyChangeEvent(this, "ADD", newVariable, newVariable));
-    }
     varMap.put(key, value);
+    mapProperty.setValue(FXCollections.observableMap(varMap));
   }
 
   public void removeValue(String key){

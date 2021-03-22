@@ -17,7 +17,7 @@ import slogo.view.LanguageConsumer;
  *
  * @author David Li
  */
-public class VariablesBox extends ScrollPane implements PropertyChangeListener, LanguageConsumer {
+public class VariablesBox extends ScrollPane implements LanguageConsumer {
 
   private final VBox myContents;
   private final List<String> myVariableNames;
@@ -37,16 +37,6 @@ public class VariablesBox extends ScrollPane implements PropertyChangeListener, 
     this.setContent(myContents);
     myVariableNames = new ArrayList<>();
     myVariableEntries = new ArrayList<>();
-  }
-
-  @Override
-  public void propertyChange(PropertyChangeEvent evt) {
-    Variable variable = (Variable) evt.getNewValue();
-    if (evt.getPropertyName().equals("ADD")) {
-      addVariable(variable);
-    } else if (evt.getPropertyName().equals("UPDATE")) {
-      updateVariable(variable);
-    }
   }
 
   /**
