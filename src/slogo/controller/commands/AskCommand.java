@@ -39,9 +39,8 @@ public class AskCommand extends Command {
    */
   @Override
   protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
-    // TODO: parse input
+
     ListCommandHead askListCommand = (ListCommandHead) getChildren().get(TURTLE_IDS_INDEX);
-    //Set<Integer> turtleIDsToUse = new HashSet<>();
 
     List<TurtleController> turtleArmy = globalProperties.getCopyOfTurtleArmy();
     double lastCommandValue = 0;
@@ -57,24 +56,6 @@ public class AskCommand extends Command {
         }
       }
     }
-    // TODO: runs commands on all turtles in the given list
-//    Set<Integer> priorTurtlesInUse = new HashSet<>();
-//
-//    for(int tID : globalProperties.getActiveTurtleIds()){
-//      priorTurtlesInUse.add(tID);
-//    }
-//
-//    for(int tID : priorTurtlesInUse){
-//      System.out.printf("Turtle %d\n", tID);
-//    }
-//    globalProperties.clearActiveTurtleIds();
-//    globalProperties.addMultipleActiveTurtleIds(turtleIDsToUse);
-//
-//
-//    globalProperties.clearActiveTurtleIds();
-//    globalProperties.addMultipleActiveTurtleIds(priorTurtlesInUse);
-
-    // TODO: return value of last command run
 
     return lastCommandValue;
   }
