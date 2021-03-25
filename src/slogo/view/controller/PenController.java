@@ -10,7 +10,7 @@ import slogo.view.LanguageConsumer;
 /**
  * Pen up, pen down, and pen size controls.
  *
- * @authod David Li
+ * @author David Li
  */
 public class PenController extends ControllerElement implements LanguageConsumer {
 
@@ -18,7 +18,7 @@ public class PenController extends ControllerElement implements LanguageConsumer
   private final Button myPenDownButton;
   private final Button myPenSizeButton;
 
-  /***
+  /**
    * Main constructor
    */
   public PenController() {
@@ -44,7 +44,7 @@ public class PenController extends ControllerElement implements LanguageConsumer
     this.getChildren().addAll(inputArea, myPenSizeButton, buttons);
   }
 
-  /***
+  /**
    * Sets the button actions for each of the pen commands
    * @param response the consumer receiving commands
    */

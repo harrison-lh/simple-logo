@@ -23,6 +23,10 @@ public class TurtlesBox extends ScrollPane {
     this.setContent(myContents);
   }
 
+  /**
+   * Adds a turtle entry to the turtles box
+   * @param turtleProperties properties of the new turtle
+   */
   public void addTurtle(TurtleProperties turtleProperties) {
     myContents.getChildren().add(new TurtleEntry(turtleProperties));
   }

@@ -17,7 +17,7 @@ public class RotationController extends ControllerElement implements LanguageCon
   private final Button myLeftButton;
   private final Button myRightButton;
 
-  /***
+  /**
    * Main constructor
    */
   public RotationController() {
@@ -41,7 +41,7 @@ public class RotationController extends ControllerElement implements LanguageCon
     this.getChildren().addAll(inputArea, buttons);
   }
 
-  /***
+  /**
    * Sets button actions that execute left and right commands
    * @param response the consumer receiving commands
    */

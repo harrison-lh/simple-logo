@@ -17,7 +17,7 @@ public class MovementController extends ControllerElement implements LanguageCon
   private final Button myForwardButton;
   private final Button myBackwardButton;
 
-  /***
+  /**
    * Main constructor
    */
   public MovementController() {
@@ -41,7 +41,7 @@ public class MovementController extends ControllerElement implements LanguageCon
     this.getChildren().addAll(inputArea, buttons);
   }
 
-  /***
+  /**
    * Sends the forward command to the consumer when the forward button is pressed, and
    * sends the backward command to the consumer when the backward button is pressed
    * @param response the consumer receiving commands
