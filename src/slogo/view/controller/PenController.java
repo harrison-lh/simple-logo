@@ -18,6 +18,9 @@ public class PenController extends ControllerElement implements LanguageConsumer
   private final Button myPenDownButton;
   private final Button myPenSizeButton;
 
+  /***
+   * Main constructor
+   */
   public PenController() {
     super();
     this.setId("PenController");
@@ -41,6 +44,10 @@ public class PenController extends ControllerElement implements LanguageConsumer
     this.getChildren().addAll(inputArea, myPenSizeButton, buttons);
   }
 
+  /***
+   * Sets the button actions for each of the pen commands
+   * @param response the consumer receiving commands
+   */
   public void setExecuteCommandActions(Consumer<String> response) {
     myPenUpButton.setOnAction(e -> executeRawCommand(response, "PenUp"));
     myPenDownButton.setOnAction(e -> executeRawCommand(response, "PenDown"));
