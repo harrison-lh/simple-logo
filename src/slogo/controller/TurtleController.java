@@ -32,7 +32,7 @@ public class TurtleController {
   }
 
   /**
-   * Tells the Turtle to execute Commands until either the commandQueue is empty.
+   * Tells the Turtle to execute Commands until the commandQueue is empty.
    */
   public void runCommands() {
     while (!commandQueue.isEmpty()) {
