@@ -25,7 +25,6 @@ public class Lexer {
   private static final String SYNTAX = "Syntax";
   private final List<Entry<String, Pattern>> syntaxSymbols;
   private final GlobalProperties globalProperties;
-  //  private final List<UserCommand> userCommands;
   private List<Entry<String, Pattern>> langSymbols;
 
   /**
@@ -34,7 +33,6 @@ public class Lexer {
   public Lexer() {
     syntaxSymbols = instantiateSymbols(SYNTAX);
     langSymbols = new ArrayList<>();
-//    userCommands = new ArrayList<>();
     globalProperties = new GlobalProperties(new Palette().getColorsProperty(), new Variables(),
         new ArrayList<>());
   }
@@ -55,7 +53,6 @@ public class Lexer {
   public Lexer(String syntaxLanguage, GlobalProperties globalProperties) {
     syntaxSymbols = instantiateSymbols(SYNTAX);
     langSymbols = instantiateSymbols(syntaxLanguage);
-//    userCommands = new ArrayList<>();
     this.globalProperties = globalProperties;
   }
 
@@ -215,13 +212,10 @@ public class Lexer {
     throw new IllegalArgumentException(ERROR);
   }
 
-
-  // Returns true if the given text matches the given regular expression pattern
+  /**
+   * Returns true if the given text matches the given regular expression pattern
+   */
   private boolean match(String text, Pattern regex) {
     return regex.matcher(text).matches();
-  }
-
-  public List<UserCommand> getUserCommands() {
-    return globalProperties.getUserCommands();
   }
 }

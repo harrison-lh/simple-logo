@@ -1,6 +1,5 @@
 package slogo.controller;
 
-import slogo.model.Turtle;
 import slogo.view.MainView;
 
 /**

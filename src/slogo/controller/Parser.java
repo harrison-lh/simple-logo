@@ -16,7 +16,7 @@ import slogo.view.SelectorTarget;
 /**
  * Parser is the meat-and-potatoes of the SLogo Control layer. This class takes in a String of SLogo
  * code, breaks it up by whitespace, and then utilizes several other classes to build an AST, and
- * then pass it to a TurtleController for consumption.
+ * then pass it to a TurtleController, by way of the TurtleGeneral, for consumption.
  *
  * @author Marc Chmielewski
  */
@@ -36,7 +36,7 @@ public class Parser implements SelectorTarget<String> {
    *
    * @param turtleGeneral    The TurtleController upon which this Parser acts
    * @param syntaxLang       The initial language for which this Parser is configured.
-   * @param commandsListener
+   * @param globalProperties The GlobalProperties for the current SLogo instance.
    */
   public Parser(TurtleGeneral turtleGeneral, String syntaxLang, GlobalProperties globalProperties) {
     this.turtleGeneral = turtleGeneral;
@@ -88,12 +88,8 @@ public class Parser implements SelectorTarget<String> {
         }
         Command groupHeader = patternMatchToken(tokenizedText.poll(), splitText.poll());
         groupCommandHead.setGroupHeader(groupHeader);
-
         fillGroup(groupCommandHead);
-
         return groupCommandHead;
-
-
       }
       case COLLECTION_END -> {
         return new CollectionCommandTail();
@@ -181,11 +177,8 @@ public class Parser implements SelectorTarget<String> {
     if (innerCommand.getIsCollectionEnd()) {
       return;
     }
-
     //End Base Case
-
     listHead.addInnerChild(innerCommand);
-
     grandChildHandler(innerCommand);
 
     if (tokenizedText.isEmpty()) {
@@ -194,20 +187,15 @@ public class Parser implements SelectorTarget<String> {
     }
 
     Command nextChild = patternMatchToken(tokenizedText.poll(), splitText.poll());
-
     fillList(listHead, nextChild);
-
     //should never reach here
   }
 
   private void grandChildHandler(Command innerCommand) {
     int numInnerGrandChildren = innerCommand.getNumParams();
-
     for (int i = 0; i < numInnerGrandChildren; i++) {
-
       Command grandChild = patternMatchToken(Objects.requireNonNull(tokenizedText.poll()),
           splitText.poll());
-
       if (grandChild.getIsCollectionEnd()) {
         throw new IllegalArgumentException(
             "ILLEGAL ARGUMENT EXCEPTION:\nCHECK YOUR ARGUMENT COUNT!!!");
