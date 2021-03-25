@@ -30,14 +30,27 @@ public abstract class Command {
     children.add(child);
   }
 
+  /**
+   * Clears all the children from this Command.
+   */
   public void clearChildren() {
     children.clear();
   }
 
+  /**
+   * Returns true if at the end of the collection, and false if not.
+   *
+   * @return True if at the end of the collection, and false if not.
+   */
   public boolean getIsCollectionEnd() {
     return isCollectionEnd;
   }
 
+  /**
+   * Sets whether or not this Command is at the end of a collection or not.
+   *
+   * @param isListEnd The current EOL status of the Command
+   */
   public void setIsCollectionEnd(boolean isListEnd) {
     this.isCollectionEnd = isListEnd;
   }
