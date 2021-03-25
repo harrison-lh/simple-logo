@@ -11,7 +11,7 @@ import slogo.model.GridCoordinates;
 import slogo.view.SelectorTarget;
 
 /**
- * Image view of the view turtle
+ * Image view of the view turtle.
  *
  * @author David Li
  */
