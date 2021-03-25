@@ -28,13 +28,12 @@ public class SetBackgroundCommand extends Command {
    * Sets the background to be the color at the given index of the palette.
    *
    * @param turtle           The current active turtle
-   * @param globalProperties
-   * @return The index of the color set
+   * @param globalProperties The GlobalProperties on which to change the background.
+   * @return The index of the color that was set
    */
   @Override
   protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     int index = (int) getChildren().get(0).execute(turtle, globalProperties);
-    //TODO: set the background to that at the index
     Color color = globalProperties.paletteProperty().get(index);
     globalProperties.setBackgroundColorProperty(color);
     return index;

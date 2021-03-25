@@ -26,7 +26,7 @@ public class RepeatCommand extends Command {
    * repeat as many times as the value of parameter 0. Returns the value of the last operation.
    *
    * @param turtle           The turtle on which the Commands are acting
-   * @param globalProperties
+   * @param globalProperties The globalProperties into which to store the :repcount variable
    * @return Returns the return value of the last operation.
    */
   @Override
