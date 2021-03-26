@@ -21,6 +21,10 @@ public class TurtleSelector extends MenuBarSelector<String> {
     comboBox.getSelectionModel().selectFirst();
   }
 
+  /**
+   * Also sets action that updates global property when a shape is selected
+   * @param property property being listened for
+   */
   @Override
   public void setGlobalProperty(Property<String> property) {
     super.setGlobalProperty(property);

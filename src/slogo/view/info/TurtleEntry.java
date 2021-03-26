@@ -3,6 +3,11 @@ package slogo.view.info;
 import javafx.scene.control.Label;
 import slogo.controller.TurtleProperties;
 
+/**
+ * Single turtle info display in turtles box of the info display
+ *
+ * @author David Li
+ */
 public class TurtleEntry extends Label {
 
   private final int myId;
@@ -10,6 +15,10 @@ public class TurtleEntry extends Label {
   private boolean visible;
   private boolean penActive;
 
+  /**
+   * Main constructor
+   * @param turtleProperties Properties of the turtle that links to the text
+   */
   public TurtleEntry(TurtleProperties turtleProperties) {
     myId = turtleProperties.getId();
     coordinates = turtleProperties.getCoordinates().toString();

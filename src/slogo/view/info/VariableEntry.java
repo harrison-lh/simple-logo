@@ -33,11 +33,19 @@ public class VariableEntry extends ClickableEntry<String> {
     setText(displayText());
   }
 
+  /**
+   * Change the display value of the variable
+   * @param value New value
+   */
   public void updateVariable(double value) {
     myValue = value;
     setText(displayText());
   }
 
+  /**
+   * Change the commands language
+   * @param language New language
+   */
   public void setLanguage(String language) {
     this.language = language;
   }

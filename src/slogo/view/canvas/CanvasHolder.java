@@ -10,8 +10,7 @@ import javafx.scene.paint.Color;
 import slogo.view.SelectorTarget;
 
 /**
- * Holds the turtle canvas in the main part of the application window Responsible for maintaining
- * the aspect ratio of the turtle canvas
+ * Holds the turtle canvas in the main part of the application window.
  *
  * @author David Li
  */

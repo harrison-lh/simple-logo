@@ -9,9 +9,10 @@ import javafx.scene.layout.VBox;
 import slogo.view.Selector;
 
 /**
- * Abstract class for menu bar selectors
+ * Abstract class for menu bar selectors.
  *
  * @param <T> Type of variable that gets passed to the consumer
+ *
  * @author David Li
  */
 public abstract class MenuBarSelector<T> extends VBox implements Selector<T> {
@@ -51,6 +52,11 @@ public abstract class MenuBarSelector<T> extends VBox implements Selector<T> {
     return myGlobalProperty;
   }
 
+  /**
+   * Sets the property that the selector listens for, updating the selector when the
+   * property changes
+   * @param property property being listened for
+   */
   public void setGlobalProperty(Property<T> property) {
     myGlobalProperty = property;
     myGlobalProperty.addListener(((observable, oldValue, newValue) -> {

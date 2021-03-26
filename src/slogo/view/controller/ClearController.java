@@ -13,6 +13,9 @@ public class ClearController extends ControllerElement implements LanguageConsum
 
   private final Button myClearButton;
 
+  /**
+   * Main constructor
+   */
   public ClearController() {
     super();
     this.setId("ClearController");
@@ -21,6 +24,10 @@ public class ClearController extends ControllerElement implements LanguageConsum
     this.getChildren().addAll(myClearButton);
   }
 
+  /***
+   * Sends the clear screen command to the consumer
+   * @param response the consumer receiving commands
+   */
   public void setExecuteCommandActions(Consumer<String> response) {
     myClearButton.setOnAction(e -> executeRawCommand(response, "ClearScreen"));
   }
