@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 import slogo.controller.commands.UserCommand;
 
 /**
- * Display box of user defined commands For now, only displays the command name
+ * Display box of user-defined commands.
  *
  * @author David Li
  */
@@ -32,10 +32,18 @@ public class CommandsBox extends ScrollPane {
     myUserCommandEntries = new ArrayList<>();
   }
 
+  /**
+   * Sets the execute command consumer
+   * @param response Consumer of a command
+   */
   public void setExecuteCommandAction(Consumer<String> response) {
     myConsumer = response;
   }
 
+  /**
+   * Changes the display of user commands when an update occurs
+   * @param newValue The new list of user commands
+   */
   public void setCommands(ObservableList<UserCommand> newValue) {
     for (int i = 0; i < newValue.size(); i++) {
       if (i >= myUserCommandEntries.size()) {

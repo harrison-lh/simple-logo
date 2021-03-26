@@ -23,6 +23,12 @@ import javafx.scene.paint.Color;
 import slogo.controller.commands.UserCommand;
 import slogo.model.Variables;
 
+/**
+ * Class containing all of the global properties that can be modified using commands
+ * or graphically in the view.
+ *
+ * @author David Li
+ */
 public class GlobalProperties {
 
   public static Color DEFAULT_BACKGROUND_COLOR = Color.WHITE;
@@ -48,6 +54,12 @@ public class GlobalProperties {
   private int numTurtlesCreated;
   private final List<TurtleController> turtleArmy;
 
+  /**
+   * Main constructor
+   * @param paletteProperty the palette contents as a ListProperty
+   * @param variables Variables stored in the turtle general
+   * @param turtleArmy List of turtle controllers
+   */
   public GlobalProperties(ListProperty<Color> paletteProperty, Variables variables,
       List<TurtleController> turtleArmy) {
     backgroundColorProperty = new SimpleObjectProperty<>(DEFAULT_BACKGROUND_COLOR);
@@ -194,6 +206,9 @@ public class GlobalProperties {
     clearScreenListeners.add(handler);
   }
 
+  /**
+   * Notifies all the clear screen listeners that the screen is being cleared
+   */
   public void clearScreen() {
     clearScreenListeners.forEach(listener -> listener.handle(clearScreenEvent));
   }
@@ -202,6 +217,10 @@ public class GlobalProperties {
     makeNewTurtlesConsumer = consumer;
   }
 
+  /**
+   * Notifies the consumer that a new turtle is being made
+   * @param param Id of the new turtle
+   */
   public void makeNewTurtles(int param) {
     makeNewTurtlesConsumer.accept(param);
   }

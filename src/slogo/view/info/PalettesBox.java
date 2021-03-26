@@ -40,6 +40,10 @@ public class PalettesBox extends ScrollPane {
     myContents.setSpacing(20);
   }
 
+  /**
+   * Changes the palette colors
+   * @param colors List of new colors
+   */
   public void setColors(ObservableList<Color> colors) {
     for (int i = 0; i < colors.size(); i++) {
       if (myColorPaletteEntries.size() <= i) {
@@ -52,6 +56,10 @@ public class PalettesBox extends ScrollPane {
     }
   }
 
+  /**
+   * Sets the shapes in the shape palette
+   * @param shapeMap Map of new shapes
+   */
   public void setShapes(Map<Integer, String> shapeMap) {
     for (int i = 0; i < shapeMap.size(); i++) {
       myShapePalette.getChildren().add(new TurtleShapeEntry(i, shapeMap.get(i)));

@@ -5,7 +5,7 @@ import java.util.List;
 import slogo.controller.TurtleProperties;
 
 /**
- * Container for all TurtleViews in the TurtleCanvas
+ * Container for all TurtleViews in the TurtleCanvas.
  *
  * @author David Li
  */
@@ -31,6 +31,10 @@ public class TurtlesContainer {
     return newTurtle;
   }
 
+  /**
+   * Change the shapes of all TurtleViews
+   * @param shape New shape
+   */
   public void setTurtleShapes(String shape) {
     for (TurtleView turtleView : myTurtleViews) {
       turtleView.changeTurtleImage(shape);

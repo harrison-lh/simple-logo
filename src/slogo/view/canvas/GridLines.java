@@ -4,7 +4,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 
 /**
- * Holds axes of the grid. Maybe add more gridlines in the future
+ * Holds axes of the grid.
  *
  * @author David Li
  */

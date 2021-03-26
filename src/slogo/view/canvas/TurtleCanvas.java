@@ -10,7 +10,7 @@ import slogo.view.Pen;
 import slogo.view.SelectorTarget;
 
 /**
- * Contains the gridlines, turtle view, and pen lines. Listens for updates from the model and
+ * Contains the gridlines, turtle views, and pen lines. Listens for updates from the model and
  * updates turtle and pen lines accordingly.
  *
  * @author David Li
@@ -29,6 +29,9 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
   private final Pane myPenLines;
   private TurtleView myTurtleView;
 
+  /**
+   * Main constructor
+   */
   public TurtleCanvas() {
     this.setId("TurtleCanvas");
     this.setMaxSize(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
@@ -44,14 +47,30 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     myTurtlesContainer = new TurtlesContainer();
   }
 
+  /**
+   * Converts the Cartesian x-coordinate to the JavaFX x-coordinate
+   * @param x Cartesian x-coordinate
+   * @return JavaFX x-coordinate
+   */
   public static double convertXCoordinate(double x) {
     return x;
   }
 
+  /**
+   * Converts the Cartesian y-coordinate to the JavaFX y-coordinate
+   * @param y Cartesian y-coordinate
+   * @return JavaFX y-coordinate
+   */
   public static double convertYCoordinate(double y) {
     return -1 * y;
   }
 
+  /**
+   * Converts Cartesian angle (right is 0 degrees, increases counter-clockwise) to JavaFX angle
+   * (up is 0 degrees, increases clockwise)
+   * @param heading Cartesian angle
+   * @return JavaFX angle
+   */
   public static double convertHeading(double heading) {
     return (90 - heading);
   }
@@ -93,10 +112,16 @@ public class TurtleCanvas extends StackPane implements SelectorTarget<String>,
     myTurtleView = newTurtle;
   }
 
+  /**
+   * @return Consumer action that creates a new turtle bound to the accepted TurtleProperties
+   */
   public Consumer<TurtleProperties> newTurtleConsumer() {
     return this::createTurtle;
   }
 
+  /**
+   * Removes all the pen lines on the screen
+   */
   public void clearScreen() {
     myPenLines.getChildren().clear();
   }

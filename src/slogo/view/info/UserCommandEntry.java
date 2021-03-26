@@ -18,8 +18,8 @@ public class UserCommandEntry extends ClickableEntry<String> {
    * Main constructor
    *
    * @param command    Name of the user command
-   * @param parameters
-   * @param consumer
+   * @param parameters List of parameters of the command
+   * @param consumer  Execute command consumer
    */
   public UserCommandEntry(String command, List<String> parameters,
       Consumer<String> consumer) {
@@ -29,6 +29,10 @@ public class UserCommandEntry extends ClickableEntry<String> {
     setText(displayText());
   }
 
+  /**
+   * @param command New command name
+   * @param parameters New list of parameters
+   */
   public void updateCommand(String command, List<String> parameters) {
     myCommand = command;
     myParameters = parameters;
@@ -36,7 +40,7 @@ public class UserCommandEntry extends ClickableEntry<String> {
   }
 
   /**
-   * Opens up input area for parameters and executes command
+   * Executes command with no parameters
    *
    * @param consumer Consumes the command
    */

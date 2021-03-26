@@ -10,7 +10,7 @@ import slogo.controller.Controller;
 import slogo.view.LanguageConsumer;
 
 /**
- * Display box for variables
+ * Display box for variables.
  *
  * @author David Li
  */
@@ -54,6 +54,10 @@ public class VariablesBox extends ScrollPane implements LanguageConsumer {
     };
   }
 
+  /**
+   * Sets the variables in the variables box
+   * @param newValue Map of variables
+   */
   public void setVariables(ObservableMap<String, Double> newValue) {
     for (String name : newValue.keySet()) {
       if (myVariableNames.contains(name)) {

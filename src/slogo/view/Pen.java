@@ -5,6 +5,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import slogo.controller.GlobalProperties;
 
+/**
+ * Pen class that stores the pen color and size
+ */
 public class Pen implements SelectorTarget<Color> {
 
   private Color color = GlobalProperties.DEFAULT_PEN_COLOR;
