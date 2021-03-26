@@ -89,7 +89,10 @@ public class MainView extends BorderPane {
     myMenuBar.getFileButtons().setCommandConsumer(command -> executeCommand(command, response));
   }
 
-
+  /**
+   * @return consumer that accepts turtle properties of a new turtle to create a new turtle
+   * in the view
+   */
   public Consumer<TurtleProperties> newTurtleConsumer() {
     return turtleProperties -> {
       myTurtleCanvas.newTurtleConsumer().accept(turtleProperties);
@@ -97,6 +100,10 @@ public class MainView extends BorderPane {
     };
   }
 
+  /**
+   * Accepts global properties object and binds respective view elements to the properties
+   * @param globalProperties global properties object in the back-end
+   */
   public void setGlobalProperties(GlobalProperties globalProperties) {
     myGlobalProperties = globalProperties;
     bindGlobalProperties();
