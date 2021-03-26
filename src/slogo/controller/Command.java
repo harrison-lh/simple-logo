@@ -69,7 +69,7 @@ public abstract class Command {
    * parameters in order to execute the command.
    *
    * @param turtle           The turtle on which to run the command
-   * @param globalProperties
+   * @param globalProperties The global properties
    * @return The double for the return value of each execute
    */
   public double execute(Turtle turtle, GlobalProperties globalProperties) {

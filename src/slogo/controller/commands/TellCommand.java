@@ -28,7 +28,7 @@ public class TellCommand extends Command {
    * Tells which turtles to run commands.
    *
    * @param turtle           The current active turtle
-   * @param globalProperties
+   * @param globalProperties The global properties
    * @return The value of the last turtle
    */
   @Override

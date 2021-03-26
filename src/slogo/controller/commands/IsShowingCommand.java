@@ -25,7 +25,7 @@ public class IsShowingCommand extends Command {
    * Returns the current visibility of the turtle.
    *
    * @param turtle           The turtle to be checked
-   * @param globalProperties
+   * @param globalProperties The global properties
    * @return boolean of visibility of turtle
    */
   @Override

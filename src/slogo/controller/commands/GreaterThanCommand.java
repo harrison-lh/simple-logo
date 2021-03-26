@@ -26,7 +26,7 @@ public class GreaterThanCommand extends Command {
    * Compares two values to see if the first is greater than the second.
    *
    * @param turtle           The current turtle
-   * @param globalProperties
+   * @param globalProperties The global properties
    * @return 1 if first is greater than second, else 0
    */
   @Override

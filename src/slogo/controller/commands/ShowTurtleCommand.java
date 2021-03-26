@@ -25,7 +25,7 @@ public class ShowTurtleCommand extends Command {
    * Toggles the visibility of the turtle to be true.
    *
    * @param turtle           The turtle to be shown
-   * @param globalProperties
+   * @param globalProperties The global properties
    * @return 1
    */
   @Override

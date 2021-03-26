@@ -26,7 +26,7 @@ public class NotEqualCommand extends Command {
    * Compares two values to see if the first is not equal to the second.
    *
    * @param turtle           The current turtle
-   * @param globalProperties
+   * @param globalProperties The global properties
    * @return 1 if first is not equal to second, else 0
    */
   @Override
