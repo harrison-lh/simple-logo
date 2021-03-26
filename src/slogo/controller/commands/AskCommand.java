@@ -8,9 +8,38 @@ import slogo.controller.TurtleController;
 import slogo.model.Turtle;
 
 /**
- * Ask is a type of Command that executes commands on a given set of turtles.
+ * This class is used when the user types the And command into the command line, and will "ask" all turtles listed in the first parameter (a list)
+ * to execute a series of commands (the second parameter, also a list), and returns the value of the last run command on the last turtle.
  *
- * @author Harrison Huang
+ * It assumes that the user provides two "children", or subsequent commands, which are in the form of a ListCommand and calling .execute on these
+ * Commands will return a double.  These two children will be checked to see if they are both present, and will throw an exception if this assumption isn't upheld.
+ * This class is dependant on the Turtle, ListCommandHead and GlobalProperties classes in order to function.
+ *
+ * Example Code:
+ *
+ * ... // assume to have previously made a Turtle.java object named turtle, and a GlobalParameters.java object named globalParams
+ * Command askCommand = new AskCommand();
+ * Command turtleList = new ListCommandHead();
+ * double turtleId = 1;
+ * Command turtleIdCommand = new ConstantCommand(turtleId);
+ * turtleList.addInnerChild(turtleIdCommand);
+ * Command commandList = new ListCommandHead();
+ * double amtToMove = 50;
+ * Command moveConstant = new ConstantCommand(amtToMove);
+ * Command moveCommand = new ForwardCommand();
+ * moveCommand.addChild(moveConstant);
+ * commandList.addInnerChild(moveCommand);
+ * askCommand.addChild(turtleList);
+ * askCommand.addChild(commandList);
+ * askCommand.execute(turtle, globalParams);
+ * // the turtle with id=1 will move forward 50 pixels
+ * ...
+ *
+ * A thing to note when using AskCommand.java is that when it is time to calculate the and-value, .execute should be called
+ * and not .executeCommand, for .execute has the check for NUM_PARAMS.
+ *
+ * @Author Cole Spector
+ *
  */
 
 public class AskCommand extends Command {
