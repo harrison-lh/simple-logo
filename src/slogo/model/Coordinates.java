@@ -4,13 +4,14 @@ import java.text.DecimalFormat;
 import javafx.beans.property.StringProperty;
 
 /**
- * An interface that defines the properties of an object that has Coordinates.
+ * An abstract class that defines the properties of an object that has Coordinates.
  * <p>
  * Coordinates allow the View to determine where a Turtle or other Model object is in space, as well
  * as its heading and vice versa.
  *
  * @author Marc Chmielewski
  * @author Cole Spector
+ * @author Harrison Huang
  */
 public abstract class Coordinates {
 
@@ -21,12 +22,23 @@ public abstract class Coordinates {
 
   protected double xPos, yPos, heading;
 
+  /**
+   * Default constructor of the abstract Coordinates object.
+   */
   protected Coordinates() {
     this.xPos = DEFAULT_X;
     this.yPos = DEFAULT_Y;
     this.heading = DEFAULT_HEADING;
   }
 
+  /**
+   * Constructor of the abstract Coordinates object given input parameters of x-coordinate,
+   * y-coordinate, and heading.
+   *
+   * @param x       The initial x-coordinate
+   * @param y       The initial y-coordinate
+   * @param heading The heading in degrees
+   */
   protected Coordinates(double x, double y, double heading) {
     this.xPos = x;
     this.yPos = y;
