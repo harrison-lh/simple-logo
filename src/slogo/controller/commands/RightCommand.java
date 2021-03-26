@@ -25,7 +25,7 @@ public class RightCommand extends Command {
    * Executes the right command onto the turtle.
    *
    * @param turtle           The turtle to be rotated right
-   * @param globalProperties
+   * @param globalProperties The globalProperties onto which to execute.
    * @return The degrees that the turtle rotated
    */
   @Override

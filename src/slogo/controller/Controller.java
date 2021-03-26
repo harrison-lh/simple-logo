@@ -1,6 +1,5 @@
 package slogo.controller;
 
-import slogo.model.Turtle;
 import slogo.view.MainView;
 
 /**
@@ -15,23 +14,17 @@ public class Controller {
   public static final String DEFAULT_LANGUAGE = "English";
 
   private final MainView myMainView;
-  private final Parser myParser;
-  private final Turtle myTurtle;
-  private final TurtleGeneral myTurtleGeneral;
 
   /**
    * Main constructor
    */
   public Controller() {
     myMainView = new MainView();
-//    myTurtle = new Turtle(1, new GridCoordinates(), myMainView.getVariablesListener());
-    myTurtleGeneral = new TurtleGeneral();
-//    TurtleController initController = new TurtleController(myTurtle,
-//        myTurtleGeneral.getGlobalProperties());
+    TurtleGeneral myTurtleGeneral = new TurtleGeneral();
     myTurtleGeneral.setNewTurtleConsumer(myMainView.newTurtleConsumer());
-    myParser = new Parser(myTurtleGeneral, DEFAULT_LANGUAGE, myTurtleGeneral.getGlobalProperties());
+    Parser myParser = new Parser(myTurtleGeneral, DEFAULT_LANGUAGE,
+        myTurtleGeneral.getGlobalProperties());
     myTurtleGeneral.createFirstTurtle();
-    myTurtle = myTurtleGeneral.getTurtleArmy().get(0).getTurtle();
     myTurtleGeneral.getGlobalProperties().addActiveTurtleId(1);
     // Input button action
     myMainView.setInputAction(myParser.receiveInputAction());
@@ -40,15 +33,12 @@ public class Controller {
     myMainView.setGlobalProperties(myTurtleGeneral.getGlobalProperties());
   }
 
+  /**
+   * Gets the MainView for this Controller instance.
+   *
+   * @return The MainView for this Controller instance.
+   */
   public MainView getMainView() {
     return myMainView;
-  }
-
-  public Turtle getTurtle() {
-    return myTurtle;
-  }
-
-  public Parser getParser() {
-    return myParser;
   }
 }

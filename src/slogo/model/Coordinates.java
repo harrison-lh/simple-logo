@@ -69,8 +69,19 @@ public abstract class Coordinates {
    */
   public abstract void setHeading(double heading);
 
+  /**
+   * Returns a StringProperty that contains a String representation of the current Coordinates.
+   *
+   * @return A StringProperty that contains a String representation of the current Coordinates.
+   */
   public abstract StringProperty stringProperty();
 
+  /**
+   * Returns a String representation of the current Coordinates, including the XY position and the
+   * heading.
+   *
+   * @return A String representation of the current Coordinates of the form "(X, Y) heading"
+   */
   @Override
   public String toString() {
     return "(" + round(getX()) + ", " + round(getY()) + "), " + round(getHeading()) + " degrees";
