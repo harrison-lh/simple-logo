@@ -18,13 +18,17 @@ public class MakeVariableCommand extends Command {
     setNumParams(NUM_PARAMS);
   }
 
+  /**
+   * Execute the command, creating a new Variable and attaching it to the globalProperties.
+   *
+   * @param turtle The turtle onto which to execute the command
+   * @param globalProperties The global properties to which to write the new Variable
+   * @return The value of the Variable at initialization
+   */
   @Override
   protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     globalProperties.setVariableValue(((VariableCommand) getChildren().get(0)).getName(),
         getChildren().get(1).execute(turtle, globalProperties));
-//        getChildren().get(1).execute(turtle, globalProperties));
-//    turtle.getVars().setValue(((VariableCommand) getChildren().get(0)).getName(),
-//        getChildren().get(1).execute(turtle, globalProperties));
     return getChildren().get(1).execute(turtle, globalProperties);
   }
 }

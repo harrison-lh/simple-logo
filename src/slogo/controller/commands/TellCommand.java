@@ -21,7 +21,6 @@ public class TellCommand extends Command {
    * Constructor for TellCommand.
    */
   public TellCommand() {
-    // TODO: add lexer to be able to parse the input
     setNumParams(NUM_PARAMS);
   }
 
@@ -34,7 +33,6 @@ public class TellCommand extends Command {
    */
   @Override
   protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
-    // TODO: parse input
 
     ListCommandHead tellListCommand = (ListCommandHead) getChildren().get(0);
     Set<Integer> turtleIDsToUse = new HashSet<>();
@@ -55,11 +53,8 @@ public class TellCommand extends Command {
       globalProperties.makeNewTurtles(maxTurtleValue);
     }
 
-    // TODO: set all turtles in the list to be active
     globalProperties.clearActiveTurtleIds();
     globalProperties.addMultipleActiveTurtleIds(turtleIDsToUse);
-
-    // TODO: return value of last turtle
 
     return lastTurtleValue;
   }

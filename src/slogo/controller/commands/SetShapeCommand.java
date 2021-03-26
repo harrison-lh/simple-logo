@@ -8,6 +8,7 @@ import slogo.model.Turtle;
  * SetShape is a type of Command that sets the turtle shape to the corresponding shape index.
  *
  * @author Harrison Huang
+ * @author Marc Chmielewski
  */
 
 public class SetShapeCommand extends Command {
@@ -25,15 +26,13 @@ public class SetShapeCommand extends Command {
    * Sets the turtle to have the shape at the given index.
    *
    * @param turtle           The turtle to be set
-   * @param globalProperties
+   * @param globalProperties The GlobalProperties onto which to set the shape
    * @return The index of the turtle shape
    */
   @Override
   protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
     int index = (int) getChildren().get(0).execute(turtle, globalProperties);
-    //TODO: set the shape to that at the index
     globalProperties.setTurtleShapeProperty(globalProperties.getShapeMap().get(index));
-    //turtle.setShapeAtIndex(index);
     return index;
   }
 

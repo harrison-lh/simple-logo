@@ -53,6 +53,11 @@ public class Palette {
     return colors.get(index);
   }
 
+  /**
+   * Gets a ListProperty representation of the colors in this Palette.
+   *
+   * @return A ListProperty of Colors containing the Colors in this Palette.
+   */
   public ListProperty<Color> getColorsProperty() {
     return colorsProperty;
   }

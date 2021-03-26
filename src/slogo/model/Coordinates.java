@@ -82,17 +82,17 @@ public abstract class Coordinates {
   public abstract void setHeading(double heading);
 
   /**
-   * The property of the coordinates object as a string.
+   * Returns a StringProperty that contains a String representation of the current Coordinates.
    *
-   * @return The StringProperty of the coordinates object
+   * @return A StringProperty that contains a String representation of the current Coordinates.
    */
   public abstract StringProperty stringProperty();
 
   /**
-   * The representation of the Coordinates object as a string. Contains the coordinate pair and
-   * heading, with additional rounding.
+   * Returns a String representation of the current Coordinates, including the XY position and the
+   * heading.
    *
-   * @return The coordinates object representation as a string
+   * @return A String representation of the current Coordinates of the form "(X, Y) heading"
    */
   @Override
   public String toString() {
