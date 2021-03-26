@@ -80,16 +80,7 @@ public class Parser implements SelectorTarget<String> {
         return patternMatchListStart();
       }
       case GROUP_START -> {
-        GroupCommandHead groupCommandHead = new GroupCommandHead();
-        groupCommandHead.setNumParams(0);
-        if (tokenizedText.isEmpty() || splitText.isEmpty()) {
-          throw new IllegalArgumentException(
-              "ILLEGAL ARGUMENT EXCEPTION:\nOPEN GROUP WITHOUT CLOSURE!");
-        }
-        Command groupHeader = patternMatchToken(tokenizedText.poll(), splitText.poll());
-        groupCommandHead.setGroupHeader(groupHeader);
-        fillGroup(groupCommandHead);
-        return groupCommandHead;
+        return patternMatchGroupStart();
       }
       case COLLECTION_END -> {
         return new CollectionCommandTail();
@@ -97,6 +88,19 @@ public class Parser implements SelectorTarget<String> {
     }
     throw new IllegalArgumentException(
         "ILLEGAL ARGUMENT EXCEPTION:\nUNABLE TO TOKENIZE ARGUMENT! PLEASE VERIFY SYNTAX!");
+  }
+
+  private GroupCommandHead patternMatchGroupStart() {
+    GroupCommandHead groupCommandHead = new GroupCommandHead();
+    groupCommandHead.setNumParams(0);
+    if (tokenizedText.isEmpty() || splitText.isEmpty()) {
+      throw new IllegalArgumentException(
+          "ILLEGAL ARGUMENT EXCEPTION:\nOPEN GROUP WITHOUT CLOSURE!");
+    }
+    Command groupHeader = patternMatchToken(tokenizedText.poll(), splitText.poll());
+    groupCommandHead.setGroupHeader(groupHeader);
+    fillGroup(groupCommandHead);
+    return groupCommandHead;
   }
 
 
