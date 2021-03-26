@@ -5,9 +5,25 @@ import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
- * And is a type of Command that checks whether both values are nonzero.
+ * This class is used when the user types the And command into the command line.
+ * It assumes that the user provides two "children", or subsequent commands, which are in the form of double.  These
+ * two children will be checked to see if they are both , and will throw an exception if this assumption isn't valid.
+ * This class is dependant on the Turtle, GlobalProperties, and Java.Math classes/packages in order to function.
  *
- * @author Harrison Huang
+ * Example Code:
+ *
+ * ...
+ * Command arcTanCommand = new ArcTangentCommand();
+ * double degreesToConvert = 45;
+ * arcTanCommand.addChild(new ConstantCommand(degreesToConvert));
+ * double arcTanOfDegreesToConvert = arcTanCommand.execute;
+ * ...
+ *
+ * A thing to note when using ArcTangentCommand.java is that when it is time to calculate the arcTan, .execute should be called
+ * and not .executeCommand, for .execute has the check for NUM_PARAMS.
+ *
+ * @Author Cole Spector
+ *
  */
 
 public class AndCommand extends Command {
