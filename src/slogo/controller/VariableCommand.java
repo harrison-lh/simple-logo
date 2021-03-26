@@ -40,7 +40,7 @@ public class VariableCommand extends ConstantCommand {
    * Execution behavior of the VariableCommand. Simply returns its value.
    *
    * @param turtle           The turtle to which this VariableCommand belongs
-   * @param globalProperties
+   * @param globalProperties The global properties
    * @return The value of the VariableCommand.
    */
   @Override

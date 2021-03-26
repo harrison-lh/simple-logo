@@ -37,7 +37,7 @@ public class ConstantCommand extends Command {
    * Returns the value of this ConstantCommand.
    *
    * @param turtle           The turtle that owns this ConstantCommand.
-   * @param globalProperties
+   * @param globalProperties The global properties
    * @return The value of this ConstantCommand.
    */
   @Override
