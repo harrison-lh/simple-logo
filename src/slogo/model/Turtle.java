@@ -5,7 +5,8 @@ import javafx.beans.property.SimpleBooleanProperty;
 
 /**
  * The Turtle is the object that commands of forward and right are put upon, and it contains the
- * fundamental variables of where the turtle is placed and facing.
+ * fundamental variables of where the turtle is placed and facing. It also contains properties of
+ * the turtle and pen that are exclusive to itself.
  *
  * @author Harrison Huang
  * @author Cole Spector
@@ -41,7 +42,6 @@ public class Turtle {
    * @param y       Y coordinate
    * @param heading direction turtle is facing relative to positive x-axis
    */
-
   public Turtle(int id, Coordinates coordinates, double x, double y, double heading) {
     this.id = id;
     this.coordinates = coordinates;
@@ -49,10 +49,20 @@ public class Turtle {
     coordinates.setHeading(heading);
   }
 
+  /**
+   * Getter for the ID of the turtle.
+   *
+   * @return The ID of the turtle
+   */
   public int getId() {
     return id;
   }
 
+  /**
+   * Getter for the variables stored by the turtle.
+   *
+   * @return The variables object in the turtle
+   */
   public Variables getVars() {
     return vars;
   }
@@ -115,7 +125,6 @@ public class Turtle {
    *
    * @return heading of the turtle in degrees
    */
-
   public double getHeading() {
     return coordinates.getHeading();
   }
