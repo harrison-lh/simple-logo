@@ -5,23 +5,39 @@ import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
- * This class is used when the user types the And command into the command line.
- * It assumes that the user provides two "children", or subsequent commands, which are in the form of double.  These
- * two children will be checked to see if they are both , and will throw an exception if this assumption isn't valid.
- * This class is dependant on the Turtle, GlobalProperties, and Java.Math classes/packages in order to function.
+ * This class is used when the user types the And command into the command line, and will check to see if both values input after
+ * are not equal to 0, in which case it will return 1.  Otherwise it will return 0.
+ *
+ * It assumes that the user provides two "children", or subsequent commands, which are in the form of Command and calling .execute on these
+ * Commands will return a double.  These two children will be checked to see if they are both present, and will throw an exception if this assumption isn't upheld.
+ * This class is dependant on the Turtle and GlobalProperties classes in order to function.
  *
  * Example Code:
  *
- * ...
- * Command arcTanCommand = new ArcTangentCommand();
- * double degreesToConvert = 45;
- * arcTanCommand.addChild(new ConstantCommand(degreesToConvert));
- * double arcTanOfDegreesToConvert = arcTanCommand.execute;
+ * ... // assume to have previously made a Turtle.java object named turtle, and a GlobalParameters.java object named globalParams
+ * Command nonZeroAndCommand = new AndCommand();
+ * Command zeroAndCommand = new AndCommand();
+ * double firstValue = 45;
+ * double secondValue = 100;
+ * double zeroValue = 0;
+ * Command firstConstant = new ConstantCommand(firstValue);
+ * Command secondConstant = new ConstantCommand(secondValue);
+ * Command zeroConstant = new ConstantCommand(zeroValue);
+ * nonZeroAndCommand.addChild(firstConstant);
+ * nonZeroAndCommand.addChild(secondConstant);
+ * zeroAndCommand.addChild(firstConstant);
+ * zeroAndCommand.addChild(zeroConstant);
+ *
+ * double one = nonZeroAndCommand.execute(turtle, globalParams)
+ * //one will have a value of 1
+ * double zero = zeroAndCommand.execute(turtle, globalParams)
+ * //zero will have a value of 0
  * ...
  *
- * A thing to note when using ArcTangentCommand.java is that when it is time to calculate the arcTan, .execute should be called
+ * A thing to note when using AndCommand.java is that when it is time to calculate the and-value, .execute should be called
  * and not .executeCommand, for .execute has the check for NUM_PARAMS.
  *
+ * @Author Harrison Huang
  * @Author Cole Spector
  *
  */
