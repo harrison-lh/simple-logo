@@ -22,6 +22,10 @@ public class GridSelector extends MenuBarSelector<String> {
     comboBox.getSelectionModel().selectFirst();
   }
 
+  /**
+   * Passes the combo box action to pass the selected value to the consumer
+   * @param response consumer of combo box value
+   */
   @Override
   public void setUpdateAction(Consumer<String> response) {
     getComboBoxBase().setOnAction(e -> {

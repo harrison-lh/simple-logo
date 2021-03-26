@@ -44,6 +44,10 @@ public class LanguageSelector extends MenuBarSelector<String> {
     }
   }
 
+  /**
+   * When a new language is selected, notify all the language consumers
+   * @param response consumer in parser that detects language change
+   */
   @Override
   public void setUpdateAction(Consumer<String> response) {
     getComboBoxBase().setOnAction(e -> {

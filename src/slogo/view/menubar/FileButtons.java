@@ -12,6 +12,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import util.LibraryManager;
 
+/**
+ * Buttons for saving and loading variables and commands to files.
+ *
+ * @author David Li
+ */
 public class FileButtons extends HBox {
 
   private final static String LIBRARIES_PATH = "resources/libraries/";
@@ -20,6 +25,9 @@ public class FileButtons extends HBox {
   private Map<String, Double> variables;
   private Map<String, String> commands;
 
+  /**
+   * Main constructor
+   */
   public FileButtons() {
     VBox variablesButtons = new VBox();
     Button saveVariablesButton = new Button("Save Vars");
