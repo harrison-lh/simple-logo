@@ -35,7 +35,7 @@ import slogo.model.Turtle;
  * // the turtle with id=1 will move forward 50 pixels
  * ...
  *
- * A thing to note when using AskCommand.java is that when it is time to calculate the and-value, .execute should be called
+ * A thing to note when using AskCommand.java is that when it is time to run, .execute should be called
  * and not .executeCommand, for .execute has the check for NUM_PARAMS.
  *
  * @Author Cole Spector
