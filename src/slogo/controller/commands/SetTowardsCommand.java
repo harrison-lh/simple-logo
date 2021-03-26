@@ -28,7 +28,7 @@ public class SetTowardsCommand extends Command {
    * Sets the heading of the turtle to point toward the specified coordinates.
    *
    * @param turtle           The turtle to be set
-   * @param globalProperties
+   * @param globalProperties The global properties
    * @return The number of degrees the turtle turned
    */
   @Override

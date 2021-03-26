@@ -24,7 +24,6 @@ public class AskCommand extends Command {
    * Constructor for AskCommand.
    */
   public AskCommand() {
-    // TODO: add lexer to be able to parse the input
     setNumParams(NUM_PARAMS);
   }
 
@@ -32,7 +31,7 @@ public class AskCommand extends Command {
    * Runs commands on a specific set of turtles.
    *
    * @param turtle           The current active turtle
-   * @param globalProperties
+   * @param globalProperties The global properties
    * @return The result of the last command run
    */
   @Override

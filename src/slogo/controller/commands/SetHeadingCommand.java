@@ -26,7 +26,7 @@ public class SetHeadingCommand extends Command {
    * Sets the heading of the turtle to point in a certain direction.
    *
    * @param turtle           The turtle to be set
-   * @param globalProperties
+   * @param globalProperties The global properties
    * @return The direction the turtle is now pointing
    */
   @Override

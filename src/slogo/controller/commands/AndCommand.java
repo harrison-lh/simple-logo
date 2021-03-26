@@ -25,7 +25,7 @@ public class AndCommand extends Command {
    * Checks whether both values are nonzero.
    *
    * @param turtle           The current turtle
-   * @param globalProperties
+   * @param globalProperties The global properties
    * @return 1 if both values are nonzero, else 0
    */
   @Override

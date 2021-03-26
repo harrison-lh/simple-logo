@@ -25,7 +25,7 @@ public class PiCommand extends Command {
    * Returns the value of pi.
    *
    * @param turtle           The current turtle
-   * @param globalProperties
+   * @param globalProperties The global properties
    * @return value of pi
    */
   @Override

@@ -26,7 +26,7 @@ public class GetShapeCommand extends Command {
    * Gets the current turtle shape.
    *
    * @param turtle           The current active turtle
-   * @param globalProperties
+   * @param globalProperties The global properties
    * @return The index of the current turtle shape
    */
   @Override

@@ -25,7 +25,7 @@ public class LeftCommand extends Command {
    * Executes the left command onto the turtle.
    *
    * @param turtle           The turtle to be rotated left
-   * @param globalProperties
+   * @param globalProperties The global properties
    * @return The degrees that the turtle rotated
    */
   @Override

@@ -25,13 +25,11 @@ public class TurtlesCommand extends Command {
    * Gets the current number of turtles.
    *
    * @param turtle           The current active turtle
-   * @param globalProperties
+   * @param globalProperties The global properties
    * @return The current number of turtles
    */
   @Override
   protected double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
-    // TODO: get the current number of turtles
-    //return turtle.getTotalNum();
     return globalProperties.getNumTurtlesCreated();
   }
 

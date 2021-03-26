@@ -25,7 +25,7 @@ public class OrCommand extends Command {
    * Checks whether at least one value is nonzero.
    *
    * @param turtle           The current turtle
-   * @param globalProperties
+   * @param globalProperties The global properties
    * @return 1 if one value is nonzero, else 0
    */
   @Override

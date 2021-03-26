@@ -25,7 +25,7 @@ public class IsPenDownCommand extends Command {
    * Returns the current visibility of the Pen.
    *
    * @param turtle           The turtle to be checked
-   * @param globalProperties
+   * @param globalProperties The global properties
    * @return boolean of visibility of Pen
    */
   @Override

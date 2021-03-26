@@ -25,7 +25,7 @@ public class NaturalLogCommand extends Command {
    * Returns the natural log of the input value.
    *
    * @param turtle           The current turtle
-   * @param globalProperties
+   * @param globalProperties The global properties
    * @return double of natural log of value
    */
   @Override

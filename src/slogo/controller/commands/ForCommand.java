@@ -27,7 +27,7 @@ public class ForCommand extends Command {
    * Implementation of the ForCommand, which is functionally equivalent to SLogo for-loops.
    *
    * @param turtle           The turtle on which the Commands are acting
-   * @param globalProperties
+   * @param globalProperties The global properties
    * @return Returns the return value of the last operation.
    */
   @Override

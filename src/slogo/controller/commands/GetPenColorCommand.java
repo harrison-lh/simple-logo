@@ -27,7 +27,7 @@ public class GetPenColorCommand extends Command {
    * Gets the current pen color.
    *
    * @param turtle           The current active turtle
-   * @param globalProperties
+   * @param globalProperties The global properties
    * @return The index of the current pen color
    */
   @Override
