@@ -8,7 +8,7 @@ import slogo.model.Turtle;
  * This class is used when the user types the Power command into the command line, and raises the power the values given.
  * It assumes that the user provides two "children", or subsequent commands -- most likely a constant -- which are of type Command, and calling .execute on these
  * Commands will return a double, and will throw an exception if this assumption isn't valid.
- * This class is dependant on the Turtle, GlobalProperties.
+ * This class is dependant on the Turtle, GlobalProperties, and Java.Math.
  *
  * Example Code:
  *
