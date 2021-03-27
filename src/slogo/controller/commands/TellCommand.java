@@ -8,9 +8,38 @@ import slogo.controller.ListCommandHead;
 import slogo.model.Turtle;
 
 /**
- * Tell is a type of Command that tells which turtles should follow commands.
+ * This class is used when the user types the Tell command into the command line, and will set the future turtles which will respond to Commands
  *
- * @author Harrison Huang
+ * It assumes that the user provides one "child", or subsequent command, which are in the form of a ListCommand and calling .execute on this
+ * Command will return a double.  These two children will be checked to see if they are both present, and will throw an exception if this assumption isn't upheld.
+ * This class is dependant on the Turtle, ListCommandHead and GlobalProperties classes in order to function.
+ *
+ * Example Code:
+ *
+ * ... // assume to have previously made a Turtle.java object named turtle, and a GlobalParameters.java object named globalParams
+ * Command tellCommand = new TellCommand();
+ * Command turtleList = new ListCommandHead();
+ * double turtleId = 1;
+ * Command turtleIdCommandOne = new ConstantCommand(turtleId);
+ * turtleList.addInnerChild(turtleIdCommandOne);
+ *  turtleId = 2;
+ *  Command turtleIdCommandTwo = new ConstantCommand(turtleId);
+ *  turtleList.addInnerChild(turtleIdCommandTwo);
+ *  turtleId = 3;
+ *  Command turtleIdCommandThree = new ConstantCommand(turtleId);
+ *  turtleList.addInnerChild(turtleIdCommandThree);
+ *
+ * askCommand.addChild(turtleList);
+ *
+ * askCommand.execute(turtle, globalParams);
+ * // the turtles with ids 1, 2, and 3 will respond to future commands
+ * ...
+ *
+ * A thing to note when using TellCommand.java is that when it is time to run, .execute should be called
+ * and not .executeCommand, for .execute has the check for NUM_PARAMS.
+ *
+ * @Author Cole Spector
+ *
  */
 
 public class TellCommand extends Command {
