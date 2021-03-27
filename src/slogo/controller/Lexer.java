@@ -18,6 +18,7 @@ import slogo.model.Variables;
  * for interpretation.
  *
  * @author Marc Chmielewski
+ * @Author Cole Spector
  */
 public class Lexer {
 

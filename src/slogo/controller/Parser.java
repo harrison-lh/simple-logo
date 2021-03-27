@@ -19,6 +19,7 @@ import slogo.view.SelectorTarget;
  * then pass it to a TurtleController, by way of the TurtleGeneral, for consumption.
  *
  * @author Marc Chmielewski
+ * @Author Cole Spector
  */
 public class Parser implements SelectorTarget<String> {
 

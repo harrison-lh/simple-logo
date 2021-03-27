@@ -8,7 +8,7 @@ import slogo.controller.TurtleController;
 import slogo.model.Turtle;
 
 /**
- * This class is used when the user types the And command into the command line, and will "ask" all turtles listed in the first parameter (a list)
+ * This class is used when the user types the Ask command into the command line, and will "ask" all turtles listed in the first parameter (a list)
  * to execute a series of commands (the second parameter, also a list), and returns the value of the last run command on the last turtle.
  *
  * It assumes that the user provides two "children", or subsequent commands, which are in the form of a ListCommand and calling .execute on these

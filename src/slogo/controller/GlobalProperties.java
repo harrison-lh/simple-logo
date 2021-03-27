@@ -28,6 +28,7 @@ import slogo.model.Variables;
  * or graphically in the view.
  *
  * @author David Li
+ * @Author Cole Spector
  */
 public class GlobalProperties {
 
