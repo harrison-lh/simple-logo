@@ -20,8 +20,11 @@ import slogo.model.Turtle;
  * Command doTimesCommand = new DoTimesCommand();
  *
  * Command numList = new ListCommandHead();
+ * String varName = ":var"
+ * Command varCommand = new VariableCommand(varName);
  * double repeatNum = 5;
  * Command repeatConstant = new ConstantCommand(repeatNum);
+ * numList.addInnerChild(varCommand);
  * numList.addInnerChild(repeatConstant);
  * doTimesCommand.addChild(doTimesCommand);
  *
