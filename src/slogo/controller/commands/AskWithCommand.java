@@ -8,10 +8,44 @@ import slogo.controller.TurtleController;
 import slogo.model.Turtle;
 
 /**
- * AskWith is a type of Command that executes commands on all turtles that satisfy a certain
- * condition.
+ * This class is used when the user types the AskWith command into the command line, and will "ask" all turtles which meet the condition set in first parameter (a list)
+ * to execute a series of commands (the second parameter, also a list), and returns the value of the last run command on the last turtle.
  *
- * @author Harrison Huang
+ * It assumes that the user provides two "children", or subsequent commands, which are in the form of a ListCommandHead and calling .execute on these
+ * Commands will return a double.  These two children will be checked to see if they are both present, and will throw an exception if this assumption isn't upheld.
+ * This class is dependant on the Turtle, ListCommandHead and GlobalProperties classes in order to function.
+ *
+ * Example Code:
+ *
+ * ... // assume to have previously made a Turtle.java object named turtle, and a GlobalParameters.java object named globalParams
+ * Command askWithCommand = new AskWithCommand();
+ *
+ * Command conditionalList = new ListCommandHead();
+ * Command conditionCommand = new EqualCommand();
+ * Command xCorCommand = new XCoordinateCommand();
+ * Command yCorCommand = new YCoordinateCommand();
+ * conditionCommand.addChild(xCorCommand);
+ * conditionCommand.addChild(yCorCommand);
+ * conditionalList.addInnerChile(conditionCommand);
+ * askWithCommand.addChild(conditionalList);
+ *
+ * Command commandList = new ListCommandHead();
+ * double amtToMove = 50;
+ * Command moveConstant = new ConstantCommand(amtToMove);
+ * Command moveCommand = new ForwardCommand();
+ * moveCommand.addChild(moveConstant);
+ * commandList.addInnerChild(moveCommand);
+ * askWithCommand.addChild(commandList);
+ *
+ * askCommand.execute(turtle, globalParams);
+ * // all turtles with an equivalent x and y coordinates will move forward 50 pixels
+ * ...
+ *
+ * A thing to note when using AskCommand.java is that when it is time to run, .execute should be called
+ * and not .executeCommand, for .execute has the check for NUM_PARAMS.
+ *
+ * @Author Cole Spector
+ *
  */
 
 public class AskWithCommand extends Command {
