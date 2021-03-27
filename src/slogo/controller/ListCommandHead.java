@@ -22,7 +22,7 @@ import slogo.model.Turtle;
  * Command turnCommand = new RightCommand();
  * turnCommand.addChild(turnConstant);
  * commandList.addInnerChild(turnCommand);
- * commandList.execute(turtle, globalParams);
+ * commandList.execute(turtle, globalParams) // this will return 90 from the final command run, the turnCommand;
  * // the turtle will move forward 50 pixels, and then turn right 90 degrees.
  * ...
  *
@@ -37,14 +37,25 @@ public class ListCommandHead extends Command {
 
   protected List<Command> innerChildren;
 
+  /**
+   * This is the init method, which also initializes the inner children list.
+   */
   public ListCommandHead() {
     innerChildren = new ArrayList<>();
   }
 
+  /**
+   * This method returns a List<> with all of the inner children of the ListCommand
+   * @return a List<Command> of all the inner children of the list
+   */
   public List<Command> getInnerChildren() {
     return innerChildren;
   }
 
+  /**
+   * This adds a inner child to the ListCommand (a command which will be executed when .execute is called on the ListCommandHead)
+   * @param innerChild is the Command to be added to the List of inner children.
+   */
   public void addInnerChild(Command innerChild) {
     this.innerChildren.add(innerChild);
   }
