@@ -7,9 +7,9 @@ import slogo.model.Turtle;
 
 /**
  * This class is used when the user types the If command into the command line, and will execute the commands given in the second parameter, a list, if the contditions
- * of the first parameter (also a list) are true.
+ * of the first parameter (a Command) are true.
  *
- * It assumes that the user provides two "children", or subsequent commands, which are in the form of a ListCommandHead and calling .execute on these
+ * It assumes that the user provides two "children", or subsequent commands, which are in the form of a Command and a ListCommandHead and calling .execute on these
  * Commands will return a double.  These two children will be checked to see if they are both present, and will throw an exception if this assumption isn't upheld.
  * This class is dependant on the Turtle, ListCommandHead and GlobalProperties classes in order to function.
  *
@@ -18,14 +18,12 @@ import slogo.model.Turtle;
  * ... // assume to have previously made a Turtle.java object named turtle, and a GlobalParameters.java object named globalParams
  * Command ifCommand = new IfCommand();
  *
- * Command conditionalList = new ListCommandHead();
  * Command conditionCommand = new EqualCommand();
  * Command xCorCommand = new XCoordinateCommand();
  * Command yCorCommand = new YCoordinateCommand();
  * conditionCommand.addChild(xCorCommand);
  * conditionCommand.addChild(yCorCommand);
- * conditionalList.addInnerChile(conditionCommand);
- * ifCommand.addChild(conditionalList);
+ * ifCommand.addChild(conditionCommand);
  *
  * Command commandList = new ListCommandHead();
  * double amtToMove = 50;
