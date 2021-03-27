@@ -5,30 +5,52 @@ import slogo.controller.GlobalProperties;
 import slogo.model.Turtle;
 
 /**
- * RepeatCommand implements the ability to repeat an list of Commands a number of times
+ * This class is used when the user types the Repeat command into the command line, and will execute the commands given in the second parameter, a list, the amount of times
+ * given in the first parameter (a Command)
  *
- * @author Marc Chmielewski
- * @author Cole Spector
+ * It assumes that the user provides two "children", or subsequent commands, which are in the form of a Command and a ListCommandHead and calling .execute on these
+ * Commands will return a double.  These two children will be checked to see if they are both present, and will throw an exception if this assumption isn't upheld.
+ * This class is dependant on the Turtle, ListCommandHead and GlobalProperties classes in order to function.
+ *
+ * Example Code:
+ *
+ * ... // assume to have previously made a Turtle.java object named turtle, and a GlobalParameters.java object named globalParams
+ * Command repeatCommand = new RepeatCommand();
+ *
+ * double repeatAmp = 3;
+ * Command repeatConstant = new ConstantCommand(repeatAmt);
+ * repeatCommand.addChild(repeatConstant);
+ *
+ * Command commandList = new ListCommandHead();
+ * double amtToMove = 50;
+ * Command moveConstant = new ConstantCommand(amtToMove);
+ * Command moveCommand = new ForwardCommand();
+ * moveCommand.addChild(moveConstant);
+ * commandList.addInnerChild(moveCommand);
+ * repeatCommand.addChild(commandList);
+ *
+ * repeatCommand.execute(turtle, globalParams);
+ * // the turtle will move forward 50 pixels 3 times.
+ * ...
+ *
+ * A thing to note when using RepeatCommand.java is that when it is time to run, .execute should be called
+ * and not .executeCommand, for .execute has the check for NUM_PARAMS.
+ *
+ * @Author Cole Spector
+ *
  */
 public class RepeatCommand extends Command {
 
   private static final int NUM_PARAMS = 2;
 
   /**
-   * Constructor for the RepeatCommand.
+   * Init for RepeatCommand
    */
   public RepeatCommand() {
     setNumParams(NUM_PARAMS);
   }
 
-  /**
-   * Implementation of the RepeatCommand execute method. Forces the children of the listNode to
-   * repeat as many times as the value of parameter 0. Returns the value of the last operation.
-   *
-   * @param turtle           The turtle on which the Commands are acting
-   * @param globalProperties The globalProperties into which to store the :repcount variable
-   * @return Returns the return value of the last operation.
-   */
+
   @Override
   public double executeCommand(Turtle turtle, GlobalProperties globalProperties) {
 
