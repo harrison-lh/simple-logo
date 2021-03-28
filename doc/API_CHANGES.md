@@ -1,6 +1,13 @@
 ## SLogo API Changes
+
 ### Team 05
-### Marc Chmielewski, David Li, Harrison Huang, Cole Spector
+
+## Name(s)
+
+* Marc Chmielewski (msc68)
+* David Li (dl303)
+* Harrison Huang (hlh38)
+* Cole Spector (cgs26)
 
 
 ### Changes to the Initial APIs
@@ -60,6 +67,29 @@
 
     * Better or Worse (and why)
         * Better. Less redundancy, easier to comprehend, just generally less-bad.
+
+
+* Combined `setX` and `setY` in `Coordinates` class to be one `setXY` method:
+    * Why was the change made?
+        * The combined `setXY` method allows the object to be listened for when a single update is made to any of the position, rather than updating twice when both x and y change.
+
+    * Major or Minor (how much they affected your team mate's code)
+        * Minor, simply had to replace uses of `setX` and `setY`, so it was a relatively easy substitution.
+
+    * Better or Worse (and why)
+        * Better, reduces the unnecessary splitting into two methods, since 99% of the time, they are both called at the same time anyway.
+
+
+* Split `execute` method into `execute` and `executeCommand`:
+    * Why was the change made?
+        * Splitting into two methods reduced code duplication since we always wanted to run an assert statement to check if the command contained the correct number of arguments.
+
+    * Major or Minor (how much they affected your team mate's code)
+        * Major, as it required changing every single class that extends `Command`.
+
+    * Better or Worse (and why)
+        * Better, it reduces code duplication as we can run the assertion statement within `execute` while leaving `executeCommand` as the abstract method to be implemented by the subclasses. We can also set permissions by making `executeCommand` to be `protected`, so that subclasses must call `execute` on other commands, and thus we always run an assertion statement.
+
 
 
 #### Frontend External
